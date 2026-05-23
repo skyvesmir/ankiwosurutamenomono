@@ -1,0 +1,2 @@
+# ankiwosurutamenomono
+様々なものを暗記するためだけのもの
