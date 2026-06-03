@@ -34,18 +34,15 @@
       filter: blur(80px);
       opacity: 0.4;
     }
-    /* 魔女文字風の赤紫の光 */
     .glow-1 {
       background: radial-gradient(circle, #FF1493, transparent);
       width: 500px; height: 500px; top: -100px; left: -100px;
     }
-    /* 物理風のシアンの光 */
     .glow-2 {
       background: radial-gradient(circle, #00f2ff, transparent);
       width: 600px; height: 600px; bottom: -150px; right: -100px;
     }
 
-    /* 中央のガラスパネル */
     .glass-panel {
       background: rgba(255, 255, 255, 0.5);
       backdrop-filter: blur(15px);
@@ -74,7 +71,6 @@
       margin-bottom: 30px;
     }
 
-    /* 各アプリへのリンクボタン */
     .btn {
       display: block;
       margin: 15px 0;
@@ -90,7 +86,6 @@
       border: 1px solid rgba(87, 81, 83, 0.1);
     }
 
-    /* 魔女文字ボタンをホバーした時 */
     .btn-majo:hover {
       border-color: #F6ADC6;
       background: rgba(246, 173, 198, 0.2);
@@ -98,13 +93,19 @@
       box-shadow: 0 0 15px rgba(246, 173, 198, 0.3);
     }
 
-    /* 物理ボタンをホバーした時 */
     .btn-butsuri:hover {
       border-color: #00f2ff;
       background: rgba(0, 242, 255, 0.2);
       color: #00f2ff;
       box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
     }
+
+    .btn-setsubi:hover{
+      border-color: #84C98B;
+      background: rgba(132, 201, 139, 0.2);
+      color: #84C98B;
+      box-shadow: 0 0 15px rgba(132, 201, 139, 0.3);
+    } 
   </style>
 </head>
 <body>
@@ -117,10 +118,9 @@
     <h1>暗記をするためのサイト</h1>
     <p>好きなものを選んで暗記しよう</p>
     
-    <!-- ここからそれぞれのHTMLファイルに飛びます -->
-    <!-- ※ファイル名を変えた場合は、ここの href="..." の中身も合わせて変えてください -->
     <a href="魔女文字暗記.html" class="btn btn-majo">魔女文字暗記コース</a>
     <a href="物理暗記.html" class="btn btn-butsuri">物理マスターコース</a>
+    <a href="接尾辞暗記.html" class="btn btn-setsubi">接尾辞暗記コース</a>
   </div>
 </body>
 </html>
