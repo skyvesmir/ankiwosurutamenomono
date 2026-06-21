@@ -1,0 +1,26 @@
+/* VocaForge custom styles */
+* { -webkit-tap-highlight-color: transparent; }
+html, body { overscroll-behavior-y: none; }
+body { background: radial-gradient(1200px 600px at 50% -10%, #1e1b4b 0%, #020617 55%) fixed; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* toggle switch */
+input.toggle { position: relative; outline: none; }
+input.toggle::before {
+  content: ""; position: absolute; top: 2px; left: 2px;
+  width: 20px; height: 20px; border-radius: 9999px; background: #fff;
+  transition: transform .18s ease;
+}
+input.toggle:checked::before { transform: translateX(20px); }
+
+/* range input */
+input[type="range"] { height: 6px; border-radius: 9999px; }
+
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+button { -webkit-user-select: none; user-select: none; }
+
+@keyframes pop { 0% { transform: scale(.96); opacity: .6 } 100% { transform: scale(1); opacity: 1 } }
+.opt, #feedback > div { animation: pop .15s ease; }

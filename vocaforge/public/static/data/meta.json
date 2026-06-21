@@ -1,0 +1,62 @@
+{
+  "words": 1900,
+  "phrases": 1000,
+  "prefix": 140,
+  "suffix": 140,
+  "root": 310,
+  "word_sections": 19,
+  "phrase_sections": 5,
+  "etym_learnable": 539,
+  "phrase_parts": [
+    {
+      "section": 1,
+      "code": "Part 1",
+      "title": "絶対覚えておきたい180",
+      "range": [
+        1,
+        180
+      ],
+      "count": 180
+    },
+    {
+      "section": 2,
+      "code": "Part 2",
+      "title": "グルーピングで覚える240",
+      "range": [
+        181,
+        420
+      ],
+      "count": 240
+    },
+    {
+      "section": 3,
+      "code": "Part 3",
+      "title": "形で覚える240",
+      "range": [
+        421,
+        660
+      ],
+      "count": 240
+    },
+    {
+      "section": 4,
+      "code": "Part 4",
+      "title": "文法・構文で覚える170",
+      "range": [
+        661,
+        830
+      ],
+      "count": 170
+    },
+    {
+      "section": 5,
+      "code": "Part 5",
+      "title": "ここで差がつく難熟語170",
+      "range": [
+        831,
+        1000
+      ],
+      "count": 170
+    }
+  ]
+}
