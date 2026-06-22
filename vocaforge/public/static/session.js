@@ -113,7 +113,7 @@
           '<span class="text-xs text-slate-400 tabular-nums">' + Math.min(s.idx+1, s.total) + '/' + s.total + '</span>' +
         '</div></div>';
 
-    const tag = card.deck === 'words' ? '英単語' : card.deck === 'phrases' ? '英熟語' : VF.catLabel(card.group);
+    const tag = card.deck === 'words' ? '英単語' : card.deck === 'phrases' ? '英熟語' : (VF.catLabel(card.sub) + '・' + (card.themeGroup || ''));
     const fmtBadge = '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">' + q.questionLabel + '</span>' +
       '<span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300">' + tag + '</span>';
 

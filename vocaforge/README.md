@@ -6,7 +6,7 @@
 - **対象データ**:
   - 英単語 **1900語**（ターゲット1900 / 100語ごと全19セクション）
   - 英熟語 **1000語**（英熟語ターゲット1000 5訂版の公式パート構成に準拠：Part1 絶対覚えておきたい180 / Part2 グルーピングで覚える240 / Part3 形で覚える240 / Part4 文法・構文で覚える170 / Part5 ここで差がつく難熟語170）
-  - 語源 **590件**（接頭辞140・接尾辞140・語根310。うち学習カード539件＋参照ノート51件）
+  - 語源 **590件**（接頭辞140・接尾辞140・語根310。うち学習カード539件＋参照ノート51件）。接頭辞・接尾辞・語根それぞれを**意味（テーマ大分類：方向・位置／時間／数量・程度…）でグルーピング**し、単語のSection・熟語のPartと同じ選択単位として学習・フラッシュカードで扱える（全38グループ）
 - **設計根拠**: 同梱の「暗記アプリ設計のための学習科学ガイド」に準拠
 
 ## 完成した機能
@@ -41,7 +41,8 @@
 
 ## データ構造
 - **語彙カード（単語・熟語）**: `{id, no, term(英), meaning(日), section, sectionCode, sectionTitle, sectionRange}`（熟語のsectionは公式Part番号）
-- **語源カード**: `{id, category(prefix/suffix/root), headword, variants, core(コア意味), derived, origin, image_hint, examples[], tips, confusion, importance, learnable}`
+- **語源カード**: `{id, category(prefix/suffix/root), headword, variants, theme, themeGroup(意味大分類), group("category:themeGroup"複合キー), core(コア意味), derived, origin, image_hint, examples[], tips, confusion, importance, learnable}`
+- **語源グループ（meta.etym_groups）**: `{category, theme, key, count}` — カテゴリ×意味大分類の選択単位（38グループ）
 - **記憶状態（localStorage）**: `{state, stability(S), difficulty(D), due, last_review, reps, lapses, is_leech}`（FSRS）
 - **復習ログ（localStorage）**: `{card_id, reviewed_at, grade, format, elapsed_days, duration_ms, s_before/after, d_before/after}`
 

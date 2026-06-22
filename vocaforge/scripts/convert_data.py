@@ -69,6 +69,16 @@ print("words:", len(words), "max", max(w["no"] for w in words))
 print("phrases:", len(phrases), "max", max(p["no"] for p in phrases))
 
 # ---------- 語源 ----------
+# 語源テーマ大分類の標準順序（etymology.md のテーマ分類表に準拠）
+THEME_ORDER = [
+    "方向・位置", "時間", "数量・程度", "否定・反対", "感覚", "身体",
+    "思考・知識", "言語・伝達", "動作・運動", "状態・存在", "価値・善悪",
+    "関係・社会", "自然・物質", "生命", "形・構造", "品詞化", "その他",
+]
+def theme_big(theme):
+    t = (theme or "").split("＞")[0].strip()
+    return t if t else "(未分類)"
+
 def parse_etym(path):
     text = open(path, encoding="utf-8").read()
     # エントリ単位に分割
@@ -103,12 +113,16 @@ def parse_etym(path):
         stars = imp.count("★")
         core = field("コアの意味")
         note = field("特記")
+        theme = field("テーマ分類")
+        tbig = theme_big(theme)
         items.append({
             "id": eid,
             "category": cat,
             "headword": head,
             "variants": field("見出し / 異形"),
-            "theme": field("テーマ分類"),
+            "theme": theme,
+            "themeGroup": tbig,                 # テーマ大分類（意味グループ）
+            "group": f"{cat}:{tbig}",           # カテゴリ×意味の複合キー
             "core": core,
             "derived": field("派生的な意味"),
             "origin": field("語源"),
@@ -127,6 +141,27 @@ from collections import Counter
 print("etym total:", len(etym), Counter(e["category"] for e in etym))
 print("etym with examples:", sum(1 for e in etym if e["examples"]))
 
+# 意味グループ（カテゴリ×テーマ大分類）を構築：学習対象のみ
+def build_etym_groups(etym):
+    groups = []
+    for cat in ["prefix", "suffix", "root"]:
+        sub = [e for e in etym if e["learnable"] and e["category"] == cat]
+        cnt = Counter(e["themeGroup"] for e in sub)
+        # 標準順 → その他のテーマは末尾に
+        ordered = [t for t in THEME_ORDER if t in cnt]
+        ordered += [t for t in cnt if t not in THEME_ORDER]
+        for t in ordered:
+            groups.append({
+                "category": cat,
+                "theme": t,
+                "key": f"{cat}:{t}",
+                "count": cnt[t],
+            })
+    return groups
+
+ETYM_GROUPS = build_etym_groups(etym)
+print("etym_groups:", len(ETYM_GROUPS))
+
 # 出力
 json.dump(words, open(os.path.join(OUT,"words.json"),"w",encoding="utf-8"), ensure_ascii=False)
 json.dump(phrases, open(os.path.join(OUT,"phrases.json"),"w",encoding="utf-8"), ensure_ascii=False)
@@ -144,6 +179,7 @@ meta = {
     {"section": i+1, "code": code, "title": title, "range": [lo, hi], "count": hi-lo+1}
     for i, (lo, hi, code, title) in enumerate(PHRASE_PARTS)
   ],
+  "etym_groups": ETYM_GROUPS,
 }
 json.dump(meta, open(os.path.join(OUT,"meta.json"),"w",encoding="utf-8"), ensure_ascii=False, indent=2)
 print("meta:", meta)

@@ -34,8 +34,10 @@
   function groups(deck) {
     const m = VF.DATA.meta;
     if (deck === 'etym') {
-      return ['prefix', 'suffix', 'root'].map(c => ({
-        key: c, label: VF.catLabel(c), count: VF.deckCards('etym', c).length
+      // 接頭辞・接尾辞・語根それぞれを意味（テーマ大分類）でグルーピング
+      return (m.etym_groups || []).map(g => ({
+        key: g.key, cat: g.category, label: g.theme,
+        count: g.count, sub: VF.catLabel(g.category)
       }));
     }
     if (deck === 'phrases') {
@@ -58,12 +60,20 @@
       (d === FC.deck ? 'bg-amber-500 text-white' : 'bg-slate-800 text-slate-300') + '">' + l + '</button>').join('');
 
     const gs = groups(FC.deck);
-    const list = gs.map(g =>
+    let lastCat = null;
+    const list = gs.map(g => {
+      let header = '';
+      if (FC.deck === 'etym' && g.cat && g.cat !== lastCat) {
+        lastCat = g.cat;
+        header = '<div class="text-xs font-bold text-amber-300 mt-3 mb-1 px-1">' + esc(VF.catLabel(g.cat)) + '</div>';
+      }
+      return header +
       '<button data-fc-sec="' + g.key + '" class="w-full flex items-center gap-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl p-3.5 text-left active:scale-[0.99] transition">' +
         '<span class="w-9 h-9 rounded-lg bg-amber-500/15 text-amber-300 flex items-center justify-center"><i class="fas fa-clone"></i></span>' +
         '<div class="flex-1 min-w-0"><div class="font-semibold text-sm truncate">' + esc(g.label) + '</div>' +
         '<div class="text-xs text-slate-400">' + g.count + '枚' + (g.sub ? ' ・ ' + g.sub : '') + '</div></div>' +
-        '<i class="fas fa-chevron-right text-slate-600"></i></button>').join('');
+        '<i class="fas fa-chevron-right text-slate-600"></i></button>';
+    }).join('');
 
     return '<div class="max-w-xl mx-auto pb-24 px-4 pt-6">' +
       '<div class="flex items-center gap-3 mb-4">' +
@@ -105,7 +115,11 @@
   }
 
   function currentLabel() {
-    if (FC.deck === 'etym') return VF.catLabel(FC.group === 'all' ? FC.cards[FC.idx].group : FC.group);
+    if (FC.deck === 'etym') {
+      if (FC.group === 'all') return '全グループ';
+      const c = FC.cards[FC.idx];
+      return c ? (VF.catLabel(c.sub) + '・' + c.themeGroup) : FC.group;
+    }
     const m = VF.DATA.meta;
     if (FC.group === 'all') return FC.deck === 'words' ? '全Section' : '全Part';
     if (FC.deck === 'phrases') {

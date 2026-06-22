@@ -26,10 +26,13 @@
   // 語源は「語源そのもの」を覚えるカードにする: 表=見出し, 裏=コアの意味
   function normEtym(e) {
     const head = (e.variants || e.headword || '').replace(/`/g,'');
+    // 意味でグルーピング: group は「カテゴリ:テーマ大分類」の複合キー
+    const tg = e.themeGroup || ((e.theme || '').split('＞')[0].trim()) || 'その他';
+    const grp = e.group || (e.category + ':' + tg);
     return {
       id: e.id, term: head, meaning: e.core,
-      deck: 'etym', sub: e.category,
-      group: e.category, groupLabel: catLabel(e.category),
+      deck: 'etym', sub: e.category, themeGroup: tg,
+      group: grp, groupLabel: catLabel(e.category) + '・' + tg,
       etymRef: e
     };
   }

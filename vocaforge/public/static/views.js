@@ -98,9 +98,16 @@
       '<button data-go="decks" data-deck="' + d + '" class="px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap ' +
       (d === deck ? 'bg-brand text-white' : 'bg-slate-800 text-slate-300') + '">' + l + '</button>').join('');
 
+    let lastCat = null;
     const list = groups.map(g => {
+      let header = '';
+      if (deck === 'etym' && g.cat && g.cat !== lastCat) {
+        lastCat = g.cat;
+        header = '<div class="text-xs font-bold text-amber-300 mt-3 mb-1 px-1">' +
+          esc(VF.catLabel(g.cat)) + '</div>';
+      }
       const d = sectionDue(deck, g.key);
-      return '<button data-go="session" data-deck="' + deck + '" data-group="' + g.key + '" ' +
+      return header + '<button data-go="session" data-deck="' + deck + '" data-group="' + g.key + '" ' +
         'class="w-full flex items-center gap-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl p-3 text-left">' +
         '<div class="flex-1"><div class="font-semibold text-sm">' + esc(g.label) + '</div>' +
         '<div class="text-xs text-slate-400 mt-0.5">' + g.count + '語 ・ 未学習 ' + d.fresh +
@@ -120,13 +127,16 @@
   };
 
   function deckGroups(deck) {
-    if (deck === 'etym') {
-      return ['prefix','suffix','root'].map(c => {
-        const arr = VF.deckCards('etym', c);
-        return { key: c, label: VF.catLabel(c), count: arr.length };
-      });
-    }
     const m = VF.DATA.meta;
+    if (deck === 'etym') {
+      // 接頭辞・接尾辞・語根それぞれを意味（テーマ大分類）でグルーピング
+      return (m.etym_groups || []).map(g => ({
+        key: g.key,
+        cat: g.category,
+        label: g.theme,
+        count: g.count
+      }));
+    }
     if (deck === 'phrases') {
       // 英熟語ターゲット1000 公式パート構成に準拠
       return (m.phrase_parts || []).map(p => ({
