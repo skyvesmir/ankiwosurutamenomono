@@ -1,8 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "webapp",
+  "name": "VocaForge",
   "compatibility_date": "2025-05-01",
-  "pages_build_output_dir": "./dist",
   "compatibility_flags": [
     "nodejs_compat"
   ]
