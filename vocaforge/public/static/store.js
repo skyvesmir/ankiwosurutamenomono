@@ -132,6 +132,72 @@
     todayStr,
     reset() {
       Object.values(K).forEach(k => localStorage.removeItem(k));
+    },
+
+    // ---- エクスポート / インポート ----
+    // 学習データ（カード記憶状態・復習ログ・設定・日次統計・既出）をまとめて取り出す
+    exportData() {
+      return {
+        app: 'vocaforge',
+        type: 'vocaforge-backup',
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        data: {
+          cards: load(K.cards, {}),
+          logs: load(K.logs, []),
+          settings: load(K.settings, {}),
+          daily: load(K.daily, {}),
+          seen: load(K.seen, {})
+        }
+      };
+    },
+    // mode: 'replace'（全置換）| 'merge'（カード/ログ/日次を統合）
+    // 返り値: { ok, error }
+    importData(obj, mode) {
+      try {
+        if (!obj || obj.type !== 'vocaforge-backup' || !obj.data) {
+          return { ok: false, error: 'VocaForgeのバックアップファイルではありません' };
+        }
+        const d = obj.data;
+        const isObj = v => v && typeof v === 'object' && !Array.isArray(v);
+        const cards = isObj(d.cards) ? d.cards : {};
+        const logs = Array.isArray(d.logs) ? d.logs : [];
+        const settings = isObj(d.settings) ? d.settings : {};
+        const daily = isObj(d.daily) ? d.daily : {};
+        const seen = isObj(d.seen) ? d.seen : {};
+
+        if (mode === 'merge') {
+          // カード: 取り込み側を優先して上書き統合
+          save(K.cards, Object.assign({}, load(K.cards, {}), cards));
+          // ログ: 連結して時刻順、上限管理
+          const merged = load(K.logs, []).concat(logs)
+            .sort((a, b) => (a.reviewed_at || 0) - (b.reviewed_at || 0));
+          if (merged.length > 20000) merged.splice(0, merged.length - 20000);
+          save(K.logs, merged);
+          // 日次: 同日は新規/復習を合算
+          const curDaily = load(K.daily, {});
+          Object.keys(daily).forEach(day => {
+            const a = curDaily[day] || { new: 0, review: 0 };
+            const b = daily[day] || { new: 0, review: 0 };
+            curDaily[day] = { new: (a.new || 0) + (b.new || 0), review: (a.review || 0) + (b.review || 0) };
+          });
+          save(K.daily, curDaily);
+          // 既出: 統合
+          save(K.seen, Object.assign({}, load(K.seen, {}), seen));
+          // 設定は取り込み側で上書き（空なら現状維持）
+          if (Object.keys(settings).length) save(K.settings, Object.assign(load(K.settings, {}), settings));
+        } else {
+          // replace: 完全置換
+          save(K.cards, cards);
+          save(K.logs, logs);
+          save(K.daily, daily);
+          save(K.seen, seen);
+          save(K.settings, settings);
+        }
+        return { ok: true };
+      } catch (e) {
+        return { ok: false, error: '読み込みに失敗しました（ファイルが壊れている可能性があります）' };
+      }
     }
   };
 

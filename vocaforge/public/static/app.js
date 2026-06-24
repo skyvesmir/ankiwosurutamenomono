@@ -6,7 +6,6 @@
  */
 (function () {
   'use strict';
-  const $ = (sel, el) => (el || document).querySelector(sel);
   const app = document.getElementById('app');
 
   const DATA = { words: [], phrases: [], etym: [], meta: null };
@@ -210,10 +209,56 @@
         Store.reset(); go('home');
       }
     };
+
+    // ---- エクスポート ----
+    const eb = document.getElementById('export-btn');
+    if (eb) eb.onclick = () => {
+      const payload = JSON.stringify(Store.exportData(), null, 2);
+      const blob = new Blob([payload], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const d = new Date();
+      const stamp = d.getFullYear() + ('0'+(d.getMonth()+1)).slice(-2) + ('0'+d.getDate()).slice(-2) +
+        '-' + ('0'+d.getHours()).slice(-2) + ('0'+d.getMinutes()).slice(-2);
+      a.href = url;
+      a.download = 'vocaforge-backup-' + stamp + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    };
+
+    // ---- インポート ----
+    const ib = document.getElementById('import-btn');
+    const ifile = document.getElementById('import-file');
+    if (ib && ifile) {
+      ib.onclick = () => ifile.click();
+      ifile.onchange = () => {
+        const file = ifile.files && ifile.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          let obj;
+          try { obj = JSON.parse(reader.result); }
+          catch (e) { alert('JSONとして読み込めませんでした'); ifile.value = ''; return; }
+          const merge = confirm(
+            'インポート方法を選んでください。\n\n' +
+            '［OK］ 統合：現在のデータに取り込み分を足し合わせる\n' +
+            '［キャンセル］ 置換：現在のデータを消して取り込み分で置き換える'
+          );
+          const res = Store.importData(obj, merge ? 'merge' : 'replace');
+          if (res.ok) { alert('インポートが完了しました'); go('home'); }
+          else { alert('インポート失敗: ' + res.error); }
+          ifile.value = '';
+        };
+        reader.onerror = () => { alert('ファイルの読み込みに失敗しました'); ifile.value = ''; };
+        reader.readAsText(file);
+      };
+    }
   }
 
   // 後続スクリプトで拡張
-  window.VF = { $, app, DATA, STATE, go, deckCards, normWord, normPhrase, normEtym, catLabel, nav, bindGlobal };
+  window.VF = { DATA, STATE, go, deckCards, catLabel, nav };
 
   document.addEventListener('DOMContentLoaded', boot);
 })();

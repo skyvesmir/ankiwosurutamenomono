@@ -149,6 +149,16 @@
         toggle('strictInput', '記入を厳密採点', s.strictInput, 'OFFなら大小文字・記号の差を許容') +
       '</div>' +
 
+      '<h2 class="text-sm font-bold text-slate-300 mb-2">データの管理</h2>' +
+      '<div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-4">' +
+        '<p class="text-xs text-slate-400 mb-3 leading-relaxed">学習の進捗・記憶状態・統計をファイルに保存（エクスポート）し、別の端末やブラウザに引き継げます（インポート）。</p>' +
+        '<button id="export-btn" class="w-full bg-brand/10 text-brand border border-brand/30 rounded-xl py-3 text-sm font-bold mb-2">' +
+          '<i class="fas fa-file-export mr-2"></i>学習データをエクスポート</button>' +
+        '<button id="import-btn" class="w-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 rounded-xl py-3 text-sm font-bold">' +
+          '<i class="fas fa-file-import mr-2"></i>学習データをインポート</button>' +
+        '<input type="file" id="import-file" accept="application/json,.json" class="hidden">' +
+      '</div>' +
+
       '<button id="reset-btn" class="w-full bg-rose-500/10 text-rose-300 border border-rose-500/30 rounded-xl py-3 text-sm font-bold mb-3">' +
         '<i class="fas fa-trash mr-2"></i>学習データをすべてリセット</button>' +
 
