@@ -23,13 +23,24 @@
         (p.sectionTitle ? '：' + p.sectionTitle : '') };
   }
   // 語源は「語源そのもの」を覚えるカードにする: 表=見出し, 裏=コアの意味
+  // 同じコア意味（例「場所」）を持つ接辞・語根が複数あるため、
+  // 派生的な意味(derived)を併記して識別しやすくする。
+  function etymMeaning(e) {
+    const core = (e.core || '').trim();
+    const derived = (e.derived || '').trim();
+    // 「コア（派生1、派生2…）」の形に。派生が無ければコアのみ。
+    if (derived && derived !== core) return core + '（' + derived + '）';
+    return core;
+  }
   function normEtym(e) {
     const head = (e.variants || e.headword || '').replace(/`/g,'');
     // 意味でグルーピング: group は「カテゴリ:テーマ大分類」の複合キー
     const tg = e.themeGroup || ((e.theme || '').split('＞')[0].trim()) || 'その他';
     const grp = e.group || (e.category + ':' + tg);
+    // hint: 語源言語など、どの接辞/語根かを区別する補助情報
+    const origin = (e.origin || '').replace(/`[^`]*`/g, '').replace(/\s*\/\s*$/,'').trim();
     return {
-      id: e.id, term: head, meaning: e.core,
+      id: e.id, term: head, meaning: etymMeaning(e), hint: origin,
       deck: 'etym', sub: e.category, themeGroup: tg,
       group: grp, groupLabel: catLabel(e.category) + '・' + tg,
       etymRef: e

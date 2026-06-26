@@ -59,6 +59,11 @@
    * @param pool 同種カード配列（誤答生成元）
    */
   function makeQuestion(card, format, pool) {
+    // 語源カードはコア意味が他とかぶりやすい（例「場所」）ので、
+    // 意味は短縮せずそのまま（派生併記）使い、識別性を保つ。
+    const isEtym = card.deck === 'etym';
+    const meaningLabel = m => (isEtym ? (m || '') : shortMeaning(m));
+
     if (format === 'type-je') {
       return {
         format,
@@ -77,16 +82,16 @@
     const seen = new Set([card.term]);
     for (const d of distractors) {
       if (picked.length >= 3) break;
-      const key = format === 'mc-ej' ? shortMeaning(d.meaning) : d.term;
+      const key = format === 'mc-ej' ? meaningLabel(d.meaning) : d.term;
       if (seen.has(key)) continue;
       seen.add(key);
       picked.push(d);
     }
 
     if (format === 'mc-ej') {
-      const correct = shortMeaning(card.meaning);
+      const correct = meaningLabel(card.meaning);
       const opts = shuffle([{ t: correct, correct: true, full: card.meaning }]
-        .concat(picked.map(p => ({ t: shortMeaning(p.meaning), correct: false, full: p.meaning }))));
+        .concat(picked.map(p => ({ t: meaningLabel(p.meaning), correct: false, full: p.meaning }))));
       return {
         format, cardId: card.id,
         questionLabel: '英語の意味を選択',
@@ -101,7 +106,7 @@
       return {
         format, cardId: card.id,
         questionLabel: '日本語に合う英語を選択',
-        prompt: shortMeaning(card.meaning),
+        prompt: meaningLabel(card.meaning),
         promptFull: card.meaning,
         options: opts,
         answer: card.term,

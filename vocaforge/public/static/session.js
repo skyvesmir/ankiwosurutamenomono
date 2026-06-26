@@ -121,7 +121,9 @@
     if (q.format === 'type-je') {
       body =
         '<div class="text-center mb-6"><div class="text-xs text-slate-400 mb-2">この意味の英語は？</div>' +
-        '<div class="text-2xl font-bold leading-relaxed">' + esc(q.prompt) + '</div></div>' +
+        '<div class="text-2xl font-bold leading-relaxed">' + esc(q.prompt) + '</div>' +
+        (q.sub ? '<div class="text-xs text-slate-400 mt-2"><i class="fas fa-lightbulb mr-1"></i>' + esc(q.sub) + '</div>' : '') +
+        '</div>' +
         '<input id="type-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
         'placeholder="英語を入力…" class="w-full bg-slate-900 border-2 border-slate-700 focus:border-brand rounded-xl px-4 py-4 text-lg text-center focus:outline-none">' +
         '<button id="type-submit" class="mt-4 w-full bg-brand hover:bg-brand-dark text-white font-bold rounded-xl py-3.5 active:scale-95 transition">解答する</button>' +
