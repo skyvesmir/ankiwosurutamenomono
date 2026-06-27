@@ -69,6 +69,10 @@
       ]);
       DATA.words = w; DATA.phrases = p; DATA.etym = e; DATA.meta = m;
       render();
+      // 認証状態が変化したら設定画面を更新
+      if (window.VFAuth) window.VFAuth.onChange(() => {
+        if (STATE.route === 'settings') render();
+      });
     } catch (err) {
       app.innerHTML = '<div class="p-8 text-center text-red-400">データ読み込み失敗: ' + err.message + '</div>';
     }
@@ -214,6 +218,21 @@
         };
       }
     });
+    // ---- ログイン / ログアウト ----
+    const loginBtn = document.getElementById('login-btn');
+    if (loginBtn && window.VFAuth) loginBtn.onclick = async () => {
+      loginBtn.disabled = true;
+      const res = await window.VFAuth.login();
+      loginBtn.disabled = false;
+      if (!res.ok && res.error !== 'auth/popup-closed-by-user' && res.error !== 'auth/cancelled-popup-request') {
+        alert('ログインに失敗しました: ' + res.error);
+      }
+    };
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn && window.VFAuth) logoutBtn.onclick = async () => {
+      await window.VFAuth.logout();
+    };
+
     const rb = document.getElementById('reset-btn');
     if (rb) rb.onclick = () => {
       if (confirm('すべての学習進捗・統計を削除します。元に戻せません。よろしいですか？')) {

@@ -124,8 +124,38 @@
       (desc ? '<span class="block text-xs text-slate-400 mt-0.5">' + desc + '</span>' : '') + '</span>' +
       '<input type="checkbox" data-set="' + id + '" ' + (checked ? 'checked' : '') + ' class="w-11 h-6 appearance-none rounded-full bg-slate-700 checked:bg-brand relative transition cursor-pointer toggle"></label>';
 
+    // ---- アカウント（Firebase認証）----
+    const auth = window.VFAuth;
+    const user = auth && auth.current ? auth.current() : null;
+    let accountHtml;
+    if (user) {
+      const avatar = user.photo
+        ? '<img src="' + esc(user.photo) + '" alt="" class="w-11 h-11 rounded-full" referrerpolicy="no-referrer">'
+        : '<div class="w-11 h-11 rounded-full bg-brand/20 text-brand flex items-center justify-center"><i class="fas fa-user"></i></div>';
+      accountHtml =
+        '<div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-4">' +
+          '<div class="flex items-center gap-3 mb-3">' + avatar +
+            '<div class="min-w-0"><div class="text-sm font-bold truncate">' + esc(user.name || 'ユーザー') + '</div>' +
+            '<div class="text-xs text-slate-400 truncate">' + esc(user.email || '') + '</div></div>' +
+            '<i class="fas fa-circle-check text-emerald-400 ml-auto"></i>' +
+          '</div>' +
+          '<button id="logout-btn" class="w-full bg-slate-800 text-slate-300 border border-slate-700 rounded-xl py-2.5 text-sm font-bold">' +
+            '<i class="fas fa-right-from-bracket mr-2"></i>ログアウト</button>' +
+        '</div>';
+    } else {
+      accountHtml =
+        '<div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-4">' +
+          '<p class="text-xs text-slate-400 mb-3 leading-relaxed">Googleアカウントでログインすると、アカウントと紐づけて管理できます。</p>' +
+          '<button id="login-btn" class="w-full bg-white text-slate-800 rounded-xl py-3 text-sm font-bold flex items-center justify-center gap-2">' +
+            '<i class="fab fa-google text-[#4285F4]"></i>Googleでログイン</button>' +
+        '</div>';
+    }
+
     return '<div class="max-w-xl mx-auto pb-24 px-4 pt-6">' +
       '<h1 class="text-xl font-extrabold mb-4">設定</h1>' +
+
+      '<h2 class="text-sm font-bold text-slate-300 mb-2">アカウント</h2>' +
+      accountHtml +
 
       '<div class="bg-slate-900 border border-slate-800 rounded-xl px-4 mb-4 divide-y divide-slate-800">' +
         '<div class="py-3"><div class="text-sm font-medium mb-2">目標保持率 <span class="text-brand font-bold" id="rr-val">' + Math.round(s.requestRetention*100) + '%</span></div>' +
