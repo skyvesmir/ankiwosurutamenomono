@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>英語例文暗唱</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nv:#1B2744;--nvl:#2A3E73;--gd:#C8981A;--gdl:#E8C84A;
+  --cr:#F0EDE5;--wh:#FFFFFF;
+  --ok:#1E7244;--ok2:#E6F4EE;
+  --ng:#B92626;--ng2:#FEECEC;
+  --tx:#1C2536;--tx2:#6B7280;
+  --br:#DDD8CE;--sh:0 2px 16px rgba(26,39,68,.09);
+  --r:14px;--nh:62px;--mw:540px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{height:100%;-webkit-tap-highlight-color:transparent;}
+body{min-height:100%;background:var(--cr);color:var(--tx);
+  font-family:'Noto Sans JP',-apple-system,sans-serif;font-size:15px;line-height:1.6;
+  padding-bottom:var(--nh);}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit;}
+input,textarea{font:inherit;color:inherit;}
+a{text-decoration:none;}
+#app{min-height:calc(100vh - var(--nh));}
+.con{max-width:var(--mw);margin:0 auto;padding:0 16px;}
+.card{background:var(--wh);border-radius:var(--r);box-shadow:var(--sh);}
+.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}.fw{width:100%;}
+
+/* ── PAGE ── */
+.page{min-height:calc(100vh - var(--nh));}
+.ph{background:var(--nv);color:#fff;padding:14px 16px;position:sticky;top:0;z-index:50;}
+.ph-row{display:flex;align-items:center;gap:10px;}
+.page-title{font-size:18px;font-weight:700;margin:0;}
+.app-title{font-size:22px;font-weight:800;}
+.app-sub{color:rgba(255,255,255,.7);font-size:13px;margin-top:2px;}
+.pc{padding:16px;}
+
+/* ── NAV ── */
+#mnav{position:fixed;bottom:0;left:0;right:0;height:var(--nh);background:var(--wh);
+  border-top:1px solid var(--br);display:flex;align-items:stretch;z-index:100;
+  box-shadow:0 -2px 8px rgba(0,0,0,.06);}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;color:var(--tx2);font-size:11px;font-weight:500;padding:4px 0;transition:color .15s;}
+.nb.active{color:var(--nv);}
+.ni{font-size:21px;line-height:1;}
+
+/* ── BUTTONS ── */
+.bp{display:block;width:100%;padding:13px 20px;background:var(--nv);color:#fff;
+  border-radius:10px;font-weight:700;font-size:15px;text-align:center;transition:opacity .15s;}
+.bp:hover{opacity:.9;}.bp:disabled{opacity:.4;cursor:default;}
+.bs{display:block;width:100%;padding:12px 20px;background:#fff;color:var(--nv);
+  border-radius:10px;font-weight:600;font-size:15px;text-align:center;
+  border:2px solid var(--nv);transition:background .15s;}
+.bs:hover{background:var(--cr);}
+.bd{padding:10px 18px;background:var(--ng);color:#fff;border-radius:8px;font-weight:600;font-size:14px;}
+.bl{color:var(--nv);font-size:14px;font-weight:600;text-align:center;display:block;margin:12px 0;padding:4px;}
+.bsm{padding:8px 16px;background:var(--nv);color:#fff;border-radius:8px;font-weight:600;font-size:14px;}
+.back{color:#fff;font-size:20px;padding:2px 6px;font-weight:700;line-height:1;}
+
+/* ── HOME ── */
+.rc{padding:20px;margin-bottom:16px;background:var(--nv);color:#fff;cursor:pointer;}
+.rc-main{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;}
+.rc-n{font-size:52px;font-weight:800;color:var(--gdl);line-height:1;}
+.rc-l{font-size:20px;font-weight:600;}
+.rc-sub{color:rgba(255,255,255,.7);font-size:14px;margin-bottom:12px;}
+.rc-btn{background:var(--gd);color:var(--nv);padding:12px 20px;border-radius:8px;
+  font-weight:700;font-size:15px;text-align:center;}
+.rc-done{background:rgba(255,255,255,.15);color:#fff;padding:10px 20px;
+  border-radius:8px;font-size:14px;text-align:center;}
+.sr{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.sb{background:#fff;border-radius:var(--r);padding:14px 8px;text-align:center;box-shadow:var(--sh);}
+.sv{font-size:28px;font-weight:800;color:var(--nv);}
+.sl{font-size:12px;color:var(--tx2);margin-top:2px;}
+.stl{font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:10px;
+  text-transform:uppercase;letter-spacing:.05em;}
+.ri{display:flex;align-items:center;padding:14px 16px;margin-bottom:8px;cursor:pointer;}
+.ri-m{flex:1;}.ri-n{font-weight:700;font-size:15px;}
+.ri-i{font-size:13px;color:var(--tx2);margin-top:2px;}
+.ri-a{color:var(--tx2);font-size:22px;}
+.badge{background:var(--ng);color:#fff;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:700;}
+.gbadge{color:var(--ok);font-size:12px;font-weight:700;}
+
+/* ── DECKS ── */
+.di{display:flex;align-items:center;padding:14px 16px;margin-bottom:8px;cursor:pointer;}
+.di.sp{background:linear-gradient(135deg,var(--nv),var(--nvl));color:#fff;}
+.di.sp .di-i{color:rgba(255,255,255,.7);}
+.di.sp .di-a{color:rgba(255,255,255,.5);}
+.di-m{flex:1;}.di-n{font-weight:700;font-size:15px;}
+.di-i{font-size:13px;color:var(--tx2);margin-top:2px;}
+.di-a{color:var(--tx2);font-size:22px;}
+
+/* ── MODE SELECT ── */
+.ms-p{font-size:14px;color:var(--tx2);text-align:center;margin:20px 0 14px;}
+.mc-grid{display:grid;gap:12px;}
+.mc{padding:22px 20px;cursor:pointer;text-align:center;transition:transform .12s;border-radius:var(--r);}
+.mc:hover{transform:translateY(-2px);}
+.mc-icon{font-size:38px;margin-bottom:8px;}
+.mc-name{font-size:17px;font-weight:700;color:var(--nv);margin-bottom:4px;}
+.mc-desc{font-size:13px;color:var(--tx2);}
+
+/* ── STUDY PAGE ── */
+.sp2{min-height:100vh;background:var(--cr);display:flex;flex-direction:column;}
+.sh2{background:var(--nv);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:12px;}
+.pi{flex:1;}
+.pb{height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin-bottom:4px;}
+.pf{height:100%;background:var(--gdl);border-radius:2px;transition:width .3s;}
+.pt{font-size:12px;color:rgba(255,255,255,.7);text-align:right;}
+.mb2{font-size:22px;}
+.sb2{flex:1;padding:16px;max-width:var(--mw);margin:0 auto;width:100%;}
+
+/* ── FLASHCARD ── */
+.fcc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:24px;margin-bottom:16px;}
+.fca{overflow-y:auto;max-height:calc(100vh - 130px);}
+.cl{font-size:12px;font-weight:700;color:var(--tx2);text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:10px;}
+.en{font-family:'Noto Serif',Georgia,serif;font-size:20px;line-height:1.65;
+  color:var(--nv);font-weight:600;margin-bottom:16px;}
+.hint{font-size:13px;color:var(--tx2);text-align:center;margin-bottom:16px;font-style:italic;}
+.dv{height:1px;background:var(--br);margin:16px 0;}
+.ja{font-size:16px;line-height:1.8;color:var(--tx);margin-bottom:8px;padding:14px;
+  background:var(--cr);border-radius:10px;}
+.gs{margin:8px 0 12px;}
+.gl{text-align:center;color:var(--tx2);font-size:13px;padding:10px;}
+.nb2{list-style:none;padding:0;}
+.nb2 li{font-size:13px;color:var(--tx);padding:5px 0 5px 14px;
+  border-left:3px solid var(--gd);margin-bottom:5px;line-height:1.5;}
+.nt{font-size:13px;font-weight:700;color:var(--nv);margin-bottom:6px;}
+.nblk{margin-bottom:14px;}
+.api-n{font-size:13px;color:var(--tx2);text-align:center;padding:8px;font-style:italic;}
+.g-lbl{font-size:13px;color:var(--tx2);text-align:center;margin:16px 0 10px;font-weight:600;}
+.gbts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.gbt{padding:10px 4px;border-radius:9px;font-size:12px;font-weight:700;text-align:center;
+  cursor:pointer;border:2px solid;line-height:1.3;}
+.g0{border-color:var(--ng);color:var(--ng);background:var(--ng2);}
+.g1{border-color:#D4820A;color:#D4820A;background:#FEF5EC;}
+.g2{border-color:var(--ok);color:var(--ok);background:var(--ok2);}
+.g3{border-color:#2671B5;color:#2671B5;background:#EBF5FB;}
+
+/* ── WORD ORDER ── */
+.woc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:20px;margin-bottom:16px;}
+.mt{background:var(--nv);color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;
+  font-weight:700;vertical-align:middle;margin-left:6px;}
+.jab{background:var(--cr);border-radius:10px;padding:14px;margin:12px 0;
+  font-size:16px;line-height:1.75;}
+.albl{font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:6px;}
+.aa{min-height:54px;background:#F8F5EF;border:2px dashed var(--br);
+  border-radius:10px;padding:10px;display:flex;flex-wrap:wrap;gap:6px;
+  align-items:center;margin-bottom:12px;}
+.ap{color:var(--tx2);font-size:13px;font-style:italic;}
+.wb{min-height:54px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.ch{padding:7px 14px;border-radius:20px;font-family:'Noto Serif',Georgia,serif;
+  font-size:14px;cursor:pointer;transition:all .12s;user-select:none;white-space:nowrap;}
+.ch.av{background:#fff;border:2px solid var(--br);color:var(--tx);}
+.ch.av:hover{border-color:var(--nv);background:var(--cr);}
+.ch.sl{background:var(--nv);color:#fff;border:2px solid var(--nv);}
+.ch.sl:hover{background:var(--nvl);}
+.woa{display:flex;gap:10px;}
+.woa .bs{width:auto;flex:1;font-size:14px;padding:11px 16px;}
+.woa .bp{width:auto;flex:2;font-size:14px;padding:11px 16px;}
+
+/* ── WRITING ── */
+.wrc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:20px;margin-bottom:16px;}
+.wrl{font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:8px;}
+.wri{width:100%;padding:12px 14px;border:2px solid var(--br);border-radius:10px;
+  font-size:15px;font-family:'Noto Serif',Georgia,serif;resize:none;outline:none;
+  background:#FAFAF8;transition:border-color .2s;line-height:1.6;}
+.wri:focus{border-color:var(--nv);background:#fff;}
+
+/* ── RESULT ── */
+.rko{background:var(--ok2);color:var(--ok);border-radius:10px;padding:12px 16px;
+  font-size:16px;font-weight:700;text-align:center;margin:12px 0;}
+.rng{background:var(--ng2);color:var(--ng);border-radius:10px;padding:12px 16px;
+  font-size:16px;font-weight:700;text-align:center;margin:12px 0;}
+.ca{margin-bottom:12px;}
+.cal{font-size:12px;font-weight:700;color:var(--tx2);margin-bottom:6px;}
+.cat{font-family:'Noto Serif',Georgia,serif;font-size:15px;color:var(--nv);font-weight:600;
+  background:var(--cr);padding:10px 14px;border-radius:8px;border-left:3px solid var(--gd);}
+.eg{background:var(--cr);border-radius:10px;padding:14px;margin:10px 0;}
+.egl{font-size:13px;font-weight:700;color:var(--nv);margin-bottom:8px;}
+
+/* ── SESSION END ── */
+.ep{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--cr);}
+.ec{background:#fff;border-radius:var(--r);padding:32px 24px;max-width:380px;
+  width:calc(100% - 32px);text-align:center;box-shadow:var(--sh);}
+.etr{font-size:60px;margin-bottom:12px;}
+.etl{font-size:22px;font-weight:800;color:var(--nv);margin-bottom:20px;}
+.ests{display:flex;justify-content:center;gap:24px;margin-bottom:28px;}
+.est{display:flex;flex-direction:column;align-items:center;}
+.esv{font-size:30px;font-weight:800;color:var(--nv);}
+.esl{font-size:12px;color:var(--tx2);margin-top:2px;}
+
+/* ── STATS ── */
+.sr4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;}
+.sbox{background:#fff;border-radius:var(--r);padding:14px 6px;text-align:center;box-shadow:var(--sh);}
+.sv2{font-size:20px;font-weight:800;color:var(--nv);}
+.sl2{font-size:10px;color:var(--tx2);margin-top:2px;}
+.ctl{font-size:14px;font-weight:700;color:var(--tx2);padding:16px 16px 10px;}
+.bch{display:flex;align-items:flex-end;gap:5px;padding:0 16px 16px;height:110px;}
+.bcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:100%;}
+.bw{flex:1;width:100%;display:flex;align-items:flex-end;}
+.bf{width:100%;background:var(--nv);border-radius:3px 3px 0 0;min-height:2px;}
+.bn{font-size:10px;color:var(--tx);font-weight:600;min-height:13px;}
+.bdy{font-size:10px;color:var(--tx2);}
+.pr{display:flex;align-items:center;gap:10px;padding:5px 16px;}
+.prn{font-size:11px;font-weight:600;color:var(--tx2);width:24px;flex-shrink:0;}
+.prb{flex:1;height:6px;background:var(--br);border-radius:3px;}
+.prf{height:100%;background:var(--gd);border-radius:3px;}
+.prp{font-size:11px;color:var(--tx2);width:34px;text-align:right;}
+
+/* ── SETTINGS ── */
+.setc{padding:20px;}
+.stt{font-size:16px;font-weight:700;color:var(--nv);margin-bottom:6px;}
+.std{font-size:13px;color:var(--tx2);line-height:1.6;margin-bottom:12px;}
+.akr{display:flex;gap:8px;}
+.si{flex:1;padding:10px 12px;border:2px solid var(--br);border-radius:8px;font-size:14px;outline:none;}
+.si:focus{border-color:var(--nv);}
+
+.retry-banner{background:var(--ng2);color:var(--ng);text-align:center;
+  padding:8px 16px;font-size:13px;font-weight:700;letter-spacing:.02em;}
+/* ── ANIM ── */
+@keyframes fdIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.pc{animation:fdIn .22s ease;}
+.sb2{animation:fdIn .18s ease;}
+@keyframes dots{0%,20%{content:'.'}40%{content:'..'}60%,100%{content:'...'}}
+.da::after{content:'.';animation:dots 1.4s infinite;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav id="mnav">
+  <button class="nb active" data-p="home" onclick="nav('home')">
+    <span class="ni">🏠</span><span>ホーム</span>
+  </button>
+  <button class="nb" data-p="decks" onclick="nav('decks')">
+    <span class="ni">📚</span><span>デッキ</span>
+  </button>
+  <button class="nb" data-p="stats" onclick="nav('stats')">
+    <span class="ni">📊</span><span>記録</span>
+  </button>
+  <button class="nb" data-p="settings" onclick="nav('settings')">
+    <span class="ni">⚙️</span><span>設定</span>
+  </button>
+</nav>
+<script>
+const DB=[["L1-1", "LESSON 1", "①", "I go jogging in a nearby park every morning to stay healthy.", "健康を維持するために、毎朝近くの公園にジョギングに行きます。"], ["L1-2", "LESSON 1", "②", "I'm looking for a book about current American politics.", "現在のアメリカ政治に関する本を探しています。"], ["L1-3", "LESSON 1", "③", "I learned about the life of President Kennedy in history class last week.", "先週の歴史の授業で、ケネディ大統領の生涯について学びました。"], ["L1-4", "LESSON 1", "④", "I have already decided what I want to do in the future.", "将来やりたいことはもう決めています。"], ["L1-5", "LESSON 1", "⑤", "I have never thought about living in a foreign country.", "外国に住むことを考えたことは一度もありません。"], ["L1-6", "LESSON 1", "⑥", "I've had a keen interest in social studies since I was an elementary school student.", "小学生の頃から社会科にとても興味があります。"], ["L1-7", "LESSON 1", "⑦", "I'm sure it will be challenging to study abroad.", "留学はきっと大変だと思います。"], ["L1-8", "LESSON 1", "⑧", "I'm going to study international relations in college.", "大学で国際関係学を勉強するつもりです。"], ["L2-1", "LESSON 2", "①", "It is natural for you to be excited about the concert next week.", "来週のコンサートにわくわくするのは当然です。"], ["L2-2", "LESSON 2", "②", "My plan for the weekend is to play shogi on my computer.", "週末の予定は、コンピュータで将棋をすることです。"], ["L2-3", "LESSON 2", "③", "Planning a vacation with my family can be lots of fun.", "家族で休暇の計画を立てることは、とても楽しいです。"], ["L2-4", "LESSON 2", "④", "I'm looking forward to watching the tennis match on TV tomorrow.", "明日のテニスの試合をテレビで見るのを楽しみにしています。"], ["L2-5", "LESSON 2", "⑤", "It's up to you to decide which subject to study at home.", "家でどの教科を勉強するかはあなたが決めることです。"], ["L2-6", "LESSON 2", "⑥", "His decision to keep regular hours should lead to a healthier life.", "規則正しい生活を送るという彼の決断は、より健康的な生活につながるはずです。"], ["L2-7", "LESSON 2", "⑦", "The problem is that there isn't enough space in the room for this sofa.", "問題は、この部屋にこのソファを置くのに十分なスペースがないということです。"], ["L2-8", "LESSON 2", "⑧", "I'm not sure whether I should cook supper or order a pizza tonight.", "今夜、夕食を自分で作るべきか、ピザを注文すべきか迷っています。"], ["L3-1", "LESSON 3", "①", "We can use the computer room during our lunch break.", "お昼休みにコンピュータ室を使うことができます。"], ["L3-2", "LESSON 3", "②", "The final exam for our English class may be very difficult.", "英語の期末試験はとても難しいかもしれません。"], ["L3-3", "LESSON 3", "③", "We must wear our school uniform on the school trip.", "修学旅行では制服を着なければなりません。"], ["L3-4", "LESSON 3", "④", "The club meeting should be on Friday, but it might be postponed.", "部活の会議は金曜日になるはずですが、延期されるかもしれません。"], ["L3-5", "LESSON 3", "⑤", "Ms. Kelly has gone to the teachers' room, but she will be back soon.", "ケリー先生は職員室に行っていますが、もうすぐ戻ってくるでしょう。"], ["L3-6", "LESSON 3", "⑥", "Kenta would be the right person for our class representative.", "健太がクラス委員として最適な人物でしょう。"], ["L3-7", "LESSON 3", "⑦", "Though she is not good at math, she got a high score on the test. She must have studied hard.", "彼女は数学が得意ではないのに、テストで高得点を取りました。一生懸命勉強したに違いありません。"], ["L3-8", "LESSON 3", "⑧", "I fell asleep during class. I should have gone to bed earlier last night.", "授業中に眠ってしまいました。昨夜もっと早く寝るべきでした。"], ["GP1-1", "GRAMMAR PLUS 1", "", "My father is always telling the same old jokes.", "父はいつも同じ古い冗談を言っています。"], ["GP1-2", "GRAMMAR PLUS 1", "", "The baseball game was about to start when it began to rain.", "野球の試合が始まろうとしていたとき、雨が降り始めました。"], ["GP1-3", "GRAMMAR PLUS 1", "", "I was on the point of leaving home when the phone rang.", "家を出ようとしていたとき、電話が鳴りました。"], ["GP1-4", "GRAMMAR PLUS 1", "", "There's no telling whether or not I can finish this report on time.", "このレポートを時間内に終えられるかどうか、見当がつきません。"], ["GP1-5", "GRAMMAR PLUS 1", "", "It is no use criticizing his rude behavior.", "彼の失礼な行動を批判しても無駄です。"], ["GP1-6", "GRAMMAR PLUS 1", "", "It is worth seeing that movie.", "その映画は見る価値があります。"], ["GP1-7", "GRAMMAR PLUS 1", "", "That movie is worth seeing.", "その映画は見る価値があります。"], ["GP1-8", "GRAMMAR PLUS 1", "", "I feel like going to a hot spring.", "温泉に行きたい気分です。"], ["GP1-9", "GRAMMAR PLUS 1", "", "On seeing her father, the girl ran up to him and hugged him.", "父親の姿を見るなり、その女の子は駆け寄って抱きつきました。"], ["GP1-10", "GRAMMAR PLUS 1", "", "My parents talked my grandfather into giving up driving.", "両親は祖父を説得して、運転をやめさせました。"], ["GP1-11", "GRAMMAR PLUS 1", "", "This book may well be too difficult for my brother.", "この本はおそらく私の弟には難しすぎるでしょう。"], ["GP1-12", "GRAMMAR PLUS 1", "", "We might as well wait for him a little longer.", "もう少し彼を待った方がよいでしょう。"], ["GP1-13", "GRAMMAR PLUS 1", "", "I've got to catch the 7:17 train.", "7時17分の電車に乗らなければなりません。"], ["GP1-14", "GRAMMAR PLUS 1", "", "I would rather go hungry than eat octopus.", "タコを食べるくらいなら、空腹のままでいる方がましです。"], ["GP1-15", "GRAMMAR PLUS 1", "", "I cannot help laughing at Chaplin movies.", "チャップリンの映画を見ると笑わずにはいられません。"], ["GP1-16", "GRAMMAR PLUS 1", "", "We cannot thank our coach too much.", "コーチにはいくら感謝してもし足りません。"], ["L4-1", "LESSON 4", "①", "The volunteer workers cleaned up the famous historic site.", "ボランティアの人々が、有名な史跡を清掃しました。"], ["L4-2", "LESSON 4", "②", "I learned many skills and gained much experience from the volunteer work.", "ボランティア活動を通じて、多くの技術を習得し、多くの経験を積みました。"], ["L4-3", "LESSON 4", "③", "The summer math course was difficult but helpful.", "夏の数学講座は難しかったですが、ためになりました。"], ["L4-4", "LESSON 4", "④", "It was necessary for me to attend the leadership course.", "リーダーシップ研修に参加する必要がありました。"], ["L4-5", "LESSON 4", "⑤", "The police found my stolen bicycle near the station.", "警察は、盗まれた私の自転車を駅の近くで見つけました。"], ["L4-6", "LESSON 4", "⑥", "The students kept talking in class about the upcoming school festival.", "生徒たちは、来たる学校祭のことについて、授業中もずっと話し続けていました。"], ["L4-7", "LESSON 4", "⑦", "The performance of the dance team on stage was amazing.", "舞台でのダンスチームのパフォーマンスは素晴らしかったです。"], ["L4-8", "LESSON 4", "⑧", "I was amazed by the performance of the dance team at the school festival.", "学校祭でのダンスチームのパフォーマンスに、私は感動しました。"], ["L5-1", "LESSON 5", "①", "A self-driving bus full of passengers was going down the street.", "乗客でいっぱいの自動運転バスが、道路を走っていました。"], ["L5-2", "LESSON 5", "②", "Can you imagine a life without your smartphone?", "スマートフォンのない生活を想像できますか？"], ["L5-3", "LESSON 5", "③", "There are many websites teaching English.", "英語を教えているウェブサイトが多数あります。"], ["L5-4", "LESSON 5", "④", "The photos taken with this smartphone camera are beautiful.", "このスマートフォンのカメラで撮影した写真は美しいです。"], ["L5-5", "LESSON 5", "⑤", "Nowadays, online music streaming is a popular way to listen to music.", "最近は、オンライン音楽ストリーミングが音楽を聴くポピュラーな方法になっています。"], ["L5-6", "LESSON 5", "⑥", "Can I use your electronic dictionary? I have something to look up.", "電子辞書を使ってもいいですか？調べたいことがあるんです。"], ["L5-7", "LESSON 5", "⑦", "Virtual reality technology is likely to improve dramatically.", "バーチャルリアリティ技術は飛躍的に進歩しそうです。"], ["L5-8", "LESSON 5", "⑧", "Electric cars are sure to replace gasoline-powered cars.", "電気自動車はきっとガソリン車に取って代わるでしょう。"], ["L6-1", "LESSON 6", "①", "I heard the news about a woman who works for the United Nations.", "国連で働く女性についてのニュースを聞きました。"], ["L6-2", "LESSON 6", "②", "The movie which is now a big hit will surely win an Academy Award.", "今大ヒット中のその映画はきっとアカデミー賞を受賞するでしょう。"], ["L6-3", "LESSON 6", "③", "An online news article that I read yesterday was fake.", "昨日読んだオンラインのニュース記事はフェイクニュースでした。"], ["L6-4", "LESSON 6", "④", "The prime minister, who is on vacation, went to the theater yesterday.", "休暇中の首相が昨日劇場に行きました。"], ["L6-5", "LESSON 6", "⑤", "He is said to be one of the greatest baseball players, which is true.", "彼は最も偉大な野球選手の一人であると言われていますが、それは本当のことです。"], ["L6-6", "LESSON 6", "⑥", "The company announced the date when they would release the new movie.", "その会社は新しい映画をリリースする日を発表しました。"], ["L6-7", "LESSON 6", "⑦", "The caves where ancient people used to live are now a popular tourist spot.", "古代の人々がかつて住んでいた洞窟は、今では人気の観光スポットになっています。"], ["L6-8", "LESSON 6", "⑧", "I don't know the reason why the Japanese media didn't report this issue.", "日本のメディアがこの問題を報道しなかった理由がわかりません。"], ["GP2-1", "GRAMMAR PLUS 2", "", "A certain person said that you were keeping bad company.", "ある人があなたが悪い仲間とつきあっていると言っていました。"], ["GP2-2", "GRAMMAR PLUS 2", "", "I'm certain that she is not responsible for the mistake.", "彼女がその間違いに責任がないことは確かです。"], ["GP2-3", "GRAMMAR PLUS 2", "", "I don't know his present email address.", "彼の現在のメールアドレスを知りません。"], ["GP2-4", "GRAMMAR PLUS 2", "", "I don't know if he was present at the meeting.", "彼が会議に出席していたかどうか知りません。"], ["GP2-5", "GRAMMAR PLUS 2", "", "My hometown is not what it used to be.", "私の故郷は、かつての姿ではありません。"], ["GP2-6", "GRAMMAR PLUS 2", "", "She is what is called a bookworm.", "彼女はいわゆる本の虫です。"], ["GP2-7", "GRAMMAR PLUS 2", "", "Her new theory is interesting, and what is more, original.", "彼女の新しい理論は興味深く、しかも独創的です。"], ["GP2-8", "GRAMMAR PLUS 2", "", "The girl who I thought was Ann's sister turned out to be her cousin.", "アンの姉だと私が思っていた女の子は、実は彼女のいとこだとわかりました。"], ["GP2-9", "GRAMMAR PLUS 2", "", "I have the same dream as you have.", "私はあなたと同じ夢を持っています。"], ["GP2-10", "GRAMMAR PLUS 2", "", "Jack fell asleep on the sofa, as is often the case with him.", "ジャックはソファで眠ってしまいましたが、それは彼にはよくあることです。"], ["L7-1", "LESSON 7", "①", "My host mother speaks slowly and politely to me.", "ホストマザーはゆっくりと丁寧に話してくれます。"], ["L7-2", "LESSON 7", "②", "Joe, who speaks Spanish, moved to Spain last year and found a job there.", "スペイン語を話すジョーは、昨年スペインに引っ越して、そこで仕事を見つけました。"], ["L7-3", "LESSON 7", "③", "Almost all students in Japan have to study English.", "日本のほぼすべての学生が英語を学ばなければなりません。"], ["L7-4", "LESSON 7", "④", "He will certainly become a fluent speaker of Chinese.", "彼はきっと中国語の流暢な話者になるでしょう。"], ["L7-5", "LESSON 7", "⑤", "Not all the students have to take the English test.", "すべての学生が英語のテストを受けなければならないわけではありません。"], ["L7-6", "LESSON 7", "⑥", "I could hardly understand the Spanish-language movie.", "スペイン語の映画はほとんど理解できませんでした。"], ["L7-7", "LESSON 7", "⑦", "Unfortunately, many Hawaiians cannot speak the Hawaiian language.", "残念ながら、ハワイ人の多くはハワイ語を話せません。"], ["L7-8", "LESSON 7", "⑧", "Mastering a foreign language is difficult. However, it is not impossible.", "外国語を習得することは難しいです。しかし、不可能ではありません。"], ["L8-1", "LESSON 8", "①", "What should we do to lead a happier and more meaningful life?", "より幸福でより充実した生活を送るために、私たちは何をすべきでしょうか？"], ["L8-2", "LESSON 8", "②", "I'm very lucky to have a friend like you.", "あなたのような友人がいて、私はとても幸運です。"], ["L8-3", "LESSON 8", "③", "What he said is hard to believe.", "彼が言ったことは信じがたいです。"], ["L8-4", "LESSON 8", "④", "The situation is too complicated to explain.", "状況は複雑すぎて説明できません。"], ["L8-5", "LESSON 8", "⑤", "He was looking at his grandchildren, feeling happy and satisfied.", "彼は孫たちを見ながら、幸せで満ち足りた気持ちでいました。"], ["L8-6", "LESSON 8", "⑥", "Being stressed out, I went to karaoke with my friends.", "ストレスがたまっていたので、友達とカラオケに行きました。"], ["L8-7", "LESSON 8", "⑦", "The song is popular around the world because of its beautiful melody.", "その曲は美しいメロディーで、世界中で人気があります。"], ["L8-8", "LESSON 8", "⑧", "I was so nervous with everybody watching me.", "みんなに見られていて、とても緊張しました。"], ["L9-1", "LESSON 9", "①", "When you feel distracted, you should take a deep breath.", "気が散っていると感じたら、深呼吸をするといいでしょう。"], ["L9-2", "LESSON 9", "②", "Think twice before you speak.", "話す前によく考えましょう。"], ["L9-3", "LESSON 9", "③", "Everyone respects her because she is always hardworking.", "彼女は常に勤勉であるため、みんなから尊敬されています。"], ["L9-4", "LESSON 9", "④", "If you want to be successful, you must realize your dream.", "成功したいなら、夢を実現しなければなりません。"], ["L9-5", "LESSON 9", "⑤", "Although he lacked experience, he had the right personality for that job.", "彼は経験が不足していましたが、その仕事に適した性格を持っていました。"], ["L9-6", "LESSON 9", "⑥", "Whatever happens, I will never give up pursuing my goal.", "何が起こっても、目標の追求を諦めることは決してありません。"], ["L9-7", "LESSON 9", "⑦", "She keeps a diary every day so that she can reflect upon her actions.", "彼女は自分の行動を振り返れるように、毎日日記をつけています。"], ["L9-8", "LESSON 9", "⑧", "Steve was so innovative that people often misunderstood him.", "スティーブはとても革新的だったため、人々はしばしば彼を誤解しました。"], ["GP3-1", "GRAMMAR PLUS 3", "", "I'd like a hamburger, and French fries, too.", "ハンバーガーと、フライドポテトもください。"], ["GP3-2", "GRAMMAR PLUS 3", "", "I don't like green peppers, and my father doesn't like them either.", "私はピーマンが好きではありませんし、父も好きではありません。"], ["GP3-3", "GRAMMAR PLUS 3", "", "\"I haven't finished my homework yet.\" \"Me neither.\"", "「まだ宿題が終わっていません。」「私もです。」"], ["GP3-4", "GRAMMAR PLUS 3", "", "Not realizing the time, she was late for her appointment.", "時間に気づかず、彼女は約束に遅れてしまいました。"], ["GP3-5", "GRAMMAR PLUS 3", "", "Not having eaten breakfast, Tom got hungry in class.", "朝食を食べていなかったので、トムは授業中にお腹が空いてしまいました。"], ["GP3-6", "GRAMMAR PLUS 3", "", "The deadline approaching, I had to stay up late to finish my report.", "締め切りが近づいていたので、レポートを終わらせるために夜遅くまで起きていなければなりませんでした。"], ["GP3-7", "GRAMMAR PLUS 3", "", "The U.S. President is to meet the British Prime Minister on May 7th.", "アメリカ大統領は5月7日にイギリス首相と会談する予定です。"], ["GP3-8", "GRAMMAR PLUS 3", "", "This medicine is to be taken after each meal.", "この薬は毎食後に服用してください。"], ["GP3-9", "GRAMMAR PLUS 3", "", "My smartphone was nowhere to be found.", "スマートフォンはどこにもありませんでした。"], ["L10-1", "LESSON 10", "①", "The area of Japan is almost as large as that of Germany.", "日本の面積はドイツの面積とほぼ同じです。"], ["L10-2", "LESSON 10", "②", "The number of inbound tourists is twice as large as that of 10 years ago.", "訪日外国人の数は10年前の2倍になっています。"], ["L10-3", "LESSON 10", "③", "I like green tea better than black tea.", "私は紅茶よりも緑茶の方が好きです。"], ["L10-4", "LESSON 10", "④", "Furoshiki are much more eco-friendly than plastic bags.", "風呂敷はビニール袋よりはるかにエコです。"], ["L10-5", "LESSON 10", "⑤", "The most popular dish in this restaurant is tonkatsu, or deep-fried pork.", "このレストランで最も人気のある料理はとんかつ、つまり揚げた豚肉です。"], ["L10-6", "LESSON 10", "⑥", "Washoku is one of the healthiest foods in the world.", "和食は世界で最も健康的な食べ物の一つです。"], ["L10-7", "LESSON 10", "⑦", "No other mountain in Japan is higher than Mt. Fuji.", "日本には富士山より高い山は他にありません。"], ["L10-8", "LESSON 10", "⑧", "More and more tourists are interested in the traditional culture of Japan.", "日本の伝統文化に興味を持つ観光客がますます増えています。"], ["L11-1", "LESSON 11", "①", "If I had a tablet PC with me, I would look up the word online.", "タブレットPCを持っていれば、その単語をオンラインで調べるのに。"], ["L11-2", "LESSON 11", "②", "Do you think it would be great if AI could do all our work for us?", "AIが私たちの仕事をすべてやってくれたら素晴らしいと思いますか？"], ["L11-3", "LESSON 11", "③", "If I had used a PC to write my report, I could have finished it sooner.", "レポートを書くのにパソコンを使っていたら、もっと早く終えられたのに。"], ["L11-4", "LESSON 11", "④", "If nuclear weapons had not been developed, the world would be a much safer place.", "核兵器が開発されていなかったら、世界はずっと安全な場所になっていたでしょう。"], ["L11-5", "LESSON 11", "⑤", "I wish we had the technology to stop global warming right now.", "今すぐ地球温暖化を止める技術があればいいのに。"], ["L11-6", "LESSON 11", "⑥", "I wish I had had a vision for the future when I was young.", "若い頃に未来への展望を持っていたらよかったのに。"], ["L11-7", "LESSON 11", "⑦", "It's time we started to think globally and act locally.", "私たちはグローバルに考え、ローカルに行動し始める時です。"], ["L11-8", "LESSON 11", "⑧", "What would our lives be like without smartphones?", "スマートフォンがなかったら、私たちの生活はどのようなものでしょうか？"], ["L12-1", "LESSON 12", "①", "Many groups insisted that the government take action to promote human rights.", "多くの団体が、政府に人権促進のための行動を取るよう主張しました。"], ["L12-2", "LESSON 12", "②", "It's important that we respect other people's religious beliefs.", "他者の宗教的信仰を尊重することが重要です。"], ["L12-3", "LESSON 12", "③", "I think we should respect other people in order to avoid conflicts.", "対立を避けるために、他者を尊重すべきだと思います。"], ["L12-4", "LESSON 12", "④", "It seemed that the students from abroad had studied our language very hard.", "海外からの留学生たちは、私たちの言語を一生懸命勉強してきたようでした。"], ["L12-5", "LESSON 12", "⑤", "She said to me, \"I read an article on diversity yesterday.\"", "彼女は私に「昨日、多様性に関する記事を読んだ」と言いました。"], ["L12-6", "LESSON 12", "⑥", "She told me that she had read an article on diversity the day before.", "彼女は前日に多様性に関する記事を読んだと私に言いました。"], ["L12-7", "LESSON 12", "⑦", "It was not until recently that I realized the importance of social welfare.", "社会福祉の重要性を認識したのはつい最近のことです。"], ["L12-8", "LESSON 12", "⑧", "It won't be long before the city starts a diversity program.", "間もなく市が多様性プログラムを開始するでしょう。"], ["GP4-1", "GRAMMAR PLUS 4", "", "This project is all the more difficult for its huge cost.", "このプロジェクトは、膨大なコストのためにいっそう困難になっています。"], ["GP4-2", "GRAMMAR PLUS 4", "", "They were more disappointed than angry.", "彼らは怒るというよりも落胆していました。"], ["GP4-3", "GRAMMAR PLUS 4", "", "It takes no more than 5 minutes from Ueno to Tokyo by train.", "上野から東京まで電車でわずか5分しかかかりません。"], ["GP4-4", "GRAMMAR PLUS 4", "", "My uncle always gives me no less than 10,000 yen as a New Year's gift.", "叔父はお年玉として必ず1万円以上くれます。"], ["GP4-5", "GRAMMAR PLUS 4", "", "I can't afford a bicycle, much less a motor bike.", "自転車すら買えないのに、バイクはなおさら無理です。"], ["GP4-6", "GRAMMAR PLUS 4", "", "This is a second-rate restaurant at best.", "このレストランは良くてもB級です。"], ["GP4-7", "GRAMMAR PLUS 4", "", "That film director was at his best in the 1990s.", "その映画監督は1990年代が全盛期でした。"], ["GP4-8", "GRAMMAR PLUS 4", "", "What would you do if you were to receive a million dollars?", "100万ドルを受け取るとしたら、あなたはどうしますか？"], ["GP4-9", "GRAMMAR PLUS 4", "", "If you should miss the train, please call me.", "もし電車に乗り遅れたら、私に電話してください。"], ["GP4-10", "GRAMMAR PLUS 4", "", "Were it not for this forest, many animals would lose their habitat.", "この森がなければ、多くの動物がその生息地を失うことになるでしょう。"], ["GP4-11", "GRAMMAR PLUS 4", "", "Had I studied Japanese history harder, I could better enjoy this tour of Kyoto.", "もっと日本史を熱心に勉強していたら、この京都観光をより楽しめたのに。"], ["GP4-12", "GRAMMAR PLUS 4", "", "Every time she remembers her grandmother, she is moved to tears.", "祖母のことを思い出すたびに、彼女は感動して涙を流します。"], ["GP4-13", "GRAMMAR PLUS 4", "", "I had hardly gotten on the train when the doors closed.", "電車に乗ったとたん、ドアが閉まりました。"], ["L13-1", "LESSON 13", "①", "There are more than 20 World Heritage Sites in Japan.", "日本には20か所以上の世界遺産があります。"], ["L13-2", "LESSON 13", "②", "We have several marvelous gardens in our town.", "私たちの町には素晴らしい庭園がいくつかあります。"], ["L13-3", "LESSON 13", "③", "The road along the beach always gets crowded on weekends.", "海岸沿いの道は週末にはいつも混雑します。"], ["L13-4", "LESSON 13", "④", "The view became famous because it appeared in a popular Japanese anime.", "その景色は、人気の日本のアニメに登場したことで有名になりました。"], ["L13-5", "LESSON 13", "⑤", "It takes about two hours to drive from Sapporo to Furano.", "札幌から富良野まで車で約2時間かかります。"], ["L13-6", "LESSON 13", "⑥", "I guess it will cost less than 1,000 yen to rent a bike for a day.", "自転車を1日借りると1,000円未満で済むと思います。"], ["L13-7", "LESSON 13", "⑦", "A lot of people came to understand the uniqueness of the building.", "その建物の独自性を理解するようになった人が大勢いました。"], ["L13-8", "LESSON 13", "⑧", "The number of tourists to our city began to increase in the late 1990s.", "私たちの市への観光客の数は1990年代後半に増え始めました。"], ["L14-1", "LESSON 14", "①", "The doctor made the patient rest in bed for several days.", "医師は患者に数日間ベッドで休むよう命じました。"], ["L14-2", "LESSON 14", "②", "The mother didn't let her daughter go to school without having breakfast.", "母親は娘が朝食を食べずに学校に行くことを許しませんでした。"], ["L14-3", "LESSON 14", "③", "The school got all the students to go for a medical checkup.", "学校は全生徒に健康診断を受けさせました。"], ["L14-4", "LESSON 14", "④", "The city allows its citizens to use the city's sports facilities for free.", "市は市民が市のスポーツ施設を無料で使えるようにしています。"], ["L14-5", "LESSON 14", "⑤", "Though I had an appointment, the clinic had me waiting for 30 minutes.", "予約があったにもかかわらず、診療所は私を30分待たせました。"], ["L14-6", "LESSON 14", "⑥", "The patient had his temperature and blood pressure checked.", "患者は体温と血圧を測ってもらいました。"], ["L14-7", "LESSON 14", "⑦", "I heard a newscaster talk about the average life expectancy of the Japanese.", "ニュースキャスターが日本人の平均寿命について話しているのを聞きました。"], ["L14-8", "LESSON 14", "⑧", "I saw many people jogging in the park this morning.", "今朝、公園でたくさんの人がジョギングしているのを見ました。"], ["L15-1", "LESSON 15", "①", "Few researchers noticed the mistake in the data.", "データの間違いに気づいた研究者はほとんどいませんでした。"], ["L15-2", "LESSON 15", "②", "No children in this world should have to experience hunger.", "世界中のどの子どもも飢えを経験するべきではありません。"], ["L15-3", "LESSON 15", "③", "Reducing inequality will make the world a better place to live.", "不平等を減らすことで、世界はよりよい居場所になるでしょう。"], ["L15-4", "LESSON 15", "④", "Access to education will help children have a brighter future.", "教育へのアクセスは、子どもたちがより明るい未来を持つのに役立ちます。"], ["L15-5", "LESSON 15", "⑤", "Online education enables students in remote areas to take classes.", "オンライン教育により、遠隔地の学生も授業を受けられるようになります。"], ["L15-6", "LESSON 15", "⑥", "Poverty prevents many children from going to school.", "貧困のために学校に行けない子どもが多くいます。"], ["L15-7", "LESSON 15", "⑦", "Japan is supposed to become carbon-neutral by 2050.", "日本は2050年までにカーボンニュートラルになるとされています。"], ["L15-8", "LESSON 15", "⑧", "All companies are required to take responsibility for their products.", "すべての企業は自社製品に責任を持つことが求められています。"], ["S1-1", "SUPPLEMENT 1", "", "Our shop will be closed from December 29th to January 3rd.", "当店は12月29日から1月3日まで休業します。"], ["S1-2", "SUPPLEMENT 1", "", "Her concert is going to be held at the Budokan.", "彼女のコンサートは武道館で開催される予定です。"], ["S1-3", "SUPPLEMENT 1", "", "This job has to be done carefully.", "この仕事は慎重に行う必要があります。"], ["S1-4", "SUPPLEMENT 1", "", "My computer is being repaired now.", "私のコンピュータは今修理中です。"], ["S1-5", "SUPPLEMENT 1", "", "We have been caught in a traffic jam for an hour.", "1時間も渋滞に巻き込まれています。"], ["S1-6", "SUPPLEMENT 1", "", "These cats are taken care of by Mr. and Mrs. Lake.", "これらの猫はレイク夫妻に世話をしてもらっています。"], ["S1-7", "SUPPLEMENT 1", "", "This problem should be dealt with at once.", "この問題はすぐに対処すべきです。"], ["S1-8", "SUPPLEMENT 1", "", "The thief got arrested on the street in Minato Ward last night.", "昨夜、港区の通りで泥棒が逮捕されました。"], ["S1-9", "SUPPLEMENT 1", "", "She was given an important position by the president.", "彼女は社長から重要なポストを与えられました。"], ["S1-10", "SUPPLEMENT 1", "", "An important position was given to her by the president.", "重要なポストが社長から彼女に与えられました。"], ["S1-11", "SUPPLEMENT 1", "", "This bag was bought for me by my aunt.", "このバッグは叔母が私に買ってくれました。"], ["S1-12", "SUPPLEMENT 1", "", "I am called Lil by my classmates.", "私はクラスメートからリルと呼ばれています。"], ["S2-1", "SUPPLEMENT 2", "", "\"Didn't you go to cram school yesterday?\" \"No, I didn't.\"", "「昨日、塾に行かなかったの？」「うん、行かなかったよ。」"], ["S2-2", "SUPPLEMENT 2", "", "Can't you ride a bike?", "自転車に乗れないの？"], ["S2-3", "SUPPLEMENT 2", "", "\"Don't you think this cat is cute?\" \"Yes, I do.\"", "「この猫、可愛いと思わない？」「そうだね。」"], ["S2-4", "SUPPLEMENT 2", "", "\"Lisa is Tom's sister, isn't she?\" \"Yes, she is.\"", "「リサはトムの姉だよね？」「そうだよ。」"], ["S2-5", "SUPPLEMENT 2", "", "\"Mike doesn't sing very well, does he?\" \"Well, no, he doesn't.\"", "「マイクはあまり歌が上手くないよね？」「まあ、うん、そうだね。」"], ["S2-6", "SUPPLEMENT 2", "", "I don't know what you are talking about.", "あなたが何の話をしているのかわかりません。"], ["S2-7", "SUPPLEMENT 2", "", "Do you know whether Lisa can attend the meeting?", "リサが会議に参加できるかどうか知っていますか？"], ["S2-8", "SUPPLEMENT 2", "", "Do you know if Lisa can attend the meeting?", "リサが会議に参加できるかどうか知っていますか？"], ["S2-9", "SUPPLEMENT 2", "", "What do you think that boy is looking for?", "あの男の子が何を探しているか知っていますか？"], ["S2-10", "SUPPLEMENT 2", "", "What is your new English teacher like?", "新しい英語の先生はどんな人ですか？"], ["S2-11", "SUPPLEMENT 2", "", "What did you go to the city hall for?", "市役所に何のために行ったのですか？"], ["S2-12", "SUPPLEMENT 2", "", "How do you feel about her latest movie?", "彼女の最新映画についてどう思いますか？"], ["S2-13", "SUPPLEMENT 2", "", "What do you think about her latest movie?", "彼女の最新映画についてどう思いますか？"], ["S2-14", "SUPPLEMENT 2", "", "How come Olivia is in such a hurry?", "オリビアはなぜそんなに急いでいるのですか？"], ["S3-1", "SUPPLEMENT 3", "", "My brother no longer believes in Santa Claus.", "弟はもうサンタクロースを信じていません。"], ["S3-2", "SUPPLEMENT 3", "", "Emma is by no means satisfied with her exam result.", "エマは試験の結果にまったく満足していません。"], ["S3-3", "SUPPLEMENT 3", "", "I failed to prepare adequately for my class presentation.", "授業のプレゼンに向けて十分な準備ができませんでした。"], ["S3-4", "SUPPLEMENT 3", "", "Alice's grandparents never fail to give her a birthday present every year.", "アリスの祖父母は毎年必ず誕生日プレゼントを贈ってくれます。"], ["S3-5", "SUPPLEMENT 3", "", "I'm far from confident in my ability to speak English.", "英語を話す能力に自信がまったくありません。"], ["S3-6", "SUPPLEMENT 3", "", "I like him because he's free from racial prejudice.", "人種的偏見がない彼のことが好きです。"], ["S3-7", "SUPPLEMENT 3", "", "My cat likes to eat nothing but this kind of cat food.", "私の猫はこの種類のキャットフード以外は何も食べません。"], ["S3-8", "SUPPLEMENT 3", "", "Bob does nothing but watch TV all day.", "ボブは一日中テレビを見てばかりいます。"], ["S3-9", "SUPPLEMENT 3", "", "Peter had no choice but to admit his mistake.", "ピーターはしぶしぶ自分の間違いを認めるしかありませんでした。"], ["S3-10", "SUPPLEMENT 3", "", "Dan found himself sleeping on the living room floor.", "ダンは気づいたらリビングの床で眠っていました。"], ["S3-11", "SUPPLEMENT 3", "", "I have to do most of the housework myself today.", "今日は家事のほとんどを自分でやらなければなりません。"], ["S3-12", "SUPPLEMENT 3", "", "My vacuum cleaner doesn't work. I need to get a new one.", "掃除機が壊れました。新しいのを買わなければなりません。"], ["S3-13", "SUPPLEMENT 3", "", "I like these colorful socks better than those black ones.", "私はあの黒い靴下よりこのカラフルな靴下の方が好きです。"], ["S3-14", "SUPPLEMENT 3", "", "This sweater doesn't fit me well. Can I try on another?", "このセーターは私にぴったりではありません。別のを試着してもいいですか？"], ["S3-15", "SUPPLEMENT 3", "", "My class has two foreign students. One is from China, and the other is from Canada.", "私のクラスには留学生が2人います。1人は中国出身で、もう1人はカナダ出身です。"], ["S3-16", "SUPPLEMENT 3", "", "My class has three foreign students. One is from China, and the others are from Canada.", "私のクラスには留学生が3人います。1人は中国出身で、残りはカナダ出身です。"], ["S4-1", "SUPPLEMENT 4", "", "We will arrive at the airport at 10:30 am.", "私たちは午前10時30分に空港に到着する予定です。"], ["S4-2", "SUPPLEMENT 4", "", "The cat was looking up at a bird in the tree.", "猫は木にいる鳥を見上げていました。"], ["S4-3", "SUPPLEMENT 4", "", "I was surprised at my uncle's sudden visit.", "叔父の突然の訪問に驚きました。"], ["S4-4", "SUPPLEMENT 4", "", "My mother must be at work now.", "母は今、職場にいるはずです。"], ["S4-5", "SUPPLEMENT 4", "", "I noticed the stain on the ceiling on Sunday morning.", "日曜日の朝、天井のシミに気づきました。"], ["S4-6", "SUPPLEMENT 4", "", "I'm busy in the morning.", "私は午前中は忙しいです。"], ["S4-7", "SUPPLEMENT 4", "", "Mr. Johnson depends on his wife a lot.", "ジョンソン氏は妻に多く頼っています。"], ["S4-8", "SUPPLEMENT 4", "", "Their show will be broadcast on the internet.", "彼らのショーはインターネットで放送される予定です。"], ["S4-9", "SUPPLEMENT 4", "", "I lived in Saga in 2020.", "2020年に佐賀に住んでいました。"], ["S4-10", "SUPPLEMENT 4", "", "I'll be back in thirty minutes.", "30分で戻ります。"], ["S4-11", "SUPPLEMENT 4", "", "Dan is in love with the girl over there in the white dress.", "ダンはあそこにいる白いドレスを着た女の子に恋をしています。"], ["S4-12", "SUPPLEMENT 4", "", "They are talking about the movie.", "彼らはその映画について話しています。"], ["S4-13", "SUPPLEMENT 4", "", "The expedition team has been wandering about the desert for three days.", "探検隊は3日間砂漠をさまよっています。"], ["S4-14", "SUPPLEMENT 4", "", "It's a ten-minute walk from here to the station.", "ここから駅まで歩いて10分です。"], ["S4-15", "SUPPLEMENT 4", "", "A lot of people die from starvation every year.", "毎年、多くの人が飢えで亡くなっています。"], ["S4-16", "SUPPLEMENT 4", "", "His opinion about the issue is different from mine.", "その問題についての彼の意見は私の意見と異なります。"], ["S4-17", "SUPPLEMENT 4", "", "It was so cold that I thought I would freeze to death.", "とても寒くて、凍え死にそうだと思いました。"], ["S4-18", "SUPPLEMENT 4", "", "My sister left for Australia this morning.", "姉は今朝オーストラリアに向けて出発しました。"], ["S4-19", "SUPPLEMENT 4", "", "What can I do for you?", "何かご用件はありますか？"], ["S4-20", "SUPPLEMENT 4", "", "We've been waiting for Sarah for 15 minutes.", "私たちはサラを15分間待っています。"], ["S4-21", "SUPPLEMENT 4", "", "Sophie was standing by the window looking outside.", "ソフィーは窓の側に立って外を見ていました。"], ["S4-22", "SUPPLEMENT 4", "", "Sam lives in a town near Sydney.", "サムはシドニーの近くの町に住んでいます。"], ["S4-23", "SUPPLEMENT 4", "", "Bill went to the nearest station by bicycle.", "ビルは自転車で一番近い駅に行きました。"], ["S4-24", "SUPPLEMENT 4", "", "I have to make up my mind about that by tomorrow.", "明日までにそのことを決めなければなりません。"], ["S5-1", "SUPPLEMENT 5", "", "At last we reached the top of the mountain.", "ついに私たちは山の頂上に到達しました。"], ["S5-2", "SUPPLEMENT 5", "", "She is a person of importance in the political world.", "彼女は政界で重要な人物です。"], ["S5-3", "SUPPLEMENT 5", "", "Who is that girl walking with Tom?", "トムと一緒に歩いているあの女の子は誰ですか？"], ["S5-4", "SUPPLEMENT 5", "", "That man with gray hair is Dan's father.", "白髪のあの男性はダンの父親です。"], ["S5-5", "SUPPLEMENT 5", "", "I should have brought an umbrella with me.", "傘を持ってくるべきでした。"], ["S5-6", "SUPPLEMENT 5", "", "We must handle these old books with care.", "これらの古い本は丁寧に扱わなければなりません。"], ["S5-7", "SUPPLEMENT 5", "", "I wash my hands with soap as soon as I get home.", "帰宅したらすぐに石鹸で手を洗います。"], ["S5-8", "SUPPLEMENT 5", "", "Our train passed through a long tunnel.", "私たちの電車は長いトンネルを通りました。"], ["S5-9", "SUPPLEMENT 5", "", "Alice wants to travel through Japan.", "アリスは日本を旅したいと思っています。"], ["S5-10", "SUPPLEMENT 5", "", "I was able to sleep soundly through the night.", "夜通し熟睡することができました。"], ["S6-1", "SUPPLEMENT 6", "", "Take this medicine, and you will feel better.", "この薬を飲めば、気分がよくなるでしょう。"], ["S6-2", "SUPPLEMENT 6", "", "Do your best, or you'll regret it.", "最善を尽くさないと、後悔することになります。"], ["S6-3", "SUPPLEMENT 6", "", "I ordered not a hamburger but a cheese burger.", "ハンバーガーではなくチーズバーガーを注文しました。"], ["S6-4", "SUPPLEMENT 6", "", "Lisa plays not only the piano but also the guitar.", "リサはピアノだけでなくギターも弾きます。"], ["S6-5", "SUPPLEMENT 6", "", "Emma came to see you while you were away.", "あなたが不在の間にエマが会いに来ました。"], ["S6-6", "SUPPLEMENT 6", "", "I want to go to the beach next weekend, while Tom wants to stay home.", "私は来週末は海に行きたいですが、トムは家にいたいと思っています。"], ["S6-7", "SUPPLEMENT 6", "", "I'll return this book to you as soon as I finish reading it.", "読み終えたらすぐにこの本を返します。"], ["S6-8", "SUPPLEMENT 6", "", "The moment Lily saw Jim, she called out his name.", "リリーはジムを見たとたん、彼の名前を呼びました。"], ["S6-9", "SUPPLEMENT 6", "", "Once you make a promise, you should never break it.", "一度約束したら、絶対に破ってはなりません。"], ["S6-10", "SUPPLEMENT 6", "", "Now that my grandfather is retired, he spends all his free time reading.", "祖父が引退したので、暇な時間のすべてを読書に費やしています。"], ["S6-11", "SUPPLEMENT 6", "", "As long as you keep trying, you have a chance to achieve your goal.", "努力し続ける限り、目標を達成するチャンスがあります。"], ["S6-12", "SUPPLEMENT 6", "", "As far as I can remember, Ken belonged to the baseball team in high school.", "私が覚えている限り、ケンは高校時代に野球部に所属していました。"], ["S6-13", "SUPPLEMENT 6", "", "Call the police in case you see anyone suspicious in this area.", "この地域で不審者を見かけたら、警察に電話してください。"], ["S6-14", "SUPPLEMENT 6", "", "I had better write down your phone number in case I forget it.", "忘れてしまうといけないので、あなたの電話番号を書き留めておいた方がよいでしょう。"], ["S6-15", "SUPPLEMENT 6", "", "I went to bed early for fear that I would oversleep the next morning.", "翌朝寝過ごすのが怖くて、早めに寝ました。"], ["S7-1", "SUPPLEMENT 7", "", "I do want to go to her concert.", "彼女のコンサートにどうしても行きたいです。"], ["S7-2", "SUPPLEMENT 7", "", "I know the food is good, but you shouldn't eat that much.", "食べ物がおいしいことはわかっていますが、そんなに食べてはいけません。"], ["S7-3", "SUPPLEMENT 7", "", "I didn't know that Kyoto gets this hot.", "京都がこれほど暑いとは知りませんでした。"], ["S7-4", "SUPPLEMENT 7", "", "You don't have to apologize at all.", "まったく謝る必要はありません。"], ["S7-5", "SUPPLEMENT 7", "", "I wasn't moved by the movie in the least.", "私はその映画に少しも感動しませんでした。"], ["S7-6", "SUPPLEMENT 7", "", "Why on earth do you say such things?", "一体なぜそんなことを言うのですか？"], ["S7-7", "SUPPLEMENT 7", "", "What in the world should I do in this situation?", "このような状況で、一体何をすればいいのでしょうか？"], ["S7-8", "SUPPLEMENT 7", "", "Do you know anything at all about that incident?", "あの事件について何か知っていますか？"], ["S7-9", "SUPPLEMENT 7", "", "It is that blue coat that I want to try on.", "私が試着したいのはあの青いコートです。"], ["S7-10", "SUPPLEMENT 7", "", "I want to try that blue coat on.", "私はあの青いコートを試着したいです。"], ["S7-11", "SUPPLEMENT 7", "", "What I want to know is your true feelings.", "私が知りたいのはあなたの本心です。"], ["S7-12", "SUPPLEMENT 7", "", "I want to know your true feelings.", "私はあなたの本心を知りたいです。"], ["S7-13", "SUPPLEMENT 7", "", "All they want to do is live in peace.", "彼らがしたいことはただ平和に生きることです。"], ["S7-14", "SUPPLEMENT 7", "", "All they want to do is to live in peace.", "彼らがしたいことはただ平和に生きることです。"], ["S7-15", "SUPPLEMENT 7", "", "Never have I told you a lie.", "あなたに嘘をついたことは一度もありません。"], ["S7-16", "SUPPLEMENT 7", "", "In that old mansion lives an old man.", "その古い屋敷には老人が住んでいます。"], ["S7-17", "SUPPLEMENT 7", "", "Jim is interested in Japanese temples, and so am I.", "ジムは日本の寺院に興味があり、私もそうです。"], ["S7-18", "SUPPLEMENT 7", "", "My brother can't play baseball, and neither can I.", "弟は野球ができないし、私もできません。"]];
+const SENTENCES=DB.map(function(r){return{id:r[0],sec:r[1],num:r[2],en:r[3],ja:r[4]};});
+
+const LSECS=['LESSON 1','LESSON 2','LESSON 3','LESSON 4','LESSON 5',
+  'LESSON 6','LESSON 7','LESSON 8','LESSON 9','LESSON 10',
+  'LESSON 11','LESSON 12','LESSON 13','LESSON 14','LESSON 15'];
+const GSECS=['GRAMMAR PLUS 1','GRAMMAR PLUS 2','GRAMMAR PLUS 3','GRAMMAR PLUS 4'];
+const SSECS=['SUPPLEMENT 1','SUPPLEMENT 2','SUPPLEMENT 3','SUPPLEMENT 4',
+  'SUPPLEMENT 5','SUPPLEMENT 6','SUPPLEMENT 7'];
+
+/* ── STORAGE ── */
+function lsGet(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
+function lsSet(k,v){localStorage.setItem(k,JSON.stringify(v));}
+function getSRS(){return lsGet('eb_srs')||{};}
+function saveSRS(d){lsSet('eb_srs',d);}
+function getCache(){return lsGet('eb_cache')||{};}
+function saveCache(d){lsSet('eb_cache',d);}
+function getCfg(){return lsGet('eb_cfg')||{};}
+function saveCfg(d){lsSet('eb_cfg',d);}
+function getLog(){return lsGet('eb_log')||[];}
+function saveLog(d){lsSet('eb_log',d.slice(-1000));}
+
+/* ── SM-2 ── */
+function sm2(id,grade){
+  const srs=getSRS();
+  const c=srs[id]||{n:0,ef:2.5,iv:1};
+  const q=[0,3,4,5][grade];
+  if(q>=3){
+    c.iv=c.n===0?1:c.n===1?6:Math.round(c.iv*c.ef);
+    c.n++;
+  }else{c.n=0;c.iv=1;}
+  c.ef=Math.max(1.3,c.ef+0.1-(5-q)*(0.08+(5-q)*0.02));
+  const d=new Date();d.setDate(d.getDate()+c.iv);
+  c.due=d.toISOString().slice(0,10);
+  srs[id]=c;saveSRS(srs);return c;
+}
+function today(){return new Date().toISOString().slice(0,10);}
+function isDue(id){const c=(getSRS()[id]);return c&&c.due<=today();}
+function getDue(){return SENTENCES.filter(s=>isDue(s.id));}
+function logRev(id,g){
+  const l=getLog();
+  l.push({id,g,date:today(),ts:Date.now()});
+  saveLog(l);
+}
+
+/* ── API ── */
+async function fetchNotes(en,key){
+  const prompt='以下の英語例文の学習解説をJSONのみで返してください（マークダウン不要）。\n英語例文: "'+en.replace(/"/g,'\\"')+'"\n形式: {"grammar_notes":["文法ポイント"],"vocabulary_notes":["語句: 意味（用法）"]}\ngrammar_notes:2-4個, vocabulary_notes:2-3個。高校英語レベルで日本語で簡潔に。';
+  const r=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,
+      'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,
+      messages:[{role:'user',content:prompt}]})
+  });
+  const data=await r.json();
+  if(data.error)throw new Error(data.error.message);
+  const txt=data.content.map(c=>c.type==='text'?c.text:'').join('');
+  return JSON.parse(txt.replace(/```json|```/g,'').trim());
+}
+async function loadNotes(id,en){
+  const cfg=getCfg();if(!cfg.apiKey)return null;
+  const cache=getCache();if(cache[id])return cache[id];
+  try{
+    const data=await fetchNotes(en,cfg.apiKey);
+    if(data){cache[id]=data;saveCache(cache);}
+    return data;
+  }catch(e){console.error('API:',e);return null;}
+}
+
+/* ── UTILS ── */
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function norm(s){return String(s).trim().toLowerCase().replace(/\s+/g,' ');}
+function getSents(sid){
+  if(sid==='all')return SENTENCES;
+  if(sid==='lessons')return SENTENCES.filter(s=>LSECS.includes(s.sec));
+  if(sid==='gp')return SENTENCES.filter(s=>GSECS.includes(s.sec));
+  if(sid==='sup')return SENTENCES.filter(s=>SSECS.includes(s.sec));
+  if(sid==='due')return getDue();
+  return SENTENCES.filter(s=>s.sec===sid);
+}
+function secProg(sid){
+  const srs=getSRS();const cards=getSents(sid);
+  const studied=cards.filter(s=>srs[s.id]).length;
+  const due=cards.filter(s=>isDue(s.id)).length;
+  return{total:cards.length,studied,due};
+}
+
+/* ── SESSION ── */
+let SES=null;
+function startSession(cards,mode){
+  if(!cards||!cards.length){alert('例文がありません。');return;}
+  SES={cards:shuffle([...cards]),idx:0,mode,phase:'q',
+    avail:[],sel:[],wOk:null,results:[],t0:Date.now(),
+    secId:SES&&SES.secId,againQ:[],inRetry:false};
+  renderStudy();
+}
+function cur(){return SES&&SES.cards[SES.idx];}
+function advance(){
+  SES.idx++;
+  if(SES.idx>=SES.cards.length){
+    if(SES.againQ&&SES.againQ.length>0){
+      SES.cards=shuffle([...SES.againQ]);
+      SES.againQ=[];SES.inRetry=true;SES.idx=0;
+      SES.phase='q';SES.avail=[];SES.sel=[];SES.wOk=null;
+      renderStudy();return;
+    }
+    renderEnd();return;
+  }
+  SES.phase='q';SES.avail=[];SES.sel=[];SES.wOk=null;
+  renderStudy();
+}
+
+/* ── NAV ── */
+let CUR='home';
+function nav(p,params){
+  CUR=p;
+  document.querySelectorAll('.nb').forEach(b=>b.classList.toggle('active',b.dataset.p===p));
+  var mn=document.getElementById('mnav');
+  if(mn)mn.style.display=p?'flex':'none';
+  if(p==='home')rHome();
+  else if(p==='decks')rDecks();
+  else if(p==='stats')rStats();
+  else if(p==='settings')rSettings();
+}
+
+/* ═══════════════════════════════════
+   RENDER HOME
+═══════════════════════════════════ */
+function rHome(){
+  const due=getDue();const srs=getSRS();const log=getLog();const td=today();
+  const todayN=log.filter(l=>l.date===td).length;
+  const studied=Object.keys(srs).length;
+  let streak=0,d=new Date();
+  for(let i=0;i<365;i++){
+    const ds=new Date(d);ds.setDate(ds.getDate()-i);
+    const dstr=ds.toISOString().slice(0,10);
+    if(log.some(l=>l.date===dstr))streak++;else break;
+  }
+  const app=document.getElementById('app');
+  app.innerHTML=`
+<div class="page">
+<div class="ph"><div class="con">
+  <div class="app-title">📖 英語例文暗唱</div>
+  <div class="app-sub">SM-2アルゴリズムで効率的に学習</div>
+</div></div>
+<div class="pc con">
+  <div class="rc card" onclick="showMS('due')">
+    <div class="rc-main">
+      <div class="rc-n">${due.length}</div>
+      <div class="rc-l">今日の復習</div>
+    </div>
+    <div class="rc-sub">${due.length>0?'タップして今すぐ始めましょう':'全て完了しています！'}
+    </div>
+    ${due.length>0
+      ? '<div class="rc-btn">今すぐ復習する →</div>'
+      : '<div class="rc-done">✓ 本日分 完了！</div>'}
+  </div>
+
+  <div class="sr">
+    <div class="sb"><div class="sv">${streak}</div><div class="sl">🔥 連続日数</div></div>
+    <div class="sb"><div class="sv">${studied}</div><div class="sl">📖 学習済み</div></div>
+    <div class="sb"><div class="sv">${todayN}</div><div class="sl">✍️ 本日</div></div>
+  </div>
+
+  <div class="stl">📚 レッスン一覧</div>
+  ${LSECS.slice(0,5).map(sec=>{
+    const p=secProg(sec);
+    return `<div class="ri card" onclick="showMS('${esc(sec)}')">
+      <div class="ri-m">
+        <div class="ri-n">${esc(sec)}</div>
+        <div class="ri-i">${p.studied}/${p.total}枚学習済
+          ${p.due>0?`<span class="badge">${p.due}</span>`:`<span class="gbadge">✓</span>`}</div>
+      </div><div class="ri-a">›</div>
+    </div>`;
+  }).join('')}
+  <button class="bl" onclick="nav('decks')">全てのデッキを見る →</button>
+</div></div>`;
+}
+
+/* ═══════════════════════════════════
+   MODE SELECT
+═══════════════════════════════════ */
+function showMS(sid){
+  const cards=getSents(sid);
+  const label=sid==='due'?`今日の復習 (${getDue().length}枚)`:sid==='all'?`全て (${SENTENCES.length}枚)`:sid;
+  if(SES)SES.secId=sid; else SES={secId:sid};
+  document.getElementById('app').innerHTML=`
+<div class="page">
+<div class="ph"><div class="ph-row con">
+  <button class="back" onclick="nav('${sid==='due'?'home':'decks'}')">←</button>
+  <div>
+    <div class="page-title">${esc(label)}</div>
+    <div style="color:rgba(255,255,255,.7);font-size:12px">${cards.length}枚の例文</div>
+  </div>
+</div></div>
+<div class="pc con">
+  <div class="ms-p">学習モードを選んでください</div>
+  <div class="mc-grid">
+    <div class="mc card" onclick="startSession(getSents('${esc(sid)}'),'flashcard')">
+      <div class="mc-icon">🃏</div>
+      <div class="mc-name">フラッシュカード</div>
+      <div class="mc-desc">英語→日本語訳・文法解説を確認</div>
+    </div>
+    <div class="mc card" onclick="startSession(getSents('${esc(sid)}'),'wordorder')">
+      <div class="mc-icon">🔤</div>
+      <div class="mc-name">語順整序</div>
+      <div class="mc-desc">日本語訳→英語の語順に並べる</div>
+    </div>
+    <div class="mc card" onclick="startSession(getSents('${esc(sid)}'),'writing')">
+      <div class="mc-icon">✍️</div>
+      <div class="mc-name">記述式</div>
+      <div class="mc-desc">日本語訳→英語で書く</div>
+    </div>
+  </div>
+</div></div>`;
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+}
+
+/* ═══════════════════════════════════
+   RENDER STUDY
+═══════════════════════════════════ */
+function renderStudy(){
+  if(!SES)return;
+  const card=cur();if(!card)return;
+  const pct=Math.round(SES.idx/SES.cards.length*100);
+  const prog=`${SES.idx+1}/${SES.cards.length}`;
+  const mIcon=SES.mode==='flashcard'?'🃏':SES.mode==='wordorder'?'🔤':'✍️';
+  const retryHtml=SES.inRetry
+    ?`<div class="retry-banner">🔄 もう一度チャレンジ！ — 残り${SES.cards.length-SES.idx}枚</div>`
+    :'';
+  document.getElementById('app').innerHTML=`
+<div class="sp2">
+  <div class="sh2">
+    <button class="back" onclick="exitStudy()">✕</button>
+    <div class="pi">
+      <div class="pb"><div class="pf" style="width:${pct}%"></div></div>
+      <div class="pt">${prog}</div>
+    </div>
+    <div class="mb2">${mIcon}</div>
+  </div>
+  ${retryHtml}
+  <div class="sb2" id="sb2">${buildStudyBody(card)}</div>
+</div>`;
+  document.getElementById('mnav').style.display='none';
+  // Async: load grammar if flashcard answer phase
+  if(SES.mode==='flashcard'&&SES.phase==='a'){
+    loadNotes(card.id,card.en).then(d=>{
+      if(d)showGC(d); else hideGL();
+    });
+  }
+  // Async: load grammar for wrong answers in other modes
+  if(SES.phase==='a'&&SES.mode!=='flashcard'&&SES.wOk===false){
+    const cache=getCache();
+    if(cache[card.id])showEG(cache[card.id]);
+    else loadNotes(card.id,card.en).then(d=>{if(d)showEG(d);});
+  }
+  // Focus textarea
+  if(SES.mode==='writing'&&SES.phase==='q'){
+    setTimeout(()=>{const el=document.getElementById('wri');if(el)el.focus();},100);
+  }
+}
+
+function buildStudyBody(card){
+  if(SES.mode==='flashcard')return buildFC(card);
+  if(SES.mode==='wordorder')return buildWO(card);
+  return buildWR(card);
+}
+
+/* ─── FLASHCARD ─── */
+function buildFC(card){
+  const lbl=`${esc(card.sec)}${card.num?' '+esc(card.num):''}`;
+  if(SES.phase==='q')return `
+<div class="fcc">
+  <div class="cl">${lbl}</div>
+  <div class="en">${esc(card.en)}</div>
+  <div class="hint">💭 日本語訳と意味を思い浮かべてみましょう</div>
+  <button class="bp" onclick="fcReveal()">訳・解説を見る ▼</button>
+</div>`;
+  return `
+<div class="fcc fca">
+  <div class="cl">${lbl}</div>
+  <div class="en">${esc(card.en)}</div>
+  <div class="dv"></div>
+  <div class="ja">${esc(card.ja)}</div>
+  <div class="gs" id="gs">
+    <div id="gl" class="gl"><span class="da">解説を読み込み中</span></div>
+    <div id="gc" style="display:none">
+      <div class="nblk">
+        <div class="nt">📝 文法ポイント</div>
+        <ul class="nb2" id="gn"></ul>
+      </div>
+      <div class="nblk">
+        <div class="nt">💡 重要語句</div>
+        <ul class="nb2" id="vn"></ul>
+      </div>
+    </div>
+  </div>
+  <div class="dv"></div>
+  <button class="bp fw" onclick="advance()">次へ →</button>
+</div>`;
+}
+function fcReveal(){SES.phase='a';renderStudy();}
+function fcGrade(g){
+  const c=cur();sm2(c.id,g);logRev(c.id,g);
+  SES.results.push({id:c.id,grade:g});advance();
+}
+function showGC(data){
+  const gl=document.getElementById('gl');
+  const gc=document.getElementById('gc');
+  const gn=document.getElementById('gn');
+  const vn=document.getElementById('vn');
+  if(gl)gl.style.display='none';
+  if(gc)gc.style.display='block';
+  if(gn&&data.grammar_notes)
+    gn.innerHTML=data.grammar_notes.map(n=>`<li>${esc(n)}</li>`).join('');
+  if(vn&&data.vocabulary_notes)
+    vn.innerHTML=data.vocabulary_notes.map(n=>`<li>${esc(n)}</li>`).join('');
+}
+function hideGL(){
+  const gl=document.getElementById('gl');
+  const cfg=getCfg();
+  if(gl)gl.innerHTML=cfg.apiKey
+    ?'<span style="color:var(--ng);font-size:13px">解説の読み込みに失敗しました</span>'
+    :'<span class="api-n">⚙️ 設定でAPIキーを入力すると文法解説が表示されます</span>';
+}
+
+/* ─── WORD ORDER ─── */
+function buildWO(card){
+  const lbl=`${esc(card.sec)}${card.num?' '+esc(card.num):''}`;
+  if(SES.phase==='q'){
+    if(!SES.avail.length && !SES.sel.length){
+      SES.avail=shuffle(card.en.trim().split(/\s+/));
+      SES.sel=[];
+    }
+    const selHtml=SES.sel.map((w,i)=>`<button class="ch sl" onclick="woRm(${i})">${esc(w)}</button>`).join('');
+    const avHtml=SES.avail.map((w,i)=>`<button class="ch av" onclick="woAdd(${i})">${esc(w)}</button>`).join('');
+    return `
+<div class="woc">
+  <div class="cl">${lbl}<span class="mt">語順整序</span></div>
+  <div class="jab">${esc(card.ja)}</div>
+  <div class="albl">▶ あなたの答え（タップして並べる）：</div>
+  <div class="aa">${selHtml||'<span class="ap">ここに並べてください…</span>'}</div>
+  <div class="albl">単語バンク：</div>
+  <div class="wb">${avHtml}</div>
+  <div class="woa">
+    <button class="bs" onclick="woReset()">↺ リセット</button>
+    <button class="bp" onclick="woCheck()" ${SES.sel.length===0?'disabled':''}>答え合わせ ✓</button>
+  </div>
+</div>`;
+  }
+  // Answer phase
+  const ok=SES.wOk;
+  return `
+<div class="woc">
+  <div class="cl">${lbl}<span class="mt">語順整序</span></div>
+  <div class="jab">${esc(card.ja)}</div>
+  <div class="${ok?'rko':'rng'}">${ok?'✓ 正解！':'✗ 不正解'}</div>
+  ${!ok?`
+  <div class="ca">
+    <div class="cal">正解：</div>
+    <div class="cat">${esc(card.en)}</div>
+  </div>
+  <div id="egs"></div>`:''}
+  <div class="dv"></div>
+  <div class="g-lbl">どれくらい覚えていましたか？</div>
+  <div class="gbts">
+    <button class="gbt g0" onclick="woGrade(0)">もう一度<br><small>Again</small></button>
+    <button class="gbt g1" onclick="woGrade(1)">難しい<br><small>Hard</small></button>
+    <button class="gbt g2" onclick="woGrade(2)">良い<br><small>Good</small></button>
+    <button class="gbt g3" onclick="woGrade(3)">簡単<br><small>Easy</small></button>
+  </div>
+</div>`;
+}
+function woAdd(i){SES.sel.push(SES.avail.splice(i,1)[0]);renderStudy();}
+function woRm(i){SES.avail.push(SES.sel.splice(i,1)[0]);renderStudy();}
+function woReset(){SES.avail=shuffle([...SES.sel,...SES.avail]);SES.sel=[];renderStudy();}
+function woCheck(){
+  const c=cur();const ans=SES.sel.join(' ');
+  const ok=norm(ans)===norm(c.en);
+  SES.wOk=ok;SES.phase='a';
+  renderStudy();
+}
+function woGrade(g){
+  const c=cur();
+  const eg=(!SES.wOk&&g>=2)?1:g;
+  sm2(c.id,eg);logRev(c.id,eg);
+  SES.results.push({id:c.id,grade:eg,correct:SES.wOk});
+  if(eg===0||(SES.inRetry&&!SES.wOk))SES.againQ.push(c);
+  advance();
+}
+
+/* ─── WRITING ─── */
+function buildWR(card){
+  const lbl=`${esc(card.sec)}${card.num?' '+esc(card.num):''}`;
+  if(SES.phase==='q')return `
+<div class="wrc">
+  <div class="cl">${lbl}<span class="mt">記述式</span></div>
+  <div class="jab">${esc(card.ja)}</div>
+  <div class="wrl">✍️ 英語で書いてください：</div>
+  <textarea class="wri fw" id="wri" rows="3" placeholder="英語の例文を入力…"
+    onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();wrCheck();}"></textarea>
+  <button class="bp fw mt12" onclick="wrCheck()">答え合わせ ✓</button>
+</div>`;
+  const ok=SES.wOk;
+  return `
+<div class="wrc">
+  <div class="cl">${lbl}<span class="mt">記述式</span></div>
+  <div class="jab">${esc(card.ja)}</div>
+  <div class="${ok?'rko':'rng'}">${ok?'✓ 正解！':'✗ 不正解'}</div>
+  ${!ok?`
+  <div class="ca">
+    <div class="cal">あなたの答え：</div>
+    <div class="cat" style="border-left-color:var(--ng);color:var(--ng);background:var(--ng2)">${esc(SES.wrInput||'')}</div>
+  </div>
+  <div class="ca">
+    <div class="cal">正解：</div>
+    <div class="cat">${esc(card.en)}</div>
+  </div>
+  <div id="egs"></div>`:''}
+  <div class="dv"></div>
+  <div class="g-lbl">どれくらい覚えていましたか？</div>
+  <div class="gbts">
+    <button class="gbt g0" onclick="wrGrade(0)">もう一度<br><small>Again</small></button>
+    <button class="gbt g1" onclick="wrGrade(1)">難しい<br><small>Hard</small></button>
+    <button class="gbt g2" onclick="wrGrade(2)">良い<br><small>Good</small></button>
+    <button class="gbt g3" onclick="wrGrade(3)">簡単<br><small>Easy</small></button>
+  </div>
+</div>`;
+}
+function wrCheck(){
+  const c=cur();
+  const inp=document.getElementById('wri');
+  const raw=inp?inp.value:'';
+  SES.wrInput=raw;
+  const ok=norm(raw)===norm(c.en);
+  SES.wOk=ok;SES.phase='a';
+  renderStudy();
+}
+function wrGrade(g){
+  const c=cur();
+  const eg=(!SES.wOk&&g>=2)?1:g;
+  sm2(c.id,eg);logRev(c.id,eg);
+  SES.results.push({id:c.id,grade:eg,correct:SES.wOk});
+  if(eg===0||(SES.inRetry&&!SES.wOk))SES.againQ.push(c);
+  advance();
+}
+
+/* ─── ERROR GRAMMAR ─── */
+function showEG(data){
+  const el=document.getElementById('egs');if(!el)return;
+  const notes=(data.grammar_notes||[]).slice(0,2);
+  if(!notes.length)return;
+  el.innerHTML=`<div class="eg">
+    <div class="egl">📝 文法ヒント</div>
+    <ul class="nb2">${notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
+  </div>`;
+}
+
+/* ─── SESSION END ─── */
+function renderEnd(){
+  const total=SES.cards.length;const mode=SES.mode;
+  const correct=mode!=='flashcard'?SES.results.filter(r=>r.correct).length:0;
+  const elapsed=Math.round((Date.now()-SES.t0)/1000);
+  const timeStr=elapsed>=60?`${Math.floor(elapsed/60)}分${elapsed%60}秒`:`${elapsed}秒`;
+  const sid=SES.secId||'all';
+  document.getElementById('app').innerHTML=`
+<div class="ep">
+<div class="ec">
+  <div class="etr">🎉</div>
+  <div class="etl">セッション完了！</div>
+  <div class="ests">
+    <div class="est"><span class="esv">${total}</span><span class="esl">枚学習</span></div>
+    ${mode!=='flashcard'?`<div class="est"><span class="esv">${total?Math.round(correct/total*100):0}%</span><span class="esl">正解率</span></div>`:''}
+    <div class="est"><span class="esv">${timeStr}</span><span class="esl">所要時間</span></div>
+  </div>
+  <button class="bp fw" onclick="nav('home')">ホームへ戻る</button>
+  <button class="bs fw mt8" onclick="SES.idx=0;showMS('${esc(sid)}')">もう一度やる</button>
+</div>
+</div>`;
+  document.getElementById('mnav').style.display='flex';
+  SES=null;
+}
+function exitStudy(){var sid=SES?SES.secId:null;SES=null;document.getElementById('mnav').style.display='flex';if(sid)showMS(sid);else nav('home');}
+
+/* ═══════════════════════════════════
+   DECKS
+═══════════════════════════════════ */
+function rDecks(){
+  function di(sec){
+    const p=secProg(sec);
+    return `<div class="di card" onclick="showMS('${esc(sec)}')">
+      <div class="di-m">
+        <div class="di-n">${esc(sec)}</div>
+        <div class="di-i">${p.total}枚${p.studied?` · ${p.studied}学習済`:''}
+          ${p.due>0?`<span class="badge">${p.due}</span>`:`${p.studied?'<span class="gbadge">✓</span>':''}`}
+        </div>
+      </div><div class="di-a">›</div>
+    </div>`;
+  }
+  document.getElementById('app').innerHTML=`
+<div class="page">
+<div class="ph"><div class="con"><h1 class="page-title">デッキ選択</h1></div></div>
+<div class="pc con">
+  <div class="di card sp" onclick="showMS('all')">
+    <div class="di-m"><div class="di-n">🗂 全て</div><div class="di-i">${SENTENCES.length}枚</div></div>
+    <div class="di-a">›</div>
+  </div>
+  <div class="di card sp" onclick="showMS('due')">
+    <div class="di-m"><div class="di-n">📅 今日の復習</div><div class="di-i">${getDue().length}枚</div></div>
+    <div class="di-a">›</div>
+  </div>
+  <div class="stl mt16">📚 レッスン</div>
+  ${LSECS.map(di).join('')}
+  <div class="stl mt16">📐 グラマープラス</div>
+  ${GSECS.map(di).join('')}
+  <div class="stl mt16">➕ サプリメント</div>
+  ${SSECS.map(di).join('')}
+</div></div>`;
+}
+
+/* ═══════════════════════════════════
+   STATS
+═══════════════════════════════════ */
+function rStats(){
+  const srs=getSRS();const log=getLog();const td=today();
+  const total=SENTENCES.length;
+  const studied=Object.keys(srs).length;
+  const mastered=Object.values(srs).filter(c=>c.iv>=21).length;
+  const todayN=log.filter(l=>l.date===td).length;
+  const days=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const ds=d.toISOString().slice(0,10);
+    days.push({ds,cnt:log.filter(l=>l.date===ds).length,
+      lbl:['日','月','火','水','木','金','土'][d.getDay()]});
+  }
+  const mx=Math.max(...days.map(d=>d.cnt),1);
+  document.getElementById('app').innerHTML=`
+<div class="page">
+<div class="ph"><div class="con"><h1 class="page-title">学習記録</h1></div></div>
+<div class="pc con">
+  <div class="sr4">
+    <div class="sbox"><div class="sv2">${total}</div><div class="sl2">全カード</div></div>
+    <div class="sbox"><div class="sv2">${studied}</div><div class="sl2">学習済み</div></div>
+    <div class="sbox"><div class="sv2">${mastered}</div><div class="sl2">定着済み</div></div>
+    <div class="sbox"><div class="sv2">${todayN}</div><div class="sl2">本日</div></div>
+  </div>
+  <div class="card mt16">
+    <div class="ctl">📅 過去7日間の学習数</div>
+    <div class="bch">
+      ${days.map(d=>`
+      <div class="bcol">
+        <div class="bw"><div class="bf" style="height:${Math.round(d.cnt/mx*100)}%"></div></div>
+        <div class="bn">${d.cnt||''}</div>
+        <div class="bdy">${d.lbl}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="card mt16">
+    <div class="ctl">📚 レッスン別進捗</div>
+    ${LSECS.map(sec=>{
+      const p=secProg(sec);const pct=p.total?Math.round(p.studied/p.total*100):0;
+      return `<div class="pr">
+        <div class="prn">${esc(sec.replace('LESSON ','L'))}</div>
+        <div class="prb"><div class="prf" style="width:${pct}%"></div></div>
+        <div class="prp">${pct}%</div>
+      </div>`;
+    }).join('')}
+  </div>
+</div></div>`;
+}
+
+/* ═══════════════════════════════════
+   SETTINGS
+═══════════════════════════════════ */
+function rSettings(){
+  const cfg=getCfg();
+  document.getElementById('app').innerHTML=`
+<div class="page">
+<div class="ph"><div class="con"><h1 class="page-title">設定</h1></div></div>
+<div class="pc con">
+  <div class="card setc">
+    <div class="stt">🔑 Anthropic APIキー</div>
+    <div class="std">APIキーを設定すると、フラッシュカードに文法解説・重要語句の解説が自動生成されます。
+      <a href="https://console.anthropic.com" target="_blank" style="color:var(--gd)">
+        コンソールで取得 →</a>
+    </div>
+    <div class="akr">
+      <input type="password" id="aki" class="si" placeholder="sk-ant-..." value="${esc(cfg.apiKey||'')}">
+      <button class="bsm" onclick="saveKey()">保存</button>
+    </div>
+    <div id="aks" style="font-size:13px;margin-top:8px;color:${cfg.apiKey?'var(--ok)':'var(--tx2)'}">
+      ${cfg.apiKey?'✓ APIキー設定済み（解説機能有効）':'APIキーが設定されていません'}
+    </div>
+  </div>
+  <div class="card setc mt12">
+    <div class="stt">📊 学習データ管理</div>
+    <div class="std">全ての学習履歴・SRSスケジュール・解説キャッシュを削除します。</div>
+    <button class="bd" onclick="clearAll()">データをリセット</button>
+  </div>
+  <div class="card setc mt12">
+    <div class="stt">ℹ️ アプリについて</div>
+    <div class="std" style="line-height:1.9">
+      英語例文暗唱アプリ<br>
+      • 例文数: <b>${SENTENCES.length}文</b>（LESSON 1-15 / GP 1-4 / Supplement 1-7）<br>
+      • 間隔反復: <b>SM-2アルゴリズム</b><br>
+      • 4段階評価: もう一度 / 難しい / 良い / 簡単
+    </div>
+  </div>
+</div></div>`;
+}
+function saveKey(){
+  const k=document.getElementById('aki').value.trim();
+  const cfg=getCfg();cfg.apiKey=k;saveCfg(cfg);
+  const s=document.getElementById('aks');
+  if(s){s.textContent=k?'✓ APIキー保存済み（解説機能有効）':'APIキーを削除しました';
+    s.style.color=k?'var(--ok)':'var(--tx2)';}
+}
+function clearAll(){
+  if(confirm('全ての学習データを削除しますか？この操作は取り消せません。')){
+    ['eb_srs','eb_cache','eb_log'].forEach(k=>localStorage.removeItem(k));
+    nav('home');
+  }
+}
+
+/* ── INIT ── */
+nav('home');
+
+</script>
+</body>
+</html>
