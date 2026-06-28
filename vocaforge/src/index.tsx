@@ -43,6 +43,7 @@ app.get('/', (c) => {
   <script src="/static/views2.js"></script>
   <script src="/static/session.js"></script>
   <script src="/static/flashcard.js"></script>
+  <script src="/static/cloud-sync.js"></script>
 </body>
 </html>`)
 })

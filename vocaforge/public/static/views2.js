@@ -116,6 +116,27 @@
   window.__browseFilter = browseFilter;
 
   // ====== 設定 ======
+  // クラウド同期ステータス表示
+  function syncStatusHtml() {
+    const sync = window.VFSync;
+    if (!sync) return '';
+    let icon, text, cls;
+    switch (sync.status) {
+      case 'syncing':
+        icon = 'fa-cloud-arrow-up fa-fade'; text = 'クラウドと同期中…'; cls = 'text-sky-300'; break;
+      case 'saved':
+        icon = 'fa-cloud-check'; cls = 'text-emerald-300';
+        text = 'クラウドに保存済み' + (sync.lastSavedAt ? '（' + new Date(sync.lastSavedAt).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' }) + '）' : '');
+        break;
+      case 'error':
+        icon = 'fa-cloud-exclamation'; text = '同期エラー: ' + (sync.lastError || '不明'); cls = 'text-rose-300'; break;
+      default:
+        icon = 'fa-cloud'; text = 'クラウド同期は自動で行われます'; cls = 'text-slate-400';
+    }
+    return '<div class="flex items-center gap-2 text-xs ' + cls + ' bg-slate-800/60 rounded-lg px-3 py-2 mb-3">' +
+      '<i class="fas ' + icon + '"></i><span>' + text + '</span></div>';
+  }
+
   window.renderSettings = function () {
     const s = Store.getSettings();
     const toggle = (id, label, checked, desc) =>
@@ -139,6 +160,7 @@
             '<div class="text-xs text-slate-400 truncate">' + esc(user.email || '') + '</div></div>' +
             '<i class="fas fa-circle-check text-emerald-400 ml-auto"></i>' +
           '</div>' +
+          syncStatusHtml() +
           '<button id="logout-btn" class="w-full bg-slate-800 text-slate-300 border border-slate-700 rounded-xl py-2.5 text-sm font-bold">' +
             '<i class="fas fa-right-from-bracket mr-2"></i>ログアウト</button>' +
         '</div>';

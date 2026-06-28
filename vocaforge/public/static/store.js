@@ -31,7 +31,16 @@
       return v ? JSON.parse(v) : fallback;
     } catch (e) { return fallback; }
   }
-  function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+  // 書き込み時に変更を通知（クラウド同期トリガー用）。
+  // _suspendDirty 中（インポート/同期適用中）は通知しない。
+  let _dirtyHandlers = [];
+  let _suspendDirty = false;
+  function save(key, val) {
+    localStorage.setItem(key, JSON.stringify(val));
+    if (!_suspendDirty) {
+      _dirtyHandlers.forEach(fn => { try { fn(key); } catch (e) {} });
+    }
+  }
 
   function todayStr(now) {
     const d = new Date(now || Date.now());
@@ -132,6 +141,25 @@
     todayStr,
     reset() {
       Object.values(K).forEach(k => localStorage.removeItem(k));
+      _dirtyHandlers.forEach(fn => { try { fn('reset'); } catch (e) {} });
+    },
+
+    // ---- クラウド同期サポート ----
+    // 書き込み発生時に呼ばれるハンドラを登録（クラウド同期トリガー）
+    onDirty(fn) { if (typeof fn === 'function') _dirtyHandlers.push(fn); },
+    // 同期適用などローカル一括書き換え中はダーティ通知を止める
+    suspendDirty(flag) { _suspendDirty = !!flag; },
+    // exportData と同形のペイロードをそのまま適用（クラウド→ローカル反映用）
+    // mode: 'replace' | 'merge'。通知を出さずに適用する。
+    applyData(payload, mode) {
+      _suspendDirty = true;
+      let res;
+      try {
+        res = this.importData({ type: 'vocaforge-backup', data: payload }, mode || 'replace');
+      } finally {
+        _suspendDirty = false;
+      }
+      return res;
     },
 
     // ---- エクスポート / インポート ----

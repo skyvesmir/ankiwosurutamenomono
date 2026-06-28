@@ -73,6 +73,10 @@
       if (window.VFAuth) window.VFAuth.onChange(() => {
         if (STATE.route === 'settings') render();
       });
+      // クラウド同期ステータスが変化したら設定画面を更新
+      if (window.VFSync) window.VFSync.onChange(() => {
+        if (STATE.route === 'settings') render();
+      });
     } catch (err) {
       app.innerHTML = '<div class="p-8 text-center text-red-400">データ読み込み失敗: ' + err.message + '</div>';
     }

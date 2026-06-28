@@ -10,6 +10,13 @@ import {
   setPersistence,
   browserLocalPersistence
 } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js';
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp
+} from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB7gRd_ZIds2PpGZEQDhB7hfiGeIuRAPTQ',
@@ -23,6 +30,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
 // ログイン状態をローカルに永続化（再訪時も維持）
@@ -61,6 +69,40 @@ const VFAuth = {
       VFAuth._listeners.push(fn);
       // 登録時点の状態を即時通知
       if (VFAuth.ready) fn(VFAuth.user);
+    }
+  },
+
+  // ---- Firestore 同期 ----
+  // クラウドの学習データを取得（未ログイン/未保存なら null）
+  // 返り値: { ok, data } | { ok:false, error }
+  //   data: { cards, logs, settings, daily, seen } もしくは null（ドキュメント未作成）
+  async loadCloud() {
+    if (!VFAuth.user) return { ok: false, error: 'not-logged-in' };
+    try {
+      const snap = await getDoc(doc(db, 'users', VFAuth.user.uid));
+      if (!snap.exists()) return { ok: true, data: null };
+      const raw = snap.data() || {};
+      const data = raw.data || null;
+      return { ok: true, data, updatedAt: raw.updatedAtMs || null };
+    } catch (e) {
+      return { ok: false, error: e && e.code ? e.code : String(e) };
+    }
+  },
+  // クラウドへ学習データを保存
+  //   payload: { cards, logs, settings, daily, seen }
+  async saveCloud(payload) {
+    if (!VFAuth.user) return { ok: false, error: 'not-logged-in' };
+    try {
+      await setDoc(doc(db, 'users', VFAuth.user.uid), {
+        app: 'vocaforge',
+        version: 1,
+        updatedAt: serverTimestamp(),
+        updatedAtMs: Date.now(),
+        data: payload
+      });
+      return { ok: true };
+    } catch (e) {
+      return { ok: false, error: e && e.code ? e.code : String(e) };
     }
   }
 };

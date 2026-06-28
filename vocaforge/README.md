@@ -33,6 +33,8 @@
 - **データのエクスポート/インポート**：学習進捗・記憶状態・統計をJSONファイルに書き出し（エクスポート）、別端末・別ブラウザへ引き継ぎ可能（インポート）。インポートは「統合（足し合わせ）」「置換（上書き）」を選択でき、不正ファイルは自動で拒否する。
 - **データはローカル完結**：学習進捗・FSRS状態・ログは localStorage に保存（サーバー不要・プライバシー保護）。バックアップはエクスポート機能で取得。
 - **Firebase 認証（Googleログイン）**：「設定」タブの「アカウント」からGoogleアカウントでログイン／ログアウト可能。Firebase JS SDK 12.15.0（gstatic CDN、ESモジュール）を `firebase-auth.js` で初期化し、`signInWithPopup` + `GoogleAuthProvider` を使用。ログイン状態は `browserLocalPersistence` で永続化し、`window.VFAuth` 経由で非moduleのアプリ本体と橋渡しする。
+- **クラウド同期（Firestore）**：ログインすると学習データ（カード記憶状態・ログ・設定・日次・既出）を Firestore（`users/{uid}` 1ドキュメント）に自動同期。ローカル更新をデバウンス（約1.5秒）してクラウドに保存し、複数端末間で進捗を共有できる。設定画面に同期ステータス（同期中／保存済み／エラー）を表示。
+- **ゲストデータの引き継ぎと競合解決**：ログイン前（未ログイン=localStorage）に進めた学習データは、初回ログイン時にFirestoreへ引き継ぐ。クラウド側にも既にデータがある場合は、ユーザーに「統合（マージ）／クラウド優先／この端末優先」を確認して適用する。
 
 ## 機能エントリ（URI）
 - `GET /` — アプリ本体（SPA）
@@ -47,6 +49,7 @@
 - **語源カード**: `{id, category(prefix/suffix/root), headword, variants, theme, themeGroup(意味大分類), group("category:themeGroup"複合キー), core(コア意味), derived, origin, image_hint, examples[], tips, confusion, importance, learnable}`
 - **語源グループ（meta.etym_groups）**: `{category, theme, key, count}` — カテゴリ×意味大分類の選択単位（38グループ）
 - **記憶状態（localStorage）**: `{state, stability(S), difficulty(D), due, last_review, reps, lapses, is_leech}`（FSRS）
+- **クラウドドキュメント（Firestore `users/{uid}`）**: `{app:'vocaforge', version, updatedAt(server), updatedAtMs, data:{cards, logs, settings, daily, seen}}`
 - **復習ログ（localStorage）**: `{card_id, reviewed_at, grade, format, elapsed_days, duration_ms, s_before/after, d_before/after}`
 - **バックアップファイル（エクスポート/インポート）**: `{app:'vocaforge', type:'vocaforge-backup', version, exportedAt, data:{cards, logs, settings, daily, seen}}`
 
@@ -64,11 +67,11 @@
 - **アルゴリズム**: FSRS-4.5（自前実装、デフォルト重み）
 - **永続化**: ブラウザ localStorage
 - **認証**: Firebase Authentication（Googleログイン、JS SDK 12.15.0）
+- **クラウド同期**: Cloud Firestore（`users/{uid}` に学習データを1ドキュメント保存、デバウンス自動同期）
 
 ## 未実装・今後の推奨ステップ
 - 穴埋め（Cloze）形式カードの追加（ガイド推奨の最重要形式の一つ）
 - 復習ログ1000件以上蓄積後のFSRSパラメータ自動最適化
-- ログインユーザーごとのクラウド同期（Firestore 等による複数端末間の進捗共有）
 - 音声読み上げ（TTS）による発音学習
 - 例文・コロケーションの追加
 
@@ -76,8 +79,11 @@
 - **プラットフォーム**: Cloudflare Pages
 - **ステータス**: ✅ ローカル稼働中（PM2 + wrangler pages dev, port 3000）
 - **本番URL**: 未デプロイ
-- **最終更新**: 2026-06-27
-- **Firebaseコンソール設定（要対応）**: ポップアップ/リダイレクト認証を動かすには、Firebaseコンソール → Authentication → Settings → 承認済みドメイン に公開ドメイン（`*.pages.dev` 本番／サンドボックスドメイン）を追加する必要がある。
+- **最終更新**: 2026-06-28
+- **Firebaseコンソール設定（要対応）**:
+  - Authentication → Sign-in method で **Google を有効化**。
+  - Authentication → Settings → 承認済みドメイン に公開ドメイン（`*.pages.dev` 本番／サンドボックスドメイン）を追加。
+  - **Firestore を有効化**し、セキュリティルールで「本人のみ自分の `users/{uid}` を読み書き可」に設定（例: `allow read, write: if request.auth != null && request.auth.uid == userId;`）。
 
 ## ローカル実行
 ```bash
