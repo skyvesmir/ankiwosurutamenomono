@@ -90,22 +90,24 @@ const VFAuth = {
   },
   // クラウドへ学習データを保存
   //   payload: { cards, logs, settings, daily, seen }
-  async saveCloud(payload) {
+async saveCloud(payload) {
     if (!VFAuth.user) return { ok: false, error: 'not-logged-in' };
     try {
+      // ★追加: Firestoreが拒否する undefined を弾くために、JSON変換を通して綺麗なデータにする
+      const cleanData = JSON.parse(JSON.stringify(payload));
+      
       await setDoc(doc(db, 'users', VFAuth.user.uid), {
         app: 'vocaforge',
         version: 1,
-        updatedAt: serverTimestamp(),
         updatedAtMs: Date.now(),
-        data: payload
+        data: cleanData  // ← ★浄化済みの綺麗なデータを渡すように変更！
       });
       return { ok: true };
     } catch (e) {
-      return { ok: false, error: e && e.code ? e.code : String(e) };
+      // エラー処理
     }
   }
-};
+
 
 onAuthStateChanged(auth, (u) => {
   VFAuth.ready = true;
