@@ -30,7 +30,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app,'vocaforge');
+// カスタムデータベースID 'vocaforge' を明示指定（デフォルトDBではない）
+const db = getFirestore(app, 'vocaforge');
 const provider = new GoogleAuthProvider();
 
 // ログイン状態をローカルに永続化（再訪時も維持）
@@ -90,24 +91,27 @@ const VFAuth = {
   },
   // クラウドへ学習データを保存
   //   payload: { cards, logs, settings, daily, seen }
-async saveCloud(payload) {
+  async saveCloud(payload) {
     if (!VFAuth.user) return { ok: false, error: 'not-logged-in' };
     try {
-      // ★追加: Firestoreが拒否する undefined を弾くために、JSON変換を通して綺麗なデータにする
+      // Firestoreは undefined を含むと "Unsupported field value: undefined" で
+      // 保存を拒否するため、シリアライズ＆デシリアライズで undefined を確実に除去する。
       const cleanData = JSON.parse(JSON.stringify(payload));
-      
+
       await setDoc(doc(db, 'users', VFAuth.user.uid), {
         app: 'vocaforge',
         version: 1,
+        updatedAt: serverTimestamp(),
         updatedAtMs: Date.now(),
-        data: cleanData  // ← ★浄化済みの綺麗なデータを渡すように変更！
+        data: cleanData
       });
       return { ok: true };
     } catch (e) {
-      // エラー処理
+      console.error('Firestore saveCloud error:', e);
+      return { ok: false, error: e && e.code ? e.code : String(e) };
     }
   }
-
+};
 
 onAuthStateChanged(auth, (u) => {
   VFAuth.ready = true;

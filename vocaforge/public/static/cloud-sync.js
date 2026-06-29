@@ -163,15 +163,31 @@
   }
 
   // ---- ログイン状態に追従 ----
+  // 「アプリ起動時の未ログイン検知(null)」と「実際のログアウト」を区別するため、
+  // 直前まで実際にログインしていたかを wasLoggedIn で保持する。
+  let wasLoggedIn = false;
   Auth.onChange((user) => {
     if (user) {
+      wasLoggedIn = true;
       initialSync();
     } else {
-      // ログアウト: 同期停止（ローカルデータはそのまま残す）
+      // null には2種類ある: ①起動時の未ログイン ②明示的ログアウト
+      const doReset = wasLoggedIn;
+
+      // 1. 先に同期を完全停止（Store.reset() の onDirty で自動アップロードが誤発火するのを防ぐ）
+      clearTimeout(saveTimer);
       VFSync.enabled = false;
       VFSync.status = 'idle';
       VFSync.lastSavedAt = null;
+      VFSync.lastError = null;
       VFSync._emit();
+      wasLoggedIn = false;
+
+      // 2. ログイン状態からのログアウト時のみ、ローカルデータを破棄しホームへ
+      if (doReset) {
+        if (global.Store && global.Store.reset) global.Store.reset();
+        if (global.__go) global.__go('home');
+      }
     }
   });
 
