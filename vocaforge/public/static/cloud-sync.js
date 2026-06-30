@@ -9,7 +9,6 @@
   'use strict';
 
   const Store = global.Store;
-  const Auth = global.VFAuth;
 
   const VFSync = {
     enabled: false,     // クラウド同期が有効（ログイン済み＆初期同期完了）
@@ -33,7 +32,20 @@
     }
   };
 
-  if (!Auth) { global.VFSync = VFSync; return; }
+  global.VFSync = VFSync;
+
+  // VFAuth は module スクリプトで定義されるため cloud-sync.js より後に用意される。
+  // 既に在ればすぐ、無ければ 'vfauth-ready' を待って初期化する。
+  if (global.VFAuth) {
+    setup(global.VFAuth);
+  } else {
+    global.addEventListener('vfauth-ready', function () {
+      if (global.VFAuth) setup(global.VFAuth);
+    }, { once: true });
+  }
+
+  // ===== ここから先は VFAuth 確定後に動く =====
+  function setup(Auth) {
 
   // ---- 自動保存（デバウンス）----
   let saveTimer = null;
@@ -191,5 +203,5 @@
     }
   });
 
-  global.VFSync = VFSync;
+  } // end setup()
 })(window);

@@ -124,3 +124,6 @@ onAuthStateChanged(auth, (u) => {
 });
 
 window.VFAuth = VFAuth;
+// 非moduleスクリプト（cloud-sync.js など）は module より先に実行されるため、
+// VFAuth が用意できたことを通知して初期化を促す。
+try { window.dispatchEvent(new Event('vfauth-ready')); } catch (e) {}
