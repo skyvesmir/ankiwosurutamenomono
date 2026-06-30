@@ -70,7 +70,8 @@
         cardId: card.id,
         questionLabel: '日本語に合う英語を入力',
         prompt: card.meaning,
-        sub: card.hint || '',
+        // 語源カードのヒント(origin: 語源言語など)は答えが分かってしまうため表示しない
+        sub: isEtym ? '' : (card.hint || ''),
         answer: card.term,
         acceptable: acceptableAnswers(card.term)
       };
