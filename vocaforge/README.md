@@ -32,9 +32,9 @@
 - **設定**：目標保持率、1日の新規上限、出題形式のON/OFF、インターリービング、採点厳格度、データリセット。
 - **データのエクスポート/インポート**：学習進捗・記憶状態・統計をJSONファイルに書き出し（エクスポート）、別端末・別ブラウザへ引き継ぎ可能（インポート）。インポートは「統合（足し合わせ）」「置換（上書き）」を選択でき、不正ファイルは自動で拒否する。
 - **データはローカル完結**：学習進捗・FSRS状態・ログは localStorage に保存（サーバー不要・プライバシー保護）。バックアップはエクスポート機能で取得。
-- **Firebase 認証（Googleログイン）**：「設定」タブの「アカウント」からGoogleアカウントでログイン／ログアウト可能。Firebase JS SDK 12.15.0（gstatic CDN、ESモジュール）を `firebase-auth.js` で初期化し、`signInWithPopup` + `GoogleAuthProvider` を使用。ログイン状態は `browserLocalPersistence` で永続化し、`window.VFAuth` 経由で非moduleのアプリ本体と橋渡しする。
-- **クラウド同期（Firestore）**：ログインすると学習データ（カード記憶状態・ログ・設定・日次・既出）を Firestore（`users/{uid}` 1ドキュメント）に自動同期。ローカル更新をデバウンス（約1.5秒）してクラウドに保存し、複数端末間で進捗を共有できる。設定画面に同期ステータス（同期中／保存済み／エラー）を表示。
-- **ゲストデータの引き継ぎと競合解決**：ログイン前（未ログイン=localStorage）に進めた学習データは、初回ログイン時にFirestoreへ引き継ぐ。クラウド側にも既にデータがある場合は、ユーザーに「統合（マージ）／クラウド優先／この端末優先」を確認して適用する。
+- **Supabase 認証（Googleログイン）**：「設定」タブの「アカウント」からGoogleアカウントでログイン／ログアウト可能。Supabase JS SDK v2（esm.sh CDN、ESモジュール）を `supabase-auth.js` で初期化し、`signInWithOAuth({provider:'google'})`（リダイレクト方式）を使用。ログイン状態は `persistSession` で永続化し、`window.VFAuth` 経由で非moduleのアプリ本体と橋渡しする。
+- **クラウド同期（Supabase Database）**：ログインすると学習データ（カード記憶状態・ログ・設定・日次・既出）を Supabase の `user_data` テーブル（`user_id` 1行・`jsonb`）に自動同期。ローカル更新をデバウンス（約1.5秒）して `upsert` で保存し、複数端末間で進捗を共有できる。設定画面に同期ステータス（同期中／保存済み／エラー）を表示。
+- **ゲストデータの引き継ぎと競合解決**：ログイン前（未ログイン=localStorage）に進めた学習データは、初回ログイン時に Supabase へ引き継ぐ。クラウド側にも既にデータがある場合は、ユーザーに「統合（マージ）／クラウド優先／この端末優先」を確認して適用する。
 
 ## 機能エントリ（URI）
 - `GET /` — アプリ本体（SPA）
@@ -49,7 +49,7 @@
 - **語源カード**: `{id, category(prefix/suffix/root), headword, variants, theme, themeGroup(意味大分類), group("category:themeGroup"複合キー), core(コア意味), derived, origin, image_hint, examples[], tips, confusion, importance, learnable}`
 - **語源グループ（meta.etym_groups）**: `{category, theme, key, count}` — カテゴリ×意味大分類の選択単位（38グループ）
 - **記憶状態（localStorage）**: `{state, stability(S), difficulty(D), due, last_review, reps, lapses, is_leech}`（FSRS）
-- **クラウドドキュメント（Firestore `users/{uid}`）**: `{app:'vocaforge', version, updatedAt(server), updatedAtMs, data:{cards, logs, settings, daily, seen}}`
+- **クラウド行（Supabase `public.user_data`）**: `{user_id(uuid, PK), data(jsonb):{cards, logs, settings, daily, seen}, updated_at(timestamptz), updated_at_ms(bigint)}`
 - **復習ログ（localStorage）**: `{card_id, reviewed_at, grade, format, elapsed_days, duration_ms, s_before/after, d_before/after}`
 - **バックアップファイル（エクスポート/インポート）**: `{app:'vocaforge', type:'vocaforge-backup', version, exportedAt, data:{cards, logs, settings, daily, seen}}`
 
@@ -66,8 +66,8 @@
 - **フロントエンド**: Vanilla JS（依存最小）＋ TailwindCSS（CDN）＋ Font Awesome
 - **アルゴリズム**: FSRS-4.5（自前実装、デフォルト重み）
 - **永続化**: ブラウザ localStorage
-- **認証**: Firebase Authentication（Googleログイン、JS SDK 12.15.0）
-- **クラウド同期**: Cloud Firestore（`users/{uid}` に学習データを1ドキュメント保存、デバウンス自動同期）
+- **認証**: Supabase Auth（Google OAuth、JS SDK v2）
+- **クラウド同期**: Supabase Database（`public.user_data` に学習データを1行=jsonbで保存、デバウンス自動同期）
 
 ## 未実装・今後の推奨ステップ
 - 穴埋め（Cloze）形式カードの追加（ガイド推奨の最重要形式の一つ）
@@ -79,11 +79,23 @@
 - **プラットフォーム**: Cloudflare Pages
 - **ステータス**: ✅ ローカル稼働中（PM2 + wrangler pages dev, port 3000）
 - **本番URL**: 未デプロイ
-- **最終更新**: 2026-06-28
-- **Firebaseコンソール設定（要対応）**:
-  - Authentication → Sign-in method で **Google を有効化**。
-  - Authentication → Settings → 承認済みドメイン に公開ドメイン（`*.pages.dev` 本番／サンドボックスドメイン）を追加。
-  - **Firestore を有効化**し、セキュリティルールで「本人のみ自分の `users/{uid}` を読み書き可」に設定（例: `allow read, write: if request.auth != null && request.auth.uid == userId;`）。
+- **最終更新**: 2026-07-02（認証・クラウド同期を Firebase → Supabase に移行）
+- **Supabase 側の設定（要対応）**:
+  - Authentication → Providers で **Google を有効化**（Google Cloud の OAuth クライアントID/シークレットを登録）。
+  - Authentication → URL Configuration の **Redirect URLs** に公開URL（`*.pages.dev` 本番／サンドボックス）と `http://localhost:3000` を追加。
+  - **`user_data` テーブルを作成**し、RLS を有効化して「本人の行のみ読み書き可」ポリシーを設定（下記SQL参照）。
+
+```sql
+create table public.user_data (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  data jsonb,
+  updated_at timestamptz default now(),
+  updated_at_ms bigint
+);
+alter table public.user_data enable row level security;
+create policy "own rows" on public.user_data
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+```
 
 ## ローカル実行
 ```bash

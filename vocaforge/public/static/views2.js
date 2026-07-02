@@ -145,7 +145,7 @@
       (desc ? '<span class="block text-xs text-slate-400 mt-0.5">' + desc + '</span>' : '') + '</span>' +
       '<input type="checkbox" data-set="' + id + '" ' + (checked ? 'checked' : '') + ' class="w-11 h-6 appearance-none rounded-full bg-slate-700 checked:bg-brand relative transition cursor-pointer toggle"></label>';
 
-    // ---- アカウント（Firebase認証）----
+    // ---- アカウント（Supabase認証）----
     const auth = window.VFAuth;
     const user = auth && auth.current ? auth.current() : null;
     let accountHtml;

@@ -34,7 +34,7 @@ app.get('/', (c) => {
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased">
   <div id="app"></div>
-  <script type="module" src="/static/firebase-auth.js"></script>
+  <script type="module" src="/static/supabase-auth.js"></script>
   <script src="/static/fsrs.js"></script>
   <script src="/static/store.js"></script>
   <script src="/static/quiz.js"></script>
