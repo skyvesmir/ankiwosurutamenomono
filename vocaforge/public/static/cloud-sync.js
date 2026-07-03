@@ -63,6 +63,8 @@
       VFSync.status = 'saved';
       VFSync.lastSavedAt = Date.now();
       VFSync.lastError = null;
+      // クラウドに反映済みの内容としてローカル時刻を確定（新旧判定のズレ防止）
+      if (typeof res.updatedAt === 'number') Store.setUpdatedAt(res.updatedAt);
     } else {
       VFSync.status = 'error';
       VFSync.lastError = res.error;
@@ -73,6 +75,20 @@
 
   // ローカル書き込みを監視 → クラウドへ反映
   Store.onDirty(() => scheduleSave());
+
+  // ページを閉じる/バックグラウンドに移る直前に、保留中の保存を確定させる
+  // （デバウンス待ち中の未保存分が失われないように）
+  function flushIfPending() {
+    if (VFSync.enabled && saveTimer) {
+      clearTimeout(saveTimer);
+      saveTimer = null;
+      pushNow();
+    }
+  }
+  global.addEventListener('visibilitychange', function () {
+    if (global.document && global.document.visibilityState === 'hidden') flushIfPending();
+  });
+  global.addEventListener('pagehide', flushIfPending);
 
   // ---- ローカルにゲストデータが存在するか ----
   function localHasData() {
@@ -106,6 +122,8 @@
     }
 
     const cloud = res.data;            // null もしくは {cards,logs,settings,daily,seen}
+    const cloudUpdatedAt = res.updatedAt || 0;
+    const localUpdatedAt = Store.getUpdatedAt();
     const hasCloud = cloudHasData(cloud);
     const hasLocal = localHasData();
 
@@ -116,56 +134,32 @@
     } else if (!hasLocal) {
       // ローカルが空 → クラウドを取り込む
       Store.applyData(cloud, 'replace');
+      Store.setUpdatedAt(cloudUpdatedAt);
       VFSync.enabled = true;
       VFSync.status = 'saved';
       VFSync.lastSavedAt = Date.now();
       VFSync._emit();
       rerender();
     } else {
-      // 両方にデータあり → ユーザーに選択させる
-      const choice = askConflict();
-      if (choice === 'merge') {
-        // クラウドを土台にローカルを統合 → 統合結果をアップロード
-        Store.applyData(cloud, 'replace');   // まずクラウドを反映
-        // ローカル退避分を merge で足し戻す
-        Store.applyData(localSnapshot, 'merge');
-        VFSync.enabled = true;
-        await pushNow();
-        rerender();
-      } else if (choice === 'cloud') {
+      // 両方にデータあり → 確認ダイアログは出さず、
+      // 「進んでいる方（最終更新が新しい方）」を自動採用する。
+      if (cloudUpdatedAt > localUpdatedAt) {
+        // クラウドの方が新しい → クラウドで上書き
         Store.applyData(cloud, 'replace');
+        Store.setUpdatedAt(cloudUpdatedAt);
         VFSync.enabled = true;
         VFSync.status = 'saved';
         VFSync.lastSavedAt = Date.now();
         VFSync._emit();
         rerender();
-      } else { // 'local'
+      } else {
+        // ローカルの方が新しい（または同時刻） → ローカルでクラウドを上書き
         VFSync.enabled = true;
-        await pushNow();   // ローカルでクラウドを上書き
+        await pushNow();
         rerender();
       }
     }
     VFSync._initializing = false;
-  }
-
-  // 競合解決の選択（マージ / クラウド優先 / ローカル優先）
-  let localSnapshot = null;
-  function askConflict() {
-    // 比較用にローカルの現状を退避（merge 用）
-    localSnapshot = Store.exportData().data;
-    // confirm を2段で使い、3択を表現する
-    const a = global.confirm(
-      'この端末（ログイン前）の学習データと、クラウドに保存済みのデータの両方が見つかりました。\n\n' +
-      '［OK］ 2つを統合する（おすすめ）\n' +
-      '［キャンセル］ どちらか一方を選ぶ'
-    );
-    if (a) return 'merge';
-    const b = global.confirm(
-      'どちらのデータを優先しますか？\n\n' +
-      '［OK］ クラウドのデータを使う（この端末の未ログイン分は破棄）\n' +
-      '［キャンセル］ この端末のデータを使う（クラウドを上書き）'
-    );
-    return b ? 'cloud' : 'local';
   }
 
   function rerender() {

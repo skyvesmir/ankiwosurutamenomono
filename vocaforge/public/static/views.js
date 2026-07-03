@@ -50,16 +50,22 @@
         '<div class="text-[10px] text-slate-400">連続学習</div></div>' +
       '</header>' +
 
-      // 今日のおすすめ
+      // 今日のおすすめ（復習優先 → 復習ゼロで新規解禁）
       '<div class="bg-gradient-to-br from-indigo-600 to-violet-600 rounded-2xl p-5 mb-5 shadow-lg shadow-indigo-900/40">' +
         '<div class="flex items-center justify-between">' +
           '<div><div class="text-sm opacity-90">今日の学習</div>' +
           '<div class="text-3xl font-extrabold">復習 ' + totalDue + ' 件</div>' +
-          '<div class="text-xs opacity-80 mt-1">能動的想起 × 分散学習で記憶を定着</div></div>' +
+          '<div class="text-xs opacity-80 mt-1">' +
+            (totalDue > 0 ? 'まず復習から。終わると新規学習が解禁されます' : '復習は完了。新規学習を始めましょう') + '</div></div>' +
           '<i class="fas fa-bolt text-4xl opacity-30"></i>' +
         '</div>' +
-        '<button data-go="session" data-deck="mix" data-group="due" class="mt-4 w-full bg-white text-indigo-700 font-bold rounded-xl py-3 active:scale-95 transition">' +
-          (totalDue > 0 ? '<i class="fas fa-play mr-2"></i>復習を開始' : '<i class="fas fa-plus mr-2"></i>新規学習を開始') + '</button>' +
+        (totalDue > 0
+          ? '<button data-go="session" data-deck="mix" data-group="due" class="mt-4 w-full bg-white text-indigo-700 font-bold rounded-xl py-3 active:scale-95 transition">' +
+              '<i class="fas fa-play mr-2"></i>復習を開始（' + totalDue + '件）</button>' +
+            '<button data-go="decks" class="mt-2 w-full bg-white/15 text-white font-bold rounded-xl py-2.5 active:scale-95 transition text-sm">' +
+              '<i class="fas fa-lock mr-2 opacity-70"></i>新規学習（復習後に解禁）</button>'
+          : '<button data-go="decks" class="mt-4 w-full bg-white text-indigo-700 font-bold rounded-xl py-3 active:scale-95 transition">' +
+              '<i class="fas fa-plus mr-2"></i>新規学習を開始</button>') +
       '</div>' +
 
       // サマリ

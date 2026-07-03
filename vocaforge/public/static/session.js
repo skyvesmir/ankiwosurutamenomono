@@ -9,6 +9,19 @@
   const esc = window.__esc;
   const app = document.getElementById('app');
 
+  // 復習が残っているか（全デッキ横断）。新規学習の解禁判定に使う。
+  function hasGlobalDueReviews(now) {
+    now = now || Date.now();
+    const states = Store.getAllCards();
+    const all = [].concat(VF.deckCards('words'), VF.deckCards('phrases'), VF.deckCards('etym'));
+    for (let i = 0; i < all.length; i++) {
+      const s = states[all[i].id];
+      if (s && s.state !== 'new' && s.due <= now) return true;
+    }
+    return false;
+  }
+  window.__hasGlobalDueReviews = hasGlobalDueReviews;
+
   function buildQueue(deck, group) {
     const settings = Store.getSettings();
     const now = Date.now();
@@ -30,33 +43,44 @@
       else if (s.due <= now) due.push(c);
     });
 
-    // 復習は期限の早い順
+    // 復習は期限の早い順（=最も忘れかけているものから）
     due.sort((a, b) => (states[a.id].due) - (states[b.id].due));
-    // リーチは後回し気味（干渉回避）にせず通常通り出すが、印を付ける
 
-    // 新規はセクション順（=配列順）、1日上限を尊重
-    let newAllowed = Math.max(0, settings.newPerDay - daily.new);
-    if (group && group !== 'due' && group !== 'all' && deck !== 'mix') {
-      // 特定セクションを明示選択した場合は上限を緩める（学習意欲尊重）
-      newAllowed = Math.max(newAllowed, 50);
-    }
     let revAllowed = Math.max(0, settings.reviewPerDay - daily.review);
+    const dueQueue = due.slice(0, revAllowed);
 
-    let queue = due.slice(0, revAllowed).concat(fresh.slice(0, newAllowed));
+    // 復習専用モード: ①ホームの「復習を開始」(group==='due') か ②復習がまだ残っている間は新規を出さない
+    const reviewOnly = (group === 'due');
 
-    // 何も無ければ（=その日完了）新規を少し追加 or 全体から最も期限近いもの
-    if (queue.length === 0) {
-      queue = fresh.slice(0, Math.max(10, newAllowed)) ;
-      if (queue.length === 0) {
-        // 全部学習済み→期限近い順に20件
-        queue = pool.map(c => ({ c, due: (states[c.id] ? states[c.id].due : Infinity) }))
-          .sort((a, b) => a.due - b.due).slice(0, 20).map(x => x.c);
+    // 新規学習は「復習が終わってから」解禁する。
+    //  - この対象プール内に未消化の復習があるうちは新規を出さない
+    //  - 全デッキで見ても復習が残っていれば新規は出さない（復習優先の徹底）
+    let queue;
+    if (reviewOnly) {
+      queue = dueQueue; // 復習だけ
+    } else if (dueQueue.length > 0 || hasGlobalDueReviews(now)) {
+      // まだ復習が残っている → 復習を優先し、新規は出さない
+      queue = dueQueue;
+    } else {
+      // 復習が片付いた → ここで初めて新規を解禁
+      let newAllowed = Math.max(0, settings.newPerDay - daily.new);
+      if (group && group !== 'due' && group !== 'all' && deck !== 'mix') {
+        // 特定セクションを明示選択した場合は上限を緩める（学習意欲尊重）
+        newAllowed = Math.max(newAllowed, 50);
       }
+      queue = fresh.slice(0, newAllowed);
+    }
+
+    // 何も無ければ（=その日完了）フォールバック
+    if (queue.length === 0 && !reviewOnly) {
+      // 復習が無く新規も上限に達した → 全体から期限近い順に少し出す
+      queue = pool.map(c => ({ c, due: (states[c.id] ? states[c.id].due : Infinity) }))
+        .sort((a, b) => a.due - b.due).slice(0, 20).map(x => x.c);
     }
 
     if (settings.interleave) queue = Quiz.shuffle(queue);
     // プール（誤答生成用）は形式別に十分な数が要る
-    return { queue, pool, settings };
+    return { queue, pool, settings, reviewOnly, dueTotal: due.length };
   }
 
   function pickFormat(settings) {
@@ -66,9 +90,9 @@
   }
 
   function start(deck, group) {
-    const { queue, pool, settings } = buildQueue(deck, group);
+    const { queue, pool, settings, reviewOnly } = buildQueue(deck, group);
     if (queue.length === 0) {
-      app.innerHTML = emptyState();
+      app.innerHTML = emptyState(reviewOnly);
       bindBack();
       return;
     }
@@ -77,7 +101,8 @@
       deck, group, pool, settings,
       queue, idx: 0, total: queue.length,
       correct: 0, answered: 0, startTs: Date.now(),
-      reAdd: []
+      reAdd: [],
+      againIds: {} // Again を選んだカードID → 再出題時は必ず記入式(type-je)
     };
     nextCard();
   }
@@ -91,7 +116,8 @@
       if (s.idx >= s.queue.length) return finish();
     }
     const card = s.queue[s.idx];
-    const format = pickFormat(s.settings);
+    // Again を選んだカードは、再出題時に必ず記入式(type-je)で出す（能動的想起を強制）
+    const format = (s.againIds && s.againIds[card.id]) ? 'type-je' : pickFormat(s.settings);
     // プールは同deck内（mixは同サブグループ寄せ）
     let pool = s.pool;
     if (card.deck) pool = s.pool.filter(p => p.deck === card.deck);
@@ -295,8 +321,10 @@
     // セッション集計
     s.answered++;
     if (correct) s.correct++;
-    // Again は当日中に再出題
-    if (grade === 1) s.reAdd.push(card);
+    // Again は当日中に再出題。再出題時は必ず記入式で出すためマークする
+    if (grade === 1) { s.reAdd.push(card); s.againIds[card.id] = true; }
+    // 記入式で正解できたら Again マークを解除（定着とみなす）
+    else if (s.againIds[card.id] && q.format === 'type-je' && correct) { delete s.againIds[card.id]; }
 
     s.idx++;
     nextCard();
@@ -327,11 +355,14 @@
     return '<div class="bg-slate-900 border border-slate-800 rounded-xl py-4"><div class="text-2xl font-extrabold">' + v + '</div><div class="text-xs text-slate-400 mt-0.5">' + l + '</div></div>';
   }
 
-  function emptyState() {
+  function emptyState(reviewOnly) {
+    const msg = reviewOnly
+      ? '復習期限のカードはありません。お疲れさま！新規学習はホームから始められます。'
+      : '復習も新規もありません。新規カードの上限は設定で増やせます。';
     return '<div class="max-w-xl mx-auto min-h-screen flex flex-col items-center justify-center px-6 text-center">' +
       '<i class="fas fa-mug-hot text-5xl text-slate-600 mb-4"></i>' +
-      '<h1 class="text-xl font-extrabold mb-1">今日の分は完了！</h1>' +
-      '<p class="text-slate-400 text-sm mb-6">復習期限のカードはありません。新規カードは設定で増やせます。</p>' +
+      '<h1 class="text-xl font-extrabold mb-1">' + (reviewOnly ? '復習は完了！' : '今日の分は完了！') + '</h1>' +
+      '<p class="text-slate-400 text-sm mb-6">' + msg + '</p>' +
       '<button id="back-btn" class="bg-brand text-white font-bold rounded-xl py-3 px-8">戻る</button></div>';
   }
   function bindBack() { const b = $('#back-btn'); if (b) b.onclick = () => VF.go('home'); }

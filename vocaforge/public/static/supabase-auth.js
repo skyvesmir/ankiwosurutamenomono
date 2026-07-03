@@ -108,19 +108,20 @@ const VFAuth = {
     try {
       // undefined を確実に除去（jsonb に安全に載せるため）
       const cleanData = JSON.parse(JSON.stringify(payload));
+      const nowMs = Date.now();
       const { error } = await supabase
         .from(TABLE)
         .upsert({
           user_id: VFAuth.user.uid,
           data: cleanData,
-          updated_at: new Date().toISOString(),
-          updated_at_ms: Date.now()
+          updated_at: new Date(nowMs).toISOString(),
+          updated_at_ms: nowMs
         }, { onConflict: 'user_id' });
       if (error) {
         console.error('Supabase saveCloud error:', error);
         return { ok: false, error: error.message || String(error) };
       }
-      return { ok: true };
+      return { ok: true, updatedAt: nowMs };
     } catch (e) {
       console.error('Supabase saveCloud error:', e);
       return { ok: false, error: String(e) };

@@ -12,7 +12,8 @@
     logs: NS + 'logs',       // [ {card_id, reviewed_at, grade, elapsed_days, duration_ms, s_before,d_before,s_after,d_after} ]
     settings: NS + 'settings',
     daily: NS + 'daily',     // { 'YYYY-MM-DD': {new:n, review:n} }
-    seen: NS + 'seen'        // 導入済みカードID set（新規上限管理用）
+    seen: NS + 'seen',       // 導入済みカードID set（新規上限管理用）
+    updatedAt: NS + 'updated_at' // ローカルデータの最終更新時刻(ms)。自動同期の新旧判定に使う
   };
 
   const DEFAULT_SETTINGS = {
@@ -37,7 +38,10 @@
   let _suspendDirty = false;
   function save(key, val) {
     localStorage.setItem(key, JSON.stringify(val));
-    if (!_suspendDirty) {
+    // 学習データが変わったら最終更新時刻を刻む（updatedAt 自身の書き込みは除外）。
+    // suspendDirty 中（クラウドからの適用中）は別途 setUpdatedAt() で時刻を合わせる。
+    if (!_suspendDirty && key !== K.updatedAt) {
+      try { localStorage.setItem(K.updatedAt, JSON.stringify(Date.now())); } catch (e) {}
       _dirtyHandlers.forEach(fn => { try { fn(key); } catch (e) {} });
     }
   }
@@ -139,6 +143,14 @@
     },
 
     todayStr,
+
+    // ---- ローカル最終更新時刻（自動同期の新旧判定用）----
+    getUpdatedAt() { return load(K.updatedAt, 0) || 0; },
+    // クラウドから取り込んだ直後などに、時刻をクラウド側と一致させる
+    setUpdatedAt(ms) {
+      try { localStorage.setItem(K.updatedAt, JSON.stringify(ms || Date.now())); } catch (e) {}
+    },
+
     reset() {
       Object.values(K).forEach(k => localStorage.removeItem(k));
       _dirtyHandlers.forEach(fn => { try { fn('reset'); } catch (e) {} });
