@@ -13,6 +13,50 @@
     const st = Store.stats(allIds);
     const hist = Store.getDailyHistory();
 
+    // ====== 弱点単語一覧 ======
+    // 全カードを共通形で集約し、学習状態と結合
+    const allCards = [].concat(
+      VF.deckCards('words'), VF.deckCards('phrases'), VF.deckCards('etym'));
+    const states = Store.getAllCards();
+    const weak = [];
+    for (let i = 0; i < allCards.length; i++) {
+      const c = allCards[i];
+      const s = states[c.id];
+      if (!s || s.state === 'new') continue;
+      const lapses = s.lapses || 0;
+      const leech = !!s.is_leech;
+      const diff = s.difficulty || 0;
+      // 弱点判定: リーチ / 2回以上間違えた / 難易度が非常に高い(7以上)
+      if (!leech && lapses < 2 && diff < 7) continue;
+      // 弱点スコア: リーチ最優先 → 間違い回数 → 難易度
+      const score = (leech ? 10000 : 0) + lapses * 100 + diff;
+      weak.push({ term: c.term, meaning: c.meaning, deck: c.deck,
+        lapses, leech, diff, state: s.state, score });
+    }
+    weak.sort((a, b) => b.score - a.score);
+    const weakTop = weak.slice(0, 30);
+    const deckJa = { words: '単語', phrases: '熟語', etym: '語源' };
+    const weakRows = weakTop.map((w, i) =>
+      '<div class="flex items-center gap-3 py-2 ' + (i ? 'border-t border-slate-800' : '') + '">' +
+        '<span class="text-xs text-slate-600 w-5 text-right shrink-0">' + (i + 1) + '</span>' +
+        '<div class="min-w-0 flex-1">' +
+          '<div class="font-bold text-sm truncate">' + esc(w.term) +
+            (w.leech ? ' <span class="text-[9px] font-bold text-rose-400 bg-rose-500/10 rounded px-1 py-0.5 align-middle">リーチ</span>' : '') +
+          '</div>' +
+          '<div class="text-[11px] text-slate-400 truncate">' + esc(w.meaning) + '</div>' +
+        '</div>' +
+        '<div class="text-right shrink-0">' +
+          '<div class="text-xs font-bold text-rose-300">' + w.lapses + '<span class="text-[9px] text-slate-500 font-normal">回ミス</span></div>' +
+          '<div class="text-[9px] text-slate-500">' + (deckJa[w.deck] || w.deck) + '</div>' +
+        '</div>' +
+      '</div>').join('');
+    const weakSection =
+      '<h2 class="text-sm font-bold text-slate-300 mb-2">弱点単語一覧 <span class="text-[10px] text-slate-500 font-normal">（間違いが多い順・上位30）</span></h2>' +
+      (weakTop.length
+        ? '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-4">' + weakRows + '</div>'
+        : '<div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-4 text-center text-xs text-slate-500">' +
+          '<i class="fas fa-circle-check text-emerald-400 mr-1"></i>今のところ弱点カードはありません。この調子！</div>');
+
     // 直近14日バー
     const days = [];
     for (let i = 13; i >= 0; i--) {
@@ -63,8 +107,10 @@
         '<i class="fas fa-triangle-exclamation text-rose-400 mr-2"></i>苦手カード（リーチ）が <b>' + st.nLeech + '</b> 件。' +
         '何度も間違えるカードです。意味を分割・言い換えると覚えやすくなります。</div>' : '') +
 
+      weakSection +
+
       '<div class="text-xs text-slate-500 leading-relaxed bg-slate-900 border border-slate-800 rounded-xl p-3">' +
-        '<i class="fas fa-circle-info mr-1"></i>本アプリは <b>FSRS-4.5</b> による分散学習と能動的想起を採用。' +
+        '<i class="fas fa-circle-info mr-1"></i>本アプリは <b>FSRS-7</b> による分散学習と能動的想起を採用。' +
         'スラスラ解ける＝学べている、ではありません。忘れかけた頃の復習が最も記憶を強化します。</div>' +
 
       VF.nav('stats') + '</div>';
