@@ -18,44 +18,87 @@
     const allCards = [].concat(
       VF.deckCards('words'), VF.deckCards('phrases'), VF.deckCards('etym'));
     const states = Store.getAllCards();
-    const weak = [];
+    const deckJa = { words: '単語', phrases: '熟語', etym: '語源' };
+
+    // 学習済みカードの共通情報を収集
+    const learned = [];
     for (let i = 0; i < allCards.length; i++) {
       const c = allCards[i];
       const s = states[c.id];
       if (!s || s.state === 'new') continue;
-      const lapses = s.lapses || 0;
-      const leech = !!s.is_leech;
-      const diff = s.difficulty || 0;
-      // 弱点判定: リーチ / 2回以上間違えた / 難易度が非常に高い(7以上)
-      if (!leech && lapses < 2 && diff < 7) continue;
-      // 弱点スコア: リーチ最優先 → 間違い回数 → 難易度
-      const score = (leech ? 10000 : 0) + lapses * 100 + diff;
-      weak.push({ term: c.term, meaning: c.meaning, deck: c.deck,
-        lapses, leech, diff, state: s.state, score });
+      learned.push({
+        term: c.term, meaning: c.meaning, deck: c.deck,
+        lapses: s.lapses || 0,
+        leech: !!s.is_leech,
+        diff: s.difficulty || 0,
+        stab: s.stability || 0,
+        state: s.state,
+      });
     }
-    weak.sort((a, b) => b.score - a.score);
-    const weakTop = weak.slice(0, 30);
-    const deckJa = { words: '単語', phrases: '熟語', etym: '語源' };
-    const weakRows = weakTop.map((w, i) =>
-      '<div class="flex items-center gap-3 py-2 ' + (i ? 'border-t border-slate-800' : '') + '">' +
-        '<span class="text-xs text-slate-600 w-5 text-right shrink-0">' + (i + 1) + '</span>' +
-        '<div class="min-w-0 flex-1">' +
-          '<div class="font-bold text-sm truncate">' + esc(w.term) +
-            (w.leech ? ' <span class="text-[9px] font-bold text-rose-400 bg-rose-500/10 rounded px-1 py-0.5 align-middle">リーチ</span>' : '') +
+
+    // 弱点行を描画する共通関数（右側の指標は render で切替）
+    const weakRowsHtml = function (list, render) {
+      return list.map((w, i) =>
+        '<div class="flex items-center gap-3 py-2 ' + (i ? 'border-t border-slate-800' : '') + '">' +
+          '<span class="text-xs text-slate-600 w-5 text-right shrink-0">' + (i + 1) + '</span>' +
+          '<div class="min-w-0 flex-1">' +
+            '<div class="font-bold text-sm truncate">' + esc(w.term) +
+              (w.leech ? ' <span class="text-[9px] font-bold text-rose-400 bg-rose-500/10 rounded px-1 py-0.5 align-middle">リーチ</span>' : '') +
+            '</div>' +
+            '<div class="text-[11px] text-slate-400 truncate">' + esc(w.meaning) + '</div>' +
           '</div>' +
-          '<div class="text-[11px] text-slate-400 truncate">' + esc(w.meaning) + '</div>' +
-        '</div>' +
-        '<div class="text-right shrink-0">' +
-          '<div class="text-xs font-bold text-rose-300">' + w.lapses + '<span class="text-[9px] text-slate-500 font-normal">回ミス</span></div>' +
-          '<div class="text-[9px] text-slate-500">' + (deckJa[w.deck] || w.deck) + '</div>' +
-        '</div>' +
-      '</div>').join('');
-    const weakSection =
-      '<h2 class="text-sm font-bold text-slate-300 mb-2">弱点単語一覧 <span class="text-[10px] text-slate-500 font-normal">（間違いが多い順・上位30）</span></h2>' +
-      (weakTop.length
-        ? '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-4">' + weakRows + '</div>'
-        : '<div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-4 text-center text-xs text-slate-500">' +
-          '<i class="fas fa-circle-check text-emerald-400 mr-1"></i>今のところ弱点カードはありません。この調子！</div>');
+          '<div class="text-right shrink-0">' +
+            render(w) +
+            '<div class="text-[9px] text-slate-500">' + (deckJa[w.deck] || w.deck) + '</div>' +
+          '</div>' +
+        '</div>').join('');
+    };
+    const weakBox = function (title, sub, rows, empty) {
+      return '<h2 class="text-sm font-bold text-slate-300 mb-2">' + title +
+        ' <span class="text-[10px] text-slate-500 font-normal">' + sub + '</span></h2>' +
+        (rows
+          ? '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-4">' + rows + '</div>'
+          : '<div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-4 text-center text-xs text-slate-500">' +
+            '<i class="fas fa-circle-check text-emerald-400 mr-1"></i>' + empty + '</div>');
+    };
+
+    // --- リスト1: FSRS状態による弱点（リーチ / 難易度が高い / 記憶が定着していない）---
+    const fsrsWeak = learned.filter(w =>
+      w.leech || w.diff >= 7 || w.stab < 21
+    ).map(w => {
+      // スコア: リーチ最優先 → 難易度が高い → 記憶が浅い(stabilityが低い)
+      const score = (w.leech ? 100000 : 0) + w.diff * 1000 + (21 - Math.min(w.stab, 21)) * 10;
+      return Object.assign({}, w, { score });
+    });
+    fsrsWeak.sort((a, b) => b.score - a.score);
+    const fsrsTop = fsrsWeak.slice(0, 30);
+    const fsrsRows = weakRowsHtml(fsrsTop, w => {
+      const mature = w.stab >= 21;
+      const label = mature ? '成熟' : '学習中';
+      const days = w.stab >= 1 ? Math.round(w.stab) + '日' : '<1日';
+      return '<div class="text-xs font-bold ' + (mature ? 'text-emerald-300' : 'text-sky-300') + '">' +
+        '難' + w.diff.toFixed(1) + '<span class="text-[9px] text-slate-500 font-normal"> / ' + label + '</span></div>';
+    });
+    const fsrsSection = weakBox(
+      '弱点単語一覧（FSRS状態）',
+      '（リーチ・高難易度・記憶が浅い順・上位30）',
+      fsrsRows,
+      'FSRS状態で見た弱点カードはありません。記憶がよく定着しています！');
+
+    // --- リスト2: ミス回数による弱点（間違えた回数が多い順）---
+    const missWeak = learned.filter(w => w.lapses >= 1);
+    missWeak.sort((a, b) => (b.lapses - a.lapses) || (b.diff - a.diff));
+    const missTop = missWeak.slice(0, 30);
+    const missRows = weakRowsHtml(missTop, w =>
+      '<div class="text-xs font-bold text-rose-300">' + w.lapses +
+        '<span class="text-[9px] text-slate-500 font-normal">回ミス</span></div>');
+    const missSection = weakBox(
+      '弱点単語一覧（ミス回数）',
+      '（間違いが多い順・上位30）',
+      missRows,
+      'まだ間違えたカードはありません。この調子！');
+
+    const weakSection = fsrsSection + missSection;
 
     // 直近14日バー
     const days = [];
