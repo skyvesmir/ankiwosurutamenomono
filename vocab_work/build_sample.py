@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+import csv
+
+# 見本50語: [番号,単語,発音記号,品詞,意味,補足,例文,例文訳]
+# 例文・例文訳は品詞ごと。複数品詞は <br> で区切り、各文頭に【品詞】マーカー。
+data = [
+["1","agree","/əˈɡriː/","動詞","同意する、賛成する、意見が一致する",
+ "主に agree with 人 や agree to 提案 の形で用います。他動詞的に that 節を続けることもできます。",
+ "My cat and I finally agree on one thing: the sofa belongs to him.",
+ "うちの猫と私は、ついに一つだけ意見が一致した。ソファは彼のものだ、と。"],
+
+["2","oppose","/əˈpoʊz/","動詞","反対する、対抗する",
+ "他動詞なので、後ろに前置詞を挟まず直接目的語を取ります（例：oppose the bill）。",
+ "The whole committee opposed my idea, so naturally I knew it was brilliant.",
+ "委員会全員が私の案に反対した。つまりこの案が天才的だと、私は確信した。"],
+
+["3","advise","/ədˈvaɪz/","動詞","助言する、忠告する、勧める",
+ "名詞形の advice /ədˈvaɪs/（不可算名詞）とは、スペルと発音が異なる点に注意しましょう。",
+ "The doctor advised me to relax, which is the most stressful advice I have ever received.",
+ "医者は私にリラックスするよう助言した。人生で最もストレスのたまる助言だった。"],
+
+["4","tip","/tɪp/","名詞、動詞","【名】秘訣、チップ、先端<br>【動】傾ける、チップを渡す",
+ "日常会話では「役立つアドバイス、コツ」の意味で頻繁に使われます。文脈によって意味が変わる多義語です。",
+ '【名】"Here is a tip," said the waiter, spilling coffee on my laptop. "Always back up your files."<br>【動】He tipped his chair back too far and discovered gravity the hard way.',
+ "【名】「一つ秘訣を」とウェイターは言い、私のノートPCにコーヒーをこぼした。「ファイルは必ずバックアップしておけ」<br>【動】彼は椅子を後ろに傾けすぎ、重力というものを身をもって思い知った。"],
+
+["5","discuss","/dɪˈskʌs/","動詞","議論する、話し合う",
+ "他動詞なので、discuss about とはせず、直後に目的語を置きます。",
+ "We spent three hours discussing where to eat and then ordered pizza, as always.",
+ "私たちは三時間かけてどこで食べるか議論し、そしていつも通りピザを注文した。"],
+
+["6","blame","/bleɪm/","動詞、名詞","【動】非難する、〜のせいにする<br>【名】非難、責任",
+ "blame A for B（B のことで A を非難する）の形で頻出します。",
+ "【動】Don't blame the dog. We both know who really ate the cake, and I am watching you.<br>【名】When the plan collapsed, everyone suddenly forgot whose idea it was and the blame vanished into thin air.",
+ "【動】犬のせいにするな。誰が本当にケーキを食ったか、二人とも分かってるよな。見てるからな。<br>【名】計画が破綻した途端、誰の案だったか皆が急に忘れ、責任は跡形もなく消え去った。"],
+
+["7","argue","/ˈɑːrɡjuː/","動詞","主張する、議論する、口論する",
+ "自分の主張を通すために論争する、または言い争うニュアンスを含みます。",
+ "My parents argue about the thermostat every winter as if it were a national election.",
+ "うちの両親は毎冬、まるで国政選挙かのようにサーモスタットの設定をめぐって口論する。"],
+
+["8","claim","/kleɪm/","動詞、名詞","【動】主張する、要求する<br>【名】主張、請求",
+ "正当な権利として事実を主張する表現です。日本語の「クレーム（苦情）」とは意味が異なります。",
+ "【動】He claims he invented the sandwich, but so does everyone at that party.<br>【名】Her claim that she never sleeps was undermined by the snoring during the meeting.",
+ "【動】彼はサンドイッチを発明したのは自分だと主張するが、あのパーティーの参加者全員が同じことを言っている。<br>【名】自分は決して眠らないという彼女の主張は、会議中のいびきによって覆された。"],
+
+["9","complain","/kəmˈpleɪn/","動詞","不平を言う、不満を漏らす",
+ "complain about / of ...（〜について不満を言う）の形でよく使います。",
+ "He complained about the silence so loudly that no one could enjoy it anymore.",
+ "彼があまりに大声で静けさに文句を言うので、もう誰もその静けさを楽しめなくなった。"],
+
+["10","offer","/ˈɔːfər/","動詞、名詞","【動】提供する、申し出る<br>【名】申し出、提供",
+ "offer A B（A に B を提供する）のように、第四文型をとることができます。",
+ "【動】She offered to help me move, then remembered she had plans until the year 3000.<br>【名】The offer sounded too good to be true, which is usually the universe's way of warning you.",
+ "【動】彼女は引っ越しを手伝うと申し出たが、その後、西暦3000年まで予定があるのを思い出した。<br>【名】その申し出はうますぎる話に聞こえた。たいていそれは、宇宙からの警告というものだ。"],
+]
+
+with open('sample_ok.csv','w',encoding='utf-8',newline='') as f:
+    w=csv.writer(f, quoting=csv.QUOTE_MINIMAL)
+    w.writerow(["番号","単語","発音記号","品詞","意味","補足","例文","例文訳"])
+    w.writerows(data)
+print("wrote", len(data), "rows")
