@@ -140,8 +140,11 @@
         '</div></div>';
 
     const tag = card.deck === 'words' ? '英単語' : card.deck === 'phrases' ? '英熟語' : (VF.catLabel(card.sub) + '・' + (card.themeGroup || ''));
-    const fmtBadge = '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">' + q.questionLabel + '</span>' +
-      '<span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300">' + tag + '</span>';
+    const tagIcon = card.deck === 'words' ? 'fa-font' : card.deck === 'phrases' ? 'fa-link' : 'fa-tag';
+    const tagColor = card.deck === 'words' ? 'bg-sky-500/20 text-sky-300 border-sky-500/40' : card.deck === 'phrases' ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40';
+    const fmtBadge = '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">' + q.questionLabel + '</span>';
+    // 英単語/英熟語タグ：問題文の直下に大きめに表示（わかりやすく）
+    const deckBadge = '<div class="flex justify-center mt-3"><span class="inline-flex items-center gap-1.5 text-sm font-bold px-3.5 py-1 rounded-full border ' + tagColor + '"><i class="fas ' + tagIcon + ' text-xs"></i>' + tag + '</span></div>';
 
     let body;
     if (q.format === 'type-je') {
@@ -149,6 +152,7 @@
         '<div class="text-center mb-6"><div class="text-xs text-slate-400 mb-2">この意味の英語は？</div>' +
         '<div class="text-2xl font-bold leading-relaxed">' + esc(q.prompt) + '</div>' +
         (q.sub ? '<div class="text-xs text-slate-400 mt-2"><i class="fas fa-lightbulb mr-1"></i>' + esc(q.sub) + '</div>' : '') +
+        deckBadge +
         '</div>' +
         '<input id="type-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
         'placeholder="英語を入力…" class="w-full bg-slate-900 border-2 border-slate-700 focus:border-brand rounded-xl px-4 py-4 text-lg text-center focus:outline-none">' +
@@ -163,7 +167,7 @@
         '<span class="text-slate-500 mr-2">' + 'ABCD'[i] + '.</span>' + esc(o.t) + '</button>').join('');
       body =
         '<div class="text-center mb-6"><div class="text-xs text-slate-400 mb-2">' +
-          (q.format === 'mc-ej' ? 'この英語の意味は？' : 'この意味の英語は？') + '</div>' + promptBig + '</div>' +
+          (q.format === 'mc-ej' ? 'この英語の意味は？' : 'この意味の英語は？') + '</div>' + promptBig + deckBadge + '</div>' +
         '<div class="space-y-2.5">' + opts + '</div>';
     }
 
