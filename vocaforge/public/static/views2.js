@@ -262,8 +262,26 @@
         '</div>';
     }
 
+    // ---- 外観テーマ ----
+    const themeMode = (window.__themeMode && window.__themeMode()) || 'auto';
+    const themeBtn = (mode, icon, label) =>
+      '<button data-theme="' + mode + '" class="flex-1 flex flex-col items-center gap-1 py-3 rounded-xl border transition ' +
+      (themeMode === mode
+        ? 'bg-brand/15 border-brand/50 text-brand font-bold'
+        : 'bg-slate-800 border-transparent text-slate-300') + '">' +
+      '<i class="fas ' + icon + ' text-lg"></i><span class="text-xs">' + label + '</span></button>';
+    const themeHtml =
+      '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-4 flex gap-2">' +
+        themeBtn('light', 'fa-sun', 'ライト') +
+        themeBtn('auto', 'fa-circle-half-stroke', '自動') +
+        themeBtn('dark', 'fa-moon', 'ダーク') +
+      '</div>';
+
     return '<div class="max-w-xl mx-auto pb-24 px-4 pt-6">' +
       '<h1 class="text-xl font-extrabold mb-4">設定</h1>' +
+
+      '<h2 class="text-sm font-bold text-slate-300 mb-2">外観</h2>' +
+      themeHtml +
 
       '<h2 class="text-sm font-bold text-slate-300 mb-2">アカウント</h2>' +
       accountHtml +

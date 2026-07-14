@@ -15,8 +15,32 @@ app.get('/', (c) => {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#0b1020" id="meta-theme">
   <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <script>
+    // テーマ初期化（FOUC防止のためheadで即時実行）
+    (function () {
+      var pref = null;
+      try { pref = localStorage.getItem('vf-theme'); } catch (e) {}
+      var dark = pref ? pref === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.classList.add(dark ? 'dark' : 'light');
+      window.__applyTheme = function (mode) { // 'dark' | 'light' | 'auto'
+        try { mode === 'auto' ? localStorage.removeItem('vf-theme') : localStorage.setItem('vf-theme', mode); } catch (e) {}
+        var d = mode === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : mode === 'dark';
+        document.documentElement.classList.toggle('dark', d);
+        document.documentElement.classList.toggle('light', !d);
+        var m = document.getElementById('meta-theme');
+        if (m) m.setAttribute('content', d ? '#0b1020' : '#eef1f8');
+      };
+      window.__themeMode = function () {
+        try { return localStorage.getItem('vf-theme') || 'auto'; } catch (e) { return 'auto'; }
+      };
+      // OS設定の変化に追従（auto時のみ）
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+        if (window.__themeMode() === 'auto') window.__applyTheme('auto');
+      });
+    })();
+  </script>
   <title>VocaForge — 英語語彙 超強化トレーナー</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -25,6 +49,7 @@ app.get('/', (c) => {
   <link href="/static/style.css" rel="stylesheet">
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: { extend: {
         colors: { brand: { DEFAULT:'#6366f1', dark:'#4f46e5' } },
         fontFamily: { sans: ['Inter','Noto Sans JP','sans-serif'] }
@@ -32,7 +57,7 @@ app.get('/', (c) => {
     }
   </script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased">
+<body class="text-slate-100 font-sans antialiased">
   <div id="app"></div>
   <script type="module" src="/static/supabase-auth.js"></script>
   <script src="/static/fsrs.js"></script>

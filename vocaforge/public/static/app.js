@@ -195,6 +195,13 @@
   }
 
   function bindSettings() {
+    // 外観テーマ切替
+    document.querySelectorAll('[data-theme]').forEach(b => {
+      b.onclick = () => {
+        if (window.__applyTheme) window.__applyTheme(b.getAttribute('data-theme'));
+        render(); // ボタンの選択状態を更新
+      };
+    });
     document.querySelectorAll('[data-set]').forEach(el => {
       const key = el.getAttribute('data-set');
       if (el.type === 'checkbox') {
