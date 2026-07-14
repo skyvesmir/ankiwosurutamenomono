@@ -7,6 +7,8 @@
   'use strict';
   const VF = window.VF;
   const esc = window.__esc;
+  // <br>を活かす（全部バージョンの複数品詞意味「【名】…<br>【動】…」用）
+  const br = s => esc(s).replace(/&lt;br&gt;/gi, '<br>');
   const app = document.getElementById('app');
 
   // 復習が残っているか（全デッキ横断）。新規学習の解禁判定に使う。
@@ -150,7 +152,7 @@
     if (q.format === 'type-je') {
       body =
         '<div class="text-center mb-6"><div class="text-xs text-slate-400 mb-2">この意味の英語は？</div>' +
-        '<div class="text-2xl font-bold leading-relaxed">' + esc(q.prompt) + '</div>' +
+        '<div class="text-2xl font-bold leading-relaxed">' + br(q.prompt) + '</div>' +
         (q.sub ? '<div class="text-xs text-slate-400 mt-2"><i class="fas fa-lightbulb mr-1"></i>' + esc(q.sub) + '</div>' : '') +
         deckBadge +
         '</div>' +
@@ -244,7 +246,7 @@
           '<i class="fas ' + (correct ? 'fa-circle-check' : 'fa-circle-xmark') + '"></i>' +
           '<span class="font-bold">' + (correct ? '正解！' : (extra.close ? 'おしい！スペル違い' : '不正解')) + '</span></div>' +
         '<div class="text-lg font-bold">' + esc(card.term) + '</div>' +
-        '<div class="text-sm text-slate-300 mt-1">' + esc(card.meaning) + '</div>' +
+        '<div class="text-sm text-slate-300 mt-1">' + br(card.meaning) + '</div>' +
         detailBtn +
       '</div>';
 

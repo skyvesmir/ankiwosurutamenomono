@@ -77,7 +77,7 @@
 
       '<h2 class="text-sm font-bold text-slate-300 mb-2">デッキ</h2>' +
       '<div class="grid grid-cols-2 gap-3">' +
-        card('words', '英単語', 'fa-font', 'bg-indigo-500/20 text-indigo-300', wd) +
+        card('words', '英単語' + (VF.useFullWords() ? '（全部）' : ''), 'fa-font', 'bg-indigo-500/20 text-indigo-300', wd) +
         card('phrases', '英熟語', 'fa-quote-right', 'bg-emerald-500/20 text-emerald-300', pd) +
         card('etym', '語源（接辞・語根）', 'fa-dna', 'bg-amber-500/20 text-amber-300', ed) +
         '<button data-go="stats" class="text-left bg-slate-900 hover:bg-slate-800 transition rounded-2xl p-4 border border-slate-800">' +
@@ -151,7 +151,7 @@
         count: p.count
       }));
     }
-    const n = m.word_sections;
+    const n = VF.wordSections();
     const out = [];
     for (let i = 1; i <= n; i++) {
       const arr = VF.deckCards(deck, i);

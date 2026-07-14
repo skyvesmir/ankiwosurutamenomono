@@ -181,9 +181,15 @@
         ? '<span class="text-[9px] text-slate-500">未</span>'
         : (s.stability >= 21 ? '<span class="text-[9px] text-emerald-400">成熟</span>'
           : '<span class="text-[9px] text-sky-400">学習中</span>');
+      // 全部バージョン: 発音記号・品詞も1行に表示（<br>は行内では中黒に）
+      const meta = c.full ?
+        '<span class="text-[10px] text-slate-500 ml-1.5">' + esc((c.ipa || '').split('<br>')[0]) + '</span>' +
+        (c.pos ? '<span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 ml-1">' + esc(c.pos) + '</span>' : '')
+        : '';
+      const meaning1 = (c.meaning || '').replace(/<br\s*\/?>/gi, ' ／ ');
       return '<button data-detail="' + c.id + '" data-deck="' + d + '" class="w-full text-left flex items-center gap-3 px-3 py-2.5 hover:bg-slate-800 border-b border-slate-800/60">' +
-        '<div class="flex-1 min-w-0"><div class="font-semibold text-sm truncate">' + esc(c.term) + '</div>' +
-        '<div class="text-xs text-slate-400 truncate">' + esc(c.meaning) + '</div></div>' + badge + '</button>';
+        '<div class="flex-1 min-w-0"><div class="font-semibold text-sm truncate">' + esc(c.term) + meta + '</div>' +
+        '<div class="text-xs text-slate-400 truncate">' + esc(meaning1) + '</div></div>' + badge + '</button>';
     }).join('');
 
     return '<div class="max-w-xl mx-auto pb-24 px-4 pt-6">' +
@@ -282,6 +288,24 @@
 
       '<h2 class="text-sm font-bold text-slate-300 mb-2">外観</h2>' +
       themeHtml +
+
+      '<h2 class="text-sm font-bold text-slate-300 mb-2">単語データベース</h2>' +
+      (function () {
+        const ds = s.wordDataset || 'target1900';
+        const opt = (mode, title, desc, count) =>
+          '<button data-dataset="' + mode + '" class="w-full flex items-center gap-3 p-3 rounded-xl border text-left transition ' +
+          (ds === mode ? 'bg-brand/15 border-brand/50' : 'bg-slate-800 border-transparent') + '">' +
+            '<i class="fas ' + (ds === mode ? 'fa-circle-check text-brand' : 'fa-circle text-slate-600') + '"></i>' +
+            '<span class="flex-1"><span class="text-sm font-bold block">' + title + '</span>' +
+            '<span class="text-xs text-slate-400">' + desc + '</span></span>' +
+            '<span class="text-xs font-bold text-slate-400">' + count + '</span>' +
+          '</button>';
+        return '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-4 space-y-2">' +
+          opt('target1900', 'ターゲット1900', '書籍と同じ並び・全19セクション', '1900語') +
+          opt('full', '全部バージョン', '発音記号・品詞・補足・例文つき／全66セクション', '6553語') +
+          '<p class="text-[11px] text-slate-500 leading-relaxed px-1">学習進捗はそれぞれ別のカードとして記録されます。切替はいつでも可能です。</p>' +
+        '</div>';
+      })() +
 
       '<h2 class="text-sm font-bold text-slate-300 mb-2">アカウント</h2>' +
       accountHtml +

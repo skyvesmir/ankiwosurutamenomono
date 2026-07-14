@@ -8,7 +8,7 @@
   'use strict';
   const app = document.getElementById('app');
 
-  const DATA = { words: [], phrases: [], etym: [], meta: null };
+  const DATA = { words: [], phrases: [], etym: [], meta: null, wordsFull: null };
   const STATE = { route: 'home', session: null };
 
   // ====== データ正規化 ======
@@ -16,6 +16,32 @@
   function normWord(w) {
     return { id: w.id, term: w.term, meaning: w.meaning, deck: 'words',
       group: w.section, groupLabel: (w.sectionCode || ('Section ' + w.section)) };
+  }
+  // 全部バージョン（6553語）: 発音・品詞・補足・例文付き
+  function normWordFull(w) {
+    return { id: w.id, term: w.term, meaning: w.meaning, deck: 'words',
+      group: w.section, groupLabel: 'Section ' + w.section,
+      ipa: w.ipa, pos: w.pos, note: w.note, example: w.example, exampleJa: w.exampleJa, full: true };
+  }
+  // 現在の設定に応じた単語DB（target1900 | full）
+  function useFullWords() {
+    return Store.getSettings().wordDataset === 'full' && !!DATA.wordsFull;
+  }
+  function wordSource() {
+    return useFullWords() ? DATA.wordsFull.map(normWordFull) : DATA.words.map(normWord);
+  }
+  function wordSections() {
+    const m = DATA.meta || {};
+    return useFullWords() ? (m.words_full_sections || 66) : (m.word_sections || 19);
+  }
+  // 全部バージョンの遅延ロード（5MBのため必要時のみ）
+  async function loadFullWords() {
+    if (DATA.wordsFull) return true;
+    try {
+      const r = await fetch('/static/data/words_full.json');
+      DATA.wordsFull = await r.json();
+      return true;
+    } catch (e) { return false; }
   }
   function normPhrase(p) {
     return { id: p.id, term: p.term, meaning: p.meaning, deck: 'phrases',
@@ -50,7 +76,7 @@
 
   function deckCards(deck, group) {
     let arr;
-    if (deck === 'words') arr = DATA.words.map(normWord);
+    if (deck === 'words') arr = wordSource();
     else if (deck === 'phrases') arr = DATA.phrases.map(normPhrase);
     else arr = DATA.etym.filter(e => e.learnable).map(normEtym);
     if (group != null && group !== 'all') arr = arr.filter(c => String(c.group) === String(group));
@@ -68,6 +94,8 @@
         fetch('/static/data/meta.json').then(r => r.json())
       ]);
       DATA.words = w; DATA.phrases = p; DATA.etym = e; DATA.meta = m;
+      // 全部バージョン選択中なら先にロード（失敗しても1900で続行）
+      if (Store.getSettings().wordDataset === 'full') await loadFullWords();
       render();
       // 認証状態が変化したら設定画面を更新
       if (window.VFAuth) window.VFAuth.onChange(() => {
@@ -169,22 +197,33 @@
 
   function showDetail(id, deck) {
     let card;
-    if (deck === 'words') card = DATA.words.map(normWord).find(c => c.id === id);
+    if (deck === 'words') card = wordSource().find(c => c.id === id);
     else if (deck === 'phrases') card = DATA.phrases.map(normPhrase).find(c => c.id === id);
     else { const e = DATA.etym.find(x => x.id === id); if (e) { window.__showEtymDetail(e); return; } }
     if (!card) return;
     const st = Store.getCard(id);
     const esc = window.__esc;
+    // <br>を活かして複数品詞の改行を再現（エスケープ後に戻す）
+    const br = s => esc(s).replace(/&lt;br&gt;/gi, '<br>');
     const stateLabel = !st || st.state === 'new' ? '未学習'
       : (st.stability >= 21 ? '成熟（記憶定着）' : '学習中');
+    // 全部バージョン：CSVの列（発音記号・品詞・意味・補足・例文・例文訳）をそのまま表示
+    const fullInfo = card.full ?
+      ((card.ipa ? '<div class="text-sm text-slate-400 mt-1">' + br(card.ipa) + (card.pos ? ' <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 ml-1">' + esc(card.pos) + '</span>' : '') + '</div>' : '') +
+       '<div class="text-slate-300 mt-2 leading-relaxed">' + br(card.meaning) + '</div>' +
+       (card.note ? '<div class="mt-3 bg-slate-800/50 rounded-xl p-3 text-xs text-slate-300 leading-relaxed"><div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-circle-info mr-1"></i>補足</div>' + br(card.note) + '</div>' : '') +
+       (card.example ? '<div class="mt-3 bg-slate-800/50 rounded-xl p-3 text-xs leading-relaxed"><div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-quote-left mr-1"></i>例文</div>' +
+         '<div class="text-slate-200">' + br(card.example) + '</div>' +
+         (card.exampleJa ? '<div class="text-slate-400 mt-1.5">' + br(card.exampleJa) + '</div>' : '') + '</div>' : ''))
+      : '<div class="text-slate-300 mt-2">' + br(card.meaning) + '</div>';
     const html =
       '<div id="vf-modal" class="fixed inset-0 z-50 bg-black/70 flex items-end sm:items-center justify-center">' +
-        '<div class="bg-slate-900 w-full max-w-xl rounded-t-3xl sm:rounded-3xl border border-slate-800 p-6">' +
-          '<div class="flex justify-between items-start mb-3"><div>' +
+        '<div class="bg-slate-900 w-full max-w-xl rounded-t-3xl sm:rounded-3xl border border-slate-800 p-6 max-h-[85vh] overflow-y-auto">' +
+          '<div class="flex justify-between items-start mb-3"><div class="min-w-0 flex-1">' +
             '<div class="text-2xl font-extrabold">' + esc(card.term) + '</div>' +
-            '<div class="text-slate-300 mt-2">' + esc(card.meaning) + '</div></div>' +
-            '<button id="vf-close" class="text-slate-400"><i class="fas fa-xmark text-xl"></i></button></div>' +
-          '<div class="flex gap-2 text-xs mt-4">' +
+            fullInfo + '</div>' +
+            '<button id="vf-close" class="text-slate-400 ml-3"><i class="fas fa-xmark text-xl"></i></button></div>' +
+          '<div class="flex gap-2 text-xs mt-4 flex-wrap">' +
             '<span class="px-2 py-1 rounded-full bg-slate-800">' + stateLabel + '</span>' +
             (st && st.due ? '<span class="px-2 py-1 rounded-full bg-slate-800">次回: ' + new Date(st.due).toLocaleDateString('ja-JP') + '</span>' : '') +
             (st && st.lapses ? '<span class="px-2 py-1 rounded-full bg-rose-500/20 text-rose-300">間違い ' + st.lapses + '回</span>' : '') +
@@ -200,6 +239,20 @@
       b.onclick = () => {
         if (window.__applyTheme) window.__applyTheme(b.getAttribute('data-theme'));
         render(); // ボタンの選択状態を更新
+      };
+    });
+    // 単語DB切替（ターゲット1900 / 全部バージョン）
+    document.querySelectorAll('[data-dataset]').forEach(b => {
+      b.onclick = async () => {
+        const mode = b.getAttribute('data-dataset');
+        if (mode === Store.getSettings().wordDataset) return;
+        if (mode === 'full' && !DATA.wordsFull) {
+          b.innerHTML = '<i class="fas fa-circle-notch fa-spin text-lg"></i><span class="text-xs">読込中…</span>';
+          const ok = await loadFullWords();
+          if (!ok) { alert('全部バージョンの読み込みに失敗しました'); render(); return; }
+        }
+        Store.setSettings({ wordDataset: mode });
+        render();
       };
     });
     document.querySelectorAll('[data-set]').forEach(el => {
@@ -299,7 +352,7 @@
   }
 
   // 後続スクリプトで拡張
-  window.VF = { DATA, STATE, go, deckCards, catLabel, nav };
+  window.VF = { DATA, STATE, go, deckCards, catLabel, nav, wordSections, useFullWords, loadFullWords };
 
   document.addEventListener('DOMContentLoaded', boot);
 })();

@@ -20,8 +20,10 @@
   // 日本語訳から代表的な短い意味を1つ抽出（選択肢の見やすさ用）
   function shortMeaning(m) {
     if (!m) return '';
+    // 全部バージョンの複数品詞形式「【名】…<br>【動】…」は最初の品詞の意味を使う
+    let s = m.split(/<br\s*\/?>/i)[0].replace(/【[^】]*】/g, '');
     // 区切り（；、，/）で分割し最初の塊
-    let s = m.split(/[；;]/)[0];
+    s = s.split(/[；;]/)[0];
     s = s.replace(/（[^）]*）/g, '').replace(/\([^)]*\)/g, '');
     s = s.split(/[、,]/)[0].trim();
     return s || m;

@@ -46,7 +46,7 @@
       }));
     }
     const out = [];
-    for (let i = 1; i <= m.word_sections; i++) {
+    for (let i = 1; i <= VF.wordSections(); i++) {
       const arr = VF.deckCards('words', i);
       out.push({ key: i, label: 'Section ' + i, count: arr.length, sub: ((i-1)*100+1) + '–' + ((i-1)*100+arr.length) });
     }
@@ -162,19 +162,34 @@
     // カード（タップでフリップ）
     const etymHint = (card.deck === 'etym' && card.etymRef && FC.flipped)
       ? '<div class="mt-3 text-xs text-amber-300/80">タップで詳細（派生語・覚え方）</div>' : '';
+    // <br>を活かす（複数品詞の意味・例文）
+    const br = s => esc(s).replace(/&lt;br&gt;/gi, '<br>');
+    // 全部バージョンの裏面：発音・品詞・補足・例文で「精緻化（深い処理）」を促す
+    // （学習科学ガイド：想起のあとに文脈・用例を与えると記憶の手がかりが増える）
+    const fullBack = (FC.flipped && card.full) ?
+      ((card.ipa ? '<div class="mt-2 text-sm text-slate-400">' + br(card.ipa) +
+          (card.pos ? ' <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 ml-1">' + esc(card.pos) + '</span>' : '') + '</div>' : '') +
+       (card.example ? '<div class="mt-4 text-left bg-slate-800/50 rounded-xl p-3 text-xs leading-relaxed">' +
+          '<div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-quote-left mr-1"></i>例文</div>' +
+          '<div class="text-slate-200">' + br(card.example) + '</div>' +
+          (card.exampleJa ? '<div class="text-slate-400 mt-1.5">' + br(card.exampleJa) + '</div>' : '') + '</div>' : '') +
+       (card.note ? '<div class="mt-2 text-left bg-slate-800/50 rounded-xl p-3 text-[11px] text-slate-300 leading-relaxed">' +
+          '<div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-circle-info mr-1"></i>補足</div>' + br(card.note) + '</div>' : ''))
+      : '';
     const cardFace = !FC.flipped
       ? '<div class="text-center">' +
           '<div class="text-[11px] text-slate-500 mb-3 uppercase tracking-wider">' + (FC.front==='term'?'英語':'意味') + '</div>' +
-          '<div class="' + (frontBig ? 'text-4xl' : 'text-2xl') + ' font-extrabold leading-snug">' + esc(frontText) + '</div>' +
+          '<div class="' + (frontBig ? 'text-4xl' : 'text-2xl') + ' font-extrabold leading-snug">' + (FC.front==='term' ? esc(frontText) : br(frontText)) + '</div>' +
           '<div class="mt-6 text-xs text-slate-500"><i class="fas fa-hand-pointer mr-1"></i>タップして答えを見る</div></div>'
       : '<div class="text-center w-full">' +
           '<div class="text-[11px] text-slate-500 mb-2 uppercase tracking-wider">' + (FC.front==='term'?'意味':'英語') + '</div>' +
-          '<div class="' + (!frontBig ? 'text-3xl font-extrabold' : 'text-xl font-bold') + ' leading-relaxed">' + esc(backText) + '</div>' +
-          '<div class="mt-4 pt-4 border-t border-slate-800 text-sm text-slate-400">' + esc(frontText) + '</div>' +
+          '<div class="' + (!frontBig ? 'text-3xl font-extrabold' : 'text-xl font-bold') + ' leading-relaxed">' + (FC.front==='term' ? br(backText) : esc(backText)) + '</div>' +
+          fullBack +
+          '<div class="mt-4 pt-4 border-t border-slate-800 text-sm text-slate-400">' + (FC.front==='term' ? esc(frontText) : br(frontText)) + '</div>' +
           etymHint + '</div>';
 
     const cardBox =
-      '<div id="fc-card" class="relative bg-slate-900 border-2 ' + (FC.flipped ? 'border-amber-500/40' : 'border-slate-800') + ' rounded-3xl px-6 min-h-[300px] flex items-center justify-center cursor-pointer select-none active:scale-[0.99] transition" style="padding-top:2rem;padding-bottom:2rem">' +
+      '<div id="fc-card" class="relative bg-slate-900 border-2 ' + (FC.flipped ? 'border-amber-500/40' : 'border-slate-800') + ' rounded-3xl px-6 min-h-[300px] max-h-[62vh] overflow-y-auto flex items-center justify-center cursor-pointer select-none active:scale-[0.99] transition" style="padding-top:2rem;padding-bottom:2rem">' +
         cardFace +
         (learned ? '<span class="absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full ' + (st.stability>=21?'bg-emerald-500/20 text-emerald-300':'bg-sky-500/20 text-sky-300') + '">' + (st.stability>=21?'成熟':'学習中') + '</span>' : '') +
       '</div>';

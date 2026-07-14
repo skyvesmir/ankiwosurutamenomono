@@ -23,7 +23,8 @@
     interleave: true,
     strictInput: false,    // 入力採点: trueで完全一致, falseで正規化緩め
     formats: { 'mc-ej': true, 'mc-je': true, 'type-je': true }, // 有効な出題形式
-    leechThreshold: 8
+    leechThreshold: 8,
+    wordDataset: 'target1900' // 単語DB: 'target1900'(1900語) | 'full'(6553語・発音/品詞/例文付き)
   };
 
   function load(key, fallback) {
