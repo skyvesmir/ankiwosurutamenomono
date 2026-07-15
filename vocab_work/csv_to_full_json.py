@@ -1,46 +1,75 @@
 #!/usr/bin/env python3
-"""vocab_final_corrected.csv → vocaforge words_full.json 変換
-- 100語ごとにセクション分割（Section 1..66）
-- フィールド: id, no, term, ipa, pos, meaning, note, example, exampleJa, section, sectionRange
+"""vocab_final_corrected.csv (+extra_words.csv) → vocaforge データ生成
+1) words_full.json : 全部バージョン（6559語・100語ごとセクション）
+2) words_target.json : ターゲット1900バージョン。
+   - 並び・セクション構成は既存 words.json（ターゲット1900）と同一
+   - 内容（発音・品詞・意味・補足・例文）は新DBから抽出
+   - id は既存の 'w-N' を維持（学習進捗の互換性）
 """
-import csv, json, math, sys
+import csv, json, math
 
 SRC = '/home/user/uploaded_files/vocab_final_corrected.csv'
-DST = '/home/user/webapp/vocaforge/public/static/data/words_full.json'
+EXTRA = '/home/user/webapp/vocab_work/extra_words.csv'
+DATA_DIR = '/home/user/webapp/vocaforge/public/static/data'
 
-rows = list(csv.reader(open(SRC, encoding='utf-8-sig')))
-header, data = rows[0], rows[1:]
-assert header == ['番号','単語','発音記号','品詞','意味','補足','例文','例文訳'], header
+def read_csv(path):
+    rows = list(csv.reader(open(path, encoding='utf-8-sig')))
+    header, data = rows[0], rows[1:]
+    assert header == ['番号','単語','発音記号','品詞','意味','補足','例文','例文訳'], (path, header)
+    return data
 
-out = []
+data = read_csv(SRC) + read_csv(EXTRA)
+
+full = []
 for r in data:
     no = int(r[0])
-    sec = (no - 1) // 100 + 1
-    lo = (sec - 1) * 100 + 1
-    out.append({
-        'id': f'wf-{no}',
-        'no': no,
-        'term': r[1].strip(),
-        'ipa': r[2].strip(),
-        'pos': r[3].strip(),
-        'meaning': r[4].strip(),
-        'note': r[5].strip(),
-        'example': r[6].strip(),
-        'exampleJa': r[7].strip(),
-        'section': sec,
+    full.append({
+        'id': f'wf-{no}', 'no': no,
+        'term': r[1].strip(), 'ipa': r[2].strip(), 'pos': r[3].strip(),
+        'meaning': r[4].strip(), 'note': r[5].strip(),
+        'example': r[6].strip(), 'exampleJa': r[7].strip(),
+        'section': (no - 1) // 100 + 1,
     })
+full.sort(key=lambda x: x['no'])
+assert [x['no'] for x in full] == list(range(1, len(full) + 1)), '番号が連番でない'
 
-out.sort(key=lambda x: x['no'])
-assert [x['no'] for x in out] == list(range(1, len(out) + 1)), '番号が連番でない'
+json.dump(full, open(f'{DATA_DIR}/words_full.json', 'w', encoding='utf-8'),
+          ensure_ascii=False, separators=(',', ':'))
+n_sec_full = math.ceil(len(full) / 100)
+print(f'words_full.json: {len(full)} words, {n_sec_full} sections')
 
-n_sec = math.ceil(len(out) / 100)
-json.dump(out, open(DST, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
-print(f'wrote {DST}: {len(out)} words, {n_sec} sections')
+# ---- ターゲット1900: 既存の並びを維持し、内容は新DBから抽出 ----
+tgt_orig = json.load(open(f'{DATA_DIR}/words.json', encoding='utf-8'))
+fullmap = {}
+for w in full:
+    fullmap.setdefault(w['term'].strip().lower(), w)  # 重複時は先勝ち（番号が小さい方）
 
-# meta.json に full 情報を追記
-META = '/home/user/webapp/vocaforge/public/static/data/meta.json'
+target, missing = [], []
+for w in tgt_orig:
+    src = fullmap.get(w['term'].strip().lower())
+    if not src:
+        missing.append(w['term']); continue
+    target.append({
+        'id': w['id'],                    # 既存id維持（進捗互換）
+        'no': w['no'],                    # ターゲット1900の番号・並び
+        'term': src['term'],
+        'ipa': src['ipa'], 'pos': src['pos'],
+        'meaning': src['meaning'],        # 新DBの意味
+        'note': src['note'],
+        'example': src['example'], 'exampleJa': src['exampleJa'],
+        'section': w['section'],          # 元のセクション構成
+        'sectionCode': w.get('sectionCode') or f"Section {w['section']}",
+    })
+assert not missing, f'新DBに見つからない語: {missing}'
+assert len(target) == 1900
+json.dump(target, open(f'{DATA_DIR}/words_target.json', 'w', encoding='utf-8'),
+          ensure_ascii=False, separators=(',', ':'))
+print(f'words_target.json: {len(target)} words (order preserved)')
+
+# ---- meta 更新 ----
+META = f'{DATA_DIR}/meta.json'
 meta = json.load(open(META, encoding='utf-8'))
-meta['words_full'] = len(out)
-meta['words_full_sections'] = n_sec
+meta['words_full'] = len(full)
+meta['words_full_sections'] = n_sec_full
 json.dump(meta, open(META, 'w', encoding='utf-8'), ensure_ascii=False)
-print('meta updated:', meta['words_full'], meta['words_full_sections'])
+print('meta updated')

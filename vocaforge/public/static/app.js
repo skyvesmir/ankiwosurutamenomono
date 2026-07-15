@@ -13,11 +13,13 @@
 
   // ====== データ正規化 ======
   // すべてのカードを共通形 {id, term, meaning, hint, group, deck, sub} に変換
+  // ターゲット1900：新DBから抽出済み（発音・品詞・補足・例文付き、並びはターゲット1900準拠）
   function normWord(w) {
     return { id: w.id, term: w.term, meaning: w.meaning, deck: 'words',
-      group: w.section, groupLabel: (w.sectionCode || ('Section ' + w.section)) };
+      group: w.section, groupLabel: (w.sectionCode || ('Section ' + w.section)),
+      ipa: w.ipa, pos: w.pos, note: w.note, example: w.example, exampleJa: w.exampleJa, full: true };
   }
-  // 全部バージョン（6553語）: 発音・品詞・補足・例文付き
+  // 全部バージョン（6559語）: 同じ新DBの全件
   function normWordFull(w) {
     return { id: w.id, term: w.term, meaning: w.meaning, deck: 'words',
       group: w.section, groupLabel: 'Section ' + w.section,
@@ -88,7 +90,7 @@
     app.innerHTML = loadingHTML();
     try {
       const [w, p, e, m] = await Promise.all([
-        fetch('/static/data/words.json').then(r => r.json()),
+        fetch('/static/data/words_target.json').then(r => r.json()),
         fetch('/static/data/phrases.json').then(r => r.json()),
         fetch('/static/data/etymology.json').then(r => r.json()),
         fetch('/static/data/meta.json').then(r => r.json())
