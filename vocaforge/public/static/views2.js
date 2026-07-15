@@ -303,7 +303,7 @@
         return '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-4 space-y-2">' +
           opt('target1900', 'ターゲット1900', '書籍と同じ並び・全19セクション（発音・品詞・例文つき）', '1900語') +
           opt('full', '全部バージョン', '新データベース全収録／全66セクション（発音・品詞・例文つき）', '6559語') +
-          '<p class="text-[11px] text-slate-500 leading-relaxed px-1">学習進捗はそれぞれ別のカードとして記録されます。切替はいつでも可能です。</p>' +
+          '<p class="text-[11px] text-slate-500 leading-relaxed px-1">同じ単語の学習進捗は両バージョンで共有されます。切替はいつでも可能です。</p>' +
         '</div>';
       })() +
 

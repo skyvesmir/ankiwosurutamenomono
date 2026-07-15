@@ -42,8 +42,21 @@
     try {
       const r = await fetch('/static/data/words_full.json');
       DATA.wordsFull = await r.json();
+      migrateSharedIds();
       return true;
     } catch (e) { return false; }
+  }
+  // 旧仕様では全部バージョンの全カードが 'wf-番号' だったが、
+  // 現仕様ではターゲット1900と共通の単語は 'w-N' を共有する。
+  // 旧IDで残っている進捗（cards/seen/logs）を新IDへ付け替える。
+  function migrateSharedIds() {
+    if (!DATA.wordsFull || !Store.hasCardIdPrefix('wf-')) return;
+    const mapping = {};
+    for (const w of DATA.wordsFull) {
+      if (w.id.indexOf('wf-') !== 0) mapping['wf-' + w.no] = w.id; // 共有語: 旧wf-番号 → w-N
+    }
+    const moved = Store.migrateCardIds(mapping);
+    if (moved) console.info('[VF] dataset ID migration: ' + moved + ' cards merged');
   }
   function normPhrase(p) {
     return { id: p.id, term: p.term, meaning: p.meaning, deck: 'phrases',
@@ -97,7 +110,8 @@
       ]);
       DATA.words = w; DATA.phrases = p; DATA.etym = e; DATA.meta = m;
       // 全部バージョン選択中なら先にロード（失敗しても1900で続行）
-      if (Store.getSettings().wordDataset === 'full') await loadFullWords();
+      // 旧 'wf-' IDの進捗が残っている場合もロードしてIDマイグレーションを実行
+      if (Store.getSettings().wordDataset === 'full' || Store.hasCardIdPrefix('wf-')) await loadFullWords();
       render();
       // 認証状態が変化したら設定画面を更新
       if (window.VFAuth) window.VFAuth.onChange(() => {

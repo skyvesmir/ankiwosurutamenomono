@@ -99,6 +99,53 @@
     },
     getDailyHistory() { return load(K.daily, {}); },
 
+    // ---- カードIDマイグレーション ----
+    // mapping: { oldId: newId }。cards / seen / logs の ID を付け替える。
+    // 旧IDと新IDの両方に進捗がある場合は last_review が新しい方を残す。
+    migrateCardIds(mapping) {
+      const ids = Object.keys(mapping);
+      if (!ids.length) return 0;
+      let moved = 0;
+      const cards = this.getAllCards();
+      for (const oldId of ids) {
+        const newId = mapping[oldId];
+        if (!cards[oldId]) continue;
+        const oldC = cards[oldId], newC = cards[newId];
+        if (!newC || (oldC.last_review || 0) > (newC.last_review || 0)) {
+          cards[newId] = oldC;
+        }
+        delete cards[oldId];
+        moved++;
+      }
+      if (moved) save(K.cards, cards);
+      const seen = load(K.seen, {});
+      let seenMoved = false;
+      for (const oldId of ids) {
+        if (oldId in seen) {
+          const newId = mapping[oldId];
+          if (!(newId in seen) || seen[oldId] > seen[newId]) seen[newId] = seen[oldId];
+          delete seen[oldId];
+          seenMoved = true;
+        }
+      }
+      if (seenMoved) save(K.seen, seen);
+      const logs = this.getLogs();
+      let logMoved = false;
+      for (const l of logs) {
+        if (l.card_id && mapping[l.card_id]) { l.card_id = mapping[l.card_id]; logMoved = true; }
+      }
+      if (logMoved) save(K.logs, logs);
+      return moved;
+    },
+    // 進捗の中に prefix で始まる ID があるか（マイグレーション要否の判定用）
+    hasCardIdPrefix(prefix) {
+      const cards = this.getAllCards();
+      for (const id in cards) if (id.indexOf(prefix) === 0) return true;
+      const seen = load(K.seen, {});
+      for (const id in seen) if (id.indexOf(prefix) === 0) return true;
+      return false;
+    },
+
     // ---- 既出（導入済み）管理 ----
     getSeen() { return load(K.seen, {}); },
     markSeen(id) {
