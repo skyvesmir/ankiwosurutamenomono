@@ -69,6 +69,7 @@ app.get('/', (c) => {
   <script type="module" src="/static/supabase-auth.js"></script>
   <script src="/static/fsrs.js"></script>
   <script src="/static/store.js"></script>
+  <script src="/static/optimizer.js"></script>
   <script src="/static/quiz.js"></script>
   <script src="/static/app.js"></script>
   <script src="/static/views.js"></script>

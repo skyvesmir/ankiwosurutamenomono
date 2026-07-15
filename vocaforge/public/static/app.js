@@ -298,6 +298,42 @@
         };
       }
     });
+    // ---- FSRSパラメータ最適化 ----
+    const optBtn = document.getElementById('fsrs-opt-btn');
+    if (optBtn && window.FSRSOpt) optBtn.onclick = async () => {
+      optBtn.disabled = true;
+      const label = optBtn.innerHTML;
+      optBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i>最適化中… 0%';
+      try {
+        const res = await FSRSOpt.optimize(pct => {
+          optBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i>最適化中… ' + pct + '%';
+        });
+        if (!res.ok) {
+          alert('復習履歴が足りません（' + res.reviews + ' / ' + res.needed + ' 件）。学習を続けてから再度お試しください。');
+        } else if (res.applied) {
+          const imp = res.before > 0 ? Math.round((1 - res.after / res.before) * 100) : 0;
+          alert('最適化が完了しました！\n\n予測誤差（log loss）: ' + res.before.toFixed(4) + ' → ' + res.after.toFixed(4) +
+            (imp > 0 ? '（' + imp + '%改善）' : '') +
+            '\n対象レビュー: ' + res.reviews + ' 件' +
+            (res.holdout ? '\n※未使用の新しい履歴で検証済み' : ''));
+        } else {
+          alert('現在の履歴ではデフォルトパラメータのほうが良好でした。\nパラメータは変更していません。履歴が増えたら再度お試しください。');
+        }
+      } catch (e) {
+        alert('最適化に失敗しました: ' + e.message);
+      }
+      optBtn.disabled = false;
+      optBtn.innerHTML = label;
+      render();
+    };
+    const optReset = document.getElementById('fsrs-opt-reset');
+    if (optReset && window.FSRSOpt) optReset.onclick = () => {
+      if (confirm('個人パラメータを破棄してデフォルトに戻しますか？')) {
+        FSRSOpt.resetToDefault();
+        render();
+      }
+    };
+
     // ---- ログイン / ログアウト ----
     const loginBtn = document.getElementById('login-btn');
     if (loginBtn && window.VFAuth) loginBtn.onclick = async () => {

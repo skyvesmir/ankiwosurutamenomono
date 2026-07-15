@@ -332,6 +332,30 @@
         toggle('strictInput', '記入を厳密採点', s.strictInput, 'OFFなら大小文字・記号の差を許容') +
       '</div>' +
 
+      '<h2 class="text-sm font-bold text-slate-300 mb-2">アルゴリズムの個人最適化</h2>' +
+      (function () {
+        var st = window.FSRSOpt ? FSRSOpt.status() : null;
+        if (!st) return '';
+        var body;
+        if (st.active) {
+          var d = st.optimizedAt ? new Date(st.optimizedAt) : null;
+          var dateStr = d ? (d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()) : '';
+          body = '<div class="flex items-center gap-2 mb-2"><i class="fas fa-circle-check text-emerald-400"></i>' +
+            '<span class="text-sm font-bold text-emerald-300">個人パラメータ適用中</span></div>' +
+            '<p class="text-xs text-slate-400 mb-3">' + dateStr + ' に ' + st.optimizedReviews + ' 件の履歴で最適化済み。' +
+            (st.suggestReoptimize ? ' <span class="text-amber-300 font-bold">履歴が2倍になりました。再最適化を推奨します。</span>' : '') + '</p>';
+        } else if (st.ready) {
+          body = '<p class="text-xs text-slate-400 mb-3">復習履歴 ' + st.reviews + ' 件。あなたの記憶パターンに合わせてFSRS-7のパラメータを調整できます（ベンチマークでは約84%の学習者で予測精度が向上）。処理はこの端末内で完結します。</p>';
+        } else {
+          body = '<p class="text-xs text-slate-400 mb-3">復習履歴 ' + st.reviews + ' / ' + (window.FSRSOpt ? FSRSOpt.MIN_REVIEWS : 300) + ' 件。履歴がたまるとあなた専用のパラメータに最適化できます。まずは学習を続けましょう！</p>';
+        }
+        return '<div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-4">' + body +
+          '<button id="fsrs-opt-btn" class="w-full bg-brand/10 text-brand border border-brand/30 rounded-xl py-3 text-sm font-bold' + (st.ready ? '' : ' opacity-40 pointer-events-none') + '">' +
+            '<i class="fas fa-wand-magic-sparkles mr-2"></i>' + (st.active ? '再最適化する' : 'いますぐ最適化する') + '</button>' +
+          (st.active ? '<button id="fsrs-opt-reset" class="w-full mt-2 text-slate-400 text-xs font-bold py-2">デフォルトパラメータに戻す</button>' : '') +
+        '</div>';
+      })() +
+
       '<h2 class="text-sm font-bold text-slate-300 mb-2">データの管理</h2>' +
       '<div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-4">' +
         '<p class="text-xs text-slate-400 mb-3 leading-relaxed">学習の進捗・記憶状態・統計をファイルに保存（エクスポート）し、別の端末やブラウザに引き継げます（インポート）。</p>' +
@@ -345,7 +369,7 @@
       '<button id="reset-btn" class="w-full bg-rose-500/10 text-rose-300 border border-rose-500/30 rounded-xl py-3 text-sm font-bold mb-3">' +
         '<i class="fas fa-trash mr-2"></i>学習データをすべてリセット</button>' +
 
-      '<div class="text-xs text-slate-500 text-center leading-relaxed">VocaForge ・ 英単語1900 / 英熟語1000 / 語源590<br>FSRS-4.5 × 能動的想起 × 分散学習</div>' +
+      '<div class="text-xs text-slate-500 text-center leading-relaxed">VocaForge ・ 英単語1900 / 英熟語1000 / 語源590<br>FSRS-7（個人最適化対応）× 能動的想起 × 分散学習</div>' +
       VF.nav('settings') + '</div>';
   };
 })();

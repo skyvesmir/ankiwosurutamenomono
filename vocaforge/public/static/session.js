@@ -45,8 +45,18 @@
       else if (s.due <= now) due.push(c);
     });
 
-    // 復習は期限の早い順（=最も忘れかけているものから）
-    due.sort((a, b) => (states[a.id].due) - (states[b.id].due));
+    // 復習の並び: Retrievability降順（想起確率が高い順）
+    // Anki公式シミュレーション（forums.ankiweb.net "Improving sort orders"）で、
+    // 同じ保持率を最少の学習時間で維持できる最良の並びと結論づけられた方式。
+    // 想起確率が高いうちに復習するほど1回あたりの成功率が高く、
+    // 失敗→再学習のコストを最小化できる（バックログ時に特に有効）。
+    const rNow = {};
+    due.forEach(c => {
+      const st = states[c.id];
+      const elapsed = st.last_review ? Math.max(0, (now - st.last_review) / 86400000) : 0;
+      rNow[c.id] = FSRS.retrievability(elapsed, st.stability || 0.001);
+    });
+    due.sort((a, b) => rNow[b.id] - rNow[a.id]);
 
     let revAllowed = Math.max(0, settings.reviewPerDay - daily.review);
     const dueQueue = due.slice(0, revAllowed);
