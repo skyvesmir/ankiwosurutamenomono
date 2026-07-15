@@ -58,6 +58,13 @@ app.get('/', (c) => {
   </script>
 </head>
 <body class="text-slate-100 font-sans antialiased">
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" focusable="false">
+    <filter id="lg-refract" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise"/>
+      <feGaussianBlur in="noise" stdDeviation="2" result="soft"/>
+      <feDisplacementMap in="SourceGraphic" in2="soft" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
   <div id="app"></div>
   <script type="module" src="/static/supabase-auth.js"></script>
   <script src="/static/fsrs.js"></script>
