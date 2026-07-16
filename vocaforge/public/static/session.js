@@ -95,9 +95,14 @@
     return { queue, pool, settings, reviewOnly, dueTotal: due.length };
   }
 
-  function pickFormat(settings) {
-    const enabled = Object.keys(settings.formats).filter(k => settings.formats[k]);
-    if (enabled.length === 0) return 'mc-ej';
+  // 出題形式の選択ルール:
+  //  - 未学習（new）: まだ答えを知らないので必ず「記入以外」（選択式）で出す
+  //  - 復習（learning/review）: 能動的想起を強制するため必ず「記入式」で出す
+  function pickFormat(settings, isReview) {
+    if (isReview) return 'type-je';
+    const enabled = Object.keys(settings.formats)
+      .filter(k => settings.formats[k] && k !== 'type-je');
+    if (enabled.length === 0) return 'mc-ej'; // 記入のみ有効でも新規は選択式にフォールバック
     return enabled[Math.floor(Math.random() * enabled.length)];
   }
 
@@ -128,8 +133,10 @@
       if (s.idx >= s.queue.length) return finish();
     }
     const card = s.queue[s.idx];
-    // Again を選んだカードは、再出題時に必ず記入式(type-je)で出す（能動的想起を強制）
-    const format = (s.againIds && s.againIds[card.id]) ? 'type-je' : pickFormat(s.settings);
+    // 未学習 or 復習かで形式を決定。Again再出題も必ず記入式。
+    const cardState = Store.getCard(card.id);
+    const isReview = !!(cardState && cardState.state && cardState.state !== 'new');
+    const format = (s.againIds && s.againIds[card.id]) ? 'type-je' : pickFormat(s.settings, isReview);
     // プールは同deck内（mixは同サブグループ寄せ）
     let pool = s.pool;
     if (card.deck) pool = s.pool.filter(p => p.deck === card.deck);
@@ -228,6 +235,30 @@
     showGrading(card, q, correct, correct ? 3 : 1);
   }
 
+  // 混同検出: 入力が出題とは別のDB内単語・熟語と一致していないか調べる
+  function findConfusedEntry(input, card) {
+    const ni = Quiz.normalize(input);
+    if (!ni || ni.length < 2) return null;
+    // 単語: 全部DBがロード済みならそちら（6559語）、なければ現行DB
+    const words = VF.DATA.wordsFull || VF.DATA.words || [];
+    for (let i = 0; i < words.length; i++) {
+      const w = words[i];
+      if (w.id !== card.id && Quiz.normalize(w.term) === ni)
+        return { id: w.id, deck: 'words', term: w.term, meaning: w.meaning };
+    }
+    const phrases = VF.DATA.phrases || [];
+    for (let i = 0; i < phrases.length; i++) {
+      const p = phrases[i];
+      if (p.id === card.id) continue;
+      const acc = Quiz.acceptableAnswers(p.term);
+      for (let j = 0; j < acc.length; j++) {
+        if (Quiz.normalize(acc[j]) === ni)
+          return { id: p.id, deck: 'phrases', term: p.term, meaning: p.meaning };
+      }
+    }
+    return null;
+  }
+
   // ====== 採点・フィードバック（記入） ======
   function revealTyped(q, card, ok, val) {
     const input = $('#type-input');
@@ -240,7 +271,9 @@
     const dk = $('#type-dontknow'); if (dk) dk.style.display = 'none';
     // タイプミス（編集距離1）はHard扱いの選択肢を出す
     const close = !ok && val && Quiz.editDistance(val, q.answer) <= 1 && Quiz.normalize(val).length > 2;
-    showGrading(card, q, ok, ok ? 3 : 1, { typed: val, close });
+    // 混同検出: 不正解かつタイプミスではない場合、DB内の別の語と一致していないか
+    const confused = (!ok && !close && val) ? findConfusedEntry(val, card) : null;
+    showGrading(card, q, ok, ok ? 3 : 1, { typed: val, close, confused });
   }
 
   // 共通: 正解表示＋自己評価ボタン
@@ -249,6 +282,18 @@
     const s = VF.STATE.session;
     const detailBtn = card.deck === 'etym'
       ? '<button id="etym-more" class="mt-3 text-xs text-amber-300"><i class="fas fa-dna mr-1"></i>語源の詳細を見る</button>' : '';
+    // 混同していた別の単語・熟語の案内（記入式で別のDB語を入力した場合）
+    const confusedBlock = extra.confused
+      ? '<div class="mt-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3">' +
+          '<div class="flex items-center gap-2 text-amber-300 text-xs font-bold mb-1">' +
+            '<i class="fas fa-shuffle"></i>混同しているかも？</div>' +
+          '<div class="text-sm">入力した「<span class="font-bold">' + esc(extra.confused.term) + '</span>」は別の' +
+            (extra.confused.deck === 'phrases' ? '熟語' : '単語') + 'です（' +
+            esc(Quiz.shortMeaning(extra.confused.meaning)) + '）</div>' +
+          '<button id="confused-more" class="mt-2 text-xs text-amber-300">' +
+            '<i class="fas fa-magnifying-glass mr-1"></i>「' + esc(extra.confused.term) + '」の詳細を見る</button>' +
+        '</div>'
+      : '';
 
     const answerBlock =
       '<div class="mt-6 rounded-xl border ' + (correct ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-rose-500/40 bg-rose-500/5') + ' p-4">' +
@@ -258,6 +303,7 @@
         '<div class="text-lg font-bold">' + esc(card.term) + '</div>' +
         '<div class="text-sm text-slate-300 mt-1">' + br(card.meaning) + '</div>' +
         detailBtn +
+        confusedBlock +
       '</div>';
 
     // 自己評価ボタン（FSRS Grade 1-4）。プレビュー間隔を表示
@@ -289,6 +335,8 @@
     });
     const em = $('#etym-more');
     if (em) em.onclick = () => showEtymDetail(card.etymRef);
+    const cm = $('#confused-more');
+    if (cm) cm.onclick = () => window.__showCardDetail(extra.confused.id, extra.confused.deck);
 
     // キーボード 1-4
     s._keyHandler = (e) => {

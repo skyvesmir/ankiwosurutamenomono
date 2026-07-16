@@ -308,7 +308,8 @@
         return '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-4 space-y-2">' +
           opt('target1900', 'ターゲット1900', '書籍と同じ並び・全19セクション（発音・品詞・例文つき）', '1900語') +
           opt('full', '全部バージョン', '新データベース全収録／全66セクション（発音・品詞・例文つき）', '6559語') +
-          '<p class="text-[11px] text-slate-500 leading-relaxed px-1">同じ単語の学習進捗は両バージョンで共有されます。切替はいつでも可能です。</p>' +
+          opt('leap', 'Leap', 'Leap収録語の並び・全23セクション（発音・品詞・例文つき）', '2297語') +
+          '<p class="text-[11px] text-slate-500 leading-relaxed px-1">同じ単語の学習進捗はすべてのバージョンで共有されます。切替はいつでも可能です。</p>' +
         '</div>';
       })() +
 
@@ -326,9 +327,9 @@
 
       '<h2 class="text-sm font-bold text-slate-300 mb-2">出題形式</h2>' +
       '<div class="bg-slate-900 border border-slate-800 rounded-xl px-4 mb-4 divide-y divide-slate-800">' +
-        toggle('fmt-mc-ej', '選択：英 → 日', s.formats['mc-ej'], '英語を見て意味を選ぶ（認識）') +
-        toggle('fmt-mc-je', '選択：日 → 英', s.formats['mc-je'], '日本語を見て英語を選ぶ') +
-        toggle('fmt-type-je', '記入：日 → 英', s.formats['type-je'], '日本語を見て英語をタイプ（最強の想起）') +
+        toggle('fmt-mc-ej', '選択：英 → 日', s.formats['mc-ej'], '英語を見て意味を選ぶ（認識）※新規カード用') +
+        toggle('fmt-mc-je', '選択：日 → 英', s.formats['mc-je'], '日本語を見て英語を選ぶ ※新規カード用') +
+        '<div class="py-3"><p class="text-[11px] text-slate-500 leading-relaxed">未学習カードは上記の選択式から出題され、復習カードは必ず記入式（日本語→英語タイプ）で出題されます（能動的想起の強制）。</p></div>' +
       '</div>' +
 
       '<h2 class="text-sm font-bold text-slate-300 mb-2">学習動作</h2>' +

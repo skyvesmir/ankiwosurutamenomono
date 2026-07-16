@@ -25,15 +25,26 @@
       group: w.section, groupLabel: 'Section ' + w.section,
       ipa: w.ipa, pos: w.pos, note: w.note, example: w.example, exampleJa: w.exampleJa, full: true };
   }
-  // 現在の設定に応じた単語DB（target1900 | full）
+  // Leapモード: Leap収録語の並びで出題（セクションは100語区切り）
+  function normWordLeap(w) {
+    return { id: w.id, term: w.term, meaning: w.meaning, deck: 'words',
+      group: w.leapSection, groupLabel: 'Leap Section ' + w.leapSection,
+      ipa: w.ipa, pos: w.pos, note: w.note, example: w.example, exampleJa: w.exampleJa, full: true };
+  }
+  // 現在の設定に応じた単語DB（target1900 | full | leap）
   function useFullWords() {
     return Store.getSettings().wordDataset === 'full' && !!DATA.wordsFull;
   }
+  function useLeapWords() {
+    return Store.getSettings().wordDataset === 'leap' && !!DATA.wordsLeap;
+  }
   function wordSource() {
+    if (useLeapWords()) return DATA.wordsLeap.map(normWordLeap);
     return useFullWords() ? DATA.wordsFull.map(normWordFull) : DATA.words.map(normWord);
   }
   function wordSections() {
     const m = DATA.meta || {};
+    if (useLeapWords()) return Math.ceil(DATA.wordsLeap.length / 100);
     return useFullWords() ? (m.words_full_sections || 66) : (m.word_sections || 19);
   }
   // 全部バージョンの遅延ロード（5MBのため必要時のみ）
@@ -43,6 +54,23 @@
       const r = await fetch('/static/data/words_full.json');
       DATA.wordsFull = await r.json();
       migrateSharedIds();
+      return true;
+    } catch (e) { return false; }
+  }
+  // Leapモードの遅延ロード（全部DB + Leap順序リスト）。
+  // カードIDは全部DBと同一なので学習進捗は全モードで共有される。
+  async function loadLeapWords() {
+    if (DATA.wordsLeap) return true;
+    const okFull = await loadFullWords();
+    if (!okFull) return false;
+    try {
+      const r = await fetch('/static/data/words_leap.json');
+      const leap = await r.json();
+      const byId = {};
+      DATA.wordsFull.forEach(w => { byId[w.id] = w; });
+      DATA.wordsLeap = leap.ids.map((id, i) => Object.assign({}, byId[id], {
+        leapNo: i + 1, leapSection: Math.floor(i / 100) + 1
+      }));
       return true;
     } catch (e) { return false; }
   }
@@ -112,6 +140,7 @@
       // 全部バージョン選択中なら先にロード（失敗しても1900で続行）
       // 旧 'wf-' IDの進捗が残っている場合もロードしてIDマイグレーションを実行
       if (Store.getSettings().wordDataset === 'full' || Store.hasCardIdPrefix('wf-')) await loadFullWords();
+      if (Store.getSettings().wordDataset === 'leap') await loadLeapWords();
       render();
       // 認証状態が変化したら設定画面を更新
       if (window.VFAuth) window.VFAuth.onChange(() => {
@@ -221,7 +250,14 @@
 
   function showDetail(id, deck) {
     let card;
-    if (deck === 'words') card = wordSource().find(c => c.id === id);
+    if (deck === 'words') {
+      card = wordSource().find(c => c.id === id);
+      // 現在のデータセット外の単語（混同検出など）は全部DBから探す
+      if (!card && DATA.wordsFull) {
+        const w = DATA.wordsFull.find(x => x.id === id);
+        if (w) card = normWordFull(w);
+      }
+    }
     else if (deck === 'phrases') card = DATA.phrases.map(normPhrase).find(c => c.id === id);
     else { const e = DATA.etym.find(x => x.id === id); if (e) { window.__showEtymDetail(e); return; } }
     if (!card) return;
@@ -270,10 +306,10 @@
       b.onclick = async () => {
         const mode = b.getAttribute('data-dataset');
         if (mode === Store.getSettings().wordDataset) return;
-        if (mode === 'full' && !DATA.wordsFull) {
+        if ((mode === 'full' && !DATA.wordsFull) || (mode === 'leap' && !DATA.wordsLeap)) {
           b.innerHTML = '<i class="fas fa-circle-notch fa-spin text-lg"></i><span class="text-xs">読込中…</span>';
-          const ok = await loadFullWords();
-          if (!ok) { alert('全部バージョンの読み込みに失敗しました'); render(); return; }
+          const ok = mode === 'leap' ? await loadLeapWords() : await loadFullWords();
+          if (!ok) { alert('データの読み込みに失敗しました'); render(); return; }
         }
         Store.setSettings({ wordDataset: mode });
         render();
@@ -412,7 +448,8 @@
   }
 
   // 後続スクリプトで拡張
-  window.VF = { DATA, STATE, go, deckCards, catLabel, nav, wordSections, useFullWords, loadFullWords };
+  window.VF = { DATA, STATE, go, deckCards, catLabel, nav, wordSections, useFullWords, loadFullWords, loadLeapWords };
+  window.__showCardDetail = showDetail;
 
   document.addEventListener('DOMContentLoaded', boot);
 })();
