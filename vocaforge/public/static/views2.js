@@ -160,9 +160,10 @@
   };
 
   // ====== 一覧（ブラウズ） ======
-  let browseFilter = { deck: 'words', group: 'all', q: '' };
+  const BROWSE_PAGE = 100;
+  let browseFilter = { deck: 'words', group: 'all', q: '', limit: BROWSE_PAGE };
   window.renderBrowse = function (deck) {
-    if (deck) browseFilter.deck = deck;
+    if (deck) { browseFilter.deck = deck; browseFilter.limit = BROWSE_PAGE; }
     const d = browseFilter.deck;
     const tabs = [['words','英単語'],['phrases','英熟語'],['etym','語源']];
     const tabBtn = tabs.map(([k, l]) =>
@@ -173,7 +174,7 @@
     const states = Store.getAllCards();
     const q = browseFilter.q.trim().toLowerCase();
     if (q) cards = cards.filter(c => c.term.toLowerCase().includes(q) || (c.meaning||'').toLowerCase().includes(q));
-    const shown = cards.slice(0, 300);
+    const shown = cards.slice(0, browseFilter.limit);
 
     const rows = shown.map(c => {
       const s = states[c.id];
@@ -203,12 +204,16 @@
       '<div class="relative mb-3"><i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>' +
       '<input id="browse-q" value="' + esc(browseFilter.q) + '" placeholder="検索（英語・日本語）" ' +
       'class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:border-brand"></div>' +
-      '<div class="text-xs text-slate-400 mb-2">' + cards.length + ' 件' + (cards.length > 300 ? '（先頭300件表示）' : '') + '</div>' +
+      '<div class="text-xs text-slate-400 mb-2">' + cards.length + ' 件' + (cards.length > browseFilter.limit ? '（先頭' + browseFilter.limit + '件表示）' : '') + '</div>' +
       '<div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">' + (rows || '<div class="p-6 text-center text-slate-500 text-sm">該当なし</div>') + '</div>' +
+      (cards.length > browseFilter.limit
+        ? '<button id="browse-more" class="w-full mt-3 bg-slate-900 border border-slate-800 rounded-xl py-3 text-sm font-bold text-slate-300 active:scale-[0.99] transition">さらに' + Math.min(BROWSE_PAGE, cards.length - browseFilter.limit) + '件表示 <i class="fas fa-chevron-down ml-1"></i></button>'
+        : '') +
       VF.nav('browse') + '</div>';
   };
 
   window.__browseFilter = browseFilter;
+  window.__browsePage = BROWSE_PAGE;
 
   // ====== 設定 ======
   // クラウド同期ステータス表示

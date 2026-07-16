@@ -194,6 +194,7 @@
       let t;
       bq.oninput = () => { clearTimeout(t); t = setTimeout(() => {
         window.__browseFilter.q = bq.value;
+        window.__browseFilter.limit = window.__browsePage;
         const pos = bq.selectionStart;
         go('browse');
         const nb = document.getElementById('browse-q'); if (nb) { nb.focus(); nb.setSelectionRange(pos, pos); }
@@ -206,6 +207,13 @@
         showDetail(id, deck);
       };
     });
+    const bm = document.getElementById('browse-more');
+    if (bm) bm.onclick = () => {
+      const y = window.scrollY;
+      window.__browseFilter.limit += window.__browsePage;
+      go('browse');
+      window.scrollTo(0, y);
+    };
 
     // 設定操作
     bindSettings();

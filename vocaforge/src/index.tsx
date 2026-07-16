@@ -59,10 +59,10 @@ app.get('/', (c) => {
 </head>
 <body class="text-slate-100 font-sans antialiased">
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" focusable="false">
-    <filter id="lg-refract" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise"/>
-      <feGaussianBlur in="noise" stdDeviation="2" result="soft"/>
-      <feDisplacementMap in="SourceGraphic" in2="soft" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+    <filter id="lg-refract" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map"
+        href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='56'%3E%3Cdefs%3E%3ClinearGradient id='gx' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23000000'/%3E%3Cstop offset='1' stop-color='%23ff0000'/%3E%3C/linearGradient%3E%3ClinearGradient id='gy' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23000000'/%3E%3Cstop offset='1' stop-color='%230000ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='560' height='56' fill='url(%23gx)'/%3E%3Crect width='560' height='56' fill='url(%23gy)' style='mix-blend-mode:screen'/%3E%3Crect x='7' y='7' width='546' height='42' rx='21' fill='%237f007f' style='filter:blur(7px)'/%3E%3C/svg%3E"/>
+      <feDisplacementMap in="SourceGraphic" in2="map" scale="44" xChannelSelector="R" yChannelSelector="B"/>
     </filter>
   </svg>
   <div id="app"></div>

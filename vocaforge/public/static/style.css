@@ -1,7 +1,10 @@
 /* ============================================================
-   VocaForge — Liquid Glass Theme (iOS 26 inspired)
-   ライト/ダーク両対応。既存のTailslindユーティリティを
-   CSS変数ベースの「ガラス素材」に上書きして全画面を刷新する。
+   VocaForge — Liquid Glass Theme v3（参考動画準拠）
+   ・厚みのある「体積ガラス」: 上縁の鋭いハイライト + 下縁の深度影
+   ・強いblur + saturate/brightnessで背景色を吸い込む(バイブランシー)
+   ・接地影 + 環境影の2層シャドウで浮遊感
+   ・押すと縮むジェル(スプリング)インタラクション
+   ・ナビはSVG displacement mapで縁だけレンズ屈折
    ============================================================ */
 
 * { -webkit-tap-highlight-color: transparent; }
@@ -17,25 +20,25 @@ html, body { overscroll-behavior-y: none; }
   --text-dim: #64748b;
   --text-faint: #475569;
 
-  --glass-bg: rgba(30, 41, 59, 0.42);
-  --glass-bg-strong: rgba(15, 23, 42, 0.62);
-  --glass-border: rgba(148, 163, 184, 0.20);
-  --glass-inner: rgba(255, 255, 255, 0.09);
-  --glass-shadow: rgba(2, 6, 23, 0.45);
-  --glass-hover: rgba(51, 65, 85, 0.55);
+  /* スモークガラス: 中心は透過強め、blurで背景色を吸い込む */
+  --glass-bg: rgba(23, 32, 51, 0.34);
+  --glass-bg-strong: rgba(15, 23, 42, 0.50);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-hover: rgba(51, 65, 85, 0.48);
+  --glass-shadow-ambient: rgba(2, 6, 23, 0.40);
+  --glass-shadow-contact: rgba(2, 6, 23, 0.30);
 
-  --chip-bg: rgba(148, 163, 184, 0.16);
+  /* 体積ガラスの縁光: 上縁シャープ / 下縁は暗く沈む */
+  --rim-top: rgba(255, 255, 255, 0.38);
+  --rim-bottom: rgba(2, 6, 23, 0.35);
+  --rim-glow: rgba(255, 255, 255, 0.06);
+  --sheen: rgba(255, 255, 255, 0.09);
+
+  --chip-bg: rgba(148, 163, 184, 0.15);
   --chip-text: #e2e8f0;
-  --divider: rgba(148, 163, 184, 0.13);
+  --divider: rgba(148, 163, 184, 0.12);
   --track: rgba(148, 163, 184, 0.18);
   --overlay: rgba(2, 6, 23, 0.55);
-
-  /* スペキュラー（縁の光）・光沢 */
-  --spec-strong: rgba(255, 255, 255, 0.35);
-  --spec-weak: rgba(255, 255, 255, 0.10);
-  --sheen-a: rgba(255, 255, 255, 0.10);
-  --sheen-b: rgba(255, 255, 255, 0.035);
-  --sheen-c: rgba(255, 255, 255, 0.06);
 
   --c-indigo: #a5b4fc; --c-emerald: #6ee7b7; --c-amber: #fcd34d;
   --c-sky: #7dd3fc;    --c-rose: #fda4af;
@@ -49,12 +52,18 @@ html.light {
   --text-dim: #64748b;
   --text-faint: #94a3b8;
 
-  --glass-bg: rgba(255, 255, 255, 0.58);
-  --glass-bg-strong: rgba(255, 255, 255, 0.78);
-  --glass-border: rgba(15, 23, 42, 0.10);
-  --glass-inner: rgba(255, 255, 255, 0.95);
-  --glass-shadow: rgba(51, 65, 85, 0.14);
-  --glass-hover: rgba(255, 255, 255, 0.85);
+  /* ミルキーガラス */
+  --glass-bg: rgba(255, 255, 255, 0.42);
+  --glass-bg-strong: rgba(255, 255, 255, 0.60);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-hover: rgba(255, 255, 255, 0.72);
+  --glass-shadow-ambient: rgba(51, 65, 85, 0.16);
+  --glass-shadow-contact: rgba(51, 65, 85, 0.10);
+
+  --rim-top: rgba(255, 255, 255, 0.95);
+  --rim-bottom: rgba(51, 65, 85, 0.12);
+  --rim-glow: rgba(255, 255, 255, 0.30);
+  --sheen: rgba(255, 255, 255, 0.35);
 
   --chip-bg: rgba(15, 23, 42, 0.07);
   --chip-text: #334155;
@@ -62,60 +71,64 @@ html.light {
   --track: rgba(15, 23, 42, 0.12);
   --overlay: rgba(15, 23, 42, 0.38);
 
-  /* スペキュラー（ライトではより強い白の縁光がガラスらしい） */
-  --spec-strong: rgba(255, 255, 255, 0.95);
-  --spec-weak: rgba(255, 255, 255, 0.45);
-  --sheen-a: rgba(255, 255, 255, 0.35);
-  --sheen-b: rgba(255, 255, 255, 0.12);
-  --sheen-c: rgba(255, 255, 255, 0.22);
-
   --c-indigo: #4f46e5; --c-emerald: #047857; --c-amber: #b45309;
   --c-sky: #0369a1;    --c-rose: #be123c;
 }
 
-/* ---------- 背景（カラフルな光のにじみ = ガラスが映える）---------- */
+/* ---------- 背景（有機的でカラフル = ガラスが色を吸って映える）---------- */
 html.dark body {
   background:
-    radial-gradient(900px 520px at 12% -8%, rgba(99, 102, 241, 0.32) 0%, transparent 60%),
-    radial-gradient(760px 480px at 95% 12%, rgba(168, 85, 247, 0.22) 0%, transparent 60%),
-    radial-gradient(820px 560px at 45% 108%, rgba(14, 165, 233, 0.16) 0%, transparent 62%),
+    radial-gradient(900px 520px at 12% -8%, rgba(99, 102, 241, 0.36) 0%, transparent 60%),
+    radial-gradient(760px 480px at 95% 12%, rgba(168, 85, 247, 0.26) 0%, transparent 60%),
+    radial-gradient(680px 420px at 70% 55%, rgba(236, 72, 153, 0.10) 0%, transparent 60%),
+    radial-gradient(820px 560px at 45% 108%, rgba(14, 165, 233, 0.20) 0%, transparent 62%),
     #0b1020 !important;
   background-attachment: fixed !important;
   color: var(--app-text) !important;
 }
 html.light body {
   background:
-    radial-gradient(900px 520px at 12% -8%, rgba(129, 140, 248, 0.30) 0%, transparent 60%),
-    radial-gradient(760px 480px at 95% 12%, rgba(232, 121, 249, 0.20) 0%, transparent 60%),
-    radial-gradient(820px 560px at 45% 108%, rgba(56, 189, 248, 0.22) 0%, transparent 62%),
+    radial-gradient(900px 520px at 12% -8%, rgba(129, 140, 248, 0.34) 0%, transparent 60%),
+    radial-gradient(760px 480px at 95% 12%, rgba(232, 121, 249, 0.24) 0%, transparent 60%),
+    radial-gradient(680px 420px at 70% 55%, rgba(251, 146, 60, 0.12) 0%, transparent 60%),
+    radial-gradient(820px 560px at 45% 108%, rgba(56, 189, 248, 0.26) 0%, transparent 62%),
     #eef1f8 !important;
   background-attachment: fixed !important;
   color: var(--app-text) !important;
 }
 
-/* ---------- ガラス面：カード・パネル・入力 ---------- */
+/* ---------- 角丸を「スーパー楕円」寄りに底上げ ---------- */
+.rounded-xl  { border-radius: 18px !important; }
+.rounded-2xl { border-radius: 24px !important; }
+.rounded-3xl { border-radius: 30px !important; }
+
+/* ---------- ガラス面：カード・パネル・入力 ----------
+   体積ガラスの層構造:
+   1) 上縁 1px シャープハイライト（フレネル）
+   2) 内側全体のかすかなグロー（光がガラス内に溜まる）
+   3) 下縁の暗い深度（厚み）
+   4) 接地影（近く・濃い）+ 環境影（遠く・柔らかい） */
 .bg-slate-900 {
   position: relative;
   background: var(--glass-bg) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  backdrop-filter: blur(22px) saturate(180%);
-  /* Liquid Glassの要: エッジのスペキュラー（縁の光）をinset shadowで多層に */
+  border-color: var(--glass-border) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(170%) brightness(1.06);
+  backdrop-filter: blur(32px) saturate(170%) brightness(1.06);
   box-shadow:
-    inset 0 1px 0 var(--glass-inner),                       /* 上縁の強い光 */
-    inset 1.5px 3px 0 -2px var(--spec-strong),              /* 左上のリムライト */
-    inset -1.5px -1.5px 0 -1px var(--spec-weak),            /* 右下の反射 */
-    0 8px 28px -8px var(--glass-shadow);
+    inset 0 1px 1px var(--rim-top),
+    inset 0 0 12px var(--rim-glow),
+    inset 0 -1px 2px var(--rim-bottom),
+    0 2px 5px -1px var(--glass-shadow-contact),
+    0 12px 32px -8px var(--glass-shadow-ambient);
 }
-/* 表面を流れる斜めの光沢（ガラス面のハイライト） */
+/* 光沢シーン: 左上からの光（135deg・上半分だけ） */
 .bg-slate-900::after {
   content: "";
   position: absolute; inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(115deg,
-    var(--sheen-a) 0%, var(--sheen-b) 16%,
-    transparent 38%, transparent 75%,
-    var(--sheen-c) 100%);
+  background: linear-gradient(135deg,
+    var(--sheen) 0%, transparent 45%);
 }
 .hover\:bg-slate-800:hover { background: var(--glass-hover) !important; }
 
@@ -131,16 +144,17 @@ html.light body {
 /* sticky ヘッダー / 完全不透明面 → 半透明ガラス */
 .bg-slate-950\/90, .bg-slate-900\/95 {
   background: var(--glass-bg-strong) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(170%);
-  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(36px) saturate(170%) brightness(1.05);
+  backdrop-filter: blur(36px) saturate(170%) brightness(1.05);
+  box-shadow: inset 0 -1px 0 var(--divider);
 }
 .bg-slate-950 { background: transparent !important; }
 
 /* モーダルの背面：くもりガラス */
 .bg-black\/70 {
   background: var(--overlay) !important;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
 }
 
 /* ---------- テキスト色（テーマ対応）---------- */
@@ -163,54 +177,58 @@ html.light .text-amber-300\/80 { color: var(--c-amber) !important; }
 input[type="text"], input:not([type]), input[type="search"] { color: var(--app-text); }
 ::placeholder { color: var(--text-faint) !important; }
 
-/* ---------- ナビゲーション：浮遊ガラスピル ---------- */
+/* ---------- ナビゲーション：浮遊するガラスのピル（レンズ屈折つき）---------- */
 nav.fixed {
   left: 50% !important; right: auto !important;
   transform: translateX(-50%);
-  bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
   width: min(560px, calc(100% - 24px));
-  border-radius: 26px;
+  border-radius: 999px;               /* 完全なピル形状 */
   border: 1px solid var(--glass-border) !important;
-  border-top-color: var(--glass-border) !important;
+  border-top-color: var(--rim-top) !important;
   background: var(--glass-bg-strong) !important;
-  -webkit-backdrop-filter: blur(26px) saturate(190%);
-  backdrop-filter: blur(26px) saturate(190%);
+  -webkit-backdrop-filter: blur(36px) saturate(180%) brightness(1.08);
+  backdrop-filter: blur(36px) saturate(180%) brightness(1.08);
   box-shadow:
-    inset 0 1px 0 var(--glass-inner),
-    inset 2px 4px 0 -3px var(--spec-strong),
-    inset -2px -2px 0 -1.5px var(--spec-weak),
-    0 12px 36px -10px var(--glass-shadow);
+    inset 0 1px 1px var(--rim-top),
+    inset 0 0 14px var(--rim-glow),
+    inset 0 -1px 2px var(--rim-bottom),
+    0 2px 6px -1px var(--glass-shadow-contact),
+    0 16px 40px -10px var(--glass-shadow-ambient);
   overflow: hidden;
 }
-/* Liquid Glassの屈折（refraction）: SVG displacement mapをbackdrop-filterに使える
-   環境（Chromium）でのみ背景がレンズのようににじむ。他ブラウザは上のblurにフォールバック */
+/* エッジ屈折（レンズ効果）: displacement mapは縁だけ歪ませ中心はニュートラル。
+   backdrop-filter: url() 対応環境（Chromium）のみ。他はblurにフォールバック */
 @supports (backdrop-filter: url(#lg-refract)) {
   nav.fixed {
-    -webkit-backdrop-filter: url(#lg-refract) blur(22px) saturate(190%);
-    backdrop-filter: url(#lg-refract) blur(22px) saturate(190%);
+    -webkit-backdrop-filter: url(#lg-refract) blur(6px) saturate(180%) brightness(1.08);
+    backdrop-filter: url(#lg-refract) blur(6px) saturate(180%) brightness(1.08);
   }
 }
 nav.fixed::after {
   content: "";
   position: absolute; inset: 0;
   border-radius: inherit; pointer-events: none;
-  background: linear-gradient(100deg,
-    var(--sheen-a) 0%, transparent 30%,
-    transparent 68%, var(--sheen-c) 100%);
+  background: linear-gradient(135deg, var(--sheen) 0%, transparent 40%);
 }
-nav.fixed [data-nav] { transition: color .15s ease, transform .15s ease; position: relative; z-index: 1; }
-nav.fixed [data-nav]:active { transform: scale(0.92); }
+nav.fixed [data-nav] {
+  position: relative; z-index: 1;
+  transition: color .15s ease, transform .45s cubic-bezier(0.2, 0.9, 0.3, 1.4);
+}
+nav.fixed [data-nav]:active { transform: scale(0.85); transition-duration: .08s; }
 
-/* ---------- グラデーションカード：ガラス越しの発光体のように ---------- */
+/* ---------- グラデーションカード：発光体を封じたガラス ---------- */
 .bg-gradient-to-br, .bg-gradient-to-r {
   position: relative;
   color: #fff; /* 濃色グラデーション上は常に白文字（ライトモードでも） */
-  border: 1px solid rgba(255, 255, 255, 0.30);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-top-color: rgba(255, 255, 255, 0.55);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 2px 4px 0 -3px rgba(255, 255, 255, 0.55),
-    inset -2px -2px 0 -1.5px rgba(255, 255, 255, 0.16),
-    0 12px 32px -10px var(--glass-shadow);
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 0 0 14px rgba(255, 255, 255, 0.10),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.22),
+    0 2px 6px -1px var(--glass-shadow-contact),
+    0 14px 36px -10px var(--glass-shadow-ambient);
   overflow: hidden;
 }
 .bg-gradient-to-br .text-slate-400, .bg-gradient-to-r .text-slate-400 { color: rgba(255,255,255,.8) !important; }
@@ -230,21 +248,36 @@ nav.fixed [data-nav]:active { transform: scale(0.92); }
 }
 @media (prefers-reduced-motion: reduce) {
   .bg-gradient-to-br::before, .bg-gradient-to-r::before { animation: none; }
+  nav.fixed [data-nav] { transition: color .15s ease; }
 }
 
 /* ライトモードでは白リング（推奨評価のハイライト）が見えないので濃色に */
 html.light .ring-white\/60 { --tw-ring-color: rgba(15, 23, 42, 0.4) !important; }
 
-/* ---------- 押下フィードバック：ガラスが沨むような質感 ---------- */
-button.bg-slate-900:active, button.bg-slate-800:active { filter: brightness(1.12) saturate(1.05); }
+/* ---------- ジェル・インタラクション ----------
+   押すと圧縮され（squish）、放すとスプリングで弾んで戻る。
+   押下中は光がガラス内に溜まるように明るくなる */
+button.bg-slate-900, button.bg-slate-800,
+button.bg-gradient-to-br, button.bg-gradient-to-r {
+  transition:
+    transform .45s cubic-bezier(0.2, 0.9, 0.3, 1.45),
+    filter .2s ease,
+    background-color .25s ease, border-color .25s ease;
+}
+button.bg-slate-900:active, button.bg-slate-800:active,
+button.bg-gradient-to-br:active, button.bg-gradient-to-r:active {
+  transform: scale(0.96);
+  filter: brightness(1.15) saturate(1.08);
+  transition-duration: .08s;
+}
 
 /* ---------- トグルスイッチ ---------- */
 input.toggle { position: relative; outline: none; }
 input.toggle::before {
   content: ""; position: absolute; top: 2px; left: 2px;
   width: 20px; height: 20px; border-radius: 9999px; background: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  transition: transform .18s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.9);
+  transition: transform .35s cubic-bezier(0.2, 0.9, 0.3, 1.4);
 }
 input.toggle:checked::before { transform: translateX(20px); }
 input.toggle:not(:checked) { background: var(--track) !important; }
@@ -259,8 +292,12 @@ button { -webkit-user-select: none; user-select: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* ---------- アニメーション ---------- */
-@keyframes pop { 0% { transform: scale(.96); opacity: .6 } 100% { transform: scale(1); opacity: 1 } }
-.opt, #feedback > div { animation: pop .15s ease; }
+@keyframes pop {
+  0% { transform: scale(.94); opacity: .5 }
+  60% { transform: scale(1.015); }
+  100% { transform: scale(1); opacity: 1 }
+}
+.opt, #feedback > div { animation: pop .28s cubic-bezier(0.2, 0.9, 0.3, 1.3); }
 
 /* テーマ切替をなめらかに */
 body, .bg-slate-900, .bg-slate-800, nav.fixed {
