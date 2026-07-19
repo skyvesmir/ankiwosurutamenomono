@@ -313,6 +313,24 @@
         '</div>';
       })() +
 
+      '<h2 class="text-sm font-bold text-slate-300 mb-2">熟語データベース</h2>' +
+      (function () {
+        const ds = s.phraseDataset || 'target1000';
+        const opt = (mode, title, desc, count) =>
+          '<button data-phrase-dataset="' + mode + '" class="w-full flex items-center gap-3 p-3 rounded-xl border text-left transition ' +
+          (ds === mode ? 'bg-brand/15 border-brand/50' : 'bg-slate-800 border-transparent') + '">' +
+            '<i class="fas ' + (ds === mode ? 'fa-circle-check text-brand' : 'fa-circle text-slate-600') + '"></i>' +
+            '<span class="flex-1"><span class="text-sm font-bold block">' + title + '</span>' +
+            '<span class="text-xs text-slate-400">' + desc + '</span></span>' +
+            '<span class="text-xs font-bold text-slate-400">' + count + '</span>' +
+          '</button>';
+        return '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-4 space-y-2">' +
+          opt('target1000', 'ターゲット1000', '書籍と同じ並び・Part 1〜5構成（補足・例文つき）', '1000熟語') +
+          opt('full', '全部バージョン', '新データベース全収録／意味カテゴリ別 全48セクション（補足・例文つき）', '3238熟語') +
+          '<p class="text-[11px] text-slate-500 leading-relaxed px-1">同じ熟語の学習進捗は両バージョンで共有されます。切替はいつでも可能です。</p>' +
+        '</div>';
+      })() +
+
       '<h2 class="text-sm font-bold text-slate-300 mb-2">アカウント</h2>' +
       accountHtml +
 

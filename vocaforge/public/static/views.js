@@ -144,6 +144,14 @@
       }));
     }
     if (deck === 'phrases') {
+      // 全部バージョン: 意味カテゴリ別48セクション
+      if (VF.useFullPhrases()) {
+        return (m.phrase_full_sections || []).map(s => ({
+          key: s.section,
+          label: '#' + String(s.section).padStart(2, '0') + ' ' + s.title,
+          count: s.count
+        }));
+      }
       // 英熟語ターゲット1000 公式パート構成に準拠
       return (m.phrase_parts || []).map(p => ({
         key: p.section,

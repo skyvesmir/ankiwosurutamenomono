@@ -86,10 +86,34 @@
     const moved = Store.migrateCardIds(mapping);
     if (moved) console.info('[VF] dataset ID migration: ' + moved + ' cards merged');
   }
+  // ターゲット1000：新DBから抽出済み（補足・例文付き、並びはターゲット1000準拠）
   function normPhrase(p) {
     return { id: p.id, term: p.term, meaning: p.meaning, deck: 'phrases',
       group: p.section, groupLabel: (p.sectionCode || ('Part ' + p.section)) +
-        (p.sectionTitle ? '：' + p.sectionTitle : '') };
+        (p.sectionTitle ? '：' + p.sectionTitle : ''),
+      note: p.note, example: p.example, exampleJa: p.exampleJa, full: true };
+  }
+  // 全部バージョンの熟語（補足・例文・例文訳付き・48セクション）
+  function normPhraseFull(p) {
+    return { id: p.id, term: p.term, meaning: p.meaning, deck: 'phrases',
+      group: p.section, groupLabel: '#' + String(p.section).padStart(2, '0') + ' ' + (p.sectionTitle || ''),
+      note: p.note, example: p.example, exampleJa: p.exampleJa, full: true };
+  }
+  // 現在の設定に応じた熟語DB（target1000 | full）
+  function useFullPhrases() {
+    return Store.getSettings().phraseDataset === 'full' && !!DATA.phrasesFull;
+  }
+  function phraseSource() {
+    return useFullPhrases() ? DATA.phrasesFull.map(normPhraseFull) : DATA.phrases.map(normPhrase);
+  }
+  // 全部バージョン熟語の遅延ロード
+  async function loadFullPhrases() {
+    if (DATA.phrasesFull) return true;
+    try {
+      const r = await fetch('/static/data/phrases_full.json');
+      DATA.phrasesFull = await r.json();
+      return true;
+    } catch (e) { return false; }
   }
   // 語源は「語源そのもの」を覚えるカードにする: 表=見出し, 裏=コアの意味
   // 同じコア意味（例「場所」）を持つ接辞・語根が複数あるため、
@@ -120,7 +144,7 @@
   function deckCards(deck, group) {
     let arr;
     if (deck === 'words') arr = wordSource();
-    else if (deck === 'phrases') arr = DATA.phrases.map(normPhrase);
+    else if (deck === 'phrases') arr = phraseSource();
     else arr = DATA.etym.filter(e => e.learnable).map(normEtym);
     if (group != null && group !== 'all') arr = arr.filter(c => String(c.group) === String(group));
     return arr;
@@ -132,7 +156,7 @@
     try {
       const [w, p, e, m] = await Promise.all([
         fetch('/static/data/words_target.json').then(r => r.json()),
-        fetch('/static/data/phrases.json').then(r => r.json()),
+        fetch('/static/data/phrases_target.json').then(r => r.json()),
         fetch('/static/data/etymology.json').then(r => r.json()),
         fetch('/static/data/meta.json').then(r => r.json())
       ]);
@@ -141,6 +165,8 @@
       // 旧 'wf-' IDの進捗が残っている場合もロードしてIDマイグレーションを実行
       if (Store.getSettings().wordDataset === 'full' || Store.hasCardIdPrefix('wf-')) await loadFullWords();
       if (Store.getSettings().wordDataset === 'leap') await loadLeapWords();
+      // 熟語全部バージョン選択中、または既に pf- の進捗がある場合はロード
+      if (Store.getSettings().phraseDataset === 'full' || Store.hasCardIdPrefix('pf-')) await loadFullPhrases();
       render();
       // 認証状態が変化したら設定画面を更新
       if (window.VFAuth) window.VFAuth.onChange(() => {
@@ -258,7 +284,14 @@
         if (w) card = normWordFull(w);
       }
     }
-    else if (deck === 'phrases') card = DATA.phrases.map(normPhrase).find(c => c.id === id);
+    else if (deck === 'phrases') {
+      card = phraseSource().find(c => c.id === id);
+      // 現在のデータセット外の熟語（混同検出など）は全部DBから探す
+      if (!card && DATA.phrasesFull) {
+        const p = DATA.phrasesFull.find(x => x.id === id);
+        if (p) card = normPhraseFull(p);
+      }
+    }
     else { const e = DATA.etym.find(x => x.id === id); if (e) { window.__showEtymDetail(e); return; } }
     if (!card) return;
     const st = Store.getCard(id);
@@ -301,7 +334,7 @@
         render(); // ボタンの選択状態を更新
       };
     });
-    // 単語DB切替（ターゲット1900 / 全部バージョン）
+    // 単語DB切替（ターゲット1900 / 全部バージョン / Leap）
     document.querySelectorAll('[data-dataset]').forEach(b => {
       b.onclick = async () => {
         const mode = b.getAttribute('data-dataset');
@@ -312,6 +345,20 @@
           if (!ok) { alert('データの読み込みに失敗しました'); render(); return; }
         }
         Store.setSettings({ wordDataset: mode });
+        render();
+      };
+    });
+    // 熟語DB切替（ターゲット1000 / 全部バージョン）
+    document.querySelectorAll('[data-phrase-dataset]').forEach(b => {
+      b.onclick = async () => {
+        const mode = b.getAttribute('data-phrase-dataset');
+        if (mode === Store.getSettings().phraseDataset) return;
+        if (mode === 'full' && !DATA.phrasesFull) {
+          b.innerHTML = '<i class="fas fa-circle-notch fa-spin text-lg"></i><span class="text-xs">読込中…</span>';
+          const ok = await loadFullPhrases();
+          if (!ok) { alert('データの読み込みに失敗しました'); render(); return; }
+        }
+        Store.setSettings({ phraseDataset: mode });
         render();
       };
     });
@@ -448,7 +495,7 @@
   }
 
   // 後続スクリプトで拡張
-  window.VF = { DATA, STATE, go, deckCards, catLabel, nav, wordSections, useFullWords, loadFullWords, loadLeapWords };
+  window.VF = { DATA, STATE, go, deckCards, catLabel, nav, wordSections, useFullWords, loadFullWords, loadLeapWords, useFullPhrases, loadFullPhrases };
   window.__showCardDetail = showDetail;
 
   document.addEventListener('DOMContentLoaded', boot);

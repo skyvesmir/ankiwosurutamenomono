@@ -246,7 +246,8 @@
       if (w.id !== card.id && Quiz.normalize(w.term) === ni)
         return { id: w.id, deck: 'words', term: w.term, meaning: w.meaning };
     }
-    const phrases = VF.DATA.phrases || [];
+    // 熟語: 全部DBがロード済みならそちら（3238熟語）、なければ現行DB
+    const phrases = VF.DATA.phrasesFull || VF.DATA.phrases || [];
     for (let i = 0; i < phrases.length; i++) {
       const p = phrases[i];
       if (p.id === card.id) continue;

@@ -41,6 +41,12 @@
       }));
     }
     if (deck === 'phrases') {
+      // 全部バージョン: 意味カテゴリ刅48セクション
+      if (VF.useFullPhrases()) {
+        return (m.phrase_full_sections || []).map(s => ({
+          key: s.section, label: '#' + String(s.section).padStart(2, '0') + ' ' + s.title, count: s.count, sub: ''
+        }));
+      }
       return (m.phrase_parts || []).map(p => ({
         key: p.section, label: p.code + '：' + p.title, count: p.count, sub: p.range[0] + '–' + p.range[1]
       }));
@@ -123,6 +129,10 @@
     const m = VF.DATA.meta;
     if (FC.group === 'all') return FC.deck === 'words' ? '全Section' : '全Part';
     if (FC.deck === 'phrases') {
+      if (VF.useFullPhrases()) {
+        const s = (m.phrase_full_sections || []).find(x => String(x.section) === String(FC.group));
+        return s ? '#' + String(s.section).padStart(2, '0') + ' ' + s.title : '#' + FC.group;
+      }
       const p = (m.phrase_parts || []).find(x => String(x.section) === String(FC.group));
       return p ? p.code : 'Part ' + FC.group;
     }
