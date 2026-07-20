@@ -4,7 +4,7 @@
 - **名称**: VocaForge
 - **目的**: 英語語彙力の超強化（特定大学対策ではなく、汎用的な語彙力底上げ）
 - **対象データ**:
-  - 英単語 **1900語**（ターゲット1900 / 100語ごと全19セクション）、**全部バージョン 6559語**（全66セクション）、**Leap 2297語**（全23セクション）の3データセットを設定で切替可能。同一単語の学習進捗は全データセットで共有
+  - 英単語 **1900語**（ターゲット1900 / 100語ごと全19セクション）、**全部バージョン 6559語**（意味カテゴリ別 全53セクション：「#01 重要な・ささいな」〜「#46 接続詞・副詞・前置詞」。語源ヒント・類義語グループ付き）、**Leap 2297語**（全23セクション）の3データセットを設定で切替可能。同一単語の学習進捗は全データセットで共有
   - 英熟語 **1000語**（英熟語ターゲット1000 5訂版の公式パート構成に準拠：Part1 絶対覚えておきたい180 / Part2 グルーピングで覚える240 / Part3 形で覚える240 / Part4 文法・構文で覚える170 / Part5 ここで差がつく難熟語170）、**全部バージョン 3238熟語**（意味カテゴリ別全48セクション・補足/例文/例文訳付き）の2データセットを設定で切替可能。どちらも新DB由来の補足・例文・例文訳付き。同一熟語の学習進捗は両データセットで共有（共遒1000熟語は `p-N` IDを共用、新規熟語は `pf-N`）
   - 語源 **590件**（接頭辞140・接尾辞140・語根310。うち学習カード539件＋参照ノート51件）。接頭辞・接尾辞・語根それぞれを**意味（テーマ大分類：方向・位置／時間／数量・程度…）でグルーピング**し、単語のSection・熟語のPartと同じ選択単位として学習・フラッシュカードで扱える（全38グループ）
   - 語源の出題は**コア意味に派生的な意味を併記**（例「場所（位置、地方）」「場所（地形、論題）」）して識別性を確保。同じコア意味の接辞・語根（loc-とtop-など）が区別できるようにし、入力形式では語源言語をヒント表示（例「ラテン語 *locus*」）。これにより539カード全ての意味ラベルが一意になる
@@ -54,6 +54,7 @@
 ## データ構造
 - **語彙カード（単語・熟語）**: `{id, no, term(英), meaning(日), section, sectionCode, sectionTitle, sectionRange}`（熟語のsectionは公式Part番号）
 - **熟語全部バージョン（phrases_full.json）**: `{id(p-N共有/pf-N新規), no, term, meaning, section(1-48), sectionTitle(意味カテゴリ名), note?, example?, exampleJa?}`。meta.json の `phrase_full_sections` に48セクションの `{section, title, count}`
+- **単語全部バージョン（words_full.json）**: `{id(w-N共有/wf-N新規), no, term, ipa, pos, meaning, section(1-53), note?, example?, exampleJa?, etym?(語源ヒント), syn?(類義語グループ)}`。並びは意味カテゴリ別グルーピング済みCSVに準拠。meta.json の `word_full_sections` に53セクションの `{section, title, count}`（旧CSVにのみあった6語は #45b 軍事・戦争 に編入）
 - **語源カード**: `{id, category(prefix/suffix/root), headword, variants, theme, themeGroup(意味大分類), group("category:themeGroup"複合キー), core(コア意味), derived, origin, image_hint, examples[], tips, confusion, importance, learnable}`
 - **語源グループ（meta.etym_groups）**: `{category, theme, key, count}` — カテゴリ×意味大分類の選択単位（38グループ）
 - **記憶状態（localStorage）**: `{state, stability(S), difficulty(D), due, last_review, reps, lapses, is_leech}`（FSRS）

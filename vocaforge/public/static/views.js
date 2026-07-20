@@ -159,6 +159,12 @@
         count: p.count
       }));
     }
+    // 単語・全部バージョン: 意味カテゴリ別53セクション（名前付き・可変長）
+    if (VF.useFullWords() && (m.word_full_sections || []).length) {
+      return m.word_full_sections.map(s => ({
+        key: s.section, label: s.title, count: s.count
+      }));
+    }
     const n = VF.wordSections();
     const out = [];
     for (let i = 1; i <= n; i++) {

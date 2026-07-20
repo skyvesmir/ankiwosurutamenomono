@@ -51,6 +51,12 @@
         key: p.section, label: p.code + '：' + p.title, count: p.count, sub: p.range[0] + '–' + p.range[1]
       }));
     }
+    // 単語・全部バージョン: 意味カテゴリ別セクション（名前付き・可変長）
+    if (VF.useFullWords() && (m.word_full_sections || []).length) {
+      return m.word_full_sections.map(s => ({
+        key: s.section, label: s.title, count: s.count, sub: ''
+      }));
+    }
     const out = [];
     for (let i = 1; i <= VF.wordSections(); i++) {
       const arr = VF.deckCards('words', i);
@@ -135,6 +141,10 @@
       }
       const p = (m.phrase_parts || []).find(x => String(x.section) === String(FC.group));
       return p ? p.code : 'Part ' + FC.group;
+    }
+    if (VF.useFullWords()) {
+      const s = (m.word_full_sections || []).find(x => String(x.section) === String(FC.group));
+      if (s) return s.title;
     }
     return 'Section ' + FC.group;
   }

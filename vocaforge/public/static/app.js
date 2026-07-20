@@ -19,11 +19,17 @@
       group: w.section, groupLabel: (w.sectionCode || ('Section ' + w.section)),
       ipa: w.ipa, pos: w.pos, note: w.note, example: w.example, exampleJa: w.exampleJa, full: true };
   }
-  // 全部バージョン（6559語）: 同じ新DBの全件
+  // 全部バージョン（6559語）: 意味カテゴリ別 全53セクション（例「#01 重要な・ささいな」）
+  function wordFullSectionTitle(sec) {
+    const arr = (DATA.meta && DATA.meta.word_full_sections) || [];
+    const s = arr.find(x => x.section === sec);
+    return s ? s.title : ('Section ' + sec);
+  }
   function normWordFull(w) {
     return { id: w.id, term: w.term, meaning: w.meaning, deck: 'words',
-      group: w.section, groupLabel: 'Section ' + w.section,
-      ipa: w.ipa, pos: w.pos, note: w.note, example: w.example, exampleJa: w.exampleJa, full: true };
+      group: w.section, groupLabel: wordFullSectionTitle(w.section),
+      ipa: w.ipa, pos: w.pos, note: w.note, example: w.example, exampleJa: w.exampleJa,
+      etym: w.etym, syn: w.syn, full: true };
   }
   // Leapモード: Leap収録語の並びで出題（セクションは100語区切り）
   function normWordLeap(w) {
@@ -45,7 +51,7 @@
   function wordSections() {
     const m = DATA.meta || {};
     if (useLeapWords()) return Math.ceil(DATA.wordsLeap.length / 100);
-    return useFullWords() ? (m.words_full_sections || 66) : (m.word_sections || 19);
+    return useFullWords() ? (m.words_full_sections || 53) : (m.word_sections || 19);
   }
   // 全部バージョンの遅延ロード（5MBのため必要時のみ）
   async function loadFullWords() {
@@ -67,8 +73,11 @@
       const r = await fetch('/static/data/words_leap.json');
       const leap = await r.json();
       const byId = {};
+      // ターゲット1900を先に索引化し、全部DBで上書き。
+      // （全部DBの再編成で削除された語もターゲット側から補完できる）
+      (DATA.words || []).forEach(w => { byId[w.id] = w; });
       DATA.wordsFull.forEach(w => { byId[w.id] = w; });
-      DATA.wordsLeap = leap.ids.map((id, i) => Object.assign({}, byId[id], {
+      DATA.wordsLeap = leap.ids.filter(id => byId[id]).map((id, i) => Object.assign({}, byId[id], {
         leapNo: i + 1, leapSection: Math.floor(i / 100) + 1
       }));
       return true;
@@ -307,7 +316,9 @@
        (card.note ? '<div class="mt-3 bg-slate-800/50 rounded-xl p-3 text-xs text-slate-300 leading-relaxed"><div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-circle-info mr-1"></i>補足</div>' + br(card.note) + '</div>' : '') +
        (card.example ? '<div class="mt-3 bg-slate-800/50 rounded-xl p-3 text-xs leading-relaxed"><div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-quote-left mr-1"></i>例文</div>' +
          '<div class="text-slate-200">' + br(card.example) + '</div>' +
-         (card.exampleJa ? '<div class="text-slate-400 mt-1.5">' + br(card.exampleJa) + '</div>' : '') + '</div>' : ''))
+         (card.exampleJa ? '<div class="text-slate-400 mt-1.5">' + br(card.exampleJa) + '</div>' : '') + '</div>' : '') +
+       (card.etym ? '<div class="mt-3 bg-slate-800/50 rounded-xl p-3 text-xs text-slate-300 leading-relaxed"><div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-dna mr-1"></i>語源</div>' + br(card.etym) + '</div>' : '') +
+       (card.syn ? '<div class="mt-3 bg-slate-800/50 rounded-xl p-3 text-xs text-slate-300 leading-relaxed"><div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-tags mr-1"></i>類義語グループ</div>' + br(card.syn) + '</div>' : ''))
       : '<div class="text-slate-300 mt-2">' + br(card.meaning) + '</div>';
     const html =
       '<div id="vf-modal" class="fixed inset-0 z-50 bg-black/70 flex items-end sm:items-center justify-center">' +
