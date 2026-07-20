@@ -24,6 +24,7 @@
     strictInput: false,    // 入力採点: trueで完全一致, falseで正規化緩め
     formats: { 'mc-ej': true, 'mc-je': true, 'type-je': true }, // 有効な出題形式
     leechThreshold: 8,
+    sectionNewLimit: 50, // セクション明示選択時の1回あたり新規カード数（下限10）
     wordDataset: 'target1900', // 単語DB: 'target1900'(1900語) | 'full'(発音/品詞/例文付き) | 'leap'
     phraseDataset: 'target1000' // 熟語DB: 'target1000'(1000熟語) | 'full'(3238熟語・補足/例文付き)
   };

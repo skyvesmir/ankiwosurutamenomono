@@ -78,7 +78,8 @@
       let newAllowed = Math.max(0, settings.newPerDay - daily.new);
       if (group && group !== 'due' && group !== 'all' && deck !== 'mix') {
         // 特定セクションを明示選択した場合は上限を緩める（学習意欲尊重）
-        newAllowed = Math.max(newAllowed, 50);
+        // 1回あたりの個数は設定「セクション学習の新規カード数」で変更可能（下限10）
+        newAllowed = Math.max(newAllowed, Math.max(10, settings.sectionNewLimit || 50));
       }
       queue = fresh.slice(0, newAllowed);
     }

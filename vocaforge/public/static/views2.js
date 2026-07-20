@@ -341,6 +341,9 @@
         '<div class="py-3"><div class="text-sm font-medium mb-2">1日の新規カード上限 <span class="text-brand font-bold" id="np-val">' + s.newPerDay + '</span></div>' +
           '<input type="range" min="5" max="80" step="5" value="' + s.newPerDay + '" data-set="newPerDay" class="w-full accent-indigo-500">' +
           '<div class="text-xs text-slate-400 mt-1">燃え尽き防止。毎日続けられるペースに（分散効果）。</div></div>' +
+        '<div class="py-3"><div class="text-sm font-medium mb-2">セクション学習の新規カード数 <span class="text-brand font-bold" id="snl-val">' + (s.sectionNewLimit || 50) + '</span></div>' +
+          '<input type="range" min="10" max="100" step="5" value="' + (s.sectionNewLimit || 50) + '" data-set="sectionNewLimit" class="w-full accent-indigo-500">' +
+          '<div class="text-xs text-slate-400 mt-1">セクションを選んで学習するときの1回あたりの新規カード数（下限10）。</div></div>' +
       '</div>' +
 
       '<h2 class="text-sm font-bold text-slate-300 mb-2">出題形式</h2>' +

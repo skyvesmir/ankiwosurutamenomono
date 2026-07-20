@@ -34,7 +34,7 @@
 - **完全な復習ログ保存**：card_id・日時・評価・経過日数・所要時間・S/D前後値（将来のFSRSパラメータ最適化に対応）。
 - **学習統計**：連続学習日数、直近保持率、総復習回数、記憶ステージ別件数、直近14日の学習量グラフ。
 - **語彙一覧・検索・詳細**：全語彙をブラウズ・検索。語源カードは派生語・イメージ・覚え方・混同注意まで詳細表示。
-- **設定**：目標保持率、1日の新規上限、出題形式のON/OFF、インターリービング、採点厳格度、データリセット。
+- **設定**：目標保持率、1日の新規上限、セクション学習の新規カード数（10〜100・既定50）、出題形式のON/OFF、インターリービング、採点厳格度、データリセット。
 - **データのエクスポート/インポート**：学習進捗・記憶状態・統計をJSONファイルに書き出し（エクスポート）、別端末・別ブラウザへ引き継ぎ可能（インポート）。インポートは「統合（足し合わせ）」「置換（上書き）」を選択でき、不正ファイルは自動で拒否する。
 - **データはローカル完結**：学習進捗・FSRS状態・ログは localStorage に保存（サーバー不要・プライバシー保護）。バックアップはエクスポート機能で取得。
 - **Supabase 認証（Googleログイン）**：「設定」タブの「アカウント」からGoogleアカウントでログイン／ログアウト可能。Supabase JS SDK v2（esm.sh CDN、ESモジュール）を `supabase-auth.js` で初期化し、`signInWithOAuth({provider:'google'})`（リダイレクト方式）を使用。ログイン状態は `persistSession` で永続化し、`window.VFAuth` 経由で非moduleのアプリ本体と橋渡しする。
@@ -54,7 +54,7 @@
 ## データ構造
 - **語彙カード（単語・熟語）**: `{id, no, term(英), meaning(日), section, sectionCode, sectionTitle, sectionRange}`（熟語のsectionは公式Part番号）
 - **熟語全部バージョン（phrases_full.json）**: `{id(p-N共有/pf-N新規), no, term, meaning, section(1-48), sectionTitle(意味カテゴリ名), note?, example?, exampleJa?}`。meta.json の `phrase_full_sections` に48セクションの `{section, title, count}`
-- **単語全部バージョン（words_full.json）**: `{id(w-N共有/wf-N新規), no, term, ipa, pos, meaning, section(1-53), note?, example?, exampleJa?, etym?(語源ヒント), syn?(類義語グループ)}`。並びは意味カテゴリ別グルーピング済みCSVに準拠。meta.json の `word_full_sections` に53セクションの `{section, title, count}`（旧CSVにのみあった6語は #45b 軍事・戦争 に編入）
+- **単語全部バージョン（words_full.json）**: `{id(w-N共有/wf-N新規), no, term, ipa, pos, meaning, section(1-53), note?, example?, exampleJa?, etym?(語源ヒント), syn?(類義語グループ)}`。並びは意味カテゴリ別グルーピング済みCSVに準拠。meta.json の `word_full_sections` に53セクションの `{section, title, count}`（旧CSVにのみあった6語は意味で正しい位置に挿入：dispute→#17b議論・論争のcontroversy隣、torture→#22b犯罪・法のpunitive隣、troop/shield/warrior/assault→#45b軍事・戦争のbattalion/weapon/soldier/raid隣）
 - **語源カード**: `{id, category(prefix/suffix/root), headword, variants, theme, themeGroup(意味大分類), group("category:themeGroup"複合キー), core(コア意味), derived, origin, image_hint, examples[], tips, confusion, importance, learnable}`
 - **語源グループ（meta.etym_groups）**: `{category, theme, key, count}` — カテゴリ×意味大分類の選択単位（38グループ）
 - **記憶状態（localStorage）**: `{state, stability(S), difficulty(D), due, last_review, reps, lapses, is_leech}`（FSRS）
