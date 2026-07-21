@@ -30,26 +30,66 @@
   }
 
   // 入力正規化（記入採点用）
+  // 括弧は「中身を残して記号のみ除去」する（有無両形の生成は acceptableAnswers 側で行う）
   function normalize(s) {
     return (s || '').toLowerCase()
       .replace(/[～~]/g, '')
+      .replace(/[()（）]/g, '')
       .replace(/[.．,，!！?？:：;；'’"”\-]/g, '')
       .replace(/\s+/g, ' ')
       .trim();
   }
 
-  // 英語の許容解答リストを作る（熟語の「one's / ～ / A/B」等を考慮）
-  function acceptableAnswers(term) {
-    const base = term.trim();
-    const set = new Set([base]);
-    // スラッシュ表記 a/b → 両方
-    if (base.includes('/')) {
-      // "be sure of/about ～" のようなケースは局所的なので単純対応
-      const m = base.match(/(\S+)\/(\S+)/);
-      if (m) {
-        set.add(base.replace(m[0], m[1]));
-        set.add(base.replace(m[0], m[2]));
+  // 許容解答の組合せ爆発を防ぐ上限
+  const MAX_VARIANTS = 64;
+
+  // 括弧グループを「中身を残す」「丸ごと除去」の両形に展開
+  // 例: "on occasion(s)" → ["on occasions", "on occasion"]
+  //     "(every) once in a while" → ["every once in a while", "once in a while"]
+  function expandParens(s) {
+    const m = s.match(/[(（]([^()（）]*)[)）]/);
+    if (!m) return [s];
+    const before = s.slice(0, m.index);
+    const after = s.slice(m.index + m[0].length);
+    const out = [];
+    for (const rest of expandParens(after)) {
+      out.push(before + m[1] + rest); // 中身を残す
+      out.push(before + rest);        // グループごと除去
+      if (out.length >= MAX_VARIANTS) break;
+    }
+    return out;
+  }
+
+  // スラッシュ区切りの選択肢をトークン単位で全展開（3択以上・複数箇所も対応）
+  // 例: "look back on/upon/to" → ["look back on", "look back upon", "look back to"]
+  function expandSlashes(s) {
+    const tokens = s.split(/\s+/).filter(Boolean);
+    let variants = [''];
+    for (const tok of tokens) {
+      const alts = tok.includes('/') ? tok.split('/').filter(Boolean) : [tok];
+      const next = [];
+      for (const v of variants) {
+        for (const a of (alts.length ? alts : [tok])) {
+          next.push(v ? v + ' ' + a : a);
+          if (next.length >= MAX_VARIANTS) break;
+        }
+        if (next.length >= MAX_VARIANTS) break;
       }
+      variants = next;
+    }
+    return variants;
+  }
+
+  // 英語の許容解答リストを作る（熟語の「(～)」「(s)」「A/B/C」等を考慮）
+  function acceptableAnswers(term) {
+    const base = (term || '').trim();
+    const set = new Set([base]);
+    for (const p of expandParens(base)) {
+      for (const v of expandSlashes(p)) {
+        set.add(v);
+        if (set.size >= MAX_VARIANTS) break;
+      }
+      if (set.size >= MAX_VARIANTS) break;
     }
     return Array.from(set);
   }

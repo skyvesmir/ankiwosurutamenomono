@@ -35,20 +35,28 @@
 
   // ---- レビュー履歴 → カード別シーケンス構築 ----
   // 各レビューに train/test フラグを付ける（時刻の75パーセンタイルで分割）
+  // ログ上限キャップで先頭が削除された系列（最初のログの s_before > 0）は、
+  // 「初回レビューからのリプレイ」前提が崩れ訓練データを歪めるため除外する。
   function buildSequences() {
     const logs = Store.getLogs().slice()
       .filter(l => l && l.card_id && l.grade >= 1 && l.grade <= 4 && l.reviewed_at)
       .sort((a, b) => a.reviewed_at - b.reviewed_at);
-    if (!logs.length) return { seqs: [], total: 0, evaluable: 0, testN: 0 };
+    if (!logs.length) return { seqs: [], total: 0, evaluable: 0, testN: 0, truncated: 0 };
 
     const cutoff = logs[Math.floor(logs.length * 0.75)].reviewed_at;
     const byCard = {};
     for (const l of logs) (byCard[l.card_id] = byCard[l.card_id] || []).push(l);
 
     const seqs = [];
-    let evaluable = 0, testN = 0;
+    let evaluable = 0, testN = 0, truncated = 0;
     for (const id in byCard) {
       const arr = byCard[id];
+      // 先頭欠損検出: 真の初回レビューは s_before === 0。
+      // （s_before 未記録の旧ログは後方互換のため欠損扱いしない）
+      if (typeof arr[0].s_before === 'number' && arr[0].s_before > 0) {
+        truncated++;
+        continue;
+      }
       const seq = [];
       for (let i = 0; i < arr.length; i++) {
         const elapsed = i === 0 ? 0 : Math.max(0, (arr[i].reviewed_at - arr[i - 1].reviewed_at) / DAY);
@@ -58,7 +66,7 @@
       }
       seqs.push(seq);
     }
-    return { seqs, total: logs.length, evaluable, testN };
+    return { seqs, total: logs.length, evaluable, testN, truncated };
   }
 
   // ---- 損失計算: 候補パラメータで履歴をリプレイし log loss を測る ----
@@ -141,6 +149,8 @@
     status() {
       const s = Store.getSettings();
       const logs = Store.getLogs();
+      // 累計回数（キャップの影響を受けない）。再最適化推奨判定に使う。
+      const cum = (Store.getReviewCount ? Store.getReviewCount() : logs.length);
       const optimizedReviews = s.fsrsOptimizedReviews || 0;
       return {
         reviews: logs.length,
@@ -148,8 +158,8 @@
         optimizedAt: s.fsrsOptimizedAt || null,
         optimizedReviews,
         ready: logs.length >= MIN_REVIEWS,
-        // Anki公式推奨「レビュー数が倍になったら再最適化」
-        suggestReoptimize: optimizedReviews > 0 && logs.length >= optimizedReviews * 2
+        // Anki公式推奨「レビュー数が倍になったら再最適化」（累計で判定）
+        suggestReoptimize: optimizedReviews > 0 && cum >= optimizedReviews * 2
       };
     },
 
@@ -162,9 +172,12 @@
 
     // 最適化本体
     async optimize(onProgress) {
-      const { seqs, total, evaluable, testN } = buildSequences();
+      const { seqs, total, evaluable, testN, truncated } = buildSequences();
       if (total < MIN_REVIEWS) {
         return { ok: false, reason: 'not_enough', reviews: total, needed: MIN_REVIEWS };
+      }
+      if (!seqs.length || !evaluable) {
+        return { ok: false, reason: 'not_enough', reviews: total, needed: MIN_REVIEWS, truncated };
       }
       const defaultW = FSRS.defaultWeights.slice();
 
@@ -181,7 +194,7 @@
       if (!(after < before * (1 - threshold))) {
         return {
           ok: true, applied: false, before, after,
-          reviews: total, evaluable, holdout: useHoldout,
+          reviews: total, evaluable, holdout: useHoldout, truncated,
           reason: 'no_improvement'
         };
       }
@@ -190,9 +203,10 @@
       Store.setSettings({
         fsrsWeights: W,
         fsrsOptimizedAt: Date.now(),
-        fsrsOptimizedReviews: total
+        // 累計回数で記録（ログキャップ後も「レビュー数倍増で再最適化」判定が正しく働く）
+        fsrsOptimizedReviews: (Store.getReviewCount ? Store.getReviewCount() : total)
       });
-      return { ok: true, applied: true, before, after, weights: W, reviews: total, evaluable, holdout: useHoldout };
+      return { ok: true, applied: true, before, after, weights: W, reviews: total, evaluable, holdout: useHoldout, truncated };
     },
 
     // デフォルトへ戻す

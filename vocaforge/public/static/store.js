@@ -13,6 +13,7 @@
     settings: NS + 'settings',
     daily: NS + 'daily',     // { 'YYYY-MM-DD': {new:n, review:n} }
     seen: NS + 'seen',       // 導入済みカードID set（新規上限管理用）
+    reviewCount: NS + 'review_count', // 累計復習回数（ログ上限キャップの影響を受けない永続カウンタ）
     updatedAt: NS + 'updated_at' // ローカルデータの最終更新時刻(ms)。自動同期の新旧判定に使う
   };
 
@@ -78,8 +79,16 @@
 
     // ---- 復習ログ ----
     getLogs() { return load(K.logs, []); },
+    // 累計復習回数（キャップ削除後も正確な総数を保つ）
+    getReviewCount() {
+      // 既存ユーザーの移行: カウンタ未初期化（またはログ数未満）なら現ログ数を下限とする
+      return Math.max(load(K.reviewCount, 0) || 0, this.getLogs().length);
+    },
     addLog(entry) {
       const logs = this.getLogs();
+      // 累計カウンタ更新（キャップ前に確定させる）
+      const cnt = Math.max(load(K.reviewCount, 0) || 0, logs.length) + 1;
+      save(K.reviewCount, cnt);
       logs.push(entry);
       // 上限管理（巨大化防止: 直近20000件）
       if (logs.length > 20000) logs.splice(0, logs.length - 20000);
@@ -188,7 +197,7 @@
       const retention = recent.length ? Math.round(correct / recent.length * 100) : null;
       return {
         total, learned: total - nNew, nNew, nLearning, nReview, nMature, nLeech,
-        retention, totalReviews: logs.length, streak: this.streak()
+        retention, totalReviews: this.getReviewCount(), streak: this.streak()
       };
     },
 
@@ -237,7 +246,8 @@
           logs: load(K.logs, []),
           settings: load(K.settings, {}),
           daily: load(K.daily, {}),
-          seen: load(K.seen, {})
+          seen: load(K.seen, {}),
+          reviewCount: this.getReviewCount()
         }
       };
     },
@@ -255,6 +265,7 @@
         const settings = isObj(d.settings) ? d.settings : {};
         const daily = isObj(d.daily) ? d.daily : {};
         const seen = isObj(d.seen) ? d.seen : {};
+        const inCount = typeof d.reviewCount === 'number' ? d.reviewCount : logs.length;
 
         if (mode === 'merge') {
           // カード: 取り込み側を優先して上書き統合
@@ -262,8 +273,11 @@
           // ログ: 連結して時刻順、上限管理
           const merged = load(K.logs, []).concat(logs)
             .sort((a, b) => (a.reviewed_at || 0) - (b.reviewed_at || 0));
+          const mergedLen = merged.length; // キャップ前の連結総数
           if (merged.length > 20000) merged.splice(0, merged.length - 20000);
           save(K.logs, merged);
+          // 累計カウンタ: 重複不明のため「双方の累計と連結総数の最大値」を採用（過小評価を防ぐ）
+          save(K.reviewCount, Math.max(this.getReviewCount(), inCount, mergedLen));
           // 日次: 同日は新規/復習を合算
           const curDaily = load(K.daily, {});
           Object.keys(daily).forEach(day => {
@@ -283,6 +297,7 @@
           save(K.daily, daily);
           save(K.seen, seen);
           save(K.settings, settings);
+          save(K.reviewCount, Math.max(inCount, logs.length));
         }
         return { ok: true };
       } catch (e) {
