@@ -190,7 +190,9 @@
       const after = computeLoss(W, seqs, useHoldout ? 'test' : 'all');
 
       // 検証: 改善しなければ適用しない（過学習ガード）
-      const threshold = useHoldout ? 0 : 0.02; // 全データ学習時は2%以上の改善を要求
+      // holdout時も相対1%のマージンを要求（検証セット~50-75件では log loss の
+      // 標準誤差が ~0.05-0.1 あり、閾値0だと偶然の微小改善でも適用されるため）
+      const threshold = useHoldout ? 0.01 : 0.02; // 全データ学習時は2%以上の改善を要求
       if (!(after < before * (1 - threshold))) {
         return {
           ok: true, applied: false, before, after,

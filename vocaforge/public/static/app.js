@@ -451,7 +451,21 @@
     };
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn && window.VFAuth) logoutBtn.onclick = async () => {
+      logoutBtn.disabled = true;
+      // ログアウト後は Store.reset() でローカルデータが消えるため、
+      // 先に未同期分をクラウドへ保存し、失敗したらユーザーに確認する
+      if (window.VFSync && window.VFSync.flushBeforeLogout) {
+        const r = await window.VFSync.flushBeforeLogout();
+        if (!r.ok && !r.skipped) {
+          const proceed = confirm(
+            'クラウドへの保存に失敗しました（オフラインの可能性があります）。\n' +
+            'このままログアウトすると、未同期の学習データが失われます。\n\n' +
+            'それでもログアウトしますか？');
+          if (!proceed) { logoutBtn.disabled = false; return; }
+        }
+      }
       await window.VFAuth.logout();
+      logoutBtn.disabled = false;
     };
 
     const rb = document.getElementById('reset-btn');

@@ -1,7 +1,7 @@
 /* クラウド同期マネージャ（非module IIFE）
  * - ログイン検知 → クラウド読み込み
  *   - クラウドが空: ローカル（ゲスト）データをそのままアップロードして引き継ぎ
- *   - クラウドにデータあり: ユーザーに「マージ / クラウド優先 / ローカル優先」を確認
+ *   - 両方にデータあり: 最終更新時刻が新しい方を自動採用（newest-wins・全置換）
  * - 以降、ローカル更新（Store.onDirty）をデバウンスしてクラウドへ自動保存
  * window.VFSync 経由で状態を公開する。
  */
@@ -54,8 +54,9 @@
     clearTimeout(saveTimer);
     saveTimer = setTimeout(pushNow, 1500);
   }
+  // 戻り値: {ok:boolean} — ログアウト前の「未同期分の保存確認」に使う
   async function pushNow() {
-    if (!VFSync.enabled || !Auth.current()) return;
+    if (!VFSync.enabled || !Auth.current()) return { ok: false, skipped: true };
     VFSync.status = 'syncing'; VFSync._emit();
     const payload = Store.exportData().data;
     const res = await Auth.saveCloud(payload);
@@ -70,8 +71,20 @@
       VFSync.lastError = res.error;
     }
     VFSync._emit();
+    return { ok: !!res.ok, error: res.error };
   }
   VFSync.flush = pushNow;
+
+  // ログアウト前の防御: 未同期分をクラウドへ確実に保存してから抜ける。
+  // ログアウト後は Store.reset() でローカルが消えるため、ここでの保存失敗は
+  // データ消失に直結する。失敗時は {ok:false} を返し、呼び出し側（app.js）が
+  // ユーザーに確認する。
+  VFSync.flushBeforeLogout = async function () {
+    clearTimeout(saveTimer);
+    saveTimer = null;
+    if (!VFSync.enabled || !Auth.current()) return { ok: true, skipped: true };
+    return await pushNow();
+  };
 
   // ローカル書き込みを監視 → クラウドへ反映
   Store.onDirty(() => scheduleSave());

@@ -50,6 +50,21 @@
     }
   }
 
+  // ログのメモリキャッシュ。
+  // ログは最大約3.3MB（2万件）に肥大化し、毎解答の JSON.parse が実測 ~45ms かかるため、
+  // 一度パースした配列を保持して再パースを排除する（stringifyは書き込みに必要なので残る）。
+  // 注意: getLogs() はこのキャッシュ配列をそのまま返す。外部で要素を変更する場合は
+  // 必ず slice() してから使うこと（optimizer.js は既に slice 済み）。
+  let _logsCache = null;
+  function loadLogs() {
+    if (_logsCache === null) _logsCache = load(K.logs, []);
+    return _logsCache;
+  }
+  function saveLogs(logs) {
+    _logsCache = logs;
+    save(K.logs, logs);
+  }
+
   function todayStr(now) {
     const d = new Date(now || Date.now());
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
@@ -78,21 +93,21 @@
     },
 
     // ---- 復習ログ ----
-    getLogs() { return load(K.logs, []); },
+    getLogs() { return loadLogs(); },
     // 累計復習回数（キャップ削除後も正確な総数を保つ）
     getReviewCount() {
       // 既存ユーザーの移行: カウンタ未初期化（またはログ数未満）なら現ログ数を下限とする
       return Math.max(load(K.reviewCount, 0) || 0, this.getLogs().length);
     },
     addLog(entry) {
-      const logs = this.getLogs();
+      const logs = loadLogs();
       // 累計カウンタ更新（キャップ前に確定させる）
       const cnt = Math.max(load(K.reviewCount, 0) || 0, logs.length) + 1;
       save(K.reviewCount, cnt);
       logs.push(entry);
       // 上限管理（巨大化防止: 直近20000件）
       if (logs.length > 20000) logs.splice(0, logs.length - 20000);
-      save(K.logs, logs);
+      saveLogs(logs);
     },
 
     // ---- 日次カウンタ ----
@@ -145,7 +160,7 @@
       for (const l of logs) {
         if (l.card_id && mapping[l.card_id]) { l.card_id = mapping[l.card_id]; logMoved = true; }
       }
-      if (logMoved) save(K.logs, logs);
+      if (logMoved) saveLogs(logs);
       return moved;
     },
     // 進捗の中に prefix で始まる ID があるか（マイグレーション要否の判定用）
@@ -212,6 +227,7 @@
 
     reset() {
       Object.values(K).forEach(k => localStorage.removeItem(k));
+      _logsCache = null; // メモリキャッシュも破棄
       _dirtyHandlers.forEach(fn => { try { fn('reset'); } catch (e) {} });
     },
 
@@ -243,7 +259,7 @@
         exportedAt: new Date().toISOString(),
         data: {
           cards: load(K.cards, {}),
-          logs: load(K.logs, []),
+          logs: loadLogs(),
           settings: load(K.settings, {}),
           daily: load(K.daily, {}),
           seen: load(K.seen, {}),
@@ -271,11 +287,11 @@
           // カード: 取り込み側を優先して上書き統合
           save(K.cards, Object.assign({}, load(K.cards, {}), cards));
           // ログ: 連結して時刻順、上限管理
-          const merged = load(K.logs, []).concat(logs)
+          const merged = loadLogs().concat(logs)
             .sort((a, b) => (a.reviewed_at || 0) - (b.reviewed_at || 0));
           const mergedLen = merged.length; // キャップ前の連結総数
           if (merged.length > 20000) merged.splice(0, merged.length - 20000);
-          save(K.logs, merged);
+          saveLogs(merged);
           // 累計カウンタ: 重複不明のため「双方の累計と連結総数の最大値」を採用（過小評価を防ぐ）
           save(K.reviewCount, Math.max(this.getReviewCount(), inCount, mergedLen));
           // 日次: 同日は新規/復習を合算
@@ -293,7 +309,7 @@
         } else {
           // replace: 完全置換
           save(K.cards, cards);
-          save(K.logs, logs);
+          saveLogs(logs.slice());
           save(K.daily, daily);
           save(K.seen, seen);
           save(K.settings, settings);

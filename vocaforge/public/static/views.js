@@ -104,6 +104,10 @@
       '<button data-go="decks" data-deck="' + d + '" class="px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap ' +
       (d === deck ? 'bg-brand text-white' : 'bg-slate-800 text-slate-300') + '">' + l + '</button>').join('');
 
+    // セクション別 due/fresh を1パスで一括集計（従来はセクション毎に
+    // 全カード走査＋Store.getAllCards() 再パースで O(sections×N) だった）
+    const dueMap = allSectionDue(deck);
+
     let lastCat = null;
     const list = groups.map(g => {
       let header = '';
@@ -112,7 +116,7 @@
         header = '<div class="text-xs font-bold text-amber-300 mt-3 mb-1 px-1">' +
           esc(VF.catLabel(g.cat)) + '</div>';
       }
-      const d = sectionDue(deck, g.key);
+      const d = dueMap[String(g.key)] || { due: 0, fresh: 0 };
       return header + '<button data-go="session" data-deck="' + deck + '" data-group="' + g.key + '" ' +
         'class="w-full flex items-center gap-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl p-3 text-left">' +
         '<div class="flex-1"><div class="font-semibold text-sm">' + esc(g.label) + '</div>' +
@@ -188,4 +192,23 @@
     return { due, fresh };
   }
   window.__sectionDue = sectionDue;
+
+  // 全セクションの due/fresh を1回の走査で集計: { groupKey: {due, fresh} }
+  // 従来はセクション毎に deckCards()（全カード正規化＋filter）と
+  // Store.getAllCards()（604KB JSON.parse）を繰り返し O(sections×N) だった。
+  // カード取得・状態パースとも描画毎に1回で済む。
+  function allSectionDue(deck) {
+    const cards = VF.deckCards(deck); // group未指定 = 全カード（group属性付き）
+    const now = Date.now();
+    const states = Store.getAllCards();
+    const map = {};
+    cards.forEach(c => {
+      const k = String(c.group);
+      const m = map[k] || (map[k] = { due: 0, fresh: 0 });
+      const s = states[c.id];
+      if (!s || s.state === 'new') m.fresh++;
+      else if (s.due <= now) m.due++;
+    });
+    return map;
+  }
 })();
