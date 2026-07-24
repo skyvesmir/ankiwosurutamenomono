@@ -1,8 +1,9 @@
 /* 出題生成・採点ロジック
- * 3形式:
+ * 4形式:
  *   mc-ej : 多肢選択 英→日（英語を見て日本語訳を選ぶ）
  *   mc-je : 多肢選択 日→英（日本語を見て英語を選ぶ）
  *   type-je: 記入 日→英（日本語を見て英語をタイプ）
+ *   cloze  : 記入 例文穴埋め（例文中の出題語を空欄化してタイプ）※復習カード用
  * カードの素材: {id, prompt(英), answer(英 or 表記), meaning(日)} に正規化済み
  */
 (function (global) {
@@ -94,10 +95,130 @@
     return Array.from(set);
   }
 
+  // ====== 例文クローズ（穴埋め） ======
+  // 主要な不規則変化（動詞の過去形/過去分詞・名詞の不規則複数）。
+  // 原形 → 追加で許容する形。規則変化は inflections() が生成する。
+  const IRREGULAR = {
+    be: ['am','is','are','was','were','been','being'],
+    have: ['has','had','having'], do: ['does','did','done'],
+    go: ['went','gone'], get: ['got','gotten'], take: ['took','taken'],
+    make: ['made'], come: ['came'], see: ['saw','seen'], know: ['knew','known'],
+    give: ['gave','given'], find: ['found'], think: ['thought'], say: ['said'],
+    tell: ['told'], become: ['became'], show: ['showed','shown'], leave: ['left'],
+    feel: ['felt'], put: ['put'], bring: ['brought'], begin: ['began','begun'],
+    keep: ['kept'], hold: ['held'], write: ['wrote','written'], stand: ['stood'],
+    hear: ['heard'], let: ['let'], mean: ['meant'], set: ['set'], meet: ['met'],
+    run: ['ran'], pay: ['paid'], sit: ['sat'], speak: ['spoke','spoken'],
+    lie: ['lay','lain'], lay: ['laid'], lead: ['led'], read: ['read'],
+    grow: ['grew','grown'], lose: ['lost'], fall: ['fell','fallen'],
+    send: ['sent'], build: ['built'], understand: ['understood'],
+    draw: ['drew','drawn'], break: ['broke','broken'], spend: ['spent'],
+    cut: ['cut'], rise: ['rose','risen'], drive: ['drove','driven'],
+    buy: ['bought'], wear: ['wore','worn'], choose: ['chose','chosen'],
+    seek: ['sought'], throw: ['threw','thrown'], catch: ['caught'],
+    deal: ['dealt'], win: ['won'], forget: ['forgot','forgotten'],
+    fight: ['fought'], teach: ['taught'], eat: ['ate','eaten'],
+    sell: ['sold'], strike: ['struck'], fly: ['flew','flown'],
+    hide: ['hid','hidden'], shake: ['shook','shaken'], bear: ['bore','borne','born'],
+    hit: ['hit'], cost: ['cost'], hurt: ['hurt'], shut: ['shut'], quit: ['quit'],
+    swear: ['swore','sworn'], tear: ['tore','torn'], steal: ['stole','stolen'],
+    freeze: ['froze','frozen'], forbid: ['forbade','forbidden'],
+    arise: ['arose','arisen'], undergo: ['underwent','undergone'],
+    overcome: ['overcame'], withdraw: ['withdrew','withdrawn'],
+    sing: ['sang','sung'], ring: ['rang','rung'], sink: ['sank','sunk'],
+    swim: ['swam','swum'], blow: ['blew','blown'], bend: ['bent'],
+    lend: ['lent'], shoot: ['shot'], feed: ['fed'], bind: ['bound'],
+    hang: ['hung'], stick: ['stuck'], swing: ['swung'], spring: ['sprang','sprung'],
+    burst: ['burst'], spread: ['spread'], cast: ['cast'], shed: ['shed'],
+    child: ['children'], man: ['men'], woman: ['women'], foot: ['feet'],
+    tooth: ['teeth'], mouse: ['mice'], person: ['people'],
+    criterion: ['criteria'], phenomenon: ['phenomena'], analysis: ['analyses'],
+    crisis: ['crises'], hypothesis: ['hypotheses'], medium: ['media'],
+    datum: ['data'], stimulus: ['stimuli'], fungus: ['fungi']
+  };
+
+  // 単語の活用形を列挙（完全一致ベースで誤ブランク化を防ぐ。creative≠create）
+  function inflections(w) {
+    w = w.toLowerCase();
+    const out = new Set([w, w + 's', w + 'es', w + 'ed', w + 'd', w + 'ing']);
+    if (IRREGULAR[w]) IRREGULAR[w].forEach(f => out.add(f));
+    const last = w.slice(-1);
+    if (last === 'e') out.add(w.slice(0, -1) + 'ing');            // make→making
+    if (last === 'y') {
+      out.add(w.slice(0, -1) + 'ies');                            // try→tries
+      out.add(w.slice(0, -1) + 'ied');                            // try→tried
+    }
+    if (/[bcdfghjklmnpqrstvz]$/.test(w) && /[aeiou][bcdfghjklmnpqrstvz]$/.test(w)) {
+      out.add(w + last + 'ed');                                   // stop→stopped
+      out.add(w + last + 'ing');                                  // run→running
+    }
+    if (w.endsWith('f')) out.add(w.slice(0, -1) + 'ves');         // leaf→leaves
+    if (w.endsWith('fe')) out.add(w.slice(0, -2) + 'ves');        // knife→knives
+    return out;
+  }
+
+  /**
+   * 例文から出題語をブランク化したクローズ問題素材を作る。
+   * 語の活用形（-s/-ed/-ing 等）にも対応。多語熟語は各語の活用を許容して連続一致。
+   * @returns {clozeText, surface} | null（例文中に語が見つからない場合）
+   */
+  function makeCloze(term, example) {
+    if (!term || !example) return null;
+    // 例文中の英単語トークンと位置を列挙
+    const tokens = [];
+    const re = /[A-Za-z][A-Za-z']*/g;
+    let m;
+    while ((m = re.exec(example)) !== null) tokens.push({ t: m[0], i: m.index });
+    if (!tokens.length) return null;
+
+    // term の許容形（括弧・スラッシュ展開）それぞれで連続一致を探す
+    for (const variant of acceptableAnswers(term)) {
+      // 熟語の目的語プレースホルダ「～」は先頭・末尾なら除去して照合
+      // （例: "a piece of ～" → "a piece of"）。内部に残る場合は照合不可。
+      let words = variant.toLowerCase().split(/\s+/).filter(Boolean);
+      while (words.length && /^[～~]+$/.test(words[0])) words.shift();
+      while (words.length && /^[～~]+$/.test(words[words.length - 1])) words.pop();
+      // 末尾の動詞プレースホルダ「to do」「to doing」等は do/doing を除去して照合
+      // （例: "be likely to do" → "be likely to"）。"make do" 等の実熟語を壊さないよう
+      // 直前が to の場合のみ。oneself/others も同様のプレースホルダ扱い。
+      if (words.length >= 3 && /^(do|doing)$/.test(words[words.length - 1]) && words[words.length - 2] === 'to')
+        words.pop();
+      while (words.length >= 2 && /^(oneself|others)$/.test(words[words.length - 1]))
+        words.pop();
+      if (!words.length || words.some(w => !/^[a-z][a-z']*$/.test(w))) continue;
+      const formSets = words.map(inflections);
+      // be動詞開始の熟語（be aware of 等）は、be の直後に副詞が挟まる形
+      // （"is fully aware of"）を許容する（最大2語スキップ）。
+      const allowSkipAfterBe = words[0] === 'be' && words.length >= 2;
+      for (let i = 0; i + words.length <= tokens.length; i++) {
+        let ok = true, ti = i;
+        for (let j = 0; j < words.length; j++) {
+          if (ti >= tokens.length) { ok = false; break; }
+          if (formSets[j].has(tokens[ti].t.toLowerCase())) { ti++; continue; }
+          // be の直後のみ、副詞などの挿入語を最大2語まで読み飛ばす
+          if (allowSkipAfterBe && j === 1) {
+            let skipped = 0, k = ti;
+            while (skipped < 2 && k + 1 < tokens.length && !formSets[j].has(tokens[k].t.toLowerCase())) { k++; skipped++; }
+            if (formSets[j].has(tokens[k].t.toLowerCase())) { ti = k + 1; continue; }
+          }
+          ok = false; break;
+        }
+        if (!ok) continue;
+        const start = tokens[i].i;
+        const endTok = tokens[ti - 1];
+        const end = endTok.i + endTok.t.length;
+        const surface = example.slice(start, end);
+        const blank = '（　？　）';
+        return { clozeText: example.slice(0, start) + blank + example.slice(end), surface };
+      }
+    }
+    return null;
+  }
+
   /**
    * 1枚のカードから問題を生成
    * @param card {id, term(英), meaning(日)}
-   * @param format 'mc-ej'|'mc-je'|'type-je'
+   * @param format 'mc-ej'|'mc-je'|'type-je'|'cloze'
    * @param pool 同種カード配列（誤答生成元）
    */
   function makeQuestion(card, format, pool) {
@@ -116,6 +237,25 @@
         sub: isEtym ? '' : (card.hint || ''),
         answer: card.term,
         acceptable: acceptableAnswers(card.term)
+      };
+    }
+
+    if (format === 'cloze') {
+      // 例文の穴埋め: 空欄に入る語（出題語の例文中の実際の形）をタイプさせる。
+      // 採点は「例文中の表記そのまま」または「原形（term の許容形）」の両方を正解とする。
+      const cz = makeCloze(card.term, card.example);
+      if (!cz) return makeQuestion(card, 'type-je', pool); // フォールバック
+      const acceptable = acceptableAnswers(card.term).concat([cz.surface]);
+      return {
+        format: 'cloze',
+        cardId: card.id,
+        questionLabel: '例文の空欄に入る英語を入力',
+        prompt: cz.clozeText,
+        promptJa: card.exampleJa || '',
+        meaningHint: card.meaning,
+        answer: cz.surface,
+        term: card.term,
+        acceptable
       };
     }
 
@@ -177,5 +317,5 @@
     return dp[a.length][b.length];
   }
 
-  global.Quiz = { makeQuestion, gradeTyped, shortMeaning, normalize, shuffle, editDistance, acceptableAnswers };
+  global.Quiz = { makeQuestion, gradeTyped, shortMeaning, normalize, shuffle, editDistance, acceptableAnswers, makeCloze };
 })(window);

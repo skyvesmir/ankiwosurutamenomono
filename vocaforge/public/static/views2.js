@@ -350,7 +350,8 @@
       '<div class="bg-slate-900 border border-slate-800 rounded-xl px-4 mb-4 divide-y divide-slate-800">' +
         toggle('fmt-mc-ej', '選択：英 → 日', s.formats['mc-ej'], '英語を見て意味を選ぶ（認識）※新規カード用') +
         toggle('fmt-mc-je', '選択：日 → 英', s.formats['mc-je'], '日本語を見て英語を選ぶ ※新規カード用') +
-        '<div class="py-3"><p class="text-[11px] text-slate-500 leading-relaxed">未学習カードは上記の選択式から出題され、復習カードは必ず記入式（日本語→英語タイプ）で出題されます（能動的想起の強制）。</p></div>' +
+        toggle('fmt-cloze', '記入：例文穴埋め', s.formats['cloze'] !== false, '例文の空欄に入る語をタイプ（文脈想起）※復習カードの一部に出題') +
+        '<div class="py-3"><p class="text-[11px] text-slate-500 leading-relaxed">未学習カードは上記の選択式から出題され、復習カードは記入式（日本語→英語タイプ／例文穴埋め）で出題されます（能動的想起の強制）。</p></div>' +
       '</div>' +
 
       '<h2 class="text-sm font-bold text-slate-300 mb-2">学習動作</h2>' +

@@ -99,6 +99,8 @@
   // 出題形式の選択ルール:
   //  - 未学習（new）: まだ答えを知らないので必ず「記入以外」（選択式）で出す
   //  - 復習（learning/review）: 能動的想起を強制するため必ず「記入式」で出す
+  //    記入式は type-je（意味→英語）と cloze（例文穴埋め）の2種。clozeが有効かつ
+  //    例文があるカードは確率40%で例文穴埋めを出題（文脈あり想起の変化をつける）
   //
   // 既知の設計トレードオフ（分析レポート2026-07-21 §2.3）:
   //   FSRSは「gradeの意味が全レビューで均質」と暗黙に仮定するが、本ポリシーは
@@ -107,10 +109,15 @@
   //   観測保持率が悲観側に歪み得るが、オンデバイス最適化（optimizer.js）が
   //   個人履歴にWをフィットさせる際に大部分を吸収する。全ログに format を
   //   記録済みのため（applyGrade）、将来 format 別の較正・分析が可能。
-  function pickFormat(settings, isReview) {
-    if (isReview) return 'type-je';
+  function pickFormat(settings, isReview, card) {
+    if (isReview) {
+      // 例文クローズ：有効 かつ 例文を持つカード（語源デッキは対象外）なら確率40%
+      if (settings.formats['cloze'] && card && card.example && card.deck !== 'etym' && Math.random() < 0.4)
+        return 'cloze';
+      return 'type-je';
+    }
     const enabled = Object.keys(settings.formats)
-      .filter(k => settings.formats[k] && k !== 'type-je');
+      .filter(k => settings.formats[k] && k !== 'type-je' && k !== 'cloze');
     if (enabled.length === 0) return 'mc-ej'; // 記入のみ有効でも新規は選択式にフォールバック
     return enabled[Math.floor(Math.random() * enabled.length)];
   }
@@ -145,7 +152,7 @@
     // 未学習 or 復習かで形式を決定。Again再出題も必ず記入式。
     const cardState = Store.getCard(card.id);
     const isReview = !!(cardState && cardState.state && cardState.state !== 'new');
-    const format = (s.againIds && s.againIds[card.id]) ? 'type-je' : pickFormat(s.settings, isReview);
+    const format = (s.againIds && s.againIds[card.id]) ? 'type-je' : pickFormat(s.settings, isReview, card);
     // プールは同deck内（mixは同サブグループ寄せ）
     let pool = s.pool;
     if (card.deck) pool = s.pool.filter(p => p.deck === card.deck);
@@ -175,7 +182,18 @@
     const deckBadge = '<div class="flex justify-center mt-3"><span class="inline-flex items-center gap-1.5 text-sm font-bold px-3.5 py-1 rounded-full border ' + tagColor + '"><i class="fas ' + tagIcon + ' text-xs"></i>' + tag + '</span></div>';
 
     let body;
-    if (q.format === 'type-je') {
+    if (q.format === 'cloze') {
+      body =
+        '<div class="text-center mb-6"><div class="text-xs text-slate-400 mb-2">例文の空欄に入る英語は？</div>' +
+        '<div class="text-xl font-bold leading-relaxed text-left bg-slate-900 border border-slate-800 rounded-xl px-4 py-4">' + esc(q.prompt) + '</div>' +
+        (q.promptJa ? '<div class="text-sm text-slate-400 mt-3 text-left px-1"><i class="fas fa-language mr-1.5"></i>' + esc(q.promptJa) + '</div>' : '') +
+        deckBadge +
+        '</div>' +
+        '<input id="type-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
+        'placeholder="空欄の英語を入力…" class="w-full bg-slate-900 border-2 border-slate-700 focus:border-brand rounded-xl px-4 py-4 text-lg text-center focus:outline-none">' +
+        '<button id="type-submit" class="mt-4 w-full bg-brand hover:bg-brand-dark text-white font-bold rounded-xl py-3.5 active:scale-95 transition">解答する</button>' +
+        '<button id="type-dontknow" class="mt-2 w-full text-slate-400 text-sm py-2">わからない</button>';
+    } else if (q.format === 'type-je') {
       body =
         '<div class="text-center mb-6"><div class="text-xs text-slate-400 mb-2">この意味の英語は？</div>' +
         '<div class="text-2xl font-bold leading-relaxed">' + br(q.prompt) + '</div>' +
@@ -211,7 +229,7 @@
 
   function bindQuestion(q, card) {
     $('#sess-quit').onclick = quit;
-    if (q.format === 'type-je') {
+    if (q.format === 'type-je' || q.format === 'cloze') {
       const input = $('#type-input');
       input.focus();
       const submit = () => {
@@ -305,6 +323,15 @@
         '</div>'
       : '';
 
+    // クローズ: 完成した例文（正解語をハイライト）を表示
+    const clozeBlock = (q.format === 'cloze' && card.example)
+      ? '<div class="mt-2 text-sm text-slate-300 bg-slate-800/50 rounded-lg px-3 py-2">' +
+          esc(card.example).replace(new RegExp('(' + esc(q.answer).replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'i'),
+            '<span class="text-emerald-300 font-bold underline decoration-emerald-500/60">$1</span>') +
+          (card.exampleJa ? '<div class="text-xs text-slate-400 mt-1">' + esc(card.exampleJa) + '</div>' : '') +
+        '</div>'
+      : '';
+
     const answerBlock =
       '<div class="mt-6 rounded-xl border ' + (correct ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-rose-500/40 bg-rose-500/5') + ' p-4">' +
         '<div class="flex items-center gap-2 mb-2 ' + (correct ? 'text-emerald-400' : 'text-rose-400') + '">' +
@@ -312,6 +339,7 @@
           '<span class="font-bold">' + (correct ? '正解！' : (extra.close ? 'おしい！スペル違い' : '不正解')) + '</span></div>' +
         '<div class="text-lg font-bold">' + esc(card.term) + '</div>' +
         '<div class="text-sm text-slate-300 mt-1">' + br(card.meaning) + '</div>' +
+        clozeBlock +
         detailBtn +
         confusedBlock +
       '</div>';
@@ -398,7 +426,7 @@
     // Again は当日中に再出題。再出題時は必ず記入式で出すためマークする
     if (grade === 1) { s.reAdd.push(card); s.againIds[card.id] = true; }
     // 記入式で正解できたら Again マークを解除（定着とみなす）
-    else if (s.againIds[card.id] && q.format === 'type-je' && correct) { delete s.againIds[card.id]; }
+    else if (s.againIds[card.id] && (q.format === 'type-je' || q.format === 'cloze') && correct) { delete s.againIds[card.id]; }
 
     s.idx++;
     nextCard();
