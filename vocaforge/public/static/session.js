@@ -122,7 +122,60 @@
     return enabled[Math.floor(Math.random() * enabled.length)];
   }
 
+  // ====== 弱点集中モード（ブートキャンプ） ======
+  // 対象: 学習済みカードのうち「リーチ語 / 失敗が多い / FSRS難易度が高い」もの。
+  // 復習期限に関係なく、最も弱い順に最大 WEAK_SESSION_SIZE 枚をドリル出題する。
+  // 採点は通常と同じくFSRSに反映（早期復習はFSRSがelapsed_daysで正しく扱う）。
+  const WEAK_SESSION_SIZE = 15;
+  function weakPool() {
+    const states = Store.getAllCards();
+    const all = [].concat(VF.deckCards('words'), VF.deckCards('phrases'), VF.deckCards('etym'));
+    const out = [];
+    for (let i = 0; i < all.length; i++) {
+      const c = all[i];
+      const s = states[c.id];
+      if (!s || s.state === 'new') continue;
+      const lapses = s.lapses || 0;
+      const diff = s.difficulty || 0;
+      const leech = !!s.is_leech;
+      // 弱点判定: リーチ or 失敗2回以上 or 難易度6.5以上（FSRS Dは1-10）
+      if (!leech && lapses < 2 && diff < 6.5) continue;
+      // 弱さスコア: リーチ最優先 → 失敗回数 → 難易度
+      out.push({ c, score: (leech ? 1000 : 0) + lapses * 10 + diff });
+    }
+    out.sort((a, b) => b.score - a.score);
+    return out.map(x => x.c);
+  }
+  window.__weakCount = function () { return weakPool().length; };
+
+  function startWeak() {
+    const settings = Store.getSettings();
+    const weak = weakPool();
+    const queue = Quiz.shuffle(weak.slice(0, WEAK_SESSION_SIZE));
+    if (queue.length === 0) {
+      app.innerHTML =
+        '<div class="max-w-xl mx-auto min-h-screen flex flex-col items-center justify-center px-6 text-center">' +
+        '<i class="fas fa-medal text-5xl text-amber-400 mb-4"></i>' +
+        '<h1 class="text-xl font-extrabold mb-1">弱点なし！</h1>' +
+        '<p class="text-slate-400 text-sm mb-6">いまのところ苦手なカードはありません。この調子！</p>' +
+        '<button id="back-btn" class="bg-brand text-white font-bold rounded-xl py-3 px-8">戻る</button></div>';
+      bindBack();
+      return;
+    }
+    const pool = [].concat(VF.deckCards('words'), VF.deckCards('phrases'), VF.deckCards('etym'));
+    VF.STATE.route = 'session';
+    VF.STATE.session = {
+      deck: 'weak', group: null, pool, settings,
+      queue, idx: 0, total: queue.length,
+      correct: 0, answered: 0, startTs: Date.now(),
+      reAdd: [],
+      againIds: {}
+    };
+    nextCard();
+  }
+
   function start(deck, group) {
+    if (deck === 'weak') return startWeak();
     const { queue, pool, settings, reviewOnly } = buildQueue(deck, group);
     if (queue.length === 0) {
       app.innerHTML = emptyState(reviewOnly);

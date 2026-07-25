@@ -75,6 +75,21 @@
         miniStat('保持率', st.retention == null ? '—' : st.retention + '%', 'fa-bullseye') +
       '</div>' +
 
+      // 弱点集中モード（リーチ語・高難易度語のドリル）
+      (function () {
+        const n = window.__weakCount ? window.__weakCount() : 0;
+        if (!n) return '';
+        return '<button data-go="session" data-deck="weak" class="w-full text-left bg-gradient-to-br from-rose-600/80 to-orange-600/80 rounded-2xl p-4 mb-5 border border-rose-500/40 active:scale-[0.99] transition">' +
+          '<div class="flex items-center justify-between">' +
+            '<div class="flex items-center gap-3">' +
+              '<span class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center"><i class="fas fa-dumbbell text-lg"></i></span>' +
+              '<div><div class="font-bold">弱点集中モード</div>' +
+              '<div class="text-xs opacity-80 mt-0.5">苦手カード ' + n + ' 語を集中ドリル（最大15語/回）</div></div>' +
+            '</div>' +
+            '<i class="fas fa-chevron-right opacity-60"></i>' +
+          '</div></button>';
+      })() +
+
       '<h2 class="text-sm font-bold text-slate-300 mb-2">デッキ</h2>' +
       '<div class="grid grid-cols-2 gap-3">' +
         card('words', '英単語' + (VF.useFullWords() ? '（全部）' : ''), 'fa-font', 'bg-indigo-500/20 text-indigo-300', wd) +

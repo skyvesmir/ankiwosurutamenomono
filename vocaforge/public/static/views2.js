@@ -98,7 +98,13 @@
       missRows,
       'まだ間違えたカードはありません。この調子！');
 
-    const weakSection = fsrsSection + missSection;
+    // 弱点集中モードの起動ボタン（弱点があるときだけ表示）
+    const weakDrillBtn = (window.__weakCount && window.__weakCount() > 0)
+      ? '<button data-go="session" data-deck="weak" class="w-full bg-rose-500/15 text-rose-200 border border-rose-500/40 rounded-xl py-3 text-sm font-bold mb-4 active:scale-[0.99] transition">' +
+          '<i class="fas fa-dumbbell mr-2"></i>弱点集中モードでドリルする（' + window.__weakCount() + '語）</button>'
+      : '';
+
+    const weakSection = weakDrillBtn + fsrsSection + missSection;
 
     // 直近14日バー
     const days = [];
