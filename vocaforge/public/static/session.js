@@ -363,6 +363,8 @@
     const s = VF.STATE.session;
     const detailBtn = card.deck === 'etym'
       ? '<button id="etym-more" class="mt-3 text-xs text-amber-300"><i class="fas fa-dna mr-1"></i>語源の詳細を見る</button>' : '';
+    // 単語カード: 関連する語源カードへのリンクチップ（語源経由の記憶フックを提供）
+    const etymChips = (card.deck === 'words' && window.__etymLinkChips) ? window.__etymLinkChips(card.id) : '';
     // 混同していた別の単語・熟語の案内（記入式で別のDB語を入力した場合）
     const confusedBlock = extra.confused
       ? '<div class="mt-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3">' +
@@ -393,6 +395,7 @@
         '<div class="text-lg font-bold">' + esc(card.term) + '</div>' +
         '<div class="text-sm text-slate-300 mt-1">' + br(card.meaning) + '</div>' +
         clozeBlock +
+        etymChips +
         detailBtn +
         confusedBlock +
       '</div>';
@@ -415,6 +418,7 @@
 
     $('#feedback').innerHTML = answerBlock + grading;
     $('#feedback').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (window.__bindEtymChips) window.__bindEtymChips($('#feedback'));
 
     // デフォルト推奨をハイライト
     const def = correct ? (extra.close ? 2 : 3) : 1;

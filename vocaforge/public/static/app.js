@@ -8,7 +8,7 @@
   'use strict';
   const app = document.getElementById('app');
 
-  const DATA = { words: [], phrases: [], etym: [], meta: null, wordsFull: null };
+  const DATA = { words: [], phrases: [], etym: [], meta: null, wordsFull: null, etymLinks: null };
   const STATE = { route: 'home', session: null };
 
   // ====== データ正規化 ======
@@ -170,6 +170,9 @@
         fetch('/static/data/meta.json').then(r => r.json())
       ]);
       DATA.words = w; DATA.phrases = p; DATA.etym = e; DATA.meta = m;
+      // 単語↔語源カードのリンク表（失敗しても続行：リンク非表示になるだけ）
+      fetch('/static/data/etym_links.json').then(r => r.json())
+        .then(l => { DATA.etymLinks = l; }).catch(() => {});
       // 全部バージョン選択中なら先にロード（失敗しても1900で続行）
       // 旧 'wf-' IDの進捗が残っている場合もロードしてIDマイグレーションを実行
       if (Store.getSettings().wordDataset === 'full' || Store.hasCardIdPrefix('wf-')) await loadFullWords();
@@ -317,7 +320,7 @@
        (card.example ? '<div class="mt-3 bg-slate-800/50 rounded-xl p-3 text-xs leading-relaxed"><div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-quote-left mr-1"></i>例文</div>' +
          '<div class="text-slate-200">' + br(card.example) + '</div>' +
          (card.exampleJa ? '<div class="text-slate-400 mt-1.5">' + br(card.exampleJa) + '</div>' : '') + '</div>' : '') +
-       (card.etym ? '<div class="mt-3 bg-slate-800/50 rounded-xl p-3 text-xs text-slate-300 leading-relaxed"><div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-dna mr-1"></i>語源</div>' + br(card.etym) + '</div>' : '') +
+       (card.etym || etymCardsFor(card.id).length ? '<div class="mt-3 bg-slate-800/50 rounded-xl p-3 text-xs text-slate-300 leading-relaxed"><div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-dna mr-1"></i>語源</div>' + (card.etym ? br(card.etym) : '') + etymLinkChips(card.id) + '</div>' : '') +
        (card.syn ? '<div class="mt-3 bg-slate-800/50 rounded-xl p-3 text-xs text-slate-300 leading-relaxed"><div class="text-[10px] text-slate-500 mb-1"><i class="fas fa-tags mr-1"></i>類義語グループ</div>' + br(card.syn) + '</div>' : ''))
       : '<div class="text-slate-300 mt-2">' + br(card.meaning) + '</div>';
     const html =
@@ -335,7 +338,32 @@
     document.body.insertAdjacentHTML('beforeend', html);
     document.getElementById('vf-close').onclick = () => document.getElementById('vf-modal').remove();
     document.getElementById('vf-modal').onclick = e => { if (e.target.id === 'vf-modal') document.getElementById('vf-modal').remove(); };
+    bindEtymChips(document.getElementById('vf-modal'));
   }
+
+  // 語源カードへのリンクチップ（タップで語源詳細モーダルを開く）
+  function etymLinkChips(cardId) {
+    const list = etymCardsFor(cardId);
+    if (!list.length) return '';
+    return '<div class="flex flex-wrap gap-1.5 mt-2">' + list.map(e =>
+      '<button data-etym-link="' + esc2(e.id) + '" class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 active:scale-95 transition">' +
+        '<i class="fas fa-dna text-[9px]"></i>' + esc2((e.headword || '').split('（')[0]) +
+        '<span class="font-normal opacity-80">' + esc2((e.core || '').slice(0, 8)) + '</span></button>').join('') + '</div>';
+  }
+  window.__etymLinkChips = etymLinkChips;
+  function esc2(s){ return (s == null ? '' : String(s)).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
+  // チップのクリックをバインド（root要素配下の [data-etym-link] 全て）
+  function bindEtymChips(root) {
+    if (!root) return;
+    root.querySelectorAll('[data-etym-link]').forEach(b => {
+      b.onclick = (ev) => {
+        ev.stopPropagation();
+        const e = DATA.etym.find(x => x.id === b.getAttribute('data-etym-link'));
+        if (e && window.__showEtymDetail) window.__showEtymDetail(e);
+      };
+    });
+  }
+  window.__bindEtymChips = bindEtymChips;
 
   function bindSettings() {
     // 外観テーマ切替
@@ -523,7 +551,20 @@
   }
 
   // 後続スクリプトで拡張
-  window.VF = { DATA, STATE, go, deckCards, catLabel, nav, wordSections, useFullWords, loadFullWords, loadLeapWords, useFullPhrases, loadFullPhrases };
+  // 単語カードID → 関連する語源カード（etymology.jsonのエントリ）の配列
+  function etymCardsFor(cardId) {
+    if (!DATA.etymLinks || !DATA.etym.length) return [];
+    const ids = DATA.etymLinks[cardId];
+    if (!ids) return [];
+    const out = [];
+    for (const id of ids) {
+      const e = DATA.etym.find(x => x.id === id);
+      if (e) out.push(e);
+    }
+    return out;
+  }
+
+  window.VF = { DATA, STATE, go, deckCards, catLabel, nav, wordSections, useFullWords, loadFullWords, loadLeapWords, useFullPhrases, loadFullPhrases, etymCardsFor };
   window.__showCardDetail = showDetail;
 
   document.addEventListener('DOMContentLoaded', boot);
