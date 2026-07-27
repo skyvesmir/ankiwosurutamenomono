@@ -71,12 +71,22 @@ app.get('/', (c) => {
   <script src="/static/store.js"></script>
   <script src="/static/optimizer.js"></script>
   <script src="/static/quiz.js"></script>
-  <script src="/static/app.js"></script>
+  <script src="/static/app-data.js"></script>
+  <script src="/static/app-router.js"></script>
+  <script src="/static/app-settings.js"></script>
+  <script src="/static/app-account.js"></script>
   <script src="/static/views.js"></script>
+  <script src="/static/views2-stats.js"></script>
+  <script src="/static/views2-browse.js"></script>
+  <script src="/static/views2-settings.js"></script>
   <script src="/static/views2.js"></script>
+  <script src="/static/session-queue.js"></script>
+  <script src="/static/session-format.js"></script>
+  <script src="/static/session-answer.js"></script>
   <script src="/static/session.js"></script>
   <script src="/static/flashcard.js"></script>
   <script src="/static/cloud-sync.js"></script>
+  <script src="/static/app.js"></script>
 </body>
 </html>`)
 })

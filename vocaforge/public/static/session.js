@@ -11,142 +11,16 @@
   const br = s => esc(s).replace(/&lt;br&gt;/gi, '<br>');
   const app = document.getElementById('app');
 
-  // 復習が残っているか（全デッキ横断）。新規学習の解禁判定に使う。
-  function hasGlobalDueReviews(now) {
-    now = now || Date.now();
-    const states = Store.getAllCards();
-    const all = [].concat(VF.deckCards('words'), VF.deckCards('phrases'), VF.deckCards('etym'));
-    for (let i = 0; i < all.length; i++) {
-      const s = states[all[i].id];
-      if (s && s.state !== 'new' && s.due <= now) return true;
-    }
-    return false;
-  }
-  window.__hasGlobalDueReviews = hasGlobalDueReviews;
-
-  function buildQueue(deck, group) {
-    const settings = Store.getSettings();
-    const now = Date.now();
-    const states = Store.getAllCards();
-    const daily = Store.getDaily(now);
-
-    // 対象カードプール
-    let pool;
-    if (deck === 'mix') {
-      pool = [].concat(VF.deckCards('words'), VF.deckCards('phrases'), VF.deckCards('etym'));
-    } else {
-      pool = VF.deckCards(deck, group);
-    }
-
-    const due = [], fresh = [];
-    pool.forEach(c => {
-      const s = states[c.id];
-      if (!s || s.state === 'new') fresh.push(c);
-      else if (s.due <= now) due.push(c);
-    });
-
-    // 復習の並び: Retrievability降順（想起確率が高い順）
-    // Anki公式シミュレーション（forums.ankiweb.net "Improving sort orders"）で、
-    // 同じ保持率を最少の学習時間で維持できる最良の並びと結論づけられた方式。
-    // 想起確率が高いうちに復習するほど1回あたりの成功率が高く、
-    // 失敗→再学習のコストを最小化できる（バックログ時に特に有効）。
-    const rNow = {};
-    due.forEach(c => {
-      const st = states[c.id];
-      const elapsed = st.last_review ? Math.max(0, (now - st.last_review) / 86400000) : 0;
-      rNow[c.id] = FSRS.retrievability(elapsed, st.stability || 0.001);
-    });
-    due.sort((a, b) => rNow[b.id] - rNow[a.id]);
-
-    let revAllowed = Math.max(0, settings.reviewPerDay - daily.review);
-    const dueQueue = due.slice(0, revAllowed);
-
-    // 復習専用モード: ①ホームの「復習を開始」(group==='due') か ②復習がまだ残っている間は新規を出さない
-    const reviewOnly = (group === 'due');
-
-    // 新規学習は「復習が終わってから」解禁する。
-    //  - この対象プール内に未消化の復習があるうちは新規を出さない
-    //  - 全デッキで見ても復習が残っていれば新規は出さない（復習優先の徹底）
-    let queue;
-    if (reviewOnly) {
-      queue = dueQueue; // 復習だけ
-    } else if (dueQueue.length > 0 || hasGlobalDueReviews(now)) {
-      // まだ復習が残っている → 復習を優先し、新規は出さない
-      queue = dueQueue;
-    } else {
-      // 復習が片付いた → ここで初めて新規を解禁
-      let newAllowed = Math.max(0, settings.newPerDay - daily.new);
-      if (group && group !== 'due' && group !== 'all' && deck !== 'mix') {
-        // 特定セクションを明示選択した場合は上限を緩める（学習意欲尊重）
-        // 1回あたりの個数は設定「セクション学習の新規カード数」で変更可能（下限10）
-        newAllowed = Math.max(newAllowed, Math.max(10, settings.sectionNewLimit || 50));
-      }
-      queue = fresh.slice(0, newAllowed);
-    }
-
-    // 何も無ければ（=その日完了）フォールバック
-    if (queue.length === 0 && !reviewOnly) {
-      // 復習が無く新規も上限に達した → 全体から期限近い順に少し出す
-      queue = pool.map(c => ({ c, due: (states[c.id] ? states[c.id].due : Infinity) }))
-        .sort((a, b) => a.due - b.due).slice(0, 20).map(x => x.c);
-    }
-
-    if (settings.interleave) queue = Quiz.shuffle(queue);
-    // プール（誤答生成用）は形式別に十分な数が要る
-    return { queue, pool, settings, reviewOnly, dueTotal: due.length };
-  }
-
-  // 出題形式の選択ルール:
-  //  - 未学習（new）: まだ答えを知らないので必ず「記入以外」（選択式）で出す
-  //  - 復習（learning/review）: 能動的想起を強制するため必ず「記入式」で出す
-  //    記入式は type-je（意味→英語）と cloze（例文穴埋め）の2種。clozeが有効かつ
-  //    例文があるカードは確率40%で例文穴埋めを出題（文脈あり想起の変化をつける）
-  //
-  // 既知の設計トレードオフ（分析レポート2026-07-21 §2.3）:
-  //   FSRSは「gradeの意味が全レビューで均質」と暗黙に仮定するが、本ポリシーは
-  //   新規=MC（正解しやすい→grade3寄り）/ 復習=記入（難しい→grade1/2寄り）という
-  //   形式起因の系統的グレードシフトを生む。W[0..3]（初期安定性）が楽観側に、
-  //   観測保持率が悲観側に歪み得るが、オンデバイス最適化（optimizer.js）が
-  //   個人履歴にWをフィットさせる際に大部分を吸収する。全ログに format を
-  //   記録済みのため（applyGrade）、将来 format 別の較正・分析が可能。
-  function pickFormat(settings, isReview, card) {
-    if (isReview) {
-      // 例文クローズ：有効 かつ 例文を持つカード（語源デッキは対象外）なら確率40%
-      if (settings.formats['cloze'] && card && card.example && card.deck !== 'etym' && Math.random() < 0.4)
-        return 'cloze';
-      return 'type-je';
-    }
-    const enabled = Object.keys(settings.formats)
-      .filter(k => settings.formats[k] && k !== 'type-je' && k !== 'cloze');
-    if (enabled.length === 0) return 'mc-ej'; // 記入のみ有効でも新規は選択式にフォールバック
-    return enabled[Math.floor(Math.random() * enabled.length)];
-  }
-
-  // ====== 弱点集中モード（ブートキャンプ） ======
-  // 対象: 学習済みカードのうち「リーチ語 / 失敗が多い / FSRS難易度が高い」もの。
-  // 復習期限に関係なく、最も弱い順に最大 WEAK_SESSION_SIZE 枚をドリル出題する。
-  // 採点は通常と同じくFSRSに反映（早期復習はFSRSがelapsed_daysで正しく扱う）。
-  const WEAK_SESSION_SIZE = 15;
-  function weakPool() {
-    const states = Store.getAllCards();
-    const all = [].concat(VF.deckCards('words'), VF.deckCards('phrases'), VF.deckCards('etym'));
-    const out = [];
-    for (let i = 0; i < all.length; i++) {
-      const c = all[i];
-      const s = states[c.id];
-      if (!s || s.state === 'new') continue;
-      const lapses = s.lapses || 0;
-      const diff = s.difficulty || 0;
-      const leech = !!s.is_leech;
-      // 弱点判定: リーチ or 失敗2回以上 or 難易度6.5以上（FSRS Dは1-10）
-      if (!leech && lapses < 2 && diff < 6.5) continue;
-      // 弱さスコア: リーチ最優先 → 失敗回数 → 難易度
-      out.push({ c, score: (leech ? 1000 : 0) + lapses * 10 + diff });
-    }
-    out.sort((a, b) => b.score - a.score);
-    return out.map(x => x.c);
-  }
-  window.__weakCount = function () { return weakPool().length; };
+  // 切り出し済みモジュールの参照（このファイルより前に読み込まれる）
+  //   session-queue.js  … buildQueue / weakPool / hasGlobalDueReviews
+  //   session-format.js … pickFormat
+  //   session-answer.js … applyGrade（解答処理の唯一の入口）
+  const ns = (window.__VFSession = window.__VFSession || {});
+  const WEAK_SESSION_SIZE = ns.WEAK_SESSION_SIZE;
+  const buildQueue = ns.buildQueue;
+  const weakPool = ns.weakPool;
+  const pickFormat = ns.pickFormat;
+  const applyGrade = ns.applyGrade;
 
   function startWeak() {
     const settings = Store.getSettings();
@@ -442,52 +316,6 @@
     document.addEventListener('keydown', s._keyHandler);
   }
 
-  function applyGrade(card, q, grade, correct) {
-    const s = VF.STATE.session;
-    if (s._keyHandler) { document.removeEventListener('keydown', s._keyHandler); s._keyHandler = null; }
-
-    const before = Store.getCard(card.id) || { state: 'new', stability: 0, difficulty: 0, reps: 0, lapses: 0 };
-    const now = Date.now();
-    const res = FSRS.schedule(before, grade, s.settings.requestRetention, now);
-
-    const reps = (before.reps || 0) + 1;
-    const lapses = (before.lapses || 0) + (grade === 1 ? 1 : 0);
-    const leechThr = s.settings.leechThreshold || 8;
-    const isLeech = lapses >= leechThr;
-
-    const newState = {
-      state: res.state, stability: res.stability, difficulty: res.difficulty,
-      due: res.due, last_review: res.last_review,
-      reps, lapses, is_leech: isLeech,
-      deck: card.deck, group: card.group
-    };
-    Store.setCard(card.id, newState);
-
-    // ログ（FSRS最適化用フル情報）
-    Store.addLog({
-      card_id: card.id, reviewed_at: now, grade,
-      format: q.format,
-      elapsed_days: res.elapsed_days,
-      duration_ms: now - s.current.shownAt,
-      s_before: before.stability || 0, d_before: before.difficulty || 0,
-      s_after: res.stability, d_after: res.difficulty
-    });
-
-    // 日次カウンタ
-    const wasNew = before.state === 'new' || before.state == null;
-    Store.incDaily(wasNew ? 'new' : 'review', now);
-
-    // セッション集計
-    s.answered++;
-    if (correct) s.correct++;
-    // Again は当日中に再出題。再出題時は必ず記入式で出すためマークする
-    if (grade === 1) { s.reAdd.push(card); s.againIds[card.id] = true; }
-    // 記入式で正解できたら Again マークを解除（定着とみなす）
-    else if (s.againIds[card.id] && (q.format === 'type-je' || q.format === 'cloze') && correct) { delete s.againIds[card.id]; }
-
-    s.idx++;
-    nextCard();
-  }
 
   // ====== 完了画面 ======
   function finish() {
@@ -573,4 +401,7 @@
     if (d < 365) return Math.round(d / 30) + 'ヶ月後';
     return (Math.round(d / 36.5) / 10) + '年後';
   }
+
+  // session-answer.js の applyGrade から呼ばれる
+  ns.nextCard = nextCard;
 })();
