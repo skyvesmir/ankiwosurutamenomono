@@ -236,8 +236,113 @@
     onDirty(fn) { if (typeof fn === 'function') _dirtyHandlers.push(fn); },
     // 同期適用などローカル一括書き換え中はダーティ通知を止める
     suspendDirty(flag) { _suspendDirty = !!flag; },
+    // ---- ローカル と リモート の合体（マージ）----
+    // 同期経路はこれを使う。「どちらか一方で全置換」をやめ、両端末の学習を残す。
+    // remote: exportData().data と同形（+ 任意で updatedAt）
+    // 戻り値: 合体後のデータ（exportData().data と同形。updatedAt を含む）
+    mergeData(remote) {
+      const isObj = v => v && typeof v === 'object' && !Array.isArray(v);
+      const r = isObj(remote) ? remote : {};
+      const rCards = isObj(r.cards) ? r.cards : {};
+      const rLogs = Array.isArray(r.logs) ? r.logs : [];
+      const rDaily = isObj(r.daily) ? r.daily : {};
+      const rSeen = isObj(r.seen) ? r.seen : {};
+      const rSettings = isObj(r.settings) ? r.settings : {};
+      const rCount = typeof r.reviewCount === 'number' ? r.reviewCount : rLogs.length;
+      const rUpdatedAt = typeof r.updatedAt === 'number' ? r.updatedAt : 0;
+
+      const lCards = load(K.cards, {});
+      const lLogs = loadLogs();
+      const lDaily = load(K.daily, {});
+      const lSeen = load(K.seen, {});
+      const lSettings = load(K.settings, {});
+      const lCount = this.getReviewCount();
+      const lUpdatedAt = this.getUpdatedAt();
+
+      // 1) cards: card_id ごとに照合。片方にしか無いものは必ず残す。
+      //    両方にある場合 last_review が新しい方 → reps が多い方 → remote。
+      const cards = {};
+      const cardIds = Object.keys(lCards);
+      Object.keys(rCards).forEach(id => { if (!(id in lCards)) cardIds.push(id); });
+      cardIds.forEach(id => {
+        const a = lCards[id], b = rCards[id];
+        if (!b) { cards[id] = a; return; }
+        if (!a) { cards[id] = b; return; }
+        const la = a.last_review || 0, lb = b.last_review || 0;
+        if (la > lb) { cards[id] = a; return; }
+        if (lb > la) { cards[id] = b; return; }
+        const ra = a.reps || 0, rb2 = b.reps || 0;
+        if (ra > rb2) { cards[id] = a; return; }
+        cards[id] = b; // reps も同じ（または remote が多い）→ remote 採用
+      });
+
+      // 2) logs: card_id + reviewed_at をキーに重複除去して合併、reviewed_at 昇順。
+      const seenLogKeys = Object.create(null);
+      const logs = [];
+      const pushLog = (l) => {
+        if (!l || typeof l !== 'object') return;
+        const key = String(l.card_id) + '@' + String(l.reviewed_at);
+        if (seenLogKeys[key]) return;
+        seenLogKeys[key] = 1;
+        logs.push(l);
+      };
+      lLogs.forEach(pushLog);
+      rLogs.forEach(pushLog);
+      logs.sort((a, b) => (a.reviewed_at || 0) - (b.reviewed_at || 0));
+      const mergedLogLen = logs.length; // 上限カット前の総数
+      if (logs.length > 20000) logs.splice(0, logs.length - 20000);
+
+      // 3) daily: 日付ごとに各カウンタの大きい方（両端末の同日分の二重計上を防ぐ）
+      const daily = {};
+      const days = Object.keys(lDaily);
+      Object.keys(rDaily).forEach(d => { if (!(d in lDaily)) days.push(d); });
+      days.forEach(day => {
+        const a = lDaily[day] || {}, b = rDaily[day] || {};
+        const rec = {};
+        const keys = Object.keys(a);
+        Object.keys(b).forEach(k => { if (!(k in a)) keys.push(k); });
+        keys.forEach(k => { rec[k] = Math.max(a[k] || 0, b[k] || 0); });
+        if (!('new' in rec)) rec.new = 0;
+        if (!('review' in rec)) rec.review = 0;
+        daily[day] = rec;
+      });
+
+      // 4) seen: 和集合（値は新しい方＝大きい方）
+      const seen = Object.assign({}, lSeen);
+      Object.keys(rSeen).forEach(id => {
+        if (!(id in seen) || (rSeen[id] || 0) > (seen[id] || 0)) seen[id] = rSeen[id];
+      });
+
+      // 5) reviewCount: 大きい方（合併後のログ総数も下限として考慮）
+      const reviewCount = Math.max(lCount || 0, rCount || 0, mergedLogLen);
+
+      // 6) settings: レコード全体の updatedAt が新しい側をそのまま採用（項目別マージしない）
+      const settings = (rUpdatedAt > lUpdatedAt) ? rSettings : lSettings;
+
+      // 7) updatedAt: 大きい方
+      const updatedAt = Math.max(lUpdatedAt || 0, rUpdatedAt || 0);
+
+      // ローカルへ保存（同期由来なので dirty 通知は出さない）
+      _suspendDirty = true;
+      try {
+        save(K.cards, cards);
+        saveLogs(logs);
+        save(K.daily, daily);
+        save(K.seen, seen);
+        save(K.settings, settings);
+        save(K.reviewCount, reviewCount);
+      } finally {
+        _suspendDirty = false;
+      }
+      this.setUpdatedAt(updatedAt);
+
+      return { cards, logs, settings, daily, seen, reviewCount, updatedAt };
+    },
+
     // exportData と同形のペイロードをそのまま適用（クラウド→ローカル反映用）
     // mode: 'replace' | 'merge'。通知を出さずに適用する。
+    // 注意: 同期経路からは使わない（全置換はデータ消失につながるため）。
+    //       インポート機能など、ユーザーが明示的に選んだ場合のみ。
     applyData(payload, mode) {
       _suspendDirty = true;
       let res;

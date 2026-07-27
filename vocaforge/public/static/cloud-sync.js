@@ -1,7 +1,9 @@
 /* クラウド同期マネージャ（非module IIFE）
  * - ログイン検知 → クラウド読み込み
  *   - クラウドが空: ローカル（ゲスト）データをそのままアップロードして引き継ぎ
- *   - 両方にデータあり: 最終更新時刻が新しい方を自動採用（newest-wins・全置換）
+ *   - ローカルが空: クラウドを取り込む
+ *   - 両方にデータあり: Store.mergeData() で合体してから push（全置換はしない）
+ *   - 時刻が完全に一致（＝何も変わっていない）: 何もしない
  * - 以降、ローカル更新（Store.onDirty）をデバウンスしてクラウドへ自動保存
  * window.VFSync 経由で状態を公開する。
  */
@@ -52,14 +54,22 @@
   function scheduleSave() {
     if (!VFSync.enabled) return;
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(pushNow, 1500);
+    // 引数なしで呼ぶ（Store の updatedAt がそのまま使われる）
+    saveTimer = setTimeout(function () { pushNow(); }, 1500);
   }
   // 戻り値: {ok:boolean} — ログアウト前の「未同期分の保存確認」に使う
-  async function pushNow() {
+  // contentUpdatedAt を明示しない場合は Store の updatedAt（＝その内容が最後に
+  // 変わった時刻）をそのまま送る。送信時刻(Date.now())は使わない。
+  // これをしないと「古い内容を送っただけ」でサーバー時刻が進み、
+  // 別端末の新しいデータを潰してしまう。
+  async function pushNow(contentUpdatedAt) {
     if (!VFSync.enabled || !Auth.current()) return { ok: false, skipped: true };
     VFSync.status = 'syncing'; VFSync._emit();
     const payload = Store.exportData().data;
-    const res = await Auth.saveCloud(payload);
+    const stamp = (typeof contentUpdatedAt === 'number' && contentUpdatedAt > 0)
+      ? contentUpdatedAt
+      : (Store.getUpdatedAt ? Store.getUpdatedAt() : 0);
+    const res = await Auth.saveCloud(payload, stamp);
     if (res.ok) {
       VFSync.status = 'saved';
       VFSync.lastSavedAt = Date.now();
@@ -73,7 +83,8 @@
     VFSync._emit();
     return { ok: !!res.ok, error: res.error };
   }
-  VFSync.flush = pushNow;
+  // 外部から誤って引数（イベント等）が渡っても時刻を汚さないよう、数値だけ通す
+  VFSync.flush = function (ms) { return pushNow(typeof ms === 'number' ? ms : undefined); };
 
   // ログアウト前の防御: 未同期分をクラウドへ確実に保存してから抜ける。
   // ログアウト後は Store.reset() でローカルが消えるため、ここでの保存失敗は
@@ -140,38 +151,47 @@
     const hasCloud = cloudHasData(cloud);
     const hasLocal = localHasData();
 
-    if (!hasCloud) {
+    // 検証用ログ（判定前）
+    let action = 'none';
+    if (!hasCloud && hasLocal) action = 'push';
+    else if (!hasLocal && hasCloud) action = 'pull';
+    else if (hasCloud && hasLocal) action = (cloudUpdatedAt === localUpdatedAt) ? 'none' : 'merge';
+    console.log('[VFSync] initialSync cloud=' + cloudUpdatedAt + ' local=' + localUpdatedAt + ' action=' + action);
+
+    if (!hasCloud && !hasLocal) {
+      // どちらも空 → 何もしない（ページを開いただけでサーバー時刻を進めない）
+      VFSync.enabled = true;
+      VFSync.status = 'idle';
+      VFSync._emit();
+    } else if (!hasCloud) {
       // クラウドが空 → ゲスト（ローカル）データを引き継いでアップロード
       VFSync.enabled = true;
-      await pushNow();
+      await pushNow(localUpdatedAt);
     } else if (!hasLocal) {
-      // ローカルが空 → クラウドを取り込む
-      Store.applyData(cloud, 'replace');
+      // ローカルが空 → クラウドを取り込む（合体しても結果は同じだが余計な push を避ける）
+      Store.mergeData(Object.assign({}, cloud, { updatedAt: cloudUpdatedAt }));
       Store.setUpdatedAt(cloudUpdatedAt);
       VFSync.enabled = true;
       VFSync.status = 'saved';
       VFSync.lastSavedAt = Date.now();
       VFSync._emit();
       rerender();
+    } else if (cloudUpdatedAt === localUpdatedAt) {
+      // 完全に同じ時刻 ＝ 何も変わっていない → push も apply もしない。
+      // 以降ユーザーが実際に学習して Store.onDirty が発火したときだけ push される。
+      VFSync.enabled = true;
+      VFSync.status = 'saved';
+      VFSync.lastSavedAt = Date.now();
+      VFSync._emit();
     } else {
-      // 両方にデータあり → 確認ダイアログは出さず、
-      // 「進んでいる方（最終更新が新しい方）」を自動採用する。
-      if (cloudUpdatedAt > localUpdatedAt) {
-        // クラウドの方が新しい → クラウドで上書き
-        Store.applyData(cloud, 'replace');
-        Store.setUpdatedAt(cloudUpdatedAt);
-        VFSync.enabled = true;
-        VFSync.status = 'saved';
-        VFSync.lastSavedAt = Date.now();
-        VFSync._emit();
-        rerender();
-      } else {
-        // ローカルの方が新しい（または同時刻） → ローカルでクラウドを上書き
-        VFSync.enabled = true;
-        await pushNow();
-        rerender();
-      }
+      // 両方にデータあり かつ 時刻が異なる → 全置換はせず合体する。
+      // 合体後の updatedAt（両者の大きい方）をそのままクラウドへ送る。
+      const merged = Store.mergeData(Object.assign({}, cloud, { updatedAt: cloudUpdatedAt }));
+      VFSync.enabled = true;
+      await pushNow(merged && merged.updatedAt ? merged.updatedAt : Math.max(cloudUpdatedAt, localUpdatedAt));
+      rerender();
     }
+    console.log('[VFSync] initialSync done action=' + action + ' local=' + Store.getUpdatedAt());
     VFSync._initializing = false;
   }
 
@@ -180,6 +200,31 @@
       global.__go(global.VF.STATE.route || 'home');
     }
   }
+
+  // ---- ログアウト直前のローカル退避（1世代だけ）----
+  // Store.reset() で手元のデータが消えるため、その直前に丸ごと1世代だけ
+  // vocaforge:last_logout_backup へ保存しておく。
+  // 容量対策で logs は直近1000件のみ。保存に失敗してもログアウトは続行する。
+  const LOGOUT_BACKUP_KEY = 'vocaforge:last_logout_backup';
+  function backupBeforeReset() {
+    try {
+      if (!global.Store || !global.Store.exportData) return;
+      const snap = Store.exportData();
+      const d = snap.data || {};
+      const logs = Array.isArray(d.logs) ? d.logs.slice(-1000) : [];
+      const backup = {
+        savedAt: Date.now(),
+        updatedAt: Store.getUpdatedAt ? Store.getUpdatedAt() : 0,
+        logsTruncated: Array.isArray(d.logs) && d.logs.length > logs.length,
+        data: Object.assign({}, d, { logs: logs })
+      };
+      localStorage.setItem(LOGOUT_BACKUP_KEY, JSON.stringify(backup));
+    } catch (e) {
+      // 容量超過などで失敗してもログアウト自体は止めない
+      console.warn('[VFSync] logout backup failed:', e);
+    }
+  }
+  VFSync.backupBeforeReset = backupBeforeReset;
 
   // ---- ログイン状態に追従 ----
   // 「アプリ起動時の未ログイン検知(null)」と「実際のログアウト」を区別するため、
@@ -204,6 +249,7 @@
 
       // 2. ログイン状態からのログアウト時のみ、ローカルデータを破棄しホームへ
       if (doReset) {
+        backupBeforeReset(); // 万一に備えて1世代だけ手元に退避
         if (global.Store && global.Store.reset) global.Store.reset();
         if (global.__go) global.__go('home');
       }

@@ -103,12 +103,18 @@ const VFAuth = {
   },
   // クラウドへ学習データを保存
   //   payload: { cards, logs, settings, daily, seen }
-  async saveCloud(payload) {
+  //   contentUpdatedAt: 任意。「その内容が最後に変更された時刻(ms)」。
+  //     省略時のみ Date.now() を使う。指定された場合はその時刻を
+  //     updated_at_ms / updated_at にそのまま書き込むので、
+  //     古い内容を送っても «サーバー時刻だけが進んで新しいデータを潰す» 事故を防げる。
+  async saveCloud(payload, contentUpdatedAt) {
     if (!VFAuth.user) return { ok: false, error: 'not-logged-in' };
     try {
       // undefined を確実に除去（jsonb に安全に載せるため）
       const cleanData = JSON.parse(JSON.stringify(payload));
-      const nowMs = Date.now();
+      const nowMs = (typeof contentUpdatedAt === 'number' && isFinite(contentUpdatedAt) && contentUpdatedAt > 0)
+        ? contentUpdatedAt
+        : Date.now();
       const { error } = await supabase
         .from(TABLE)
         .upsert({

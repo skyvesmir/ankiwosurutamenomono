@@ -479,17 +479,25 @@
     };
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn && window.VFAuth) logoutBtn.onclick = async () => {
+      // 何が起きるかを明示してから確認する
+      const okToLogout = confirm(
+        'ログアウトすると、この端末に保存されている学習データは削除されます。\n' +
+        '（クラウドには保存済みなので、再ログインすれば戻ります）\n\n' +
+        'ログアウトしますか？');
+      if (!okToLogout) return;
+
       logoutBtn.disabled = true;
       // ログアウト後は Store.reset() でローカルデータが消えるため、
-      // 先に未同期分をクラウドへ保存し、失敗したらユーザーに確認する
+      // 先に未同期分をクラウドへ確実に保存する。
+      // 保存に失敗した場合はログアウトを中止する（押し切る選択肢は用意しない）。
       if (window.VFSync && window.VFSync.flushBeforeLogout) {
         const r = await window.VFSync.flushBeforeLogout();
         if (!r.ok && !r.skipped) {
-          const proceed = confirm(
-            'クラウドへの保存に失敗しました（オフラインの可能性があります）。\n' +
-            'このままログアウトすると、未同期の学習データが失われます。\n\n' +
-            'それでもログアウトしますか？');
-          if (!proceed) { logoutBtn.disabled = false; return; }
+          alert(
+            '未送信の学習データがあるためログアウトできません。\n' +
+            '通信状態を確認してもう一度お試しください。');
+          logoutBtn.disabled = false;
+          return;
         }
       }
       await window.VFAuth.logout();
