@@ -83,6 +83,8 @@
       : (Store.getUpdatedAt ? Store.getUpdatedAt() : 0);
     const res = await Auth.saveCloud(payload, stamp);
     if (res.ok) {
+      // サーバー由来の時刻を基準として保存（端末時計を検証するため）。
+      noteServerTime(res.updatedAt);
       VFSync.status = 'saved';
       VFSync.lastSavedAt = Date.now();
       VFSync.lastError = null;
@@ -193,6 +195,20 @@
     return _initPromise;
   }
 
+  // サーバーから受け取った時刻を「実時間はこれ以降」という基準として記録し、
+  // 保存済みのセッション記録を新しい基準で再検証する（未来を捨て、72時間で丸める）。
+  function noteServerTime(ms) {
+    if (typeof ms !== 'number' || !isFinite(ms) || ms <= 0) return;
+    try {
+      const before = Store.getLastSeenServerTime ? Store.getLastSeenServerTime() : 0;
+      if (Store.setLastSeenServerTime) Store.setLastSeenServerTime(ms);
+      if (ms > before && Store.reconcileDailySessions) {
+        const n = Store.reconcileDailySessions(Date.now());
+        if (n) console.info('[VFSync] session times reconciled: ' + n);
+      }
+    } catch (e) {}
+  }
+
   async function runInitialSync() {
     VFSync.status = 'syncing'; VFSync._emit();
 
@@ -203,6 +219,11 @@
       VFSync._emit();
       return;
     }
+
+    // サーバー由来の時刻を基準として保存し、貯まっていたセッション記録を再検証する。
+    // ・基準より未来の時刻を持つセッションは捨てる
+    // ・72時間より古いものは 72時間前に丸める
+    noteServerTime(res.updatedAt);
 
     const cloud = res.data;            // null もしくは {cards,logs,settings,daily,seen}
     const cloudUpdatedAt = res.updatedAt || 0;

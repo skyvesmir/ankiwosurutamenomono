@@ -122,8 +122,36 @@
   }
   window.__weakCount = function () { return weakPool().length; };
 
+  // ====== 日次記録の「総数」確定（記録のみ・表示は変えない）======
+  // 全デッキ横断の期限カード数。デッキ選択に左右されない値を使う
+  // （buildQueue の dueTotal は選択プール内の数なので日次記録には使えない）。
+  function globalDueTotal(now) {
+    now = now || Date.now();
+    const states = Store.getAllCards();
+    const all = [].concat(VF.deckCards('words'), VF.deckCards('phrases'), VF.deckCards('etym'));
+    let n = 0;
+    for (let i = 0; i < all.length; i++) {
+      const s = states[all[i].id];
+      if (s && s.state !== 'new' && s.due <= now) n++;
+    }
+    return n;
+  }
+  // dueTotal / weakTotal を「その日の最初に見た時点」で確定させる。
+  // Store 側がその日の初回だけを通すので、2回目以降の呼び出しでは値は変わらない
+  // （新規カードを開くほど全消化が遠のく、という逆転を防ぐ）。
+  // 新規カードの分は dueTotal に足さず newFirstPassed だけで数える。
+  function captureDailyTotals(now) {
+    now = now || Date.now();
+    try {
+      Store.setDailyDueTotal(globalDueTotal(now), now);
+      Store.setDailyWeakTotal(weakPool().length, now);
+    } catch (e) {}
+  }
+
   ns.hasGlobalDueReviews = hasGlobalDueReviews;
   ns.buildQueue = buildQueue;
   ns.weakPool = weakPool;
   ns.WEAK_SESSION_SIZE = WEAK_SESSION_SIZE;
+  ns.globalDueTotal = globalDueTotal;
+  ns.captureDailyTotals = captureDailyTotals;
 })();

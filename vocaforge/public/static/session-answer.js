@@ -43,9 +43,15 @@
       s_after: res.stability, d_after: res.difficulty
     });
 
-    // 日次カウンタ
+    // 日次カウンタ（既存。壊さない）
     const wasNew = before.state === 'new' || before.state == null;
     Store.incDaily(wasNew ? 'new' : 'review', now);
+
+    // ---- 日次記録の新項目（記録のみ。表示側は変えない）----
+    // 「正解」は FSRS のボタン（もう一度／難しい／できた／簡単）ではなく、
+    // 「入力または選択した答えが合っていたか」の客観判定 = correct を使う。
+    // grade は FSRS のスケジューリング専用で、記録には混ぜない。
+    recordDaily(s, card, before, wasNew, correct, now);
 
     // セッション集計
     s.answered++;
@@ -59,5 +65,41 @@
     nextCard();
   }
 
+  // 日次記録の新項目をまとめて書く。失敗しても学習は止めない。
+  function recordDaily(s, card, before, wasNew, correct, now) {
+    try {
+      const isNewFirst = (before.reps || 0) === 0;   // このカードの初回解答
+      if (!wasNew) {
+        // 既に学習済みのカード = 期限カードの消化。
+        // 新規カードは（Again 後の再出題を含め）ここに入らない。
+        // 新規の分は dueTotal/dueDone に足さず newFirstPassed だけで数える。
+        Store.incDailyDueDone(!!correct, now);
+      } else if (isNewFirst && correct) {
+        // 新規カードが初回で客観的に正解できた = 初回復習を突破
+        Store.incDailyNewFirstPassed(now);
+      }
+
+      // 弱点集中モードの消化数
+      if (s.deck === 'weak') Store.incDailyWeakDone(now);
+
+      // カテゴリ（ミッション10「異なるカテゴリ2種類以上」）: 全カード種が対象
+      if (VF.categoryOf) {
+        const cat = VF.categoryOf(card);
+        if (cat) Store.addDailyCategory(cat, now);
+      }
+      // テーマ別成績（素材ステージのブースト判定）: 語根カードのみ
+      if (VF.rootThemeOf) {
+        const theme = VF.rootThemeOf(card.id);
+        if (theme) Store.addDailyTheme(theme, !!correct, now);
+      }
+
+      // セッション記録（dueDone が 1 以上のセッションだけ入る）。
+      // Store 側が startedAt を検証し、未来なら捨て、72時間より古ければ丸める。
+      s._dueDone = (s._dueDone || 0) + (wasNew ? 0 : 1);
+      if (s._dueDone >= 1) Store.addDailySession(s.startTs, s._dueDone, now);
+    } catch (e) { /* 記録の失敗で学習を止めない */ }
+  }
+
   ns.applyGrade = applyGrade;
+  ns.recordDaily = recordDaily;
 })();

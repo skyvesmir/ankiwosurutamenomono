@@ -31,6 +31,9 @@
         fetch('/static/data/meta.json').then(r => r.json())
       ]);
       DATA.words = w; DATA.phrases = p; DATA.etym = e; DATA.meta = m;
+      // 語根テーマの対応表（{カードID: テーマ名}）をここで1回だけ構築する。
+      // 事前生成した別JSONは持たない（元データ修正時のズレを避けるため実行時に作る）。
+      if (ns.buildThemeIndex) ns.buildThemeIndex();
       // 単語↔語源カードのリンク表（失敗しても続行：リンク非表示になるだけ）
       fetch('/static/data/etym_links.json').then(r => r.json())
         .then(l => { DATA.etymLinks = l; }).catch(() => {});
@@ -41,6 +44,11 @@
       // 熟語全部バージョン選択中、または既に pf- の進捗がある場合はロード
       if (Store.getSettings().phraseDataset === 'full' || Store.hasCardIdPrefix('pf-')) await loadFullPhrases();
       render();
+      // 日次記録の dueTotal / weakTotal を「その日の最初に見た時点」で確定させる。
+      // 2回目以降の呼び出しは Store 側で無視されるので後から増えることはない。
+      if (window.__VFSession && window.__VFSession.captureDailyTotals) {
+        window.__VFSession.captureDailyTotals(Date.now());
+      }
       // 認証状態が変化したら設定画面を更新
       if (window.VFAuth) window.VFAuth.onChange(() => {
         if (STATE.route === 'settings') render();

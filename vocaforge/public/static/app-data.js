@@ -144,6 +144,100 @@
   }
   function catLabel(c){ return c==='prefix'?'接頭辞':c==='suffix'?'接尾辞':'語根'; }
 
+  // ====== 語根テーマ索引 ======
+  // 語根の意味テーマ15種類（etymology.json の category:'root' の themeGroup に対応）。
+  const ROOT_THEMES = ['動作・運動', '自然・物質', '状態・存在', '身体', '言語・伝達',
+    '思考・知識', '生命', '関係・社会', '形・構造', '数量・程度', '感覚', '時間',
+    'その他', '価値・善悪', '方向・位置'];
+
+  // { カードID: テーマ名 } の対応表。etymology.json を読んだ直後に1回だけ作る。
+  // 事前生成した別JSONは持たない（元データを直したときにズレるので実行時に作る）。
+  let _themeIndex = null;   // etymデッキ全体（語根・接頭辞・接尾辞）
+  let _rootIndex = null;    // category==='root' のみ（ブースト判定用）
+  function buildThemeIndex() {
+    _themeIndex = Object.create(null);
+    _rootIndex = Object.create(null);
+    (DATA.etym || []).forEach(e => {
+      if (!e || !e.id) return;
+      const tg = e.themeGroup || ((e.theme || '').split('＞')[0].trim()) || 'その他';
+      _themeIndex[e.id] = tg;
+      if (e.category === 'root') _rootIndex[e.id] = tg;
+    });
+    return Object.keys(_themeIndex).length;
+  }
+  function themeIndex() { if (_themeIndex === null) buildThemeIndex(); return _themeIndex; }
+  // カードIDからテーマ名を引く。語根以外のカード（単語・熟語）は null。
+  function themeOf(cardId) {
+    if (typeof cardId !== 'string' || !cardId) return null;
+    const t = themeIndex()[cardId];
+    return t === undefined ? null : t;
+  }
+  // 日次記録の themes（素材ステージのブースト判定）用。
+  // 接頭辞・接尾辞は 15テーマ外の分類（品詞化・否定/反対）を持つため、
+  // category==='root' のカードだけを対象にする。
+  function rootThemeOf(cardId) {
+    if (typeof cardId !== 'string' || !cardId) return null;
+    if (_rootIndex === null) buildThemeIndex();
+    const t = _rootIndex[cardId];
+    return t === undefined ? null : t;
+  }
+
+  // 単語/熟語の { カードID: カテゴリ文字列 }。データセット切替で作り直す。
+  let _catCache = { key: '', map: null };
+  function categoryMap() {
+    const s = Store.getSettings();
+    const key = s.wordDataset + '|' + s.phraseDataset + '|' +
+      (DATA.wordsFull ? 'F' : '') + (DATA.wordsLeap ? 'L' : '') + (DATA.phrasesFull ? 'P' : '');
+    if (_catCache.key === key && _catCache.map) return _catCache.map;
+    const map = Object.create(null);
+    wordSource().forEach(c => { map[c.id] = '単語:' + (c.groupLabel || c.group); });
+    phraseSource().forEach(c => { map[c.id] = '熟語:' + (c.groupLabel || c.group); });
+    _catCache = { key: key, map: map };
+    return map;
+  }
+  // デイリーミッション「異なるカテゴリ2種類以上」判定用のカテゴリ文字列。
+  //   単語   → "単語:セクション名"
+  //   熟語   → "熟語:グループ名"
+  //   語根系 → "語根:テーマ名"
+  // 引数はカードオブジェクト（deck/groupLabel を持つ）でもカードIDでもよい。
+  function categoryOf(cardOrId) {
+    if (!cardOrId) return null;
+    if (typeof cardOrId === 'object') {
+      const c = cardOrId;
+      if (c.deck === 'etym') {
+        const tg = c.themeGroup || themeOf(c.id);
+        return tg ? ('語根:' + tg) : null;
+      }
+      const label = c.groupLabel || (c.group != null ? String(c.group) : '');
+      if (!label) return null;
+      return (c.deck === 'phrases' ? '熟語:' : '単語:') + label;
+    }
+    const tg = themeOf(cardOrId);
+    if (tg) return '語根:' + tg;
+    const hit = categoryMap()[cardOrId];
+    return hit === undefined ? null : hit;
+  }
+
+  // 確認用: 語根テーマ15種類それぞれの件数をコンソールに出す（表示は変えない）。
+  function debugThemeCounts() {
+    if (_rootIndex === null) buildThemeIndex();
+    const counts = {}, outside = {};
+    ROOT_THEMES.forEach(t => { counts[t] = 0; });
+    Object.keys(_rootIndex).forEach(id => {
+      const t = _rootIndex[id];
+      if (t in counts) counts[t]++; else outside[t] = (outside[t] || 0) + 1;
+    });
+    const rows = ROOT_THEMES.map(t => ({ テーマ: t, 件数: counts[t] }));
+    console.log('[VF] 語根テーマ別件数（etymology.json / category=root）');
+    if (console.table) console.table(rows);
+    else rows.forEach(r => console.log('  ' + r.テーマ + ': ' + r.件数));
+    console.log('[VF] 15テーマ合計: ' + ROOT_THEMES.reduce((s, t) => s + counts[t], 0) +
+      ' / 語根総数: ' + Object.keys(_rootIndex).length +
+      ' / etym総数: ' + Object.keys(themeIndex()).length);
+    if (Object.keys(outside).length) console.log('[VF] 15テーマ外（未分類など）:', outside);
+    return counts;
+  }
+
   function deckCards(deck, group) {
     let arr;
     if (deck === 'words') arr = wordSource();
@@ -189,4 +283,10 @@
   ns.catLabel = catLabel;
   ns.deckCards = deckCards;
   ns.etymCardsFor = etymCardsFor;
+  ns.ROOT_THEMES = ROOT_THEMES;
+  ns.buildThemeIndex = buildThemeIndex;
+  ns.themeOf = themeOf;
+  ns.rootThemeOf = rootThemeOf;
+  ns.categoryOf = categoryOf;
+  ns.debugThemeCounts = debugThemeCounts;
 })();

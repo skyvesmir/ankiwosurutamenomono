@@ -19,6 +19,10 @@
   const useFullPhrases = ns.useFullPhrases;
   const loadFullPhrases = ns.loadFullPhrases;
   const etymCardsFor = ns.etymCardsFor;
+  const themeOf = ns.themeOf;
+  const rootThemeOf = ns.rootThemeOf;
+  const categoryOf = ns.categoryOf;
+  const debugThemeCounts = ns.debugThemeCounts;
   // 遅延解決ブリッジ: bindSettings は app-settings.js（後読み込み）で定義される
   function bindSettings() { return ns.bindSettings.apply(null, arguments); }
 
@@ -189,7 +193,9 @@
   }
   window.__bindEtymChips = bindEtymChips;
 
-  window.VF = { DATA, STATE, go, deckCards, catLabel, nav, wordSections, useFullWords, loadFullWords, loadLeapWords, useFullPhrases, loadFullPhrases, etymCardsFor };
+  window.VF = { DATA, STATE, go, deckCards, catLabel, nav, wordSections, useFullWords, loadFullWords, loadLeapWords, useFullPhrases, loadFullPhrases, etymCardsFor,
+    // 語根テーマ索引（app-data.js）。themeOf は語根以外（単語・熟語）で null を返す。
+    themeOf, rootThemeOf, categoryOf, debugThemeCounts };
   window.__showCardDetail = showDetail;
 
   ns.STATE = STATE;

@@ -11,11 +11,173 @@
     cards: NS + 'cards',     // { [cardId]: {state,stability,difficulty,due,last_review,reps,lapses,is_leech,suspended} }
     logs: NS + 'logs',       // [ {card_id, reviewed_at, grade, elapsed_days, duration_ms, s_before,d_before,s_after,d_after} ]
     settings: NS + 'settings',
-    daily: NS + 'daily',     // { 'YYYY-MM-DD': {new:n, review:n} }
+    // 日次記録。1日1レコード。復習ログ(logs)とは完全に別の保存領域で、
+    // logs の2万件キャップの影響を受けない（＝日次記録に上限は無い）。
+    // レコードの形は DAILY_SHAPE 参照。
+    daily: NS + 'daily',
     seen: NS + 'seen',       // 導入済みカードID set（新規上限管理用）
     reviewCount: NS + 'review_count', // 累計復習回数（ログ上限キャップの影響を受けない永続カウンタ）
-    updatedAt: NS + 'updated_at' // ローカルデータの最終更新時刻(ms)。自動同期の新旧判定に使う
+    updatedAt: NS + 'updated_at', // ローカルデータの最終更新時刻(ms)。自動同期の新旧判定に使う
+    // サーバーから最後に受け取った時刻(ms)。端末時計を検証するための基準。
+    lastSeenServerTime: NS + 'last_seen_server_time',
+    // 日次記録の「総数を確定させたか」の印。{ '2026-07-29': {dueTotal:1, weakTotal:1} }
+    // 日次レコードの項目名は設計側で確定済みなので、確定フラグはレコードの外に持つ。
+    // dueTotal が 0（その日は期限カードが1枚も無かった）でも「確定済み」を表せるようにするため
+    // 値そのものでは判定しない。
+    dailyFixed: NS + 'daily_fixed'
   };
+
+  // ---- 日次記録のスキーマ ----
+  // 項目名は設計側で確定済み。増やしたり改名したりしない。
+  // 旧版の answered / correct / typedAnswered / typedCorrect / sessions /
+  // sessions80 / relearned は廃止項目なので復活させない
+  // （「解答回数」系の数字は報酬計算に一切使わない方針）。
+  const DAILY_SHAPE = {
+    // ── 既存（そのまま）
+    new: 0,              // 新規に開いた枚数
+    review: 0,           // 復習した枚数
+
+    // ── 期限カード（ミッション 1・2・3・4・5・8 と報酬計算の中核）
+    dueTotal: 0,         // その日の期限カード総数。その日の最初に確定させ、以後変えない
+    dueDone: 0,          // うち消化した枚数
+    dueCorrect: 0,       // うち客観的に正解した枚数
+
+    // ── 新規カード（ミッション 6・7）
+    newFirstPassed: 0,   // 新規カードが初回復習を突破した数
+
+    // ── セッション（ミッション 5）
+    sessionStarts: [],   // [{ startedAt: ISO文字列, dueDone: 数 }, ...]
+
+    // ── 弱点（ミッション 9）
+    weakTotal: 0,        // その日の弱点対象カード数
+    weakDone: 0,         // うち消化した数
+
+    // ── カテゴリ（ミッション 10）
+    categories: [],      // ["語根:身体", "単語:Section 3", ...] 重複なし
+
+    // ── テーマ別の成績（素材ステージのブースト判定用）
+    themes: {},          // { "身体": { done: 5, correct: 4 }, ... }
+
+    // ── ゲーム版で使う枠（学習版では常に 0。UIには出さない）
+    game: {
+      stageClears: 0,    // 素材ステージのクリア回数
+      bossChallenges: 0, // ボス挑戦の回数
+      upgrades: 0,       // キャラまたは武器の強化を実行した回数
+      dispatches: 0      // 「遊学」に出した回数
+    }
+  };
+
+  // オフライン学習を信じる上限（72時間）。これより古い時刻は 72時間前に丸める。
+  const OFFLINE_TRUST_MS = 72 * 60 * 60 * 1000;
+
+  // 旧レコード（new/review しか無い）を現行スキーマへ広げる。
+  // 足りない項目は 0 / [] / {} で埋めるだけ。過去分の遡り補完はしない（遡れない）。
+  function normalizeDaily(rec) {
+    const src = (rec && typeof rec === 'object' && !Array.isArray(rec)) ? rec : {};
+    const num = (v) => (typeof v === 'number' && isFinite(v)) ? v : 0;
+    const g = (src.game && typeof src.game === 'object' && !Array.isArray(src.game)) ? src.game : {};
+    const out = {
+      new: num(src.new),
+      review: num(src.review),
+      dueTotal: num(src.dueTotal),
+      dueDone: num(src.dueDone),
+      dueCorrect: num(src.dueCorrect),
+      newFirstPassed: num(src.newFirstPassed),
+      sessionStarts: Array.isArray(src.sessionStarts)
+        ? src.sessionStarts.filter(x => x && typeof x === 'object' && !Array.isArray(x))
+            .map(x => ({ startedAt: String(x.startedAt || ''), dueDone: num(x.dueDone) }))
+        : [],
+      weakTotal: num(src.weakTotal),
+      weakDone: num(src.weakDone),
+      categories: Array.isArray(src.categories)
+        ? src.categories.filter(c => typeof c === 'string')
+        : [],
+      themes: {},
+      game: {
+        stageClears: num(g.stageClears),
+        bossChallenges: num(g.bossChallenges),
+        upgrades: num(g.upgrades),
+        dispatches: num(g.dispatches)
+      }
+    };
+    // themes: { テーマ名: {done, correct} }
+    if (src.themes && typeof src.themes === 'object' && !Array.isArray(src.themes)) {
+      Object.keys(src.themes).forEach(name => {
+        const t = src.themes[name];
+        if (!t || typeof t !== 'object' || Array.isArray(t)) return;
+        out.themes[name] = { done: num(t.done), correct: num(t.correct) };
+      });
+    }
+    // categories は重複なし
+    const uniq = [];
+    out.categories.forEach(c => { if (uniq.indexOf(c) === -1) uniq.push(c); });
+    out.categories = uniq;
+    return out;
+  }
+
+  // 日次レコード1件ぶんのマージ（同期・手動インポート共通）。
+  // 数値は「大きい方」（その日の累計スナップショットなので加算してはいけない）。
+  // 配列/オブジェクトの項目は Math.max が使えないので項目ごとに規則を決める。
+  function mergeDailyRec(aRaw, bRaw) {
+    const a = normalizeDaily(aRaw), b = normalizeDaily(bRaw);
+    const out = {};
+    ['new', 'review', 'dueTotal', 'dueDone', 'dueCorrect',
+      'newFirstPassed', 'weakTotal', 'weakDone'].forEach(k => {
+      out[k] = Math.max(a[k], b[k]);
+    });
+    // sessionStarts: startedAt をキーに和集合。同じ startedAt は dueDone の大きい方。
+    const byStart = Object.create(null);
+    const order = [];
+    a.sessionStarts.concat(b.sessionStarts).forEach(s => {
+      if (!s.startedAt) return;
+      if (!(s.startedAt in byStart)) { byStart[s.startedAt] = s.dueDone; order.push(s.startedAt); }
+      else if (s.dueDone > byStart[s.startedAt]) byStart[s.startedAt] = s.dueDone;
+    });
+    order.sort();
+    out.sessionStarts = order.map(key => ({ startedAt: key, dueDone: byStart[key] }));
+    // categories: 和集合（重複なし）
+    out.categories = a.categories.slice();
+    b.categories.forEach(c => { if (out.categories.indexOf(c) === -1) out.categories.push(c); });
+    // themes: テーマごとに done / correct の大きい方
+    out.themes = {};
+    Object.keys(a.themes).concat(Object.keys(b.themes)).forEach(name => {
+      if (out.themes[name]) return;
+      const ta = a.themes[name] || { done: 0, correct: 0 };
+      const tb = b.themes[name] || { done: 0, correct: 0 };
+      out.themes[name] = { done: Math.max(ta.done, tb.done), correct: Math.max(ta.correct, tb.correct) };
+    });
+    // game: キーごとに大きい方
+    out.game = {};
+    Object.keys(a.game).forEach(k => { out.game[k] = Math.max(a.game[k], b.game[k]); });
+    return out;
+  }
+
+  // ---- 時刻の扱い（B-5: オフライン学習を上限付きで信じる）----
+  // 端末の時計はそのまま信じない。サーバーから最後に受け取った時刻
+  // （lastSeenServerTime）を「実時間はこれ以降である」という基準として持ち、
+  // ・基準より未来の時刻を持つセッションは捨てる
+  // ・72時間より古いものは 72時間前に丸める
+  // という2点だけをここで担保する（報酬計算そのものはサーバー側）。
+  function serverTimeRef() { return load(K.lastSeenServerTime, 0) || 0; }
+
+  // 記録時点で使う「信頼できる現在時刻」。
+  // 端末時計が基準より過去に戻っていたら基準を採用する。
+  function trustedNow(now) {
+    const dev = (typeof now === 'number' && isFinite(now)) ? now : Date.now();
+    const srv = serverTimeRef();
+    return (srv && dev < srv) ? srv : dev;
+  }
+
+  // セッション開始時刻の検証と丸め。戻り値: 採用する ms、または null（捨てる）。
+  function normalizeSessionTime(startedAtMs, now) {
+    if (typeof startedAtMs !== 'number' || !isFinite(startedAtMs)) return null;
+    const ref = trustedNow(now);
+    // 未来の開始時刻はあり得ない（端末時計を先に進めた記録）→ 捨てる
+    if (startedAtMs > ref + 5 * 60 * 1000) return null;
+    // 72時間より古いものは 72時間前に丸める（オフライン分をまとめて送るとき）
+    const floor = ref - OFFLINE_TRUST_MS;
+    return (startedAtMs < floor) ? floor : startedAtMs;
+  }
 
   const DEFAULT_SETTINGS = {
     requestRetention: 0.9,
@@ -117,15 +279,10 @@
     const daily = {};
     const days = Object.keys(l.daily);
     Object.keys(r.daily).forEach(d => { if (!(d in l.daily)) days.push(d); });
+    //    数値以外の項目（sessionStarts / categories / themes / game）は
+    //    Math.max が使えないので mergeDailyRec() で項目ごとに合体する。
     days.forEach(day => {
-      const a = l.daily[day] || {}, b = r.daily[day] || {};
-      const rec = {};
-      const keys = Object.keys(a);
-      Object.keys(b).forEach(k => { if (!(k in a)) keys.push(k); });
-      keys.forEach(k => { rec[k] = Math.max(a[k] || 0, b[k] || 0); });
-      if (!('new' in rec)) rec.new = 0;
-      if (!('review' in rec)) rec.review = 0;
-      daily[day] = rec;
+      daily[day] = mergeDailyRec(l.daily[day], r.daily[day]);
     });
 
     // 4) seen: 和集合（値は新しい方＝大きい方）
@@ -181,11 +338,13 @@
     },
 
     // ---- 日次カウンタ ----
+    // 読み出しは必ず normalizeDaily() を通すので、new/review しか無い旧レコードでも
+    // 現行スキーマ（不足項目は 0 / [] / {}）で返る。過去分の遡り補完はしない。
     getDaily(now) {
       const all = load(K.daily, {});
-      const t = todayStr(now);
-      return all[t] || { new: 0, review: 0 };
+      return normalizeDaily(all[todayStr(now)]);
     },
+    // 既存の呼び出し元（session-answer.js）互換のためシグネチャ・挙動は変えない。
     incDaily(kind, now) {
       const all = load(K.daily, {});
       const t = todayStr(now);
@@ -193,7 +352,174 @@
       all[t][kind] = (all[t][kind] || 0) + 1;
       save(K.daily, all);
     },
-    getDailyHistory() { return load(K.daily, {}); },
+    getDailyHistory() {
+      const all = load(K.daily, {});
+      const out = {};
+      Object.keys(all).forEach(d => { out[d] = normalizeDaily(all[d]); });
+      return out;
+    },
+    // 生のまま（マイグレーションや同期の内部用）
+    getDailyRaw() { return load(K.daily, {}); },
+
+    // ---- 日次記録の更新（新項目用）----
+    // incDaily() は壊さず、新項目はこちらで書く。
+    // updater(rec) の中で rec を書き換える。rec は normalizeDaily 済み。
+    updateDaily(now, updater) {
+      const all = load(K.daily, {});
+      const t = todayStr(now);
+      const rec = normalizeDaily(all[t]);
+      updater(rec);
+      all[t] = rec;
+      save(K.daily, all);
+      return rec;
+    },
+
+    // 「その日の総数をもう確定させたか」の印。dueTotal が 0 の日
+    // （期限カードが1枚も無かった日）も確定済みとして扱えるようにする。
+    _dailyFixed(field, now) {
+      const all = load(K.dailyFixed, {});
+      const t = todayStr(now);
+      return !!(all[t] && all[t][field]);
+    },
+    _markDailyFixed(field, now) {
+      const all = load(K.dailyFixed, {});
+      const t = todayStr(now);
+      if (!all[t]) all[t] = {};
+      all[t][field] = 1;
+      // 古い印は残さない（当日と前日ぶんだけ持つ）
+      const keep = {};
+      keep[t] = all[t];
+      const y = todayStr((typeof now === 'number' ? now : Date.now()) - 86400000);
+      if (all[y]) keep[y] = all[y];
+      _suspendDirty = true;   // 印は同期対象ではない
+      try { save(K.dailyFixed, keep); } finally { _suspendDirty = false; }
+    },
+
+    // 期限カード総数。★その日の最初に見た時点で確定させ、後から一切増やさない。
+    // 「新規を開くほど全消化が遠のく」逆転を防ぐため、新規カードの初回復習は
+    // ここに足さない（newFirstPassed だけで数える）。
+    setDailyDueTotal(n, now) {
+      if (this._dailyFixed('dueTotal', now)) return null;   // 既に確定済み → 絶対に変えない
+      const total = (typeof n === 'number' && isFinite(n) && n > 0) ? Math.floor(n) : 0;
+      const rec = this.updateDaily(now, r => {
+        if (r.dueTotal > 0) return;   // 他端末から同期された値があれば尊重する
+        r.dueTotal = total;
+      });
+      this._markDailyFixed('dueTotal', now);
+      return rec;
+    },
+    // 期限カードを1枚消化した。correct は「入力/選択した答えが合っていたか」の
+    // 客観判定のみを渡すこと（FSRSのボタン=もう一度/難しい/できた/簡単 は混ぜない）。
+    incDailyDueDone(correct, now) {
+      return this.updateDaily(now, rec => {
+        rec.dueDone += 1;
+        if (correct) rec.dueCorrect += 1;
+      });
+    },
+    // 新規カードが初回復習を突破した
+    incDailyNewFirstPassed(now) {
+      return this.updateDaily(now, rec => { rec.newFirstPassed += 1; });
+    },
+
+    // 弱点対象カード数（こちらもその日の最初に確定させ、後から変えない）
+    setDailyWeakTotal(n, now) {
+      if (this._dailyFixed('weakTotal', now)) return null;
+      const total = (typeof n === 'number' && isFinite(n) && n > 0) ? Math.floor(n) : 0;
+      const rec = this.updateDaily(now, r => {
+        if (r.weakTotal > 0) return;
+        r.weakTotal = total;
+      });
+      this._markDailyFixed('weakTotal', now);
+      return rec;
+    },
+    incDailyWeakDone(now) {
+      return this.updateDaily(now, rec => { rec.weakDone += 1; });
+    },
+
+    // カテゴリ（ミッション10「異なるカテゴリ2種類以上」判定用）。重複は入れない。
+    addDailyCategory(category, now) {
+      if (typeof category !== 'string' || !category) return null;
+      return this.updateDaily(now, rec => {
+        if (rec.categories.indexOf(category) === -1) rec.categories.push(category);
+      });
+    },
+    // テーマ別成績（素材ステージのブースト判定用）。語根カードのみ呼ぶ。
+    // correct は客観判定（ボタンではない）。
+    addDailyTheme(theme, correct, now) {
+      if (typeof theme !== 'string' || !theme) return null;
+      return this.updateDaily(now, rec => {
+        const t = rec.themes[theme] || (rec.themes[theme] = { done: 0, correct: 0 });
+        t.done += 1;
+        if (correct) t.correct += 1;
+      });
+    },
+
+    // セッション記録。dueDone が 1 以上のセッションだけ入れる
+    // （開いただけで何も消化しなかったセッションは記録しない）。
+    // startedAtMs はサーバー基準時刻で検証し、未来なら捨て、72時間より古ければ丸める。
+    addDailySession(startedAtMs, dueDone, now) {
+      const done = (typeof dueDone === 'number' && isFinite(dueDone)) ? Math.floor(dueDone) : 0;
+      if (done < 1) return null;                        // 消化ゼロは記録しない
+      const ms = normalizeSessionTime(startedAtMs, now);
+      if (ms === null) return null;                     // 未来の時刻 → 捨てる
+      const startedAt = new Date(ms).toISOString();
+      return this.updateDaily(now, rec => {
+        const hit = rec.sessionStarts.filter(s => s.startedAt === startedAt)[0];
+        if (hit) { if (done > hit.dueDone) hit.dueDone = done; return; }
+        rec.sessionStarts.push({ startedAt, dueDone: done });
+      });
+    },
+    // 保存済みの sessionStarts を現在のサーバー基準時刻で再検証する。
+    // オフラインで貯まった分をまとめて送る直前に呼ぶ想定。
+    // ・基準より未来の時刻 → 捨てる
+    // ・72時間より古い時刻 → 72時間前に丸める
+    reconcileDailySessions(now) {
+      const all = load(K.daily, {});
+      const days = Object.keys(all);
+      if (!days.length) return 0;
+      const ref = trustedNow(now);
+      const floorMs = ref - OFFLINE_TRUST_MS;
+      let changed = 0;
+      days.forEach(day => {
+        const rec = normalizeDaily(all[day]);
+        if (!rec.sessionStarts.length) { all[day] = rec; return; }
+        const kept = [];
+        rec.sessionStarts.forEach(s => {
+          const ms = Date.parse(s.startedAt);
+          if (!isFinite(ms)) { changed++; return; }                 // 壊れた時刻 → 捨てる
+          if (ms > ref + 5 * 60 * 1000) { changed++; return; }      // 未来 → 捨てる
+          if (ms < floorMs) {                                      // 古すぎ → 72時間に丸める
+            kept.push({ startedAt: new Date(floorMs).toISOString(), dueDone: s.dueDone });
+            changed++;
+            return;
+          }
+          kept.push(s);
+        });
+        rec.sessionStarts = kept;
+        all[day] = rec;
+      });
+      if (changed) save(K.daily, all);
+      return changed;
+    },
+
+    // ---- ゲーム版で使う枠（学習版では常に 0。UIには出さない）----
+    // 読み書きできる器だけ用意しておく。
+    getDailyGame(now) { return this.getDaily(now).game; },
+    incDailyGame(kind, n, now) {
+      if (!(kind in DAILY_SHAPE.game)) return null;
+      const add = (typeof n === 'number' && isFinite(n)) ? Math.floor(n) : 1;
+      return this.updateDaily(now, rec => { rec.game[kind] += add; });
+    },
+
+    // ---- サーバー基準時刻（端末時計を信じないための基準）----
+    getLastSeenServerTime() { return serverTimeRef(); },
+    setLastSeenServerTime(ms) {
+      if (typeof ms !== 'number' || !isFinite(ms) || ms <= 0) return;
+      if (ms <= serverTimeRef()) return;   // 基準は巻き戻さない
+      _suspendDirty = true;                // 同期のトリガーにはしない
+      try { save(K.lastSeenServerTime, ms); } finally { _suspendDirty = false; }
+    },
+    OFFLINE_TRUST_MS,
 
     // ---- カードIDマイグレーション ----
     // mapping: { oldId: newId }。cards / seen / logs の ID を付け替える。
