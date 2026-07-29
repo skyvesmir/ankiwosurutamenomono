@@ -62,7 +62,19 @@
   // 変わった時刻）をそのまま送る。送信時刻(Date.now())は使わない。
   // これをしないと「古い内容を送っただけ」でサーバー時刻が進み、
   // 別端末の新しいデータを潰してしまう。
-  async function pushNow(contentUpdatedAt) {
+  // 送信は必ず1本ずつ直列に流す。
+  // 並行して走ると「古い内容の送信が後着してサーバーを巻き戻す」順序逆転が起きるため。
+  let _pushChain = Promise.resolve();
+  function pushNow(contentUpdatedAt) {
+    const run = _pushChain.then(
+      () => doPush(contentUpdatedAt),
+      () => doPush(contentUpdatedAt)
+    );
+    _pushChain = run.then(() => {}, () => {});
+    return run;
+  }
+
+  async function doPush(contentUpdatedAt) {
     if (!VFSync.enabled || !Auth.current()) return { ok: false, skipped: true };
     VFSync.status = 'syncing'; VFSync._emit();
     const payload = Store.exportData().data;
@@ -74,8 +86,18 @@
       VFSync.status = 'saved';
       VFSync.lastSavedAt = Date.now();
       VFSync.lastError = null;
-      // クラウドに反映済みの内容としてローカル時刻を確定（新旧判定のズレ防止）
-      if (typeof res.updatedAt === 'number') Store.setUpdatedAt(res.updatedAt);
+      // クラウドに反映済みの内容としてローカル時刻を確定（新旧判定のズレ防止）。
+      // ただし送信を待っている間にユーザーが学習していた場合、ローカルの時刻は
+      // すでに stamp より進んでいる。そこへ stamp を書くと時刻が巻き戻り、
+      // 次回起動時に「クラウドと同じ＝送信不要」と誤判定して未送信分を取り残す。
+      // そのため「進んでいなければ確定、進んでいたら触らず再送」に分ける。
+      const after = Store.getUpdatedAt ? Store.getUpdatedAt() : 0;
+      if (typeof res.updatedAt === 'number' && after <= res.updatedAt) {
+        Store.setUpdatedAt(res.updatedAt);
+      } else {
+        // 送信中に更新された分は未送信として残っている → 改めて送る
+        scheduleSave();
+      }
     } else {
       VFSync.status = 'error';
       VFSync.lastError = res.error;
@@ -94,7 +116,20 @@
     clearTimeout(saveTimer);
     saveTimer = null;
     if (!VFSync.enabled || !Auth.current()) return { ok: true, skipped: true };
-    return await pushNow();
+    // 送信中にローカルが更新されると、その分は未送信のまま残る。
+    // 「送った時刻 ≧ ローカルの時刻」になるまで送り直す（無限ループ防止に上限3回）。
+    let last = { ok: false };
+    for (let i = 0; i < 3; i++) {
+      const before = Store.getUpdatedAt ? Store.getUpdatedAt() : 0;
+      last = await pushNow(before);
+      if (!last.ok) return last;                     // 通信失敗 → 呼び出し側が中止する
+      const after = Store.getUpdatedAt ? Store.getUpdatedAt() : 0;
+      if (after <= before) return last;              // 未送信分なし → 完了
+      clearTimeout(saveTimer);                       // 再送は自前で行う
+      saveTimer = null;
+    }
+    // 3回試しても追いつかない（＝送信中も学習が続いている）→ 消してよいとは言えない
+    return { ok: false, error: 'flush-not-settled' };
   };
 
   // ローカル書き込みを監視 → クラウドへ反映
@@ -131,16 +166,40 @@
   }
 
   // ---- ログイン時の初期同期 ----
-  async function initialSync() {
-    if (VFSync._initializing) return;
+  // 多重起動を防ぐためのガード。
+  // 以前は「例外が起きると _initializing が true のまま残る」ため、一度失敗すると
+  // 同じページを開いている間は初期同期が二度と走らず、同期が無音で停止していた。
+  // 現在は finally で必ず解除する。進行中に再度呼ばれた場合は、黙って捨てずに
+  // 進行中の処理を待たせる（呼び出し側が「同期済み」と誤認しないように）。
+  let _initPromise = null;
+  function initialSync() {
+    if (_initPromise) return _initPromise;
     VFSync._initializing = true;
+    _initPromise = (async function () {
+      try {
+        return await runInitialSync();
+      } catch (e) {
+        // ネットワーク断・localStorage 容量超過などで途中失敗しても、
+        // 状態を error にして次回のログイン/再試行を必ず受け付ける。
+        VFSync.status = 'error';
+        VFSync.lastError = (e && e.message) ? e.message : String(e);
+        console.error('[VFSync] initialSync failed:', e);
+        VFSync._emit();
+      } finally {
+        VFSync._initializing = false;
+        _initPromise = null;
+      }
+    })();
+    return _initPromise;
+  }
+
+  async function runInitialSync() {
     VFSync.status = 'syncing'; VFSync._emit();
 
     const res = await Auth.loadCloud();
     if (!res.ok) {
       VFSync.status = 'error';
       VFSync.lastError = res.error;
-      VFSync._initializing = false;
       VFSync._emit();
       return;
     }
@@ -192,7 +251,6 @@
       rerender();
     }
     console.log('[VFSync] initialSync done action=' + action + ' local=' + Store.getUpdatedAt());
-    VFSync._initializing = false;
   }
 
   function rerender() {

@@ -70,6 +70,76 @@
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   }
 
+  // ---- マージ規則（クラウド同期と手動インポートの共通実装）----
+  // 「同じユーザーの2つのスナップショット」を突き合わせる前提の規則。
+  // cards / logs / daily / seen / reviewCount の決め方はここ1箇所にしか書かない。
+  // mergeData()（同期）と importData('merge')（手動インポート）の両方がこれを使うため、
+  // 経路によって結果が変わることはない。
+  // settings は経路ごとに採用ルールが異なるため、呼び出し側で決める。
+  // 引数はどちらも {cards, logs, daily, seen, reviewCount} 形。l=ローカル, r=相手側。
+  function mergeCore(l, r) {
+    // 1) cards: card_id ごとに照合。片方にしか無いものは必ず残す。
+    //    両方にある場合 last_review が新しい方 → reps が多い方 → r。
+    const cards = {};
+    const cardIds = Object.keys(l.cards);
+    Object.keys(r.cards).forEach(id => { if (!(id in l.cards)) cardIds.push(id); });
+    cardIds.forEach(id => {
+      const a = l.cards[id], b = r.cards[id];
+      if (!b) { cards[id] = a; return; }
+      if (!a) { cards[id] = b; return; }
+      const la = a.last_review || 0, lb = b.last_review || 0;
+      if (la > lb) { cards[id] = a; return; }
+      if (lb > la) { cards[id] = b; return; }
+      const ra = a.reps || 0, rb2 = b.reps || 0;
+      if (ra > rb2) { cards[id] = a; return; }
+      cards[id] = b; // reps も同じ（または r が多い）→ r 採用
+    });
+
+    // 2) logs: card_id + reviewed_at をキーに重複除去して合併、reviewed_at 昇順。
+    const seenLogKeys = Object.create(null);
+    const logs = [];
+    const pushLog = (x) => {
+      if (!x || typeof x !== 'object') return;
+      const key = String(x.card_id) + '@' + String(x.reviewed_at);
+      if (seenLogKeys[key]) return;
+      seenLogKeys[key] = 1;
+      logs.push(x);
+    };
+    l.logs.forEach(pushLog);
+    r.logs.forEach(pushLog);
+    logs.sort((a, b) => (a.reviewed_at || 0) - (b.reviewed_at || 0));
+    const mergedLogLen = logs.length; // 上限カット前の総数
+    if (logs.length > 20000) logs.splice(0, logs.length - 20000);
+
+    // 3) daily: 日付ごとに各カウンタの大きい方。
+    //    日次カウンタは「その日の累計スナップショット」なので加算してはいけない
+    //    （加算すると同じバックアップを取り込むだけで学習数が二重計上される）。
+    const daily = {};
+    const days = Object.keys(l.daily);
+    Object.keys(r.daily).forEach(d => { if (!(d in l.daily)) days.push(d); });
+    days.forEach(day => {
+      const a = l.daily[day] || {}, b = r.daily[day] || {};
+      const rec = {};
+      const keys = Object.keys(a);
+      Object.keys(b).forEach(k => { if (!(k in a)) keys.push(k); });
+      keys.forEach(k => { rec[k] = Math.max(a[k] || 0, b[k] || 0); });
+      if (!('new' in rec)) rec.new = 0;
+      if (!('review' in rec)) rec.review = 0;
+      daily[day] = rec;
+    });
+
+    // 4) seen: 和集合（値は新しい方＝大きい方）
+    const seen = Object.assign({}, l.seen);
+    Object.keys(r.seen).forEach(id => {
+      if (!(id in seen) || (r.seen[id] || 0) > (seen[id] || 0)) seen[id] = r.seen[id];
+    });
+
+    // 5) reviewCount: 大きい方（合併後のログ総数も下限として考慮）
+    const reviewCount = Math.max(l.reviewCount || 0, r.reviewCount || 0, mergedLogLen);
+
+    return { cards, logs, daily, seen, reviewCount, mergedLogLen };
+  }
+
   const Store = {
     K,
     // ---- 設定 ----
@@ -259,62 +329,17 @@
       const lCount = this.getReviewCount();
       const lUpdatedAt = this.getUpdatedAt();
 
-      // 1) cards: card_id ごとに照合。片方にしか無いものは必ず残す。
-      //    両方にある場合 last_review が新しい方 → reps が多い方 → remote。
-      const cards = {};
-      const cardIds = Object.keys(lCards);
-      Object.keys(rCards).forEach(id => { if (!(id in lCards)) cardIds.push(id); });
-      cardIds.forEach(id => {
-        const a = lCards[id], b = rCards[id];
-        if (!b) { cards[id] = a; return; }
-        if (!a) { cards[id] = b; return; }
-        const la = a.last_review || 0, lb = b.last_review || 0;
-        if (la > lb) { cards[id] = a; return; }
-        if (lb > la) { cards[id] = b; return; }
-        const ra = a.reps || 0, rb2 = b.reps || 0;
-        if (ra > rb2) { cards[id] = a; return; }
-        cards[id] = b; // reps も同じ（または remote が多い）→ remote 採用
-      });
-
-      // 2) logs: card_id + reviewed_at をキーに重複除去して合併、reviewed_at 昇順。
-      const seenLogKeys = Object.create(null);
-      const logs = [];
-      const pushLog = (l) => {
-        if (!l || typeof l !== 'object') return;
-        const key = String(l.card_id) + '@' + String(l.reviewed_at);
-        if (seenLogKeys[key]) return;
-        seenLogKeys[key] = 1;
-        logs.push(l);
-      };
-      lLogs.forEach(pushLog);
-      rLogs.forEach(pushLog);
-      logs.sort((a, b) => (a.reviewed_at || 0) - (b.reviewed_at || 0));
-      const mergedLogLen = logs.length; // 上限カット前の総数
-      if (logs.length > 20000) logs.splice(0, logs.length - 20000);
-
-      // 3) daily: 日付ごとに各カウンタの大きい方（両端末の同日分の二重計上を防ぐ）
-      const daily = {};
-      const days = Object.keys(lDaily);
-      Object.keys(rDaily).forEach(d => { if (!(d in lDaily)) days.push(d); });
-      days.forEach(day => {
-        const a = lDaily[day] || {}, b = rDaily[day] || {};
-        const rec = {};
-        const keys = Object.keys(a);
-        Object.keys(b).forEach(k => { if (!(k in a)) keys.push(k); });
-        keys.forEach(k => { rec[k] = Math.max(a[k] || 0, b[k] || 0); });
-        if (!('new' in rec)) rec.new = 0;
-        if (!('review' in rec)) rec.review = 0;
-        daily[day] = rec;
-      });
-
-      // 4) seen: 和集合（値は新しい方＝大きい方）
-      const seen = Object.assign({}, lSeen);
-      Object.keys(rSeen).forEach(id => {
-        if (!(id in seen) || (rSeen[id] || 0) > (seen[id] || 0)) seen[id] = rSeen[id];
-      });
-
-      // 5) reviewCount: 大きい方（合併後のログ総数も下限として考慮）
-      const reviewCount = Math.max(lCount || 0, rCount || 0, mergedLogLen);
+      // 1)〜5) cards / logs / daily / seen / reviewCount は共通規則（mergeCore）で決める。
+      //        手動インポートの 'merge' も同じ関数を通るので経路差は生じない。
+      const core = mergeCore(
+        { cards: lCards, logs: lLogs, daily: lDaily, seen: lSeen, reviewCount: lCount },
+        { cards: rCards, logs: rLogs, daily: rDaily, seen: rSeen, reviewCount: rCount }
+      );
+      const cards = core.cards;
+      const logs = core.logs;
+      const daily = core.daily;
+      const seen = core.seen;
+      const reviewCount = core.reviewCount;
 
       // 6) settings: レコード全体の updatedAt が新しい側をそのまま採用（項目別マージしない）
       const settings = (rUpdatedAt > lUpdatedAt) ? rSettings : lSettings;
@@ -389,27 +414,28 @@
         const inCount = typeof d.reviewCount === 'number' ? d.reviewCount : logs.length;
 
         if (mode === 'merge') {
-          // カード: 取り込み側を優先して上書き統合
-          save(K.cards, Object.assign({}, load(K.cards, {}), cards));
-          // ログ: 連結して時刻順、上限管理
-          const merged = loadLogs().concat(logs)
-            .sort((a, b) => (a.reviewed_at || 0) - (b.reviewed_at || 0));
-          const mergedLen = merged.length; // キャップ前の連結総数
-          if (merged.length > 20000) merged.splice(0, merged.length - 20000);
-          saveLogs(merged);
-          // 累計カウンタ: 重複不明のため「双方の累計と連結総数の最大値」を採用（過小評価を防ぐ）
-          save(K.reviewCount, Math.max(this.getReviewCount(), inCount, mergedLen));
-          // 日次: 同日は新規/復習を合算
-          const curDaily = load(K.daily, {});
-          Object.keys(daily).forEach(day => {
-            const a = curDaily[day] || { new: 0, review: 0 };
-            const b = daily[day] || { new: 0, review: 0 };
-            curDaily[day] = { new: (a.new || 0) + (b.new || 0), review: (a.review || 0) + (b.review || 0) };
-          });
-          save(K.daily, curDaily);
-          // 既出: 統合
-          save(K.seen, Object.assign({}, load(K.seen, {}), seen));
-          // 設定は取り込み側で上書き（空なら現状維持）
+          // cards / logs / daily / seen / reviewCount は同期経路と同じ共通規則で合体する。
+          // （以前はここだけ「カードは取り込み側で上書き」「日次は加算」という別規則で、
+          //   同じファイルを2回取り込むと日次が二重計上され、復習済みカードが
+          //   古い状態に巻き戻ることがあった）
+          const core = mergeCore(
+            {
+              cards: load(K.cards, {}),
+              logs: loadLogs(),
+              daily: load(K.daily, {}),
+              seen: load(K.seen, {}),
+              reviewCount: this.getReviewCount()
+            },
+            { cards: cards, logs: logs, daily: daily, seen: seen, reviewCount: inCount }
+          );
+          save(K.cards, core.cards);
+          saveLogs(core.logs);
+          save(K.daily, core.daily);
+          save(K.seen, core.seen);
+          save(K.reviewCount, core.reviewCount);
+          // 設定は取り込み側で上書き（空なら現状維持）。
+          // ※ mergeData（同期）は「レコードの updatedAt が新しい側を丸ごと採用」だが、
+          //   手動インポートはユーザーが明示的に選んだ操作なので取り込み側を優先する。
           if (Object.keys(settings).length) save(K.settings, Object.assign(load(K.settings, {}), settings));
         } else {
           // replace: 完全置換
