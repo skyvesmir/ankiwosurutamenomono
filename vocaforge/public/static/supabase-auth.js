@@ -135,6 +135,11 @@ const VFAuth = {
   }
 };
 
+// 行単位同期（outbox.js）が card_states / review_logs / daily_stats を直接読み書きするため、
+// クライアントをそのまま公開する。outbox.js は非module スクリプトなので import できない。
+// 既存の loadCloud / saveCloud（user_data の丸ごと同期）には一切手を入れていない。
+VFAuth.client = supabase;
+
 // 状態変化を配信するヘルパ
 function emit() {
   VFAuth._listeners.forEach((fn) => {

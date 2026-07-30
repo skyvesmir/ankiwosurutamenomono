@@ -53,6 +53,28 @@
     // grade は FSRS のスケジューリング専用で、記録には混ぜない。
     recordDaily(s, card, before, wasNew, correct, now);
 
+    // ---- 行単位のクラウド書き込み（送信待ちの箱へ）----
+    // 学習データ全体を丸ごと上書きするのをやめ、解いた1枚分だけを送る。
+    // updated_at_ms には「送信した時刻」ではなく「このカードを触った時刻」= now を入れる。
+    // 箱に入れるだけなので、オフラインでも失敗しても学習は止まらない。
+    if (window.VFOutbox && window.VFOutbox.enqueueAnswer) {
+      try {
+        window.VFOutbox.enqueueAnswer({
+          cardId: card.id,
+          state: newState,
+          touchedAt: now,
+          log: {
+            card_id: card.id, reviewed_at: now, grade: grade,
+            // サーバーの correct 列には客観的な正解判定を入れる（ボタンは入れない）
+            correct: !!correct,
+            elapsed_days: res.elapsed_days
+          },
+          day: Store.todayStr(now),
+          stats: Store.getDaily(now)
+        });
+      } catch (e) { /* 送信準備の失敗で学習を止めない */ }
+    }
+
     // セッション集計
     s.answered++;
     if (correct) s.correct++;

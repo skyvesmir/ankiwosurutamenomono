@@ -85,6 +85,7 @@ app.get('/', (c) => {
   <script src="/static/session-answer.js"></script>
   <script src="/static/session.js"></script>
   <script src="/static/flashcard.js"></script>
+  <script src="/static/outbox.js"></script>
   <script src="/static/cloud-sync.js"></script>
   <script src="/static/app.js"></script>
 </body>

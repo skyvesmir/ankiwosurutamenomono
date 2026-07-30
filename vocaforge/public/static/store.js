@@ -239,6 +239,38 @@
   // 経路によって結果が変わることはない。
   // settings は経路ごとに採用ルールが異なるため、呼び出し側で決める。
   // 引数はどちらも {cards, logs, daily, seen, reviewCount} 形。l=ローカル, r=相手側。
+  // ---- 行単位同期（card_states）用のヘルパ ----
+  // カードを「実際に触った時刻」(ms)。行単位同期の updated_at_ms と同じ意味。
+  // 手元のカード状態には updated_at_ms が無い場合があるので last_review で代用する。
+  function cardTouchedAt(c) {
+    if (!c || typeof c !== 'object') return 0;
+    const u = Number(c.updated_at_ms);
+    if (isFinite(u) && u > 0) return u;
+    const l = Number(c.last_review);
+    return (isFinite(l) && l > 0) ? l : 0;
+  }
+  // サーバー行（card_states）を手元のカード状態の形に直す。
+  // ・deck / group はサーバーに列が無い付随情報なので、手元にあれば引き継ぐ
+  // ・is_leech もサーバーに列が無いので lapses と閾値から作り直す
+  function adoptRemoteCard(b, localPrev, leechThr) {
+    const n = (v) => { const x = Number(v); return isFinite(x) ? x : 0; };
+    const lapses = n(b.lapses);
+    const out = {
+      state: b.state || 'new',
+      stability: n(b.stability), difficulty: n(b.difficulty),
+      due: n(b.due), last_review: n(b.last_review),
+      reps: n(b.reps), lapses: lapses,
+      is_leech: lapses >= (leechThr || 8),
+      suspended: !!b.suspended,
+      updated_at_ms: cardTouchedAt(b)
+    };
+    if (localPrev && typeof localPrev === 'object') {
+      if (localPrev.deck !== undefined) out.deck = localPrev.deck;
+      if (localPrev.group !== undefined) out.group = localPrev.group;
+    }
+    return out;
+  }
+
   function mergeCore(l, r) {
     // 1) cards: card_id ごとに照合。片方にしか無いものは必ず残す。
     //    両方にある場合 last_review が新しい方 → reps が多い方 → r。
@@ -689,6 +721,114 @@
 
       return { cards, logs, settings, daily, seen, reviewCount, updatedAt };
     },
+
+    // ---- 行単位同期の読み込み（カード1枚ずつの合体）----
+    // これまでは「サーバーか手元か、新しい方を採用してもう一方を捨てる」形だった。
+    // 丸ごと入れ替えるとどちらかの学習が必ず消えるため、カードID単位で照合する。
+    //   ・片方にしかない  → ある方を採用
+    //   ・両方にある      → updated_at_ms が新しい方を採用
+    //   ・完全に同じ時刻  → 何もしない（どちらでも同じ）
+    // remoteCards: { [cardId]: card_states の1行 }
+    // 戻り値: { total, fromServer, localNewer, added, same, localOnly, toPush }
+    //   toPush = 手元の方が新しい（またはサーバーに無い）カードID。呼び出し側が箱に入れる。
+    mergeCardStatesByTime(remoteCards) {
+      const isObj = v => v && typeof v === 'object' && !Array.isArray(v);
+      const rc = isObj(remoteCards) ? remoteCards : {};
+      const local = load(K.cards, {});
+      const leechThr = this.getSettings().leechThreshold || 8;
+      let fromServer = 0, localNewer = 0, added = 0, same = 0, localOnly = 0;
+      const toPush = [];
+      const out = {};
+      const ids = Object.keys(local);
+      Object.keys(rc).forEach(id => { if (!(id in local)) ids.push(id); });
+      ids.forEach(id => {
+        const a = local[id], b = rc[id];
+        if (!b) {                       // 手元にしかない → 手元を採用（サーバーへ送る）
+          out[id] = a; localOnly++; toPush.push(id); return;
+        }
+        if (!a) {                       // サーバーにしかない → 取得する
+          out[id] = adoptRemoteCard(b, null, leechThr); added++; return;
+        }
+        const ta = cardTouchedAt(a), tb = cardTouchedAt(b);
+        if (tb > ta) { out[id] = adoptRemoteCard(b, a, leechThr); fromServer++; return; }
+        if (ta > tb) { out[id] = a; localNewer++; toPush.push(id); return; }
+        out[id] = a; same++;            // 完全に同じ時刻 → 何もしない
+      });
+      // 同期由来の一括書き込みなので dirty 通知は出さない
+      _suspendDirty = true;
+      try { save(K.cards, out); } finally { _suspendDirty = false; }
+      return {
+        total: Object.keys(out).length,
+        fromServer, localNewer, added, same, localOnly, toPush
+      };
+    },
+
+    // 復習ログは追記のみ。手元のログは絶対に消さない。
+    // 手元に無いものだけ足して reviewed_at の昇順に並べ直す。
+    // 同一判定キーは (card_id, reviewed_at)。
+    appendMissingLogs(remoteLogs) {
+      const rl = Array.isArray(remoteLogs) ? remoteLogs : [];
+      const logs = loadLogs();
+      const keyOf = x => String(x.card_id) + '@' + String(x.reviewed_at);
+      const seenKeys = Object.create(null);
+      logs.forEach(x => { if (x && typeof x === 'object') seenKeys[keyOf(x)] = 1; });
+      let added = 0;
+      rl.forEach(x => {
+        if (!x || typeof x !== 'object' || x.card_id == null || x.reviewed_at == null) return;
+        const k = keyOf(x);
+        if (seenKeys[k]) return;
+        seenKeys[k] = 1;
+        logs.push(x);
+        added++;
+      });
+      logs.sort((a, b) => (a.reviewed_at || 0) - (b.reviewed_at || 0));
+      const mergedLen = logs.length;
+      if (logs.length > 20000) logs.splice(0, logs.length - 20000);
+      _suspendDirty = true;
+      try {
+        saveLogs(logs);
+        save(K.reviewCount, Math.max(load(K.reviewCount, 0) || 0, mergedLen));
+      } finally { _suspendDirty = false; }
+      return { added, total: logs.length };
+    },
+
+    // 日次記録は日付ごとに「項目の型別」で合体する（mergeDailyRec と同じ規則）。
+    // 絶対に足し算しない。両端末が同じ学習を数えている可能性があるため。
+    // dueTotal は「その日の期限カード総数」なので本来どの端末でも同じ値になるはず。
+    // 食い違ったら大きい方を採用した上で呼び出し側に知らせる（確定処理のバグの兆候）。
+    // remoteDaily: { '2026-07-30': 日次レコード, ... }
+    // 戻り値: { days, changed, mismatches:[{day, local, remote}] }
+    mergeDailyStatsRows(remoteDaily) {
+      const isObj = v => v && typeof v === 'object' && !Array.isArray(v);
+      const rd = isObj(remoteDaily) ? remoteDaily : {};
+      const ld = load(K.daily, {});
+      const before = JSON.stringify(ld);
+      const out = {};
+      const mismatches = [];
+      const days = Object.keys(ld);
+      Object.keys(rd).forEach(d => { if (!(d in ld)) days.push(d); });
+      days.forEach(day => {
+        const a = ld[day], b = rd[day];
+        if (a && b) {
+          const na = normalizeDaily(a), nb = normalizeDaily(b);
+          if (na.dueTotal !== nb.dueTotal) {
+            mismatches.push({ day: day, local: na.dueTotal, remote: nb.dueTotal });
+          }
+        }
+        out[day] = mergeDailyRec(a, b);
+      });
+      const after = JSON.stringify(out);
+      _suspendDirty = true;
+      try { save(K.daily, out); } finally { _suspendDirty = false; }
+      return { days: Object.keys(out).length, changed: before !== after, mismatches: mismatches };
+    },
+
+    // 1日分の日次レコードを合体する規則を外へ出したもの（outbox.js が使う）。
+    // 保存はしない。純粋な計算。
+    mergeDailyRecord(a, b) { return mergeDailyRec(a, b); },
+
+    // カードを「実際に触った時刻」(ms)。行単位同期の updated_at_ms に入れる値。
+    cardTouchedAt(c) { return cardTouchedAt(c); },
 
     // exportData と同形のペイロードをそのまま適用（クラウド→ローカル反映用）
     // mode: 'replace' | 'merge'。通知を出さずに適用する。

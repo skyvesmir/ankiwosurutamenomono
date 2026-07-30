@@ -209,9 +209,64 @@
     } catch (e) {}
   }
 
+  // ---- ログイン時の読み込み: カード1枚ずつの「合体」----
+  // これまでは「サーバーか手元か、新しい方を採用してもう一方を捨てる」形だった。
+  // 丸ごと入れ替える処理はこの経路から完全に削除し、
+  // カードID・ログ1件・日付ごとに新しい方を採用する形にした。
+  // どちらかを捨てる場面が原理的に発生しないので、確認ダイアログも出さない。
+  async function pullRows() {
+    const OB = global.VFOutbox;
+    if (!OB || !OB.remote) return { ok: false, error: 'outbox-unavailable' };
+
+    const cs = await OB.remote.fetchCardStates();
+    if (!cs.ok) return { ok: false, error: cs.error };
+    const rl = await OB.remote.fetchReviewLogs();
+    if (!rl.ok) return { ok: false, error: rl.error };
+    const ds = await OB.remote.fetchDailyStats();
+    if (!ds.ok) return { ok: false, error: ds.error };
+
+    // 1) カード状態: カードID単位で updated_at_ms が新しい方を採用
+    const cards = Store.mergeCardStatesByTime(cs.cards);
+    // 2) 復習ログ: 手元に無いものだけ追加して時刻順に並べ直す（手元のログは消さない）
+    const logs = Store.appendMissingLogs(rl.logs);
+    // 3) 日次記録: 同じ日付は項目の型ごとに合体（絶対に足し算しない）
+    const daily = Store.mergeDailyStatsRows(ds.daily);
+
+    // dueTotal は「その日の期限カード総数」なので本来どの端末でも同じ値になるはず。
+    // 食い違いは確定処理のバグの兆候なので、大きい方を採用した上で警告する。
+    (daily.mismatches || []).forEach(function (m) {
+      console.warn('[VFSync] dueTotal が食い違っています ' + m.day
+        + ': 手元=' + m.local + ' サーバー=' + m.remote
+        + ' → 大きい方を採用しました（確定処理のバグの可能性）');
+    });
+
+    // 5) 合体の結果「手元の方が新しかった」カードは箱に入れてサーバーへ反映する
+    let queued = 0;
+    const toPush = cards.toPush || [];
+    if (toPush.length && OB.enqueueCards) {
+      const all = Store.getAllCards();
+      queued = OB.enqueueCards(toPush.map(function (id) {
+        return { cardId: id, state: all[id] };
+      }));
+    }
+
+    // 7) 合体の結果をログ出力する
+    console.log('[VFSync] 合体: サーバーから ' + cards.fromServer + '件'
+      + ' / 手元が新しい ' + cards.localNewer + '件'
+      + ' / 新規取得 ' + cards.added + '件'
+      + '（カード合計 ' + cards.total + '件・同時刻 ' + cards.same + '件'
+      + '・手元のみ ' + cards.localOnly + '件'
+      + '／ログ +' + logs.added + '件（計 ' + logs.total + '件）'
+      + '／日次 ' + daily.days + '日分'
+      + '／送信待ちに追加 ' + queued + '件）');
+
+    return { ok: true, cards: cards, logs: logs, daily: daily, queued: queued, remoteCards: cs.cards };
+  }
+
   async function runInitialSync() {
     VFSync.status = 'syncing'; VFSync._emit();
 
+    // 1) 設定は従来どおり user_data から読む（ここはまだ変えない）。
     const res = await Auth.loadCloud();
     if (!res.ok) {
       VFSync.status = 'error';
@@ -231,46 +286,71 @@
     const hasCloud = cloudHasData(cloud);
     const hasLocal = localHasData();
 
-    // 検証用ログ（判定前）
     let action = 'none';
     if (!hasCloud && hasLocal) action = 'push';
     else if (!hasLocal && hasCloud) action = 'pull';
     else if (hasCloud && hasLocal) action = (cloudUpdatedAt === localUpdatedAt) ? 'none' : 'merge';
     console.log('[VFSync] initialSync cloud=' + cloudUpdatedAt + ' local=' + localUpdatedAt + ' action=' + action);
 
-    if (!hasCloud && !hasLocal) {
+    // 2) 行単位（card_states / review_logs / daily_stats）の合体。これが新しい本流。
+    //    旧方式の取り込みより先に行う。後にすると旧方式が先に同じ内容を入れてしまい、
+    //    合体の件数が実態を表さなくなる（旧方式を消したときに動くのはこちらなので、
+    //    こちらが主役として動いていることをログで確認できるようにしておく）。
+    //    失敗しても既存の丸ごと同期は止めない。
+    const rows = await pullRows();
+    if (!rows.ok) {
+      console.warn('[VFSync] 行単位の読み込みに失敗しました（丸ごと同期は継続します）:', rows.error);
+    }
+
+    // 3) 旧方式（user_data の丸ごと保存）の内容も取り込む。
+    //    ここは「合体」であって全置換ではないので、何も捨てない。
+    //    行単位テーブルへの移行が済むまでの保険として残している。
+    if (hasCloud) {
+      Store.mergeData(Object.assign({}, cloud, { updatedAt: cloudUpdatedAt }));
+
+      // 旧方式からだけ入ってきたカード（行単位テーブルにまだ無い過去分）も箱に入れる。
+      // mergeCardStatesByTime は何度実行しても結果が変わらないので、取得済みの
+      // サーバー内容ともう一度突き合わせ、まだ送っていない分だけ拾う。
+      if (rows.ok && global.VFOutbox && global.VFOutbox.enqueueCards) {
+        try {
+          const already = Object.create(null);
+          (rows.cards.toPush || []).forEach(function (id) { already[id] = 1; });
+          const again = Store.mergeCardStatesByTime(rows.remoteCards);
+          const extra = (again.toPush || []).filter(function (id) { return !already[id]; });
+          if (extra.length) {
+            const all2 = Store.getAllCards();
+            const n = global.VFOutbox.enqueueCards(extra.map(function (id) {
+              return { cardId: id, state: all2[id] };
+            }));
+            if (n) console.log('[VFSync] 旧方式から取り込んだ分を送信待ちに追加 ' + n + '件');
+          }
+        } catch (e) { /* 保険の処理なので失敗しても同期は続ける */ }
+      }
+    }
+
+    // 4) 以降の自動保存を有効化。旧方式の丸ごと送信はこのチャンクでは止めない。
+    VFSync.enabled = true;
+    if (action === 'push' || action === 'merge') {
+      const stamp = Math.max(cloudUpdatedAt, Store.getUpdatedAt() || 0, localUpdatedAt || 0);
+      await pushNow(stamp);
+    } else if (action === 'none' && !hasCloud && !hasLocal) {
       // どちらも空 → 何もしない（ページを開いただけでサーバー時刻を進めない）
-      VFSync.enabled = true;
       VFSync.status = 'idle';
       VFSync._emit();
-    } else if (!hasCloud) {
-      // クラウドが空 → ゲスト（ローカル）データを引き継いでアップロード
-      VFSync.enabled = true;
-      await pushNow(localUpdatedAt);
-    } else if (!hasLocal) {
-      // ローカルが空 → クラウドを取り込む（合体しても結果は同じだが余計な push を避ける）
-      Store.mergeData(Object.assign({}, cloud, { updatedAt: cloudUpdatedAt }));
-      Store.setUpdatedAt(cloudUpdatedAt);
-      VFSync.enabled = true;
-      VFSync.status = 'saved';
-      VFSync.lastSavedAt = Date.now();
-      VFSync._emit();
-      rerender();
-    } else if (cloudUpdatedAt === localUpdatedAt) {
-      // 完全に同じ時刻 ＝ 何も変わっていない → push も apply もしない。
-      // 以降ユーザーが実際に学習して Store.onDirty が発火したときだけ push される。
-      VFSync.enabled = true;
-      VFSync.status = 'saved';
-      VFSync.lastSavedAt = Date.now();
-      VFSync._emit();
     } else {
-      // 両方にデータあり かつ 時刻が異なる → 全置換はせず合体する。
-      // 合体後の updatedAt（両者の大きい方）をそのままクラウドへ送る。
-      const merged = Store.mergeData(Object.assign({}, cloud, { updatedAt: cloudUpdatedAt }));
-      VFSync.enabled = true;
-      await pushNow(merged && merged.updatedAt ? merged.updatedAt : Math.max(cloudUpdatedAt, localUpdatedAt));
-      rerender();
+      // 時刻が完全に一致（何も変わっていない）／取り込むだけ → push しない
+      VFSync.status = 'saved';
+      VFSync.lastSavedAt = Date.now();
+      VFSync._emit();
     }
+
+    // 5) 箱に溜まっている分（手元が新しいカードを含む）を送り出す
+    if (global.VFOutbox && global.VFOutbox.flush) {
+      try { await global.VFOutbox.flush(); } catch (e) {}
+    }
+
+    const rowsBrought = !!(rows.ok && (rows.cards.fromServer || rows.cards.added || rows.logs.added || rows.daily.changed));
+    if (hasCloud || rowsBrought) rerender();
     console.log('[VFSync] initialSync done action=' + action + ' local=' + Store.getUpdatedAt());
   }
 
