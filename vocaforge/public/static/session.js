@@ -22,6 +22,13 @@
   const pickFormat = ns.pickFormat;
   const applyGrade = ns.applyGrade;
 
+  // 弱点集中モードの出題形式。
+  //  英→日の選択式（mc-ej）に固定する。目的は「時間あたりの消化量」を最大化すること。
+  //  記入式（type-je / cloze）は1枚あたりの所要時間が数倍になり、弱点カードほど
+  //  入力に迷って時間を食うため、ドリルとして回転数が落ちる。
+  //  設定の出題形式トグルには左右されない（このモード専用の固定値）。
+  const WEAK_FORMAT = 'mc-ej';
+
   function startWeak() {
     const settings = Store.getSettings();
     const weak = weakPool();
@@ -43,7 +50,10 @@
       queue, idx: 0, total: queue.length,
       correct: 0, answered: 0, startTs: Date.now(),
       reAdd: [],
-      againIds: {}
+      againIds: {},
+      // このセッションは出題形式を固定する（弱点集中モード = 英→日オンリー）。
+      // Again の再出題も記入式に切り替えず、同じ英→日のまま出す。
+      formatLock: WEAK_FORMAT
     };
     nextCard();
   }
@@ -77,9 +87,12 @@
     }
     const card = s.queue[s.idx];
     // 未学習 or 復習かで形式を決定。Again再出題も必ず記入式。
+    // ただし formatLock があるセッション（弱点集中モード）はその形式に固定する。
     const cardState = Store.getCard(card.id);
     const isReview = !!(cardState && cardState.state && cardState.state !== 'new');
-    const format = (s.againIds && s.againIds[card.id]) ? 'type-je' : pickFormat(s.settings, isReview, card);
+    const format = s.formatLock
+      ? s.formatLock
+      : ((s.againIds && s.againIds[card.id]) ? 'type-je' : pickFormat(s.settings, isReview, card));
     // プールは同deck内（mixは同サブグループ寄せ）
     let pool = s.pool;
     if (card.deck) pool = s.pool.filter(p => p.deck === card.deck);

@@ -84,7 +84,7 @@
             '<div class="flex items-center gap-3">' +
               '<span class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center"><i class="fas fa-dumbbell text-lg"></i></span>' +
               '<div><div class="font-bold">弱点集中モード</div>' +
-              '<div class="text-xs opacity-80 mt-0.5">苦手カード ' + n + ' 語を集中ドリル（最大15語/回）</div></div>' +
+              '<div class="text-xs opacity-80 mt-0.5">苦手カード ' + n + ' 語を集中ドリル（英→日のみ・最大15語/回）</div></div>' +
             '</div>' +
             '<i class="fas fa-chevron-right opacity-60"></i>' +
           '</div></button>';
