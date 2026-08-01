@@ -37,6 +37,9 @@
   const PASS_LIMIT = 200;               // 1回のパスで送る最大件数（長時間占有しない）
   const WARN_TRIES = 5;                 // 何度も失敗する項目を知らせる閾値
   const PAGE = 1000;                    // 読み込み時のページ幅（PostgREST の既定上限）
+  // 過去ログをまとめて箱に入れるときの上限。
+  // ログは1件=1項目なので、これを超えると箱（localStorage）が膨らみすぎる。
+  const LOG_BULK_LIMIT = 2000;
 
   // ---- 箱の読み書き ----
   function readBox() {
@@ -430,6 +433,87 @@
       const n = enqueueMany(items);
       schedule(500);
       return n;
+    },
+
+    // 日次記録をまとめて箱に入れる。
+    //   list = [{ day, stats }, ...]
+    // 日数分しかないので箱が膨らむ心配はない（id が日付なので重複もしない）。
+    enqueueDaily(list) {
+      if (!Array.isArray(list) || !list.length) return 0;
+      const now = Date.now();
+      const items = [];
+      list.forEach(function (e) {
+        if (!e || !e.day) return;
+        items.push({
+          id: 'daily:' + e.day, kind: 'daily', createdAt: now,
+          payload: { day: e.day, stats: e.stats || {} }
+        });
+      });
+      const n = enqueueMany(items);
+      schedule(500);
+      return n;
+    },
+
+    // 復習ログをまとめて箱に入れる。
+    //   list = [{card_id, reviewed_at, grade, correct, elapsed_days}, ...]
+    // ログは1件=1項目なので、件数が多いと箱（localStorage）に入り切らない。
+    // そのため上限を設け、超える場合は入れずに件数を知らせる。
+    enqueueLogs(list, limit) {
+      if (!Array.isArray(list) || !list.length) return 0;
+      const cap = (typeof limit === 'number' && limit > 0) ? limit : LOG_BULK_LIMIT;
+      if (list.length > cap) {
+        console.warn('[VFOutbox] 復習ログ ' + list.length + '件は多すぎるため箱に入れませんでした'
+          + '（上限 ' + cap + '件）。過去ログの移送は別途まとめて行う必要があります。');
+        return 0;
+      }
+      const now = Date.now();
+      const items = [];
+      list.forEach(function (g) {
+        if (!g || !g.card_id || !g.reviewed_at) return;
+        items.push({
+          id: 'log:' + g.card_id + '@' + g.reviewed_at, kind: 'log', createdAt: now,
+          payload: {
+            card_id: g.card_id, reviewed_at: num(g.reviewed_at), grade: num(g.grade),
+            correct: !!g.correct, elapsed_days: num(g.elapsed_days)
+          }
+        });
+      });
+      const n = enqueueMany(items);
+      schedule(500);
+      return n;
+    },
+
+    // 手元のデータを丸ごとサーバーへ反映させる。
+    // 使いどころ: インポート直後 / クラウド側にまだ何も無い端末の初回ログイン。
+    // 旧方式（user_data への丸ごと送信）の代わりに、行単位テーブルへ移送する。
+    enqueueAllLocal(opts) {
+      const Store = global.Store;
+      const out = { cards: 0, daily: 0, logs: 0, logsSkipped: 0 };
+      if (!Store) return out;
+      try {
+        const all = Store.getAllCards ? Store.getAllCards() : {};
+        out.cards = VFOutbox.enqueueCards(Object.keys(all).map(function (id) {
+          return { cardId: id, state: all[id] };
+        }));
+      } catch (e) {}
+      try {
+        const d = Store.getAllDaily ? Store.getAllDaily() : null;
+        if (d) {
+          out.daily = VFOutbox.enqueueDaily(Object.keys(d).map(function (k) {
+            return { day: k, stats: d[k] };
+          }));
+        }
+      } catch (e) {}
+      try {
+        const lg = Store.getLogs ? Store.getLogs() : [];
+        const cap = (opts && typeof opts.logsLimit === 'number') ? opts.logsLimit : LOG_BULK_LIMIT;
+        out.logs = VFOutbox.enqueueLogs(lg, cap);
+        if (!out.logs && lg.length) out.logsSkipped = lg.length;
+      } catch (e) {}
+      console.log('[VFOutbox] 手元のデータを送信待ちに入れました'
+        + '（カード ' + out.cards + '件 / 日次 ' + out.daily + '日分 / ログ ' + out.logs + '件'
+        + (out.logsSkipped ? '・ログ ' + out.logsSkipped + '件は多すぎるため未投入' : '') + '）');
+      return out;
     },
 
     flush: flush,

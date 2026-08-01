@@ -341,6 +341,10 @@
       save(K.settings, s);
       return s;
     },
+    // 保存されている設定そのまま（既定値を混ぜない）。
+    // エクスポート／user_data への保存が送るのと同じ内容なので、
+    // 「サーバーの設定と変わったか」を比べるのに使う。
+    getStoredSettings() { return load(K.settings, {}); },
 
     // ---- カード状態 ----
     getAllCards() { return load(K.cards, {}); },
@@ -846,6 +850,16 @@
     },
 
     // ---- エクスポート / インポート ----
+    // 日次記録を全日分・全項目そろった形で取り出す。
+    // 保存済みの古いレコードには指示書1-C で増えた項目（game など）が入っていないため、
+    // 既定値で形を揃えてから返す。書き出し（エクスポート）と行単位送信の両方で使う。
+    getAllDaily() {
+      const src = load(K.daily, {});
+      const out = {};
+      Object.keys(src).forEach(d => { out[d] = normalizeDaily(src[d]); });
+      return out;
+    },
+
     // 学習データ（カード記憶状態・復習ログ・設定・日次統計・既出）をまとめて取り出す
     exportData() {
       return {
@@ -857,7 +871,8 @@
           cards: load(K.cards, {}),
           logs: loadLogs(),
           settings: load(K.settings, {}),
-          daily: load(K.daily, {}),
+          // 日次記録は指示書1-C で増やした項目（game を含む）を必ず全部入れる
+          daily: this.getAllDaily(),
           seen: load(K.seen, {}),
           reviewCount: this.getReviewCount()
         }

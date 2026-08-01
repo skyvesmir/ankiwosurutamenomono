@@ -34,6 +34,17 @@
     }
   };
 
+  // ---- 旧方式（user_data への丸ごと送信）の停止スイッチ ----
+  // 行単位同期（outbox.js + card_states / review_logs / daily_stats）が本流に
+  // なったため、「学習データ全体を毎回送る」処理を止める。
+  //  ・コードは残してあり、送信部分だけを無効化している
+  //  ・恒久的に戻すなら下の既定値を true にする
+  //  ・その場で戻すならコンソールで  VFSync.legacyFullPush = true
+  //  ・user_data の cards / logs / daily / seen は削除しない。
+  //    バックアップとして残し、読み込み（ログイン時の合体）だけ従来どおり続ける
+  const LEGACY_FULL_PUSH_DEFAULT = false;
+  VFSync.legacyFullPush = LEGACY_FULL_PUSH_DEFAULT;
+
   global.VFSync = VFSync;
 
   // VFAuth は module スクリプトで定義されるため cloud-sync.js より後に用意される。
@@ -48,6 +59,92 @@
 
   // ===== ここから先は VFAuth 確定後に動く =====
   function setup(Auth) {
+
+  // ---- 旧方式を止めるための状態 ----
+  // user_data に入っている学習データ（バックアップ）の写し。
+  // 「設定だけ」を保存するときにこれを一緒に書き戻し、
+  // cards / logs / daily / seen を消さないようにする。
+  // ログイン時の読み込みが成功したときだけ有効（_cloudBackupOk）になる。
+  // 退避が取れていない状態で書くとバックアップを消してしまうため、その場合は送らない。
+  let _cloudBackup = null;
+  let _cloudBackupOk = false;
+  // サーバーに入っている設定の写し。中身が変わっていなければ送信しない。
+  let _serverSettingsJSON = null;
+  // 旧方式が止まっていることを確認するためのカウンタ
+  let _fullPushCount = 0;        // 丸ごと送信した回数（停止中なら 0 のまま）
+  let _settingsPushCount = 0;    // 設定のみ送信した回数
+  let _skipCount = 0;            // 送信を省略した回数
+  let _lastPayloadKind = null;   // 'full' | 'settings'
+  let _lastPayloadBytes = 0;
+
+  // 設定の比較用。キーの並び順の違いで「変わった」と誤判定しないよう並べて文字列化する。
+  function stableJSON(v) {
+    if (v === null || typeof v !== 'object') return JSON.stringify(v === undefined ? null : v);
+    if (Array.isArray(v)) return '[' + v.map(stableJSON).join(',') + ']';
+    const keys = Object.keys(v).sort();
+    return '{' + keys.map(k => JSON.stringify(k) + ':' + stableJSON(v[k])).join(',') + '}';
+  }
+
+  // 送信する中身を作る。送るものが無ければ null（＝通信しない）。
+  //   旧方式ON : 学習データ全体（従来どおり）
+  //   旧方式OFF: 設定のみ。cards/logs/daily/seen はサーバーにある物をそのまま書き戻す
+  function buildPushPayload() {
+    if (VFSync.legacyFullPush) {
+      return { kind: 'full', payload: Store.exportData().data, settingsJSON: null };
+    }
+    if (!_cloudBackupOk) { _skipCount++; return null; }
+
+    // 比べるのも送るのも「保存されている設定そのまま」。
+    // getSettings() は既定値を混ぜて返すため、それで比べるとサーバーの内容と
+    // 必ず食い違い、学習しただけで送信が起きてしまう。
+    const settings = Store.getStoredSettings ? Store.getStoredSettings() : {};
+    const json = stableJSON(settings);
+    if (_serverSettingsJSON !== null && json === _serverSettingsJSON) { _skipCount++; return null; }
+
+    const b = _cloudBackup || {};
+    return {
+      kind: 'settings',
+      settingsJSON: json,
+      payload: {
+        // ここは「サーバーにある物をそのまま返す」= バックアップを維持する
+        cards: b.cards || {},
+        logs: b.logs || [],
+        daily: b.daily || {},
+        seen: b.seen || {},
+        reviewCount: (typeof b.reviewCount === 'number') ? b.reviewCount : 0,
+        // 変えるのは設定だけ
+        settings: settings
+      }
+    };
+  }
+
+  // 旧方式の送信が止まっているかを確認するための関数（コンソールから呼ぶ）
+  VFSync.legacyStatus = function () {
+    const o = {
+      legacyFullPush: !!VFSync.legacyFullPush,
+      fullPushCount: _fullPushCount,
+      settingsPushCount: _settingsPushCount,
+      skippedCount: _skipCount,
+      lastPayloadKind: _lastPayloadKind,
+      lastPayloadBytes: _lastPayloadBytes,
+      backupKept: _cloudBackupOk ? {
+        cards: Object.keys((_cloudBackup && _cloudBackup.cards) || {}).length,
+        logs: ((_cloudBackup && _cloudBackup.logs) || []).length,
+        daily: Object.keys((_cloudBackup && _cloudBackup.daily) || {}).length
+      } : null
+    };
+    console.log('[VFSync] 旧方式の丸ごと送信: ' + (o.legacyFullPush ? '⚠ 有効（戻されています）' : '停止中')
+      + ' / 丸ごと送信 ' + o.fullPushCount + '回'
+      + ' / 設定のみ送信 ' + o.settingsPushCount + '回'
+      + ' / 省略 ' + o.skippedCount + '回'
+      + ' / 最後に送った中身 ' + (o.lastPayloadKind || 'なし')
+      + (o.lastPayloadBytes ? '（' + o.lastPayloadBytes + ' バイト）' : ''));
+    if (o.backupKept) {
+      console.log('[VFSync] user_data に残しているバックアップ: カード ' + o.backupKept.cards + '件'
+        + ' / ログ ' + o.backupKept.logs + '件 / 日次 ' + o.backupKept.daily + '日分');
+    }
+    return o;
+  };
 
   // ---- 自動保存（デバウンス）----
   let saveTimer = null;
@@ -76,13 +173,39 @@
 
   async function doPush(contentUpdatedAt) {
     if (!VFSync.enabled || !Auth.current()) return { ok: false, skipped: true };
+
+    // 旧方式の丸ごと送信は停止中。設定に変化が無ければ何も送らない。
+    const built = buildPushPayload();
+    if (!built) {
+      VFSync.status = 'saved';
+      VFSync.lastSavedAt = Date.now();
+      VFSync.lastError = null;
+      VFSync._emit();
+      return { ok: true, skipped: 'legacy-push-disabled' };
+    }
+
     VFSync.status = 'syncing'; VFSync._emit();
-    const payload = Store.exportData().data;
+    const payload = built.payload;
     const stamp = (typeof contentUpdatedAt === 'number' && contentUpdatedAt > 0)
       ? contentUpdatedAt
       : (Store.getUpdatedAt ? Store.getUpdatedAt() : 0);
+    _lastPayloadKind = built.kind;
+    try { _lastPayloadBytes = JSON.stringify(payload).length; } catch (e) { _lastPayloadBytes = 0; }
     const res = await Auth.saveCloud(payload, stamp);
     if (res.ok) {
+      if (built.kind === 'full') {
+        // 旧方式に戻して丸ごと送った場合。退避の写しも新しい内容に更新する。
+        _fullPushCount++;
+        _cloudBackup = {
+          cards: payload.cards, logs: payload.logs, daily: payload.daily,
+          seen: payload.seen, reviewCount: payload.reviewCount
+        };
+        _cloudBackupOk = true;
+        _serverSettingsJSON = stableJSON(payload.settings || {});
+      } else {
+        _settingsPushCount++;
+        _serverSettingsJSON = built.settingsJSON;
+      }
       // サーバー由来の時刻を基準として保存（端末時計を検証するため）。
       noteServerTime(res.updatedAt);
       VFSync.status = 'saved';
@@ -118,6 +241,19 @@
     clearTimeout(saveTimer);
     saveTimer = null;
     if (!VFSync.enabled || !Auth.current()) return { ok: true, skipped: true };
+
+    // 学習データの本流は行単位同期になったので、まず箱を送り切る。
+    // 箱は Store.reset() では消えないが、送り残したままログアウトすると
+    // 別アカウントでログインしたときに前の人の分を送ってしまうため、
+    // 空にできなかった場合はログアウトを中止させる（呼び出し側が確認する）。
+    if (global.VFOutbox && global.VFOutbox.flush) {
+      try { await global.VFOutbox.flush(); } catch (e) {}
+      try {
+        const left = global.VFOutbox.pending ? global.VFOutbox.pending().total : 0;
+        if (left > 0) return { ok: false, error: 'outbox-not-empty(' + left + ')' };
+      } catch (e) {}
+    }
+
     // 送信中にローカルが更新されると、その分は未送信のまま残る。
     // 「送った時刻 ≧ ローカルの時刻」になるまで送り直す（無限ループ防止に上限3回）。
     let last = { ok: false };
@@ -286,6 +422,19 @@
     const hasCloud = cloudHasData(cloud);
     const hasLocal = localHasData();
 
+    // 旧方式の user_data の中身を退避しておく。
+    // 「設定だけ」を保存するときにこれを一緒に書き戻すため、
+    // cards / logs / daily / seen がサーバーから消えることはない。
+    _cloudBackup = {
+      cards: (cloud && cloud.cards) || {},
+      logs: (cloud && cloud.logs) || [],
+      daily: (cloud && cloud.daily) || {},
+      seen: (cloud && cloud.seen) || {},
+      reviewCount: (cloud && typeof cloud.reviewCount === 'number') ? cloud.reviewCount : 0
+    };
+    _cloudBackupOk = true;
+    _serverSettingsJSON = stableJSON((cloud && cloud.settings) || {});
+
     let action = 'none';
     if (!hasCloud && hasLocal) action = 'push';
     else if (!hasLocal && hasCloud) action = 'pull';
@@ -328,8 +477,18 @@
       }
     }
 
-    // 4) 以降の自動保存を有効化。旧方式の丸ごと送信はこのチャンクでは止めない。
+    // 4) 以降の自動保存を有効化。
+    //    旧方式が停止中の場合、ここでの pushNow は「設定のみ」の送信になる
+    //    （設定に変化が無ければ通信も起きない）。
     VFSync.enabled = true;
+
+    // クラウドの丸ごとバックアップが空 = この端末の学習データがまだサーバーに無い。
+    // 旧方式の丸ごと送信を止めたので、代わりに行単位テーブルへまとめて移送する。
+    if (!hasCloud && hasLocal && !VFSync.legacyFullPush
+        && global.VFOutbox && global.VFOutbox.enqueueAllLocal) {
+      console.log('[VFSync] サーバーに学習データがありません。行単位テーブルへ移送します。');
+      try { global.VFOutbox.enqueueAllLocal(); } catch (e) {}
+    }
     if (action === 'push' || action === 'merge') {
       const stamp = Math.max(cloudUpdatedAt, Store.getUpdatedAt() || 0, localUpdatedAt || 0);
       await pushNow(stamp);
