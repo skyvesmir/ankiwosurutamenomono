@@ -66,6 +66,8 @@ app.get('/', (c) => {
     </filter>
   </svg>
   <div id="app"></div>
+  <!-- 接続設定。他のどの script よりも先に読む（supabase-auth.js が window.VF_CONFIG を見る） -->
+  <script src="/static/config.js"></script>
   <script type="module" src="/static/supabase-auth.js"></script>
   <script src="/static/fsrs.js"></script>
   <script src="/static/store.js"></script>

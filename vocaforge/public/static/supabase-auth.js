@@ -3,9 +3,21 @@
 // window.VFAuth 経由で橋渡しする（インターフェースは Firebase 版と互換）。
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-// ==== 接続情報（要望によりコードに直書き）====
-const SUPABASE_URL = 'https://rfgsiyosrggeeucwtazc.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJmZ3NpeW9zcmdnZWV1Y3d0YXpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5MTIxMzcsImV4cCI6MjA5ODQ4ODEzN30.myx8v5_E1AVu6SfJ6OSatcAulpL71ZzdtjBsSD2eQTY';
+// ==== 接続情報（config.js から受け取る）====
+// 直書きをやめ、public/static/config.js の window.VF_CONFIG を見る。
+// anon key は公開前提の値なので「隠す」ことが目的ではない。設定を1か所に
+// まとめて、接続先を変えるときに本体を触らなくて済むようにするための分離。
+// config.js が読めない・壊れている場合はアプリを落とさず
+// 「クラウド同期は使えません（ローカルのみ）」として動く。
+const VF_CFG = (typeof window !== 'undefined' && window.VF_CONFIG && typeof window.VF_CONFIG === 'object')
+  ? window.VF_CONFIG
+  : null;
+function cfgStr(k) {
+  const v = VF_CFG ? VF_CFG[k] : null;
+  return (typeof v === 'string') ? v.trim() : '';
+}
+const SUPABASE_URL = cfgStr('SUPABASE_URL');
+const SUPABASE_ANON_KEY = cfgStr('SUPABASE_ANON_KEY');
 
 // 学習データを保存するテーブル名（下記スキーマを Supabase 側に用意しておく想定）
 //   create table public.user_data (
@@ -19,13 +31,33 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 //     for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 const TABLE = 'user_data';
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    persistSession: true,        // ログイン状態をローカルに永続化
-    autoRefreshToken: true,
-    detectSessionInUrl: true     // OAuth リダイレクト復帰時にURLからセッションを検出
+// 接続情報が揃っていないときは client を作らない（作ろうとすると例外で
+// モジュール全体が止まり、アプリが真っ白になる）。null のまま先へ進める。
+let supabase = null;
+if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+  try {
+    supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: true,        // ログイン状態をローカルに永続化
+        autoRefreshToken: true,
+        detectSessionInUrl: true     // OAuth リダイレクト復帰時にURLからセッションを検出
+      }
+    });
+  } catch (e) {
+    console.error('[VFAuth] Supabase クライアントの作成に失敗しました:', e && e.message ? e.message : e);
+    supabase = null;
   }
-});
+}
+// クラウド同期が使えるか。false ならローカルのみで動作する（学習は止まらない）。
+const CLOUD_AVAILABLE = !!supabase;
+if (!CLOUD_AVAILABLE) {
+  console.warn('[VFAuth] クラウド同期は使えません（ローカルのみ）。'
+    + (VF_CFG ? 'config.js の SUPABASE_URL / SUPABASE_ANON_KEY を確認してください。'
+              : 'config.js が読み込まれていません（window.VF_CONFIG が未定義）。')
+    + ' 学習データはこの端末に保存され続けます。');
+}
+// クラウドが使えないときに各APIが返す共通のエラー
+const CLOUD_OFF = { ok: false, error: 'cloud-unavailable' };
 
 // Supabase の user オブジェクトを VFAuth 用の形に整形
 function toVFUser(u) {
@@ -46,8 +78,11 @@ const VFAuth = {
   current() {
     return VFAuth.user;
   },
+  // クラウド同期が使えるか（config.js が正しく読めているか）
+  cloudAvailable: CLOUD_AVAILABLE,
   // Google でログイン（Supabase OAuth・リダイレクト方式）
   async login() {
+    if (!supabase) return { ok: false, error: 'クラウド同期は使えません（ローカルのみ）' };
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -65,6 +100,7 @@ const VFAuth = {
   },
   // ログアウト
   async logout() {
+    if (!supabase) return { ok: true, skipped: 'cloud-unavailable' };
     try {
       const { error } = await supabase.auth.signOut();
       if (error) return { ok: false, error: error.message || String(error) };
@@ -87,6 +123,7 @@ const VFAuth = {
   // クラウドの学習データを取得（未ログイン/未保存なら null）
   // 返り値: { ok, data } | { ok:false, error }
   async loadCloud() {
+    if (!supabase) return CLOUD_OFF;
     if (!VFAuth.user) return { ok: false, error: 'not-logged-in' };
     try {
       const { data: row, error } = await supabase
@@ -108,6 +145,7 @@ const VFAuth = {
   //     updated_at_ms / updated_at にそのまま書き込むので、
   //     古い内容を送っても «サーバー時刻だけが進んで新しいデータを潰す» 事故を防げる。
   async saveCloud(payload, contentUpdatedAt) {
+    if (!supabase) return CLOUD_OFF;
     if (!VFAuth.user) return { ok: false, error: 'not-logged-in' };
     try {
       // undefined を確実に除去（jsonb に安全に載せるため）
@@ -147,22 +185,29 @@ function emit() {
   });
 }
 
-// 認証状態の変化を購読（初回セッション復元・ログイン・ログアウトすべてここに来る）
-supabase.auth.onAuthStateChange((_event, session) => {
-  VFAuth.ready = true;
-  VFAuth.user = toVFUser(session && session.user ? session.user : null);
-  emit();
-});
+if (supabase) {
+  // 認証状態の変化を購読（初回セッション復元・ログイン・ログアウトすべてここに来る）
+  supabase.auth.onAuthStateChange((_event, session) => {
+    VFAuth.ready = true;
+    VFAuth.user = toVFUser(session && session.user ? session.user : null);
+    emit();
+  });
 
-// 起動直後に現在のセッションを一度取得しておく（購読が発火しないケースの保険）
-supabase.auth.getSession().then(({ data }) => {
+  // 起動直後に現在のセッションを一度取得しておく（購読が発火しないケースの保険）
+  supabase.auth.getSession().then(({ data }) => {
+    VFAuth.ready = true;
+    VFAuth.user = toVFUser(data && data.session ? data.session.user : null);
+    emit();
+  }).catch(() => {
+    VFAuth.ready = true;
+    emit();
+  });
+} else {
+  // クラウドが使えない場合も ready は立てる。これを立てないと
+  // 「読み込み中」のまま止まって見える画面が出る。user は常に null。
   VFAuth.ready = true;
-  VFAuth.user = toVFUser(data && data.session ? data.session.user : null);
-  emit();
-}).catch(() => {
-  VFAuth.ready = true;
-  emit();
-});
+  VFAuth.user = null;
+}
 
 window.VFAuth = VFAuth;
 // 非moduleスクリプト（cloud-sync.js など）は module より先に実行されるため、

@@ -136,6 +136,32 @@
     return false;
   }
   function num(v) { const x = Number(v); return isFinite(x) ? x : 0; }
+  // 数値が無い場合は 0 ではなく null を返す。
+  // review_logs の s_before は「0 = 真の初回レビュー」という意味を持つため、
+  // 未記録のログを 0 で埋めると optimizer.js が「初回」と誤認して
+  // 先頭欠損の検出（学習データの品質チェック）が効かなくなる。
+  // 未記録は未記録（NULL）のまま送るのが正しい。
+  function numOrNull(v) {
+    if (v === null || v === undefined || v === '') return null;
+    const x = Number(v);
+    return isFinite(x) ? x : null;
+  }
+  function strOrNull(v) {
+    return (typeof v === 'string' && v !== '') ? v : null;
+  }
+  // 復習ログ1件を「送る形」に整える。手元のログ・箱の中身の両方から呼ぶ。
+  // FSRS 最適化用の6項目（format / duration_ms / s_before / d_before /
+  // s_after / d_after）を必ず含める。値が無いものは null（未記録）にする。
+  function logPayload(g) {
+    return {
+      card_id: g.card_id, reviewed_at: num(g.reviewed_at), grade: num(g.grade),
+      correct: !!g.correct, elapsed_days: num(g.elapsed_days),
+      format: strOrNull(g.format),
+      duration_ms: numOrNull(g.duration_ms),
+      s_before: numOrNull(g.s_before), d_before: numOrNull(g.d_before),
+      s_after: numOrNull(g.s_after), d_after: numOrNull(g.d_after)
+    };
+  }
 
   // ---- 送信: カード状態 ----
   // upsert する。ただしサーバーの updated_at_ms の方が新しい場合は上書きしない
@@ -194,9 +220,15 @@
     if (cur.error) return { ok: false, error: cur.error, retry: isTransient(cur.error) };
     if (cur.data && cur.data.length) return { ok: true, skipped: 'duplicate' };
 
+    // FSRS 最適化用の6項目も一緒に送る。ここを落とすとサーバー側が NULL のまま
+    // 溜まり、別端末からログを引いたときに最適化の学習データが壊れる。
     const ins = await db.from(TBL_LOG).insert({
       user_id: user, card_id: p.card_id, reviewed_at: p.reviewed_at,
-      grade: p.grade, correct: !!p.correct, elapsed_days: num(p.elapsed_days)
+      grade: p.grade, correct: !!p.correct, elapsed_days: num(p.elapsed_days),
+      format: strOrNull(p.format),
+      duration_ms: numOrNull(p.duration_ms),
+      s_before: numOrNull(p.s_before), d_before: numOrNull(p.d_before),
+      s_after: numOrNull(p.s_after), d_after: numOrNull(p.d_after)
     });
     if (!ins.error) return { ok: true };
     if (isDuplicate(ins.error)) return { ok: true, skipped: 'duplicate' };
@@ -342,13 +374,26 @@
   }
   // review_logs を全件 → 手元のログと同じ形の配列
   async function fetchReviewLogs() {
-    const r = await fetchAll(TBL_LOG, 'card_id,reviewed_at,grade,correct,elapsed_days');
+    const r = await fetchAll(TBL_LOG,
+      'card_id,reviewed_at,grade,correct,elapsed_days,format,duration_ms,s_before,d_before,s_after,d_after');
     if (!r.ok) return r;
     const logs = r.rows.map(function (x) {
-      return {
+      // 手元のログと同じ形にする。FSRS 最適化用の6項目も落とさずに持ち帰る。
+      // サーバー側が NULL のもの（古い行）は入れない。0 を入れてしまうと
+      // optimizer.js が s_before === 0 を「真の初回レビュー」と解釈するため、
+      // 未記録が初回に化けて最適化の学習データを汚す。
+      const o = {
         card_id: x.card_id, reviewed_at: num(x.reviewed_at), grade: x.grade,
         correct: !!x.correct, elapsed_days: num(x.elapsed_days)
       };
+      if (typeof x.format === 'string' && x.format !== '') o.format = x.format;
+      const opt = ['duration_ms', 's_before', 'd_before', 's_after', 'd_after'];
+      for (let i = 0; i < opt.length; i++) {
+        const k = opt[i];
+        const v = numOrNull(x[k]);
+        if (v !== null) o[k] = v;
+      }
+      return o;
     });
     return { ok: true, logs: logs, count: logs.length };
   }
@@ -391,10 +436,7 @@
       if (lg && lg.card_id != null && lg.reviewed_at != null) {
         items.push({
           id: 'log:' + lg.card_id + '@' + lg.reviewed_at, kind: 'log', createdAt: now,
-          payload: {
-            card_id: lg.card_id, reviewed_at: lg.reviewed_at, grade: lg.grade,
-            correct: !!lg.correct, elapsed_days: lg.elapsed_days
-          }
+          payload: logPayload(lg)
         });
       }
       if (a.day) {
@@ -455,7 +497,9 @@
     },
 
     // 復習ログをまとめて箱に入れる。
-    //   list = [{card_id, reviewed_at, grade, correct, elapsed_days}, ...]
+    //   list = [{card_id, reviewed_at, grade, correct, elapsed_days,
+    //             format, duration_ms, s_before, d_before, s_after, d_after}, ...]
+    //   後半6項目は無くてもよい（無い場合は未記録=NULL として送る）
     // ログは1件=1項目なので、件数が多いと箱（localStorage）に入り切らない。
     // そのため上限を設け、超える場合は入れずに件数を知らせる。
     enqueueLogs(list, limit) {
@@ -472,10 +516,7 @@
         if (!g || !g.card_id || !g.reviewed_at) return;
         items.push({
           id: 'log:' + g.card_id + '@' + g.reviewed_at, kind: 'log', createdAt: now,
-          payload: {
-            card_id: g.card_id, reviewed_at: num(g.reviewed_at), grade: num(g.grade),
-            correct: !!g.correct, elapsed_days: num(g.elapsed_days)
-          }
+          payload: logPayload(g)
         });
       });
       const n = enqueueMany(items);

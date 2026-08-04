@@ -67,7 +67,15 @@
             card_id: card.id, reviewed_at: now, grade: grade,
             // サーバーの correct 列には客観的な正解判定を入れる（ボタンは入れない）
             correct: !!correct,
-            elapsed_days: res.elapsed_days
+            elapsed_days: res.elapsed_days,
+            // FSRS 最適化に必要な情報。上の Store.addLog と同じ値を送る。
+            // ここを送らないと review_logs 側が NULL のまま溜まり、
+            // 別端末からログを引いたときに最適化の学習データが壊れる
+            // （s_before が無いログは optimizer 側で「先頭欠損」を判定できない）。
+            format: q.format,
+            duration_ms: now - s.current.shownAt,
+            s_before: before.stability || 0, d_before: before.difficulty || 0,
+            s_after: res.stability, d_after: res.difficulty
           },
           day: Store.todayStr(now),
           stats: Store.getDaily(now)
