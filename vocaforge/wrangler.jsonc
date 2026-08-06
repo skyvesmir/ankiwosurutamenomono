@@ -4,7 +4,10 @@
   "compatibility_date": "2025-05-01",
   "compatibility_flags": [
     "nodejs_compat"
-  ]
+  ],
+  // Pages のデプロイ対象ディレクトリ。書いておかないと wrangler が
+  // 「pages_build_output_dir が無いので設定ファイルを無視する」と警告する。
+  "pages_build_output_dir": "./dist"
   // "vars": {
   //   "MY_VAR": "my-variable"
   // },
