@@ -89,9 +89,15 @@
 
 ## デプロイ
 - **プラットフォーム**: Cloudflare Pages
-- **ステータス**: ✅ ローカル稼働中（PM2 + wrangler pages dev, port 3000）
-- **本番URL**: 未デプロイ
-- **最終更新**: 2026-07-25（例文穴埋めクイズ・弱点集中モード・語源ヒント連携を追加）
+- **ステータス**: ✅ 本番稼働中
+- **本番URL**: https://vocaforgestudyedition.pages.dev
+- **CF プロジェクト名**: `vocaforgestudyedition`（production branch: `main`）
+- **GitHub**: https://github.com/skyvesmir/ankiwosurutamenomono
+- **最終更新**: 2026-08-06（フェーズ1-E: 接続情報を config.js へ分離／レビューログ6列の送受信対応／本番デプロイ）
+- **接続情報**: `public/static/config.js` の `window.VF_CONFIG` に集約。
+  anon key は公開前提の値なので意図的にリポジトリへコミットしている（`.gitignore` に入れない）。
+  実際の保護は Supabase の RLS（`auth.uid() = user_id`）が担う。
+  `config.js` が読めない場合はクラウド同期を諦めてローカルのみで動作する（白画面にはならない）。
 - **Supabase 側の設定（要対応）**:
   - Authentication → Providers で **Google を有効化**（Google Cloud の OAuth クライアントID/シークレットを登録）。
   - Authentication → URL Configuration の **Redirect URLs** に公開URL（`*.pages.dev` 本番／サンドボックス）と `http://localhost:3000` を追加。
