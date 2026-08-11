@@ -6,14 +6,15 @@
 - **対象データ**:
   - 英単語 **1900語**（ターゲット1900 / 100語ごと全19セクション）、**全部バージョン 6559語**（意味カテゴリ別 全53セクション：「#01 重要な・ささいな」〜「#46 接続詞・副詞・前置詞」。語源ヒント・類義語グループ付き）、**Leap 2297語**（全23セクション）の3データセットを設定で切替可能。同一単語の学習進捗は全データセットで共有
   - 英熟語 **1000語**（英熟語ターゲット1000 5訂版の公式パート構成に準拠：Part1 絶対覚えておきたい180 / Part2 グルーピングで覚える240 / Part3 形で覚える240 / Part4 文法・構文で覚える170 / Part5 ここで差がつく難熟語170）、**全部バージョン 3238熟語**（意味カテゴリ別全48セクション・補足/例文/例文訳付き）の2データセットを設定で切替可能。どちらも新DB由来の補足・例文・例文訳付き。同一熟語の学習進捗は両データセットで共有（共遒1000熟語は `p-N` IDを共用、新規熟語は `pf-N`）
-  - 語源 **590件**（接頭辞140・接尾辞140・語根310。うち学習カード539件＋参照ノート51件）。接頭辞・接尾辞・語根それぞれを**意味（テーマ大分類：方向・位置／時間／数量・程度…）でグルーピング**し、単語のSection・熟語のPartと同じ選択単位として学習・フラッシュカードで扱える（全38グループ）
-  - 語源の出題は**コア意味に派生的な意味を併記**（例「場所（位置、地方）」「場所（地形、論題）」）して識別性を確保。同じコア意味の接辞・語根（loc-とtop-など）が区別できるようにし、入力形式では語源言語をヒント表示（例「ラテン語 *locus*」）。これにより539カード全ての意味ラベルが一意になる
+  - 語源 **688件**（接頭辞159・接尾辞159・語根370。**全件が学習カード**）。接頭辞・接尾辞・語根それぞれを**意味（テーマ大分類：方向・位置／時間／数量・程度…）でグルーピング**し、単語のSection・熟語のPartと同じ選択単位として学習・フラッシュカードで扱える（全39グループ）
+  - 語源の出題は**コア意味に派生的な意味を併記**（例「場所（位置、地方）」「場所（地形、論題）」）して識別性を確保。同じコア意味の接辞・語根（loc-とtop-など）が区別できるようにし、入力形式では語源言語をヒント表示（例「ラテン語 locus」）。これにより688カード全ての意味ラベルが一意になる
+  - 2026-08-11 に **v2 データセットへ更新**（+149件の新規語源、旧「参照ノート」51件は本体エントリへ統合して削除）。旧データで学習カードだった539件のIDは**全て維持**しているため、既存の学習進捗（`card_states`）は引き継がれる。詳細は [`docs/etymology-v2-update.md`](docs/etymology-v2-update.md)
 - **設計根拠**: 同梱の「暗記アプリ設計のための学習科学ガイド」に準拠
 
 ## 完成した機能
 - **例文穴埋めクイズ（cloze）**: 復習カードの40%で例文中の出題語をブランク化して出題（活用形・不規則変化対応、単語99%/熟語74%カバー、対象外は記入式にフォールバック）。設定でON/OFF可
 - **弱点集中モード**: リーチ語・失敗2回以上・FSRS難易度6.5以上のカードを弱さ順に最大15語/回でドリル（ホーム・統計画面から起動、採点は通常どおりFSRSに反映）
-- **語源ヒント連携**: 単語カードの語源欄と関連する語源カード（接辞・語根590枚）を自動リンク（2,355語・etym_links.json）。解答後フィードバックと単語詳細モーダルにチップ表示、タップで語源詳細を開く
+- **語源ヒント連携**: 単語カードの語源欄と関連する語源カード（接辞・語根688枚）を自動リンク（2,355語・etym_links.json）。解答後フィードバックと単語詳細モーダルにチップ表示、タップで語源詳細を開く
 - **3つの出題形式**（学習科学ガイドの「能動的想起の強制」に対応）
   - 選択：英→日（英語を見て意味を選ぶ）
   - 選択：日→英（日本語を見て英語を選ぶ）
@@ -51,7 +52,7 @@
 - `GET /static/data/phrases_target.json` — 英熟語1000件（ターゲット1000の並び・補足/例文付き）
 - `GET /static/data/phrases_full.json` — 英熟語全部バージョン3238件（遅延ロード・補足/例文付き）
 - `GET /static/data/phrases.json` — 英熟語1000件（旧データ・参照用）
-- `GET /static/data/etymology.json` — 語源590件
+- `GET /static/data/etymology.json` — 語源688件
 - `GET /static/data/meta.json` — 件数メタ情報
 
 ## データ構造
@@ -59,7 +60,7 @@
 - **熟語全部バージョン（phrases_full.json）**: `{id(p-N共有/pf-N新規), no, term, meaning, section(1-48), sectionTitle(意味カテゴリ名), note?, example?, exampleJa?}`。meta.json の `phrase_full_sections` に48セクションの `{section, title, count}`
 - **単語全部バージョン（words_full.json）**: `{id(w-N共有/wf-N新規), no, term, ipa, pos, meaning, section(1-53), note?, example?, exampleJa?, etym?(語源ヒント), syn?(類義語グループ)}`。並びは意味カテゴリ別グルーピング済みCSVに準拠。全エントリの meaning は品詞マーカー（【名】【他】【自】【形】等）付き（2026-07-24 完全化。words_target.json も同形式に統一）。meta.json の `word_full_sections` に53セクションの `{section, title, count}`（旧CSVにのみあった6語は意味で正しい位置に挿入：dispute→#17b議論・論争のcontroversy隣、torture→#22b犯罪・法のpunitive隣、troop/shield/warrior/assault→#45b軍事・戦争のbattalion/weapon/soldier/raid隣）
 - **語源カード**: `{id, category(prefix/suffix/root), headword, variants, theme, themeGroup(意味大分類), group("category:themeGroup"複合キー), core(コア意味), derived, origin, image_hint, examples[], tips, confusion, importance, learnable}`
-- **語源グループ（meta.etym_groups）**: `{category, theme, key, count}` — カテゴリ×意味大分類の選択単位（38グループ）
+- **語源グループ（meta.etym_groups）**: `{category, theme, key, count}` — カテゴリ×意味大分類の選択単位（39グループ）
 - **記憶状態（localStorage）**: `{state, stability(S), difficulty(D), due, last_review, reps, lapses, is_leech}`（FSRS）
 - **クラウド行（Supabase `public.user_data`）**: `{user_id(uuid, PK), data(jsonb):{cards, logs, settings, daily, seen}, updated_at(timestamptz), updated_at_ms(bigint)}`
 - **復習ログ（localStorage）**: `{card_id, reviewed_at, grade, format, elapsed_days, duration_ms, s_before/after, d_before/after}`
