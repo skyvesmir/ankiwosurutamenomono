@@ -9,7 +9,7 @@
     "group": "root:感覚",
     "core": "見る、観察する",
     "derived": "検査、推測、外見、視点、専門",
-    "origin": "ラテン語 specere, spectare（見る） / productive（既成語多数）",
+    "origin": "ラテン語 specere, spectare（見る） / `productive`（既成語多数）",
     "image_hint": "🔭 双眼鏡で「スペクタクル（見もの）」を眺める。",
     "examples": [
       {
@@ -59,7 +59,7 @@
     "group": "root:言語・伝達",
     "core": "言う、語る、示す",
     "derived": "命令、宣言、辞書、判決",
-    "origin": "ラテン語 dīcere, dictus（言う） / productive",
+    "origin": "ラテン語 dīcere, dictus（言う） / `productive`",
     "image_hint": "📢 拡声器で「告げる」。ディクテーション（dictation）＝書き取り、誰かが「言う」のを聞く。",
     "examples": [
       {
@@ -109,7 +109,7 @@
     "group": "root:動作・運動",
     "core": "運ぶ、運送する",
     "derived": "港（運ぶ場所）、入口、態度（身の運び方）",
-    "origin": "ラテン語 portāre（運ぶ）, portus（港） / productive",
+    "origin": "ラテン語 portāre（運ぶ）, portus（港） / `productive`",
     "image_hint": "🚢 港で荷物を運ぶ。「ポーター（porter）」＝運ぶ人。",
     "examples": [
       {
@@ -159,7 +159,7 @@
     "group": "root:感覚",
     "core": "見る、見える",
     "derived": "視覚、ビジョン、訪問、提供（先を見る→備える）",
-    "origin": "ラテン語 vidēre, visus（見る） / productive",
+    "origin": "ラテン語 vidēre, visus（見る） / `productive`",
     "image_hint": "👁 ビデオ（video）＝「私は見る」（ラテン語直訳）。",
     "examples": [
       {
@@ -209,7 +209,7 @@
     "group": "root:生命",
     "core": "生む、生まれる、種類",
     "derived": "起源、家系、性質、性別、種族、世代",
-    "origin": "印欧祖語 \\ǵenh₁-（生む） / ラテン語 genus, generāre, gignere、ギリシャ語 genos / productive",
+    "origin": "印欧祖語 \\ǵenh₁-（生む） / ラテン語 genus, generāre, gignere、ギリシャ語 genos / `productive`",
     "image_hint": "👶 新しい命の誕生。「ジェネレーション＝世代＝生まれる単位」。",
     "examples": [
       {
@@ -259,7 +259,7 @@
     "group": "root:動作・運動",
     "core": "行う、動かす、駆り立てる",
     "derived": "行動、代理、機敏",
-    "origin": "ラテン語 agere, actus（する、動かす） / productive",
+    "origin": "ラテン語 agere, actus（する、動かす） / `productive`",
     "image_hint": "🎬 アクション！カチンコの音。",
     "examples": [
       {
@@ -309,7 +309,7 @@
     "group": "root:動作・運動",
     "core": "つかむ、取る、受け取る",
     "derived": "把握、能力、含む",
-    "origin": "ラテン語 capere, captus（取る） / productive",
+    "origin": "ラテン語 capere, captus（取る） / `productive`",
     "image_hint": "🤲 手で「キャッチ」する動作。",
     "examples": [
       {
@@ -359,7 +359,7 @@
     "group": "root:動作・運動",
     "core": "行く、進む、譲る",
     "derived": "移動、譲歩、過程",
-    "origin": "ラテン語 cedere, cessus（行く、譲る） / productive",
+    "origin": "ラテン語 cedere, cessus（行く、譲る） / `productive`",
     "image_hint": "🚶 道を譲って歩く。",
     "examples": [
       {
@@ -409,7 +409,7 @@
     "group": "root:動作・運動",
     "core": "導く、引く",
     "derived": "教育、生産、推論",
-    "origin": "ラテン語 ducere, ductus（導く） / productive",
+    "origin": "ラテン語 ducere, ductus（導く） / `productive`",
     "image_hint": "🚆 「ダクト」＝導管。",
     "examples": [
       {
@@ -459,7 +459,7 @@
     "group": "root:動作・運動",
     "core": "作る、する",
     "derived": "製造、効果、適合",
-    "origin": "ラテン語 facere, factus（作る、する） / productive",
+    "origin": "ラテン語 facere, factus（作る、する） / `productive`",
     "image_hint": "🏭 工場（factory）。",
     "examples": [
       {
@@ -509,7 +509,7 @@
     "group": "root:動作・運動",
     "core": "運ぶ、もたらす、耐える",
     "derived": "移送、参照、産出",
-    "origin": "ラテン語 ferre, latus（運ぶ） / productive",
+    "origin": "ラテン語 ferre, latus（運ぶ） / `productive`",
     "image_hint": "🚛 運搬。「フェリー（ferry）」も同根。",
     "examples": [
       {
@@ -559,7 +559,7 @@
     "group": "root:動作・運動",
     "core": "運ばれた（fer- の過去分詞語幹）",
     "derived": "移送、関連",
-    "origin": "ラテン語 latus（< ferre 運ばれた） / productive",
+    "origin": "ラテン語 latus（< ferre 運ばれた） / `productive`",
     "image_hint": "📦 運び終えた状態。",
     "examples": [
       {
@@ -609,7 +609,7 @@
     "group": "root:動作・運動",
     "core": "投げる",
     "derived": "計画、目的、感情",
-    "origin": "ラテン語 jacere, jactus（投げる） / productive",
+    "origin": "ラテン語 jacere, jactus（投げる） / `productive`",
     "image_hint": "🎯 投げる動作。",
     "examples": [
       {
@@ -659,7 +659,7 @@
     "group": "root:動作・運動",
     "core": "送る、放つ",
     "derived": "任命、許可、放出",
-    "origin": "ラテン語 mittere, missus（送る） / productive",
+    "origin": "ラテン語 mittere, missus（送る） / `productive`",
     "image_hint": "📨 メッセージを送る。",
     "examples": [
       {
@@ -709,7 +709,7 @@
     "group": "root:動作・運動",
     "core": "置く",
     "derived": "位置、配置、提案",
-    "origin": "ラテン語 ponere, positus（置く） / productive",
+    "origin": "ラテン語 ponere, positus（置く） / `productive`",
     "image_hint": "📍 ポジション（位置）に置く。",
     "examples": [
       {
@@ -759,7 +759,7 @@
     "group": "root:言語・伝達",
     "core": "書く",
     "derived": "記述、処方、台本",
-    "origin": "ラテン語 scribere, scriptus（書く） / productive",
+    "origin": "ラテン語 scribere, scriptus（書く） / `productive`",
     "image_hint": "✍️ 「スクリプト」＝台本。",
     "examples": [
       {
@@ -809,7 +809,7 @@
     "group": "root:動作・運動",
     "core": "保つ、持つ",
     "derived": "維持、所有、含有",
-    "origin": "ラテン語 tenere, tentus（保つ） / productive",
+    "origin": "ラテン語 tenere, tentus（保つ） / `productive`",
     "image_hint": "✊ しっかり握って保つ。",
     "examples": [
       {
@@ -859,7 +859,7 @@
     "group": "root:動作・運動",
     "core": "伸ばす、向ける",
     "derived": "緊張、傾向、注意",
-    "origin": "ラテン語 tendere, tensus/tentus（伸ばす） / productive",
+    "origin": "ラテン語 tendere, tensus/tentus（伸ばす） / `productive`",
     "image_hint": "〰️ ゴムを引っ張る。「テンション」。",
     "examples": [
       {
@@ -909,7 +909,7 @@
     "group": "root:動作・運動",
     "core": "引く、引きずる",
     "derived": "引きつける、抽出、論文",
-    "origin": "ラテン語 trahere, tractus（引く） / productive",
+    "origin": "ラテン語 trahere, tractus（引く） / `productive`",
     "image_hint": "🚜 トラクター＝引く機械。",
     "examples": [
       {
@@ -959,7 +959,7 @@
     "group": "root:動作・運動",
     "core": "来る",
     "derived": "到着、出来事、冒険",
-    "origin": "ラテン語 venire, ventus（来る） / productive",
+    "origin": "ラテン語 venire, ventus（来る） / `productive`",
     "image_hint": "🎉 「ベンチャー」＝挑戦してやって来る。",
     "examples": [
       {
@@ -1009,7 +1009,7 @@
     "group": "root:動作・運動",
     "core": "回す、向ける",
     "derived": "転換、変化、対面",
-    "origin": "ラテン語 vertere, versus（回す） / productive",
+    "origin": "ラテン語 vertere, versus（回す） / `productive`",
     "image_hint": "🔄 回転。「バージョン＝変わった版」。",
     "examples": [
       {
@@ -1059,7 +1059,7 @@
     "group": "root:言語・伝達",
     "core": "声、呼ぶ",
     "derived": "召喚、職業、母音",
-    "origin": "ラテン語 vox, vocis（声）, vocare（呼ぶ） / productive",
+    "origin": "ラテン語 vox, vocis（声）, vocare（呼ぶ） / `productive`",
     "image_hint": "🎤 ボーカル＝声。",
     "examples": [
       {
@@ -1109,7 +1109,7 @@
     "group": "root:感覚",
     "core": "聞く",
     "derived": "観客、可聴性",
-    "origin": "ラテン語 audire, auditus（聞く） / productive",
+    "origin": "ラテン語 audire, auditus（聞く） / `productive`",
     "image_hint": "🎧 オーディオ＝聞く機器。",
     "examples": [
       {
@@ -1159,7 +1159,7 @@
     "group": "root:感覚",
     "core": "感じる、考える",
     "derived": "感覚、意見、文",
-    "origin": "ラテン語 sentire, sensus（感じる） / productive",
+    "origin": "ラテン語 sentire, sensus（感じる） / `productive`",
     "image_hint": "💭 「センサー」が感知する。",
     "examples": [
       {
@@ -1209,7 +1209,7 @@
     "group": "root:感覚",
     "core": "触れる",
     "derived": "接触、関係、感染",
-    "origin": "ラテン語 tangere, tactus（触る） / productive",
+    "origin": "ラテン語 tangere, tactus（触る） / `productive`",
     "image_hint": "✋ タッチ＝触れる。",
     "examples": [
       {
@@ -1259,7 +1259,7 @@
     "group": "root:言語・伝達",
     "core": "話す",
     "derived": "発言、弁舌",
-    "origin": "ラテン語 loqui, locutus（話す） / historical",
+    "origin": "ラテン語 loqui, locutus（話す） / `historical`",
     "image_hint": "💬 おしゃべりする口。",
     "examples": [
       {
@@ -1309,7 +1309,7 @@
     "group": "root:方向・位置",
     "core": "場所",
     "derived": "位置、地方",
-    "origin": "ラテン語 locus（場所） / productive",
+    "origin": "ラテン語 locus（場所） / `productive`",
     "image_hint": "📍 ロケーション。",
     "examples": [
       {
@@ -1359,7 +1359,7 @@
     "group": "root:言語・伝達",
     "core": "告げる、知らせる",
     "derived": "宣言、放棄",
-    "origin": "ラテン語 nuntiare（知らせる）, nuntius（使者） / productive",
+    "origin": "ラテン語 nuntiare（知らせる）, nuntius（使者） / `productive`",
     "image_hint": "📢 アナウンス＝知らせる。",
     "examples": [
       {
@@ -1409,7 +1409,7 @@
     "group": "root:言語・伝達",
     "core": "叫ぶ",
     "derived": "主張、要求",
-    "origin": "ラテン語 clamare（叫ぶ） / productive",
+    "origin": "ラテン語 clamare（叫ぶ） / `productive`",
     "image_hint": "📣 大声で叫ぶ。",
     "examples": [
       {
@@ -1459,7 +1459,7 @@
     "group": "root:動作・運動",
     "core": "歩く、進む",
     "derived": "段階、程度、進歩",
-    "origin": "ラテン語 gradi, gressus（歩く） / productive",
+    "origin": "ラテン語 gradi, gressus（歩く） / `productive`",
     "image_hint": "🚶 一歩一歩進む。",
     "examples": [
       {
@@ -1509,7 +1509,7 @@
     "group": "root:動作・運動",
     "core": "走る、流れる",
     "derived": "経路、過程、潮流",
-    "origin": "ラテン語 currere, cursus（走る） / productive",
+    "origin": "ラテン語 currere, cursus（走る） / `productive`",
     "image_hint": "🏃 走る人。「コース」「カーソル」。",
     "examples": [
       {
@@ -1559,7 +1559,7 @@
     "group": "root:思考・知識",
     "core": "注意、世話、治療",
     "derived": "心配、治す、好奇心",
-    "origin": "ラテン語 cura（世話、心配） / productive",
+    "origin": "ラテン語 cura（世話、心配） / `productive`",
     "image_hint": "🩹 ケア（care）と関連。",
     "examples": [
       {
@@ -1609,7 +1609,7 @@
     "group": "root:動作・運動",
     "core": "動かす",
     "derived": "移動、感情、動機",
-    "origin": "ラテン語 movere, motus（動かす） / productive",
+    "origin": "ラテン語 movere, motus（動かす） / `productive`",
     "image_hint": "🎥 ムービー＝動く映像。",
     "examples": [
       {
@@ -1659,7 +1659,7 @@
     "group": "root:動作・運動",
     "core": "流れる",
     "derived": "変動、流出、影響",
-    "origin": "ラテン語 fluere, fluxus（流れる） / productive",
+    "origin": "ラテン語 fluere, fluxus（流れる） / `productive`",
     "image_hint": "🌊 川の流れ。",
     "examples": [
       {
@@ -1709,7 +1709,7 @@
     "group": "root:動作・運動",
     "core": "押す、追い払う",
     "derived": "衝動、推進、脈拍",
-    "origin": "ラテン語 pellere, pulsus（押す） / productive",
+    "origin": "ラテン語 pellere, pulsus（押す） / `productive`",
     "image_hint": "👊 押し出す力。",
     "examples": [
       {
@@ -1759,7 +1759,7 @@
     "group": "root:動作・運動",
     "core": "吊るす、量る、支払う",
     "derived": "依存、思考、出費",
-    "origin": "ラテン語 pendere, pensus（吊るす、量る） / productive",
+    "origin": "ラテン語 pendere, pensus（吊るす、量る） / `productive`",
     "image_hint": "⚖️ 天秤で量る、振り子で吊る。",
     "examples": [
       {
@@ -1809,7 +1809,7 @@
     "group": "root:動作・運動",
     "core": "折る、重ねる",
     "derived": "含意、複雑、応用",
-    "origin": "ラテン語 plicare（折る） / productive",
+    "origin": "ラテン語 plicare（折る） / `productive`",
     "image_hint": "📄 紙を折る。",
     "examples": [
       {
@@ -1859,7 +1859,7 @@
     "group": "root:数量・程度",
     "core": "満たす、いっぱい",
     "derived": "完了、補充",
-    "origin": "ラテン語 plere, pletus（満たす） / productive",
+    "origin": "ラテン語 plere, pletus（満たす） / `productive`",
     "image_hint": "🥛 グラスを満たす。",
     "examples": [
       {
@@ -1909,7 +1909,7 @@
     "group": "root:動作・運動",
     "core": "破る、壊す",
     "derived": "中断、突発、破壊",
-    "origin": "ラテン語 rumpere, ruptus（破る） / productive",
+    "origin": "ラテン語 rumpere, ruptus（破る） / `productive`",
     "image_hint": "💥 突如壊れる音。",
     "examples": [
       {
@@ -1959,7 +1959,7 @@
     "group": "root:動作・運動",
     "core": "壊す、砕く",
     "derived": "部分、破片、屈折",
-    "origin": "ラテン語 frangere, fractus（破る） / productive",
+    "origin": "ラテン語 frangere, fractus（破る） / `productive`",
     "image_hint": "🧩 砕けた破片。",
     "examples": [
       {
@@ -2009,7 +2009,7 @@
     "group": "root:動作・運動",
     "core": "切る、殺す",
     "derived": "決定（切り分ける）",
-    "origin": "ラテン語 caedere, caesus（切る） / productive",
+    "origin": "ラテン語 caedere, caesus（切る） / `productive`",
     "image_hint": "✂️ ハサミで切る。",
     "examples": [
       {
@@ -2059,7 +2059,7 @@
     "group": "root:動作・運動",
     "core": "落ちる、起こる",
     "derived": "偶発、事故",
-    "origin": "ラテン語 cadere, casus（落ちる） / productive",
+    "origin": "ラテン語 cadere, casus（落ちる） / `productive`",
     "image_hint": "⬇️ 落下。",
     "examples": [
       {
@@ -2109,7 +2109,7 @@
     "group": "root:動作・運動",
     "core": "切る",
     "derived": "区分、断面",
-    "origin": "ラテン語 secare, sectus（切る） / productive",
+    "origin": "ラテン語 secare, sectus（切る） / `productive`",
     "image_hint": "🔪 セクション（区分）。",
     "examples": [
       {
@@ -2159,7 +2159,7 @@
     "group": "root:動作・運動",
     "core": "続く、追う",
     "derived": "結果、続編",
-    "origin": "ラテン語 sequi, secutus（追う） / productive",
+    "origin": "ラテン語 sequi, secutus（追う） / `productive`",
     "image_hint": "➡️ シーケンス（連続）。",
     "examples": [
       {
@@ -2209,7 +2209,7 @@
     "group": "root:状態・存在",
     "core": "座る、定着する",
     "derived": "定住、議席、堆積",
-    "origin": "ラテン語 sedere, sessus（座る） / productive",
+    "origin": "ラテン語 sedere, sessus（座る） / `productive`",
     "image_hint": "🪑 椅子に座る。",
     "examples": [
       {
@@ -2259,7 +2259,7 @@
     "group": "root:状態・存在",
     "core": "立つ、置く",
     "derived": "状態、地位、機関",
-    "origin": "ラテン語 stare, status（立つ） / productive",
+    "origin": "ラテン語 stare, status（立つ） / `productive`",
     "image_hint": "🗿 直立する人。",
     "examples": [
       {
@@ -2309,7 +2309,7 @@
     "group": "root:生命",
     "core": "生まれる",
     "derived": "国家、自然、本性",
-    "origin": "ラテン語 nasci, natus（生まれる） / productive",
+    "origin": "ラテン語 nasci, natus（生まれる） / `productive`",
     "image_hint": "👶 新生児。",
     "examples": [
       {
@@ -2359,7 +2359,7 @@
     "group": "root:生命",
     "core": "生きる、命",
     "derived": "活気、ビタミン",
-    "origin": "ラテン語 vivere, vita（生きる、命） / productive",
+    "origin": "ラテン語 vivere, vita（生きる、命） / `productive`",
     "image_hint": "⚡ 元気、活力。",
     "examples": [
       {
@@ -2409,7 +2409,7 @@
     "group": "root:生命",
     "core": "死、死ぬ",
     "derived": "死すべき運命、消滅",
-    "origin": "ラテン語 mors, mortis（死） / productive",
+    "origin": "ラテン語 mors, mortis（死） / `productive`",
     "image_hint": "⚰️ 死の象徴。",
     "examples": [
       {
@@ -2459,7 +2459,7 @@
     "group": "root:生命",
     "core": "土、人（土から生まれた者）",
     "derived": "人間性、謙虚（地に近い）",
-    "origin": "ラテン語 humus（土）, homo（人） / productive",
+    "origin": "ラテン語 humus（土）, homo（人） / `productive`",
     "image_hint": "🌱 大地から生まれる人。",
     "examples": [
       {
@@ -2509,7 +2509,7 @@
     "group": "root:生命",
     "core": "魂、生命、心",
     "derived": "動物、活気、敵意（怒り）",
-    "origin": "ラテン語 anima（魂、息） / productive",
+    "origin": "ラテン語 anima（魂、息） / `productive`",
     "image_hint": "💨 息＝魂＝生命。",
     "examples": [
       {
@@ -2559,7 +2559,7 @@
     "group": "root:生命",
     "core": "息、呼吸、霊",
     "derived": "精神、霊感、希望",
-    "origin": "ラテン語 spirare（息をする）, spiritus（息、霊） / productive",
+    "origin": "ラテン語 spirare（息をする）, spiritus（息、霊） / `productive`",
     "image_hint": "🌬️ 深呼吸する。",
     "examples": [
       {
@@ -2609,7 +2609,7 @@
     "group": "root:身体",
     "core": "体、身体",
     "derived": "法人、団体",
-    "origin": "ラテン語 corpus, corporis（体） / productive",
+    "origin": "ラテン語 corpus, corporis（体） / `productive`",
     "image_hint": "🏢 法人＝法的な「体」。",
     "examples": [
       {
@@ -2659,7 +2659,7 @@
     "group": "root:身体",
     "core": "心、心臓",
     "derived": "中心、和合",
-    "origin": "ラテン語 cor, cordis（心） / productive",
+    "origin": "ラテン語 cor, cordis（心） / `productive`",
     "image_hint": "❤️ ハートマーク。",
     "examples": [
       {
@@ -2709,7 +2709,7 @@
     "group": "root:身体",
     "core": "手",
     "derived": "操作、手動、マニュアル",
-    "origin": "ラテン語 manus（手） / productive",
+    "origin": "ラテン語 manus（手） / `productive`",
     "image_hint": "🖐️ 手のジェスチャー。",
     "examples": [
       {
@@ -2759,7 +2759,7 @@
     "group": "root:身体",
     "core": "頭",
     "derived": "首都、首長、資本",
-    "origin": "ラテン語 caput, capitis（頭） / productive",
+    "origin": "ラテン語 caput, capitis（頭） / `productive`",
     "image_hint": "🧢 キャップ＝頭にかぶる。",
     "examples": [
       {
@@ -2809,7 +2809,7 @@
     "group": "root:身体",
     "core": "足",
     "derived": "歩行、台",
-    "origin": "ラテン語 pes, pedis（足） / ギリシャ語 pous, podos / productive",
+    "origin": "ラテン語 pes, pedis（足） / ギリシャ語 pous, podos / `productive`",
     "image_hint": "🦶 足のマーク。",
     "examples": [
       {
@@ -2859,7 +2859,7 @@
     "group": "root:生命",
     "core": "子供",
     "derived": "教育、養育",
-    "origin": "ギリシャ語 pais, paidos（子供） / historical",
+    "origin": "ギリシャ語 pais, paidos（子供） / `historical`",
     "image_hint": "👶 子供の学習。",
     "examples": [
       {
@@ -2909,7 +2909,7 @@
     "group": "root:身体",
     "core": "歯",
     "derived": "歯科",
-    "origin": "ラテン語 dens, dentis / ギリシャ語 odous, odontos / productive",
+    "origin": "ラテン語 dens, dentis / ギリシャ語 odous, odontos / `productive`",
     "image_hint": "🦷 歯ブラシ。",
     "examples": [
       {
@@ -2959,7 +2959,7 @@
     "group": "root:身体",
     "core": "目",
     "derived": "視覚",
-    "origin": "ラテン語 oculus（目） / historical",
+    "origin": "ラテン語 oculus（目） / `historical`",
     "image_hint": "👁️ 目玉。",
     "examples": [
       {
@@ -3009,7 +3009,7 @@
     "group": "root:身体",
     "core": "舌、言語",
     "derived": "言葉、種族",
-    "origin": "ラテン語 lingua（舌、言語） / productive",
+    "origin": "ラテン語 lingua（舌、言語） / `productive`",
     "image_hint": "👅 舌＝言語の源。",
     "examples": [
       {
@@ -3059,7 +3059,7 @@
     "group": "root:言語・伝達",
     "core": "名前",
     "derived": "指名、有名",
-    "origin": "ラテン語 nomen（名） / productive",
+    "origin": "ラテン語 nomen（名） / `productive`",
     "image_hint": "🏷️ 名札。",
     "examples": [
       {
@@ -3109,7 +3109,7 @@
     "group": "root:自然・物質",
     "core": "弦、紐",
     "derived": "和音、連結",
-    "origin": "ギリシャ語 chordē（弦） / historical",
+    "origin": "ギリシャ語 chordē（弦） / `historical`",
     "image_hint": "🎸 ギターの弦。",
     "examples": [
       {
@@ -3159,7 +3159,7 @@
     "group": "root:自然・物質",
     "core": "水",
     "derived": "液体、海",
-    "origin": "ラテン語 aqua（水） / productive",
+    "origin": "ラテン語 aqua（水） / `productive`",
     "image_hint": "💦 アクア＝水。",
     "examples": [
       {
@@ -3209,7 +3209,7 @@
     "group": "root:自然・物質",
     "core": "海",
     "derived": "船員、海洋",
-    "origin": "ラテン語 mare（海） / productive",
+    "origin": "ラテン語 mare（海） / `productive`",
     "image_hint": "🌊 マリン＝海。",
     "examples": [
       {
@@ -3259,7 +3259,7 @@
     "group": "root:自然・物質",
     "core": "地、土地",
     "derived": "陸地、領域",
-    "origin": "ラテン語 terra（地） / productive",
+    "origin": "ラテン語 terra（地） / `productive`",
     "image_hint": "🌍 大地。",
     "examples": [
       {
@@ -3309,7 +3309,7 @@
     "group": "root:その他",
     "core": "恐怖",
     "derived": "脅威",
-    "origin": "ラテン語 terrere（怖がらせる） / productive",
+    "origin": "ラテン語 terrere（怖がらせる） / `productive`",
     "image_hint": "😱 恐怖の叫び。",
     "examples": [
       {
@@ -3359,7 +3359,7 @@
     "group": "root:自然・物質",
     "core": "火",
     "derived": "発火、点火",
-    "origin": "ラテン語 ignis（火） / historical",
+    "origin": "ラテン語 ignis（火） / `historical`",
     "image_hint": "🔥 イグニション＝点火。",
     "examples": [
       {
@@ -3409,7 +3409,7 @@
     "group": "root:思考・知識",
     "core": "知る",
     "derived": "認識、無視（知らない）",
-    "origin": "ラテン語 (g)noscere / ギリシャ語 gnosis / productive",
+    "origin": "ラテン語 (g)noscere / ギリシャ語 gnosis / `productive`",
     "image_hint": "🧠 知識。",
     "examples": [
       {
@@ -3459,7 +3459,7 @@
     "group": "root:思考・知識",
     "core": "知る、知識",
     "derived": "科学、意識",
-    "origin": "ラテン語 scire（知る） / productive",
+    "origin": "ラテン語 scire（知る） / `productive`",
     "image_hint": "🔬 サイエンス。",
     "examples": [
       {
@@ -3509,7 +3509,7 @@
     "group": "root:思考・知識",
     "core": "信じる",
     "derived": "信用、信頼、信仰",
-    "origin": "ラテン語 credere（信じる） / productive",
+    "origin": "ラテン語 credere（信じる） / `productive`",
     "image_hint": "🤝 信頼の握手。",
     "examples": [
       {
@@ -3559,7 +3559,7 @@
     "group": "root:思考・知識",
     "core": "信頼、忠実",
     "derived": "同盟、信義",
-    "origin": "ラテン語 fides（信頼） / productive",
+    "origin": "ラテン語 fides（信頼） / `productive`",
     "image_hint": "🤲 信頼の手。",
     "examples": [
       {
@@ -3609,7 +3609,7 @@
     "group": "root:関係・社会",
     "core": "法、正義、判断",
     "derived": "宣誓、裁判",
-    "origin": "ラテン語 jus, juris（法） / productive",
+    "origin": "ラテン語 jus, juris（法） / `productive`",
     "image_hint": "⚖️ 法廷の天秤。",
     "examples": [
       {
@@ -3659,7 +3659,7 @@
     "group": "root:関係・社会",
     "core": "法、選ぶ、読む、集める",
     "derived": "立法、選択、講義",
-    "origin": "ラテン語 lex, legis（法）, legere, lectus（選ぶ、読む） / productive",
+    "origin": "ラテン語 lex, legis（法）, legere, lectus（選ぶ、読む） / `productive`",
     "image_hint": "📖 法律と読書（古代の書物選別から）。",
     "examples": [
       {
@@ -3709,7 +3709,7 @@
     "group": "root:価値・善悪",
     "core": "強い、価値がある",
     "derived": "効力、健康、評価",
-    "origin": "ラテン語 valere（強い） / productive",
+    "origin": "ラテン語 valere（強い） / `productive`",
     "image_hint": "💪 強さ＝価値。",
     "examples": [
       {
@@ -3759,7 +3759,7 @@
     "group": "root:価値・善悪",
     "core": "真実",
     "derived": "正確、検証",
-    "origin": "ラテン語 verus（真実） / productive",
+    "origin": "ラテン語 verus（真実） / `productive`",
     "image_hint": "✅ 真実マーク。",
     "examples": [
       {
@@ -3809,7 +3809,7 @@
     "group": "root:価値・善悪",
     "core": "試す、証明する",
     "derived": "承認、調査",
-    "origin": "ラテン語 probare（試す、認める） / productive",
+    "origin": "ラテン語 probare（試す、認める） / `productive`",
     "image_hint": "🔍 試験する目。",
     "examples": [
       {
@@ -3859,7 +3859,7 @@
     "group": "root:価値・善悪",
     "core": "証言する、試す",
     "derived": "検査、遺言",
-    "origin": "ラテン語 testis（証人） / productive",
+    "origin": "ラテン語 testis（証人） / `productive`",
     "image_hint": "🧪 テスト。",
     "examples": [
       {
@@ -3909,7 +3909,7 @@
     "group": "root:言語・伝達",
     "core": "印、記号、しるし",
     "derived": "署名、合図、重要",
-    "origin": "ラテン語 signum（印） / productive",
+    "origin": "ラテン語 signum（印） / `productive`",
     "image_hint": "🪧 看板、サイン。",
     "examples": [
       {
@@ -3959,7 +3959,7 @@
     "group": "root:状態・存在",
     "core": "終わり、限界",
     "derived": "完了、目的、財政",
-    "origin": "ラテン語 finis（終わり、境界） / productive",
+    "origin": "ラテン語 finis（終わり、境界） / `productive`",
     "image_hint": "🏁 フィニッシュライン。",
     "examples": [
       {
@@ -4009,7 +4009,7 @@
     "group": "root:形・構造",
     "core": "形、形成",
     "derived": "構造、書式",
-    "origin": "ラテン語 forma（形） / productive",
+    "origin": "ラテン語 forma（形） / `productive`",
     "image_hint": "🔷 図形のフォーム。",
     "examples": [
       {
@@ -4059,7 +4059,7 @@
     "group": "root:形・構造",
     "core": "順序、命令",
     "derived": "秩序、地位",
-    "origin": "ラテン語 ordo, ordinis（順序） / productive",
+    "origin": "ラテン語 ordo, ordinis（順序） / `productive`",
     "image_hint": "📋 整然と並ぶ。",
     "examples": [
       {
@@ -4109,7 +4109,7 @@
     "group": "root:形・構造",
     "core": "真っ直ぐ、規則、支配",
     "derived": "正しい、統治、君主",
-    "origin": "ラテン語 regere, rectus（導く、真っ直ぐにする） / productive",
+    "origin": "ラテン語 regere, rectus（導く、真っ直ぐにする） / `productive`",
     "image_hint": "📏 定規。",
     "examples": [
       {
@@ -4159,7 +4159,7 @@
     "group": "root:関係・社会",
     "core": "王、支配",
     "derived": "王国、君主制",
-    "origin": "ラテン語 rex, regis（王） / historical",
+    "origin": "ラテン語 rex, regis（王） / `historical`",
     "image_hint": "👑 王冠。",
     "examples": [
       {
@@ -4209,7 +4209,7 @@
     "group": "root:関係・社会",
     "core": "市民、都市",
     "derived": "文明、市民権",
-    "origin": "ラテン語 civis（市民）, civitas（都市） / productive",
+    "origin": "ラテン語 civis（市民）, civitas（都市） / `productive`",
     "image_hint": "🏛️ 市民広場。",
     "examples": [
       {
@@ -4259,7 +4259,7 @@
     "group": "root:状態・存在",
     "core": "家、主人",
     "derived": "支配、家畜化",
-    "origin": "ラテン語 domus（家）, dominus（主人） / productive",
+    "origin": "ラテン語 domus（家）, dominus（主人） / `productive`",
     "image_hint": "🏠 ドミニオン＝領地。",
     "examples": [
       {
@@ -4309,7 +4309,7 @@
     "group": "root:関係・社会",
     "core": "人々、民衆",
     "derived": "大衆、公共",
-    "origin": "ラテン語 populus（人民） / productive",
+    "origin": "ラテン語 populus（人民） / `productive`",
     "image_hint": "👥 群衆。",
     "examples": [
       {
@@ -4359,7 +4359,7 @@
     "group": "root:関係・社会",
     "core": "仲間、社会",
     "derived": "結社、社交",
-    "origin": "ラテン語 socius（仲間） / productive",
+    "origin": "ラテン語 socius（仲間） / `productive`",
     "image_hint": "🤝 仲間。",
     "examples": [
       {
@@ -4409,7 +4409,7 @@
     "group": "root:その他",
     "core": "愛、友",
     "derived": "友情、恋愛",
-    "origin": "ラテン語 amare（愛する）, amicus（友） / historical",
+    "origin": "ラテン語 amare（愛する）, amicus（友） / `historical`",
     "image_hint": "💕 愛のハート。",
     "examples": [
       {
@@ -4459,7 +4459,7 @@
     "group": "root:生命",
     "core": "父",
     "derived": "祖国、家父長",
-    "origin": "ラテン語 pater, patris（父） / productive",
+    "origin": "ラテン語 pater, patris（父） / `productive`",
     "image_hint": "👨‍👧 父親。",
     "examples": [
       {
@@ -4509,7 +4509,7 @@
     "group": "root:生命",
     "core": "母",
     "derived": "母なる、起源",
-    "origin": "ラテン語 mater, matris（母） / productive",
+    "origin": "ラテン語 mater, matris（母） / `productive`",
     "image_hint": "👩‍👧 母親。",
     "examples": [
       {
@@ -4559,7 +4559,7 @@
     "group": "root:関係・社会",
     "core": "法、配分",
     "derived": "規範、体系",
-    "origin": "ギリシャ語 nomos（法） / historical",
+    "origin": "ギリシャ語 nomos（法） / `historical`",
     "image_hint": "📜 法律書。",
     "examples": [
       {
@@ -4609,7 +4609,7 @@
     "group": "root:状態・存在",
     "core": "自由",
     "derived": "解放、寛容、書物（→library は別）",
-    "origin": "ラテン語 liber（自由な） / productive",
+    "origin": "ラテン語 liber（自由な） / `productive`",
     "image_hint": "🕊️ 自由の鳥。",
     "examples": [
       {
@@ -4659,7 +4659,7 @@
     "group": "root:関係・社会",
     "core": "戦争",
     "derived": "戦闘、敵対",
-    "origin": "ラテン語 bellum（戦争） / historical",
+    "origin": "ラテン語 bellum（戦争） / `historical`",
     "image_hint": "⚔️ 戦闘。",
     "examples": [
       {
@@ -4709,7 +4709,7 @@
     "group": "root:状態・存在",
     "core": "平和、結ぶ",
     "derived": "静穏、契約",
-    "origin": "ラテン語 pax, pacis（平和） / productive",
+    "origin": "ラテン語 pax, pacis（平和） / `productive`",
     "image_hint": "☮️ 平和のシンボル。",
     "examples": [
       {
@@ -4759,7 +4759,7 @@
     "group": "root:価値・善悪",
     "core": "良い",
     "derived": "利益、贈り物",
-    "origin": "ラテン語 bonus（良い） / productive",
+    "origin": "ラテン語 bonus（良い） / `productive`",
     "image_hint": "🎁 ボーナス＝良いもの。",
     "examples": [
       {
@@ -4809,7 +4809,7 @@
     "group": "root:数量・程度",
     "core": "大きい",
     "derived": "偉大、強大",
-    "origin": "ラテン語 magnus（大きい） / productive",
+    "origin": "ラテン語 magnus（大きい） / `productive`",
     "image_hint": "🔍 拡大鏡（magnifier）。",
     "examples": [
       {
@@ -4859,7 +4859,7 @@
     "group": "root:数量・程度",
     "core": "小さい、少ない",
     "derived": "減少、軽視",
-    "origin": "ラテン語 minor, minus（より小さい） / productive",
+    "origin": "ラテン語 minor, minus（より小さい） / `productive`",
     "image_hint": "🤏 縮小。",
     "examples": [
       {
@@ -4909,7 +4909,7 @@
     "group": "root:数量・程度",
     "core": "等しい",
     "derived": "公平、均衡",
-    "origin": "ラテン語 aequus（等しい） / productive",
+    "origin": "ラテン語 aequus（等しい） / `productive`",
     "image_hint": "⚖️ 釣り合い。",
     "examples": [
       {
@@ -4959,7 +4959,7 @@
     "group": "root:生命",
     "core": "馬",
     "derived": "騎馬",
-    "origin": "ラテン語 equus（馬） / historical",
+    "origin": "ラテン語 equus（馬） / `historical`",
     "image_hint": "🐎 馬。",
     "examples": [
       {
@@ -5009,7 +5009,7 @@
     "group": "root:状態・存在",
     "core": "似た、同じ",
     "derived": "模倣、シミュレーション",
-    "origin": "ラテン語 similis（似た） / productive",
+    "origin": "ラテン語 similis（似た） / `productive`",
     "image_hint": "👯 双子。",
     "examples": [
       {
@@ -5059,7 +5059,7 @@
     "group": "root:状態・存在",
     "core": "他の、変える",
     "derived": "変更、二者択一",
-    "origin": "ラテン語 alter（他方） / productive",
+    "origin": "ラテン語 alter（他方） / `productive`",
     "image_hint": "🔁 切り替えスイッチ。",
     "examples": [
       {
@@ -5109,7 +5109,7 @@
     "group": "root:状態・存在",
     "core": "他の、異なる",
     "derived": "異国、疎外",
-    "origin": "ラテン語 alius（他の） / productive",
+    "origin": "ラテン語 alius（他の） / `productive`",
     "image_hint": "👽 異星人。",
     "examples": [
       {
@@ -5159,7 +5159,7 @@
     "group": "root:方向・位置",
     "core": "中心",
     "derived": "集中、求心",
-    "origin": "ギリシャ語 kentron（中心、針の先） / productive",
+    "origin": "ギリシャ語 kentron（中心、針の先） / `productive`",
     "image_hint": "🎯 的の中心。",
     "examples": [
       {
@@ -5209,7 +5209,7 @@
     "group": "root:時間",
     "core": "最初の",
     "derived": "第一級、主要",
-    "origin": "ラテン語 primus（最初） / productive",
+    "origin": "ラテン語 primus（最初） / `productive`",
     "image_hint": "🥇 一番。",
     "examples": [
       {
@@ -5259,7 +5259,7 @@
     "group": "root:数量・程度",
     "core": "二番目の",
     "derived": "後続、追従",
-    "origin": "ラテン語 secundus（二番目、< sequi 続く） / historical",
+    "origin": "ラテン語 secundus（二番目、< sequi 続く） / `historical`",
     "image_hint": "🥈 二位。",
     "examples": [
       {
@@ -5309,7 +5309,7 @@
     "group": "root:数量・程度",
     "core": "三番目の",
     "derived": "第三級",
-    "origin": "ラテン語 tertius（三番目） / historical",
+    "origin": "ラテン語 tertius（三番目） / `historical`",
     "image_hint": "🥉 三位。",
     "examples": [
       {
@@ -5359,7 +5359,7 @@
     "group": "root:時間",
     "core": "年",
     "derived": "年次、周年",
-    "origin": "ラテン語 annus（年） / productive",
+    "origin": "ラテン語 annus（年） / `productive`",
     "image_hint": "📅 カレンダー。",
     "examples": [
       {
@@ -5409,7 +5409,7 @@
     "group": "root:時間",
     "core": "時、時代",
     "derived": "一時的、現代",
-    "origin": "ラテン語 tempus, temporis（時） / productive",
+    "origin": "ラテン語 tempus, temporis（時） / `productive`",
     "image_hint": "⏰ 時計。",
     "examples": [
       {
@@ -5459,7 +5459,7 @@
     "group": "root:時間",
     "core": "時",
     "derived": "順序、慢性",
-    "origin": "ギリシャ語 chronos（時） / productive",
+    "origin": "ギリシャ語 chronos（時） / `productive`",
     "image_hint": "⏳ 砂時計。",
     "examples": [
       {
@@ -5509,7 +5509,7 @@
     "group": "root:時間",
     "core": "新しい",
     "derived": "革新、新奇",
-    "origin": "ラテン語 novus（新しい） / productive",
+    "origin": "ラテン語 novus（新しい） / `productive`",
     "image_hint": "✨ 新品マーク。",
     "examples": [
       {
@@ -5559,7 +5559,7 @@
     "group": "root:形・構造",
     "core": "短い",
     "derived": "簡潔",
-    "origin": "ラテン語 brevis（短い） / productive",
+    "origin": "ラテン語 brevis（短い） / `productive`",
     "image_hint": "✂️ 短くする。",
     "examples": [
       {
@@ -5609,7 +5609,7 @@
     "group": "root:形・構造",
     "core": "長い",
     "derived": "長期、憧憬",
-    "origin": "ラテン語 longus（長い） / productive",
+    "origin": "ラテン語 longus（長い） / `productive`",
     "image_hint": "📏 長い棒。",
     "examples": [
       {
@@ -5659,7 +5659,7 @@
     "group": "root:形・構造",
     "core": "高い、深い",
     "derived": "高度、上位",
-    "origin": "ラテン語 altus（高い） / productive",
+    "origin": "ラテン語 altus（高い） / `productive`",
     "image_hint": "🗻 高い山。",
     "examples": [
       {
@@ -5709,7 +5709,7 @@
     "group": "root:方向・位置",
     "core": "近い",
     "derived": "接近、近似",
-    "origin": "ラテン語 proximus（最も近い） / productive",
+    "origin": "ラテン語 proximus（最も近い） / `productive`",
     "image_hint": "↔️ 近接。",
     "examples": [
       {
@@ -5759,7 +5759,7 @@
     "group": "root:自然・物質",
     "core": "星",
     "derived": "天体",
-    "origin": "ラテン語 stella（星） / ギリシャ語 astron / historical",
+    "origin": "ラテン語 stella（星） / ギリシャ語 astron / `historical`",
     "image_hint": "⭐ 星空。",
     "examples": [
       {
@@ -5809,7 +5809,7 @@
     "group": "root:自然・物質",
     "core": "太陽",
     "derived": "太陽系、ソーラー",
-    "origin": "ラテン語 sol（太陽） / productive",
+    "origin": "ラテン語 sol（太陽） / `productive`",
     "image_hint": "☀️ 太陽。",
     "examples": [
       {
@@ -5859,7 +5859,7 @@
     "group": "root:数量・程度",
     "core": "単独、ひとり",
     "derived": "孤独、独奏",
-    "origin": "ラテン語 solus（単独） / productive",
+    "origin": "ラテン語 solus（単独） / `productive`",
     "image_hint": "🧍 ひとりぼっち。",
     "examples": [
       {
@@ -5909,7 +5909,7 @@
     "group": "root:自然・物質",
     "core": "月",
     "derived": "月の周期、狂気（古代信仰）",
-    "origin": "ラテン語 luna（月） / historical",
+    "origin": "ラテン語 luna（月） / `historical`",
     "image_hint": "🌙 月の輝き。",
     "examples": [
       {
@@ -5959,7 +5959,7 @@
     "group": "root:自然・物質",
     "core": "光、輝き",
     "derived": "啓発、明瞭",
-    "origin": "ラテン語 lux, lucis（光）, lumen, luminis（光） / productive",
+    "origin": "ラテン語 lux, lucis（光）, lumen, luminis（光） / `productive`",
     "image_hint": "💡 ライト。",
     "examples": [
       {
@@ -6009,7 +6009,7 @@
     "group": "root:時間",
     "core": "夜",
     "derived": "暗闇",
-    "origin": "ラテン語 nox, noctis（夜） / historical",
+    "origin": "ラテン語 nox, noctis（夜） / `historical`",
     "image_hint": "🌃 夜景。",
     "examples": [
       {
@@ -6059,7 +6059,7 @@
     "group": "root:状態・存在",
     "core": "持続する、硬い",
     "derived": "耐久、忍耐",
-    "origin": "ラテン語 durus（硬い） / productive",
+    "origin": "ラテン語 durus（硬い） / `productive`",
     "image_hint": "🪨 硬い岩。",
     "examples": [
       {
@@ -6109,7 +6109,7 @@
     "group": "root:状態・存在",
     "core": "固い、確実な",
     "derived": "確認、企業",
-    "origin": "ラテン語 firmus（固い） / productive",
+    "origin": "ラテン語 firmus（固い） / `productive`",
     "image_hint": "🪨 揺るがない岩。",
     "examples": [
       {
@@ -6159,7 +6159,7 @@
     "group": "root:関係・社会",
     "core": "仕える",
     "derived": "奉仕、サービス、奴隷",
-    "origin": "ラテン語 servire（仕える） / productive",
+    "origin": "ラテン語 servire（仕える） / `productive`",
     "image_hint": "🙇 仕える人。",
     "examples": [
       {
@@ -6209,7 +6209,7 @@
     "group": "root:動作・運動",
     "core": "守る、保つ",
     "derived": "保存、観察",
-    "origin": "ラテン語 servare（守る） / productive",
+    "origin": "ラテン語 servare（守る） / `productive`",
     "image_hint": "🛡️ 守護。",
     "examples": [
       {
@@ -6259,7 +6259,7 @@
     "group": "root:動作・運動",
     "core": "拳で戦う",
     "derived": "闘争、抗議",
-    "origin": "ラテン語 pugnus（拳）, pugnare（戦う） / historical",
+    "origin": "ラテン語 pugnus（拳）, pugnare（戦う） / `historical`",
     "image_hint": "👊 ボクシング。",
     "examples": [
       {
@@ -6309,7 +6309,7 @@
     "group": "root:動作・運動",
     "core": "勝つ、征服する",
     "derived": "勝利、説得",
-    "origin": "ラテン語 vincere, victus（勝つ） / productive",
+    "origin": "ラテン語 vincere, victus（勝つ） / `productive`",
     "image_hint": "🏆 勝利のトロフィー。",
     "examples": [
       {
@@ -6359,7 +6359,7 @@
     "group": "root:状態・存在",
     "core": "強い",
     "derived": "力、要塞、努力",
-    "origin": "ラテン語 fortis（強い） / productive",
+    "origin": "ラテン語 fortis（強い） / `productive`",
     "image_hint": "💪 強さ。",
     "examples": [
       {
@@ -6409,7 +6409,7 @@
     "group": "root:状態・存在",
     "core": "力、能力",
     "derived": "可能、潜在",
-    "origin": "ラテン語 potens（力ある） / productive",
+    "origin": "ラテン語 potens（力ある） / `productive`",
     "image_hint": "⚡ パワー。",
     "examples": [
       {
@@ -6459,7 +6459,7 @@
     "group": "root:状態・存在",
     "core": "技、芸術",
     "derived": "巧み、人工",
-    "origin": "ラテン語 ars, artis（技） / productive",
+    "origin": "ラテン語 ars, artis（技） / `productive`",
     "image_hint": "🎨 アート。",
     "examples": [
       {
@@ -6509,7 +6509,7 @@
     "group": "root:動作・運動",
     "core": "仕事、働く",
     "derived": "作品、作業",
-    "origin": "ラテン語 opus, operis（仕事） / productive",
+    "origin": "ラテン語 opus, operis（仕事） / `productive`",
     "image_hint": "🛠️ 作業中。",
     "examples": [
       {
@@ -6559,7 +6559,7 @@
     "group": "root:動作・運動",
     "core": "労働、苦労",
     "derived": "努力、実験室",
-    "origin": "ラテン語 labor（労働） / productive",
+    "origin": "ラテン語 labor（労働） / `productive`",
     "image_hint": "⛏️ 労働者。",
     "examples": [
       {
@@ -6609,7 +6609,7 @@
     "group": "root:動作・運動",
     "core": "移動する",
     "derived": "移住、回遊",
-    "origin": "ラテン語 migrare（移動する） / productive",
+    "origin": "ラテン語 migrare（移動する） / `productive`",
     "image_hint": "🦅 渡り鳥。",
     "examples": [
       {
@@ -6659,7 +6659,7 @@
     "group": "root:動作・運動",
     "core": "船、航行",
     "derived": "海軍、宇宙飛行",
-    "origin": "ラテン語 navis（船） / ギリシャ nautēs（船員） / productive",
+    "origin": "ラテン語 navis（船） / ギリシャ nautēs（船員） / `productive`",
     "image_hint": "🚢 船。",
     "examples": [
       {
@@ -6709,7 +6709,7 @@
     "group": "root:動作・運動",
     "core": "道",
     "derived": "旅、通過",
-    "origin": "ラテン語 via（道） / productive",
+    "origin": "ラテン語 via（道） / `productive`",
     "image_hint": "🛣️ 道。",
     "examples": [
       {
@@ -6759,7 +6759,7 @@
     "group": "root:関係・社会",
     "core": "群れ",
     "derived": "集団、集約",
-    "origin": "ラテン語 grex, gregis（群れ） / productive",
+    "origin": "ラテン語 grex, gregis（群れ） / `productive`",
     "image_hint": "🐑 羊の群れ。",
     "examples": [
       {
@@ -6809,7 +6809,7 @@
     "group": "root:動作・運動",
     "core": "与える",
     "derived": "贈与、寄付、嫁資",
-    "origin": "ラテン語 donare, datus（与える） / productive",
+    "origin": "ラテン語 donare, datus（与える） / `productive`",
     "image_hint": "🎁 ギフト。",
     "examples": [
       {
@@ -6859,7 +6859,7 @@
     "group": "root:動作・運動",
     "core": "割り当てる、与える",
     "derived": "貢献、贈与、税",
-    "origin": "ラテン語 tribuere（与える） / productive",
+    "origin": "ラテン語 tribuere（与える） / `productive`",
     "image_hint": "🎁 配分する。",
     "examples": [
       {
@@ -6909,7 +6909,7 @@
     "group": "root:言語・伝達",
     "core": "尋ねる、要求する",
     "derived": "質問、廃止",
-    "origin": "ラテン語 rogare（尋ねる） / productive",
+    "origin": "ラテン語 rogare（尋ねる） / `productive`",
     "image_hint": "❓ 質問する。",
     "examples": [
       {
@@ -6959,7 +6959,7 @@
     "group": "root:言語・伝達",
     "core": "探す、尋ねる",
     "derived": "質問、要求",
-    "origin": "ラテン語 quaerere, quaesitus（求める） / productive",
+    "origin": "ラテン語 quaerere, quaesitus（求める） / `productive`",
     "image_hint": "🔍 探求。",
     "examples": [
       {
@@ -7009,7 +7009,7 @@
     "group": "root:動作・運動",
     "core": "解く、緩める",
     "derived": "解決、溶解、支払い",
-    "origin": "ラテン語 solvere, solutus（解く） / productive",
+    "origin": "ラテン語 solvere, solutus（解く） / `productive`",
     "image_hint": "🔓 解錠する。",
     "examples": [
       {
@@ -7059,7 +7059,7 @@
     "group": "root:動作・運動",
     "core": "建てる、組み立てる",
     "derived": "構造、指示",
-    "origin": "ラテン語 struere, structus（積み上げる） / productive",
+    "origin": "ラテン語 struere, structus（積み上げる） / `productive`",
     "image_hint": "🏗️ 建設現場。",
     "examples": [
       {
@@ -7109,7 +7109,7 @@
     "group": "root:形・構造",
     "core": "方法、様式、計量",
     "derived": "流行、モデル、適度",
-    "origin": "ラテン語 modus（方法、尺度） / productive",
+    "origin": "ラテン語 modus（方法、尺度） / `productive`",
     "image_hint": "📐 モデル、モード。",
     "examples": [
       {
@@ -7159,7 +7159,7 @@
     "group": "root:思考・知識",
     "core": "心、考え",
     "derived": "精神、記憶",
-    "origin": "ラテン語 mens, mentis（心） / productive",
+    "origin": "ラテン語 mens, mentis（心） / `productive`",
     "image_hint": "🧠 心の働き。",
     "examples": [
       {
@@ -7209,7 +7209,7 @@
     "group": "root:思考・知識",
     "core": "記憶",
     "derived": "思い出、記念",
-    "origin": "ラテン語 memor（覚えている） / productive",
+    "origin": "ラテン語 memor（覚えている） / `productive`",
     "image_hint": "💾 メモリー。",
     "examples": [
       {
@@ -7259,7 +7259,7 @@
     "group": "root:思考・知識",
     "core": "教える",
     "derived": "学者、教義、文書",
-    "origin": "ラテン語 docere, doctus（教える） / productive",
+    "origin": "ラテン語 docere, doctus（教える） / `productive`",
     "image_hint": "👨‍🏫 教師。",
     "examples": [
       {
@@ -7309,7 +7309,7 @@
     "group": "root:思考・知識",
     "core": "熱心、勉強",
     "derived": "研究、書斎",
-    "origin": "ラテン語 studere（熱中する） / productive",
+    "origin": "ラテン語 studere（熱中する） / `productive`",
     "image_hint": "📚 勉強机。",
     "examples": [
       {
@@ -7359,7 +7359,7 @@
     "group": "root:生命",
     "core": "人間、人類",
     "derived": "人類学、人間中心",
-    "origin": "ギリシャ語 anthrōpos（人間） / historical",
+    "origin": "ギリシャ語 anthrōpos（人間） / `historical`",
     "image_hint": "🧍 人類のアイコン。",
     "examples": [
       {
@@ -7409,7 +7409,7 @@
     "group": "root:時間",
     "core": "古い、始まり",
     "derived": "古代、考古学",
-    "origin": "ギリシャ語 arkhaios（古い、< arkhē 始まり） / historical",
+    "origin": "ギリシャ語 arkhaios（古い、< arkhē 始まり） / `historical`",
     "image_hint": "🏛️ 古代遺跡。",
     "examples": [
       {
@@ -7459,7 +7459,7 @@
     "group": "root:自然・物質",
     "core": "星",
     "derived": "天体、運命",
-    "origin": "ギリシャ語 astron（星） / productive",
+    "origin": "ギリシャ語 astron（星） / `productive`",
     "image_hint": "⭐ 星空。",
     "examples": [
       {
@@ -7509,7 +7509,7 @@
     "group": "root:自然・物質",
     "core": "太陽",
     "derived": "日光",
-    "origin": "ギリシャ語 hēlios（太陽） / historical",
+    "origin": "ギリシャ語 hēlios（太陽） / `historical`",
     "image_hint": "☀️ 太陽神ヘリオス。",
     "examples": [
       {
@@ -7559,7 +7559,7 @@
     "group": "root:自然・物質",
     "core": "火",
     "derived": "発火、熱",
-    "origin": "ギリシャ語 pyr（火） / historical",
+    "origin": "ギリシャ語 pyr（火） / `historical`",
     "image_hint": "🔥 炎。",
     "examples": [
       {
@@ -7609,7 +7609,7 @@
     "group": "root:自然・物質",
     "core": "空気、大気",
     "derived": "飛行、エアロ",
-    "origin": "ギリシャ語 aēr（空気） / productive",
+    "origin": "ギリシャ語 aēr（空気） / `productive`",
     "image_hint": "💨 空気の流れ。",
     "examples": [
       {
@@ -7659,7 +7659,7 @@
     "group": "root:自然・物質",
     "core": "宇宙、秩序",
     "derived": "世界、装飾",
-    "origin": "ギリシャ語 kosmos（秩序、宇宙） / productive",
+    "origin": "ギリシャ語 kosmos（秩序、宇宙） / `productive`",
     "image_hint": "🌌 宇宙の秩序。",
     "examples": [
       {
@@ -7709,7 +7709,7 @@
     "group": "root:言語・伝達",
     "core": "言葉、理、学問",
     "derived": "論理、対話",
-    "origin": "ギリシャ語 logos（言葉、理性） / productive",
+    "origin": "ギリシャ語 logos（言葉、理性） / `productive`",
     "image_hint": "💬 ロゴス＝理性の言葉。",
     "examples": [
       {
@@ -7759,7 +7759,7 @@
     "group": "root:言語・伝達",
     "core": "音、声",
     "derived": "音響、音楽",
-    "origin": "ギリシャ語 phōnē（音） / productive",
+    "origin": "ギリシャ語 phōnē（音） / `productive`",
     "image_hint": "🔊 スピーカー。",
     "examples": [
       {
@@ -7809,7 +7809,7 @@
     "group": "root:言語・伝達",
     "core": "書く",
     "derived": "記録、図表",
-    "origin": "ギリシャ語 graphein（書く） / productive",
+    "origin": "ギリシャ語 graphein（書く） / `productive`",
     "image_hint": "✍️ 文字を書く手。",
     "examples": [
       {
@@ -7859,7 +7859,7 @@
     "group": "root:言語・伝達",
     "core": "言葉、語彙",
     "derived": "辞書、語法",
-    "origin": "ギリシャ語 lexis（言葉、< legein 語る） / historical",
+    "origin": "ギリシャ語 lexis（言葉、< legein 語る） / `historical`",
     "image_hint": "📖 辞書。",
     "examples": [
       {
@@ -7909,7 +7909,7 @@
     "group": "root:言語・伝達",
     "core": "本",
     "derived": "文献、聖書",
-    "origin": "ギリシャ語 biblion（本） / historical",
+    "origin": "ギリシャ語 biblion（本） / `historical`",
     "image_hint": "📚 本の山。",
     "examples": [
       {
@@ -7959,7 +7959,7 @@
     "group": "root:思考・知識",
     "core": "知ること、認識",
     "derived": "診断、霊知",
-    "origin": "ギリシャ語 gnōsis（知識） / productive",
+    "origin": "ギリシャ語 gnōsis（知識） / `productive`",
     "image_hint": "🧠 認識。",
     "examples": [
       {
@@ -8009,7 +8009,7 @@
     "group": "root:思考・知識",
     "core": "知恵、賢い",
     "derived": "哲学、洗練",
-    "origin": "ギリシャ語 sophos（賢い）, sophia（知恵） / historical",
+    "origin": "ギリシャ語 sophos（賢い）, sophia（知恵） / `historical`",
     "image_hint": "🦉 知恵のフクロウ。",
     "examples": [
       {
@@ -8059,7 +8059,7 @@
     "group": "root:その他",
     "core": "愛する",
     "derived": "愛好、〜マニア",
-    "origin": "ギリシャ語 philos（愛する） / productive",
+    "origin": "ギリシャ語 philos（愛する） / `productive`",
     "image_hint": "💕 愛のハート。",
     "examples": [
       {
@@ -8109,7 +8109,7 @@
     "group": "root:思考・知識",
     "core": "感情、苦しみ、病",
     "derived": "共感、症状",
-    "origin": "ギリシャ語 pathos（感情、苦しみ） / productive",
+    "origin": "ギリシャ語 pathos（感情、苦しみ） / `productive`",
     "image_hint": "💔 感情の痛み。",
     "examples": [
       {
@@ -8159,7 +8159,7 @@
     "group": "root:関係・社会",
     "core": "民族、人々",
     "derived": "文化集団",
-    "origin": "ギリシャ語 ethnos（民族） / historical",
+    "origin": "ギリシャ語 ethnos（民族） / `historical`",
     "image_hint": "🌐 多民族。",
     "examples": [
       {
@@ -8209,7 +8209,7 @@
     "group": "root:関係・社会",
     "core": "民衆、人々",
     "derived": "民主、流行",
-    "origin": "ギリシャ語 dēmos（人民） / productive",
+    "origin": "ギリシャ語 dēmos（人民） / `productive`",
     "image_hint": "👥 民衆。",
     "examples": [
       {
@@ -8259,7 +8259,7 @@
     "group": "root:関係・社会",
     "core": "都市、国家",
     "derived": "政治、市民",
-    "origin": "ギリシャ語 polis（都市国家） / productive",
+    "origin": "ギリシャ語 polis（都市国家） / `productive`",
     "image_hint": "🏛️ ポリス（古代ギリシャの都市国家）。",
     "examples": [
       {
@@ -8309,7 +8309,7 @@
     "group": "root:状態・存在",
     "core": "技、技術",
     "derived": "工芸、科学技術",
-    "origin": "ギリシャ語 tekhnē（技） / productive",
+    "origin": "ギリシャ語 tekhnē（技） / `productive`",
     "image_hint": "🛠️ テクノロジー。",
     "examples": [
       {
@@ -8359,7 +8359,7 @@
     "group": "root:動作・運動",
     "core": "仕事、働く",
     "derived": "エネルギー、外科",
-    "origin": "ギリシャ語 ergon（仕事） / productive",
+    "origin": "ギリシャ語 ergon（仕事） / `productive`",
     "image_hint": "⚡ エネルギーの発散。",
     "examples": [
       {
@@ -8409,7 +8409,7 @@
     "group": "root:状態・存在",
     "core": "力、力動",
     "derived": "動的、王朝",
-    "origin": "ギリシャ語 dynamis（力） / productive",
+    "origin": "ギリシャ語 dynamis（力） / `productive`",
     "image_hint": "💥 ダイナマイト。",
     "examples": [
       {
@@ -8459,7 +8459,7 @@
     "group": "root:動作・運動",
     "core": "動く",
     "derived": "運動、映画",
-    "origin": "ギリシャ語 kinein（動く） / productive",
+    "origin": "ギリシャ語 kinein（動く） / `productive`",
     "image_hint": "🎞️ シネマ＝動く画。",
     "examples": [
       {
@@ -8509,7 +8509,7 @@
     "group": "root:形・構造",
     "core": "形",
     "derived": "変形、形態学",
-    "origin": "ギリシャ語 morphē（形） / productive",
+    "origin": "ギリシャ語 morphē（形） / `productive`",
     "image_hint": "🔄 形を変える。",
     "examples": [
       {
@@ -8559,7 +8559,7 @@
     "group": "root:方向・位置",
     "core": "場所",
     "derived": "地形、論題",
-    "origin": "ギリシャ語 topos（場所） / productive",
+    "origin": "ギリシャ語 topos（場所） / `productive`",
     "image_hint": "📍 場所のピン。",
     "examples": [
       {
@@ -8609,7 +8609,7 @@
     "group": "root:自然・物質",
     "core": "色",
     "derived": "染色、半音階",
-    "origin": "ギリシャ語 chrōma（色） / historical",
+    "origin": "ギリシャ語 chrōma（色） / `historical`",
     "image_hint": "🌈 色のスペクトル。",
     "examples": [
       {
@@ -8659,7 +8659,7 @@
     "group": "root:自然・物質",
     "core": "黒",
     "derived": "暗い、憂鬱",
-    "origin": "ギリシャ語 melas, melanos（黒い） / historical",
+    "origin": "ギリシャ語 melas, melanos（黒い） / `historical`",
     "image_hint": "⚫ 黒。",
     "examples": [
       {
@@ -8709,7 +8709,7 @@
     "group": "root:自然・物質",
     "core": "白",
     "derived": "白血球",
-    "origin": "ギリシャ語 leukos（白） / historical",
+    "origin": "ギリシャ語 leukos（白） / `historical`",
     "image_hint": "⚪ 白。",
     "examples": [
       {
@@ -8759,7 +8759,7 @@
     "group": "root:自然・物質",
     "core": "赤",
     "derived": "赤血球",
-    "origin": "ギリシャ語 erythros（赤） / historical",
+    "origin": "ギリシャ語 erythros（赤） / `historical`",
     "image_hint": "🔴 赤。",
     "examples": [
       {
@@ -8809,7 +8809,7 @@
     "group": "root:動作・運動",
     "core": "競技、闘争",
     "derived": "苦闘、苦痛",
-    "origin": "ギリシャ語 agōn（闘技） / historical",
+    "origin": "ギリシャ語 agōn（闘技） / `historical`",
     "image_hint": "🤼 闘う者。",
     "examples": [
       {
@@ -8859,7 +8859,7 @@
     "group": "root:動作・運動",
     "core": "導く",
     "derived": "指導者、扇動者",
-    "origin": "ギリシャ語 agōgos（導く） / historical",
+    "origin": "ギリシャ語 agōgos（導く） / `historical`",
     "image_hint": "🧭 道案内。",
     "examples": [
       {
@@ -8909,7 +8909,7 @@
     "group": "root:動作・運動",
     "core": "食べる",
     "derived": "摂食、消化",
-    "origin": "ギリシャ語 phagein（食べる） / historical（医学）",
+    "origin": "ギリシャ語 phagein（食べる） / `historical`（医学）",
     "image_hint": "🍽️ 食べる動作。",
     "examples": [
       {
@@ -8959,7 +8959,7 @@
     "group": "root:生命",
     "core": "栄養、養う",
     "derived": "育成、肥大",
-    "origin": "ギリシャ語 trophē（栄養） / historical",
+    "origin": "ギリシャ語 trophē（栄養） / `historical`",
     "image_hint": "🍎 栄養を与える。",
     "examples": [
       {
@@ -9009,7 +9009,7 @@
     "group": "root:動作・運動",
     "core": "回る、向ける",
     "derived": "比喩、傾向",
-    "origin": "ギリシャ語 tropos（回転、向き） / productive",
+    "origin": "ギリシャ語 tropos（回転、向き） / `productive`",
     "image_hint": "🔄 回転、転向。",
     "examples": [
       {
@@ -9059,7 +9059,7 @@
     "group": "root:形・構造",
     "core": "円、輪",
     "derived": "循環、自転車",
-    "origin": "ギリシャ語 kyklos（円） / productive",
+    "origin": "ギリシャ語 kyklos（円） / `productive`",
     "image_hint": "⭕ 円形。",
     "examples": [
       {
@@ -9109,7 +9109,7 @@
     "group": "root:形・構造",
     "core": "球",
     "derived": "圏、領域",
-    "origin": "ギリシャ語 sphaira（球） / productive",
+    "origin": "ギリシャ語 sphaira（球） / `productive`",
     "image_hint": "🌐 球体。",
     "examples": [
       {
@@ -9159,7 +9159,7 @@
     "group": "root:形・構造",
     "core": "角",
     "derived": "多角形",
-    "origin": "ギリシャ語 gōnia（角） / historical",
+    "origin": "ギリシャ語 gōnia（角） / `historical`",
     "image_hint": "📐 角度。",
     "examples": [
       {
@@ -9209,7 +9209,7 @@
     "group": "root:形・構造",
     "core": "立体、固体",
     "derived": "三次元、ステレオ",
-    "origin": "ギリシャ語 stereos（固い、立体） / productive",
+    "origin": "ギリシャ語 stereos（固い、立体） / `productive`",
     "image_hint": "📦 立方体。",
     "examples": [
       {
@@ -9259,7 +9259,7 @@
     "group": "root:感覚",
     "core": "見る、目",
     "derived": "光学、選択",
-    "origin": "ギリシャ語 opsis（視覚） / productive",
+    "origin": "ギリシャ語 opsis（視覚） / `productive`",
     "image_hint": "👁️ 視覚の眼。",
     "examples": [
       {
@@ -9309,7 +9309,7 @@
     "group": "root:身体",
     "core": "血液",
     "derived": "出血、血液成分",
-    "origin": "ギリシャ語 haima（血） / productive（医学）",
+    "origin": "ギリシャ語 haima（血） / `productive`（医学）",
     "image_hint": "🩸 血液。",
     "examples": [
       {
@@ -9359,7 +9359,7 @@
     "group": "root:身体",
     "core": "骨",
     "derived": "骨格、骨疾患",
-    "origin": "ギリシャ語 osteon（骨） / historical（医学）",
+    "origin": "ギリシャ語 osteon（骨） / `historical`（医学）",
     "image_hint": "🦴 骨。",
     "examples": [
       {
@@ -9409,7 +9409,7 @@
     "group": "root:身体",
     "core": "細胞",
     "derived": "細胞学",
-    "origin": "ギリシャ語 kytos（容器） / productive（医学）",
+    "origin": "ギリシャ語 kytos（容器） / `productive`（医学）",
     "image_hint": "🧫 細胞。",
     "examples": [
       {
@@ -9459,7 +9459,7 @@
     "group": "root:身体",
     "core": "胃、腹",
     "derived": "消化器",
-    "origin": "ギリシャ語 gastēr（胃） / productive",
+    "origin": "ギリシャ語 gastēr（胃） / `productive`",
     "image_hint": "🍽️ 胃袋。",
     "examples": [
       {
@@ -9509,7 +9509,7 @@
     "group": "root:身体",
     "core": "鼻",
     "derived": "鼻科",
-    "origin": "ギリシャ語 rhis, rhinos（鼻） / historical",
+    "origin": "ギリシャ語 rhis, rhinos（鼻） / `historical`",
     "image_hint": "👃🦏 サイの大きな鼻。",
     "examples": [
       {
@@ -9559,7 +9559,7 @@
     "group": "root:身体",
     "core": "耳",
     "derived": "耳科",
-    "origin": "ギリシャ語 ous, ōtos（耳） / historical",
+    "origin": "ギリシャ語 ous, ōtos（耳） / `historical`",
     "image_hint": "👂 耳。",
     "examples": [
       {
@@ -9609,7 +9609,7 @@
     "group": "root:身体",
     "core": "目",
     "derived": "眼科",
-    "origin": "ギリシャ語 ophthalmos（目） / historical",
+    "origin": "ギリシャ語 ophthalmos（目） / `historical`",
     "image_hint": "👁️ 眼科の眼。",
     "examples": [
       {
@@ -9659,7 +9659,7 @@
     "group": "root:身体",
     "core": "息、肺、空気",
     "derived": "呼吸器、霊",
-    "origin": "ギリシャ語 pneuma（息、霊） / productive（医学）",
+    "origin": "ギリシャ語 pneuma（息、霊） / `productive`（医学）",
     "image_hint": "🫁 肺の呼吸。",
     "examples": [
       {
@@ -9709,7 +9709,7 @@
     "group": "root:その他",
     "core": "甘い",
     "derived": "糖類",
-    "origin": "ギリシャ語 glykys（甘い） / productive（化学）",
+    "origin": "ギリシャ語 glykys（甘い） / `productive`（化学）",
     "image_hint": "🍬 甘いもの。",
     "examples": [
       {
@@ -9759,7 +9759,7 @@
     "group": "root:生命",
     "core": "魚",
     "derived": "魚類学",
-    "origin": "ギリシャ語 ichthys（魚） / historical",
+    "origin": "ギリシャ語 ichthys（魚） / `historical`",
     "image_hint": "🐟 魚。",
     "examples": [
       {
@@ -9809,7 +9809,7 @@
     "group": "root:生命",
     "core": "鳥",
     "derived": "鳥類学",
-    "origin": "ギリシャ語 ornis, ornithos（鳥） / historical",
+    "origin": "ギリシャ語 ornis, ornithos（鳥） / `historical`",
     "image_hint": "🐦 鳥。",
     "examples": [
       {
@@ -9859,7 +9859,7 @@
     "group": "root:動作・運動",
     "core": "測る",
     "derived": "韻律、子宮（母）と別系統",
-    "origin": "ギリシャ語 metron（測定単位） / productive",
+    "origin": "ギリシャ語 metron（測定単位） / `productive`",
     "image_hint": "📏 メーター。",
     "examples": [
       {
@@ -9909,7 +9909,7 @@
     "group": "root:状態・存在",
     "core": "重い、圧",
     "derived": "気圧、圧力",
-    "origin": "ギリシャ語 barys（重い） / historical",
+    "origin": "ギリシャ語 barys（重い） / `historical`",
     "image_hint": "⚖️ 重さ。",
     "examples": [
       {
@@ -9959,7 +9959,7 @@
     "group": "root:形・構造",
     "core": "配列、秩序",
     "derived": "分類、戦術",
-    "origin": "ギリシャ語 taxis（配列） / historical",
+    "origin": "ギリシャ語 taxis（配列） / `historical`",
     "image_hint": "📋 整列。",
     "examples": [
       {
@@ -10009,7 +10009,7 @@
     "group": "root:形・構造",
     "core": "螺旋",
     "derived": "回転",
-    "origin": "ギリシャ語 helix（螺旋） / productive",
+    "origin": "ギリシャ語 helix（螺旋） / `productive`",
     "image_hint": "🌀 螺旋構造。",
     "examples": [
       {
@@ -10059,7 +10059,7 @@
     "group": "root:動作・運動",
     "core": "傾く、寄りかかる",
     "derived": "傾向、診療所",
-    "origin": "ギリシャ語 klinein（傾く） / productive",
+    "origin": "ギリシャ語 klinein（傾く） / `productive`",
     "image_hint": "📐 傾斜。",
     "examples": [
       {
@@ -10109,7 +10109,7 @@
     "group": "root:関係・社会",
     "core": "結婚",
     "derived": "婚姻形態",
-    "origin": "ギリシャ語 gamos（結婚） / historical",
+    "origin": "ギリシャ語 gamos（結婚） / `historical`",
     "image_hint": "💍 結婚指輪。",
     "examples": [
       {
@@ -10159,7 +10159,7 @@
     "group": "root:その他",
     "core": "神聖な",
     "derived": "階層、聖職",
-    "origin": "ギリシャ語 hieros（神聖な） / historical",
+    "origin": "ギリシャ語 hieros（神聖な） / `historical`",
     "image_hint": "⛪ 聖なる階層。",
     "examples": [
       {
@@ -10209,7 +10209,7 @@
     "group": "root:動作・運動",
     "core": "分解、緩める",
     "derived": "分析、溶解",
-    "origin": "ギリシャ語 lysis（緩めること） / productive（学術）",
+    "origin": "ギリシャ語 lysis（緩めること） / `productive`（学術）",
     "image_hint": "⚗️ 分解。",
     "examples": [
       {
@@ -10259,7 +10259,7 @@
     "group": "root:動作・運動",
     "core": "形作る",
     "derived": "成形、可塑性",
-    "origin": "ギリシャ語 plassein（形作る） / productive",
+    "origin": "ギリシャ語 plassein（形作る） / `productive`",
     "image_hint": "🧱 粘土を成形。",
     "examples": [
       {
@@ -10309,7 +10309,7 @@
     "group": "root:思考・知識",
     "core": "意見、信条",
     "derived": "教義、正説",
-    "origin": "ギリシャ語 doxa（意見） / historical",
+    "origin": "ギリシャ語 doxa（意見） / `historical`",
     "image_hint": "💭 信念のラベル。",
     "examples": [
       {
@@ -10359,7 +10359,7 @@
     "group": "root:思考・知識",
     "core": "判断する、分ける",
     "derived": "批判、危機",
-    "origin": "ギリシャ語 krinein（分ける、判断する） / productive",
+    "origin": "ギリシャ語 krinein（分ける、判断する） / `productive`",
     "image_hint": "⚖️ 判定。",
     "examples": [
       {
@@ -10409,7 +10409,7 @@
     "group": "root:状態・存在",
     "core": "眠り",
     "derived": "催眠",
-    "origin": "ギリシャ語 hypnos（眠り） / historical",
+    "origin": "ギリシャ語 hypnos（眠り） / `historical`",
     "image_hint": "😴 睡眠。",
     "examples": [
       {
@@ -10459,7 +10459,7 @@
     "group": "root:状態・存在",
     "core": "眠り",
     "derived": "不眠、夢遊",
-    "origin": "ラテン語 somnus（眠り） / historical",
+    "origin": "ラテン語 somnus（眠り） / `historical`",
     "image_hint": "💤 眠り。",
     "examples": [
       {
@@ -10509,7 +10509,7 @@
     "group": "root:自然・物質",
     "core": "金、黄金",
     "derived": "黄金色",
-    "origin": "ギリシャ語 chrysos（金） / historical",
+    "origin": "ギリシャ語 chrysos（金） / `historical`",
     "image_hint": "🏅 黄金。",
     "examples": [
       {
@@ -10559,7 +10559,7 @@
     "group": "root:状態・存在",
     "core": "乾いた",
     "derived": "乾燥、複写（乾式）",
-    "origin": "ギリシャ語 xēros（乾いた） / historical",
+    "origin": "ギリシャ語 xēros（乾いた） / `historical`",
     "image_hint": "🏜️ 乾燥地帯。",
     "examples": [
       {
@@ -10609,7 +10609,7 @@
     "group": "root:状態・存在",
     "core": "湿った",
     "derived": "湿度",
-    "origin": "ギリシャ語 hygros（湿った） / historical",
+    "origin": "ギリシャ語 hygros（湿った） / `historical`",
     "image_hint": "💧 湿度。",
     "examples": [
       {
@@ -10659,7 +10659,7 @@
     "group": "root:状態・存在",
     "core": "健康、衛生",
     "derived": "清潔",
-    "origin": "ギリシャ語 hygies（健康な） / historical",
+    "origin": "ギリシャ語 hygies（健康な） / `historical`",
     "image_hint": "🧼 衛生。",
     "examples": [
       {
@@ -10709,7 +10709,7 @@
     "group": "root:状態・存在",
     "core": "現れる、見える",
     "derived": "現象、幻",
-    "origin": "ギリシャ語 phainein（現れる） / productive",
+    "origin": "ギリシャ語 phainein（現れる） / `productive`",
     "image_hint": "👻 現れる影。",
     "examples": [
       {
@@ -10759,7 +10759,7 @@
     "group": "root:動作・運動",
     "core": "真似る",
     "derived": "模倣、パントマイム",
-    "origin": "ギリシャ語 mimos（真似する人） / historical",
+    "origin": "ギリシャ語 mimos（真似する人） / `historical`",
     "image_hint": "🎭 パントマイム役者。",
     "examples": [
       {
@@ -10809,7 +10809,7 @@
     "group": "root:状態・存在",
     "core": "個人の、独自の",
     "derived": "特異、慣用",
-    "origin": "ギリシャ語 idios（自分の） / historical",
+    "origin": "ギリシャ語 idios（自分の） / `historical`",
     "image_hint": "🪞 独自性。",
     "examples": [
       {
@@ -10859,7 +10859,7 @@
     "group": "root:動作・運動",
     "core": "分裂、裂ける",
     "derived": "統合失調",
-    "origin": "ギリシャ語 schizein（裂く） / historical",
+    "origin": "ギリシャ語 schizein（裂く） / `historical`",
     "image_hint": "💔 分裂。",
     "examples": [
       {
@@ -10909,7 +10909,7 @@
     "group": "root:その他",
     "core": "治療、医",
     "derived": "医療分野",
-    "origin": "ギリシャ語 iatros（医者） / historical",
+    "origin": "ギリシャ語 iatros（医者） / `historical`",
     "image_hint": "🩺 医者。",
     "examples": [
       {
@@ -10959,7 +10959,7 @@
     "group": "root:自然・物質",
     "core": "自然",
     "derived": "物理、身体",
-    "origin": "ギリシャ語 physis（自然） / productive",
+    "origin": "ギリシャ語 physis（自然） / `productive`",
     "image_hint": "🌿 自然。",
     "examples": [
       {
@@ -11009,7 +11009,7 @@
     "group": "root:言語・伝達",
     "core": "言葉",
     "derived": "動詞、語法",
-    "origin": "古英語 word / ラテン語 verbum / productive",
+    "origin": "古英語 word / ラテン語 verbum / `productive`",
     "image_hint": "💬 言葉。",
     "examples": [
       {
@@ -11059,7 +11059,7 @@
     "group": "root:動作・運動",
     "core": "働く、仕事",
     "derived": "作品、機能",
-    "origin": "古英語 weorc / productive",
+    "origin": "古英語 weorc / `productive`",
     "image_hint": "🛠️ 仕事中。",
     "examples": [
       {
@@ -11109,7 +11109,7 @@
     "group": "root:身体",
     "core": "手",
     "derived": "取り扱い、援助",
-    "origin": "古英語 hand / productive",
+    "origin": "古英語 hand / `productive`",
     "image_hint": "✋ 手。",
     "examples": [
       {
@@ -11159,7 +11159,7 @@
     "group": "root:身体",
     "core": "頭",
     "derived": "先頭、主要",
-    "origin": "古英語 hēafod / productive",
+    "origin": "古英語 hēafod / `productive`",
     "image_hint": "👤 頭。",
     "examples": [
       {
@@ -11209,7 +11209,7 @@
     "group": "root:身体",
     "core": "心、心臓",
     "derived": "中心、感情",
-    "origin": "古英語 heorte / productive",
+    "origin": "古英語 heorte / `productive`",
     "image_hint": "❤️ ハート。",
     "examples": [
       {
@@ -11259,7 +11259,7 @@
     "group": "root:身体",
     "core": "血",
     "derived": "血統、流血",
-    "origin": "古英語 blōd / productive",
+    "origin": "古英語 blōd / `productive`",
     "image_hint": "🩸 血液。",
     "examples": [
       {
@@ -11309,7 +11309,7 @@
     "group": "root:身体",
     "core": "骨",
     "derived": "骨格、芯",
-    "origin": "古英語 bān / productive",
+    "origin": "古英語 bān / `productive`",
     "image_hint": "🦴 骨。",
     "examples": [
       {
@@ -11359,7 +11359,7 @@
     "group": "root:生命",
     "core": "生命、生きる",
     "derived": "生活、活気",
-    "origin": "古英語 līf, libban / productive",
+    "origin": "古英語 līf, libban / `productive`",
     "image_hint": "💗 生命力。",
     "examples": [
       {
@@ -11409,7 +11409,7 @@
     "group": "root:生命",
     "core": "死",
     "derived": "終末、無生",
-    "origin": "古英語 dēaþ, dēad / productive",
+    "origin": "古英語 dēaþ, dēad / `productive`",
     "image_hint": "⚰️ 死。",
     "examples": [
       {
@@ -11459,7 +11459,7 @@
     "group": "root:思考・知識",
     "core": "心、気分",
     "derived": "精神、意識",
-    "origin": "古英語 (ge)mynd, mōd / productive",
+    "origin": "古英語 (ge)mynd, mōd / `productive`",
     "image_hint": "🧠 心の動き。",
     "examples": [
       {
@@ -11509,7 +11509,7 @@
     "group": "root:生命",
     "core": "魂",
     "derived": "精神、本質",
-    "origin": "古英語 sāwol / productive",
+    "origin": "古英語 sāwol / `productive`",
     "image_hint": "👼 魂。",
     "examples": [
       {
@@ -11559,7 +11559,7 @@
     "group": "root:その他",
     "core": "愛",
     "derived": "好み、情熱",
-    "origin": "古英語 lufu / productive",
+    "origin": "古英語 lufu / `productive`",
     "image_hint": "💖 愛。",
     "examples": [
       {
@@ -11609,7 +11609,7 @@
     "group": "root:関係・社会",
     "core": "友／敵",
     "derived": "親愛・敵対",
-    "origin": "古英語 frēond, fēond / productive",
+    "origin": "古英語 frēond, fēond / `productive`",
     "image_hint": "🤝 vs ⚔️ 友 vs 敵。",
     "examples": [
       {
@@ -11659,7 +11659,7 @@
     "group": "root:関係・社会",
     "core": "親族、種類",
     "derived": "親切（同族のように扱う）",
-    "origin": "古英語 cynn / productive",
+    "origin": "古英語 cynn / `productive`",
     "image_hint": "👪 家族。",
     "examples": [
       {
@@ -11709,7 +11709,7 @@
     "group": "root:状態・存在",
     "core": "家、故郷",
     "derived": "本拠",
-    "origin": "古英語 hām / productive",
+    "origin": "古英語 hām / `productive`",
     "image_hint": "🏠 家。",
     "examples": [
       {
@@ -11759,7 +11759,7 @@
     "group": "root:自然・物質",
     "core": "土地、国",
     "derived": "国土、上陸",
-    "origin": "古英語 land / productive",
+    "origin": "古英語 land / `productive`",
     "image_hint": "🗺️ 大地。",
     "examples": [
       {
@@ -11809,7 +11809,7 @@
     "group": "root:自然・物質",
     "core": "海",
     "derived": "海岸、航海",
-    "origin": "古英語 sǣ / productive",
+    "origin": "古英語 sǣ / `productive`",
     "image_hint": "🌊 海。",
     "examples": [
       {
@@ -11859,7 +11859,7 @@
     "group": "root:自然・物質",
     "core": "水",
     "derived": "液体、水路",
-    "origin": "古英語 wæter / productive",
+    "origin": "古英語 wæter / `productive`",
     "image_hint": "💧 水。",
     "examples": [
       {
@@ -11909,7 +11909,7 @@
     "group": "root:自然・物質",
     "core": "火",
     "derived": "情熱、解雇",
-    "origin": "古英語 fȳr / productive",
+    "origin": "古英語 fȳr / `productive`",
     "image_hint": "🔥 火。",
     "examples": [
       {
@@ -11959,7 +11959,7 @@
     "group": "root:自然・物質",
     "core": "地、地球",
     "derived": "大地、現世",
-    "origin": "古英語 eorþe / productive",
+    "origin": "古英語 eorþe / `productive`",
     "image_hint": "🌍 地球。",
     "examples": [
       {
@@ -12009,7 +12009,7 @@
     "group": "root:自然・物質",
     "core": "風",
     "derived": "嵐、気流",
-    "origin": "古英語 wind / productive",
+    "origin": "古英語 wind / `productive`",
     "image_hint": "💨 風。",
     "examples": [
       {
@@ -12059,7 +12059,7 @@
     "group": "root:自然・物質",
     "core": "石",
     "derived": "岩石、宝石",
-    "origin": "古英語 stān / productive",
+    "origin": "古英語 stān / `productive`",
     "image_hint": "🪨 石。",
     "examples": [
       {
@@ -12109,7 +12109,7 @@
     "group": "root:自然・物質",
     "core": "木",
     "derived": "森、木材",
-    "origin": "古英語 trēow, wudu / productive",
+    "origin": "古英語 trēow, wudu / `productive`",
     "image_hint": "🌳 木。",
     "examples": [
       {
@@ -12159,7 +12159,7 @@
     "group": "root:自然・物質",
     "core": "金／銀",
     "derived": "貴金属、貴重",
-    "origin": "古英語 gold, seolfor / productive",
+    "origin": "古英語 gold, seolfor / `productive`",
     "image_hint": "🥇🥈 メダル。",
     "examples": [
       {
@@ -12209,7 +12209,7 @@
     "group": "root:自然・物質",
     "core": "鉄",
     "derived": "強さ、アイロン",
-    "origin": "古英語 īsern / productive",
+    "origin": "古英語 īsern / `productive`",
     "image_hint": "⚙️ 鉄製の歯車。",
     "examples": [
       {
@@ -12259,7 +12259,7 @@
     "group": "root:動作・運動",
     "core": "道、方法",
     "derived": "方向、習慣",
-    "origin": "古英語 weg / productive",
+    "origin": "古英語 weg / `productive`",
     "image_hint": "🛣️ 道。",
     "examples": [
       {
@@ -12309,7 +12309,7 @@
     "group": "root:状態・存在",
     "core": "場所、立つ",
     "derived": "代わり、堅固",
-    "origin": "古英語 stede / productive",
+    "origin": "古英語 stede / `productive`",
     "image_hint": "🪑 居場所。",
     "examples": [
       {
@@ -12359,7 +12359,7 @@
     "group": "root:状態・存在",
     "core": "立つ",
     "derived": "持続する、耐える",
-    "origin": "古英語 standan / productive",
+    "origin": "古英語 standan / `productive`",
     "image_hint": "🧍 立つ人。",
     "examples": [
       {
@@ -12409,7 +12409,7 @@
     "group": "root:感覚",
     "core": "見る",
     "derived": "視野、理解",
-    "origin": "古英語 sēon / productive",
+    "origin": "古英語 sēon / `productive`",
     "image_hint": "👁️ 見る。",
     "examples": [
       {
@@ -12459,7 +12459,7 @@
     "group": "root:感覚",
     "core": "聞く",
     "derived": "聴取、評判",
-    "origin": "古英語 hīeran / productive",
+    "origin": "古英語 hīeran / `productive`",
     "image_hint": "👂 聞く耳。",
     "examples": [
       {
@@ -12509,7 +12509,7 @@
     "group": "root:言語・伝達",
     "core": "話す",
     "derived": "演説、発言",
-    "origin": "古英語 sprecan / productive",
+    "origin": "古英語 sprecan / `productive`",
     "image_hint": "🗣️ 話す。",
     "examples": [
       {
@@ -12559,7 +12559,7 @@
     "group": "root:言語・伝達",
     "core": "語る、告げる",
     "derived": "数える（古：数を語る）",
-    "origin": "古英語 tellan / productive",
+    "origin": "古英語 tellan / `productive`",
     "image_hint": "📖 物語る。",
     "examples": [
       {
@@ -12609,7 +12609,7 @@
     "group": "root:言語・伝達",
     "core": "読む",
     "derived": "解釈、助言（古）",
-    "origin": "古英語 rǣdan（助言する→読む） / productive",
+    "origin": "古英語 rǣdan（助言する→読む） / `productive`",
     "image_hint": "📖 読書。",
     "examples": [
       {
@@ -12659,7 +12659,7 @@
     "group": "root:言語・伝達",
     "core": "書く",
     "derived": "著述、令状",
-    "origin": "古英語 wrītan（刻む→書く） / productive",
+    "origin": "古英語 wrītan（刻む→書く） / `productive`",
     "image_hint": "✍️ 執筆。",
     "examples": [
       {
@@ -12709,7 +12709,7 @@
     "group": "root:思考・知識",
     "core": "考える",
     "derived": "思考、意見",
-    "origin": "古英語 þencan / productive",
+    "origin": "古英語 þencan / `productive`",
     "image_hint": "💭 考える人。",
     "examples": [
       {
@@ -12759,7 +12759,7 @@
     "group": "root:思考・知識",
     "core": "知る",
     "derived": "知識、認識",
-    "origin": "古英語 cnāwan（同根に can） / productive",
+    "origin": "古英語 cnāwan（同根に can） / `productive`",
     "image_hint": "🧠 知識。",
     "examples": [
       {
@@ -12809,7 +12809,7 @@
     "group": "root:動作・運動",
     "core": "飲む",
     "derived": "飲料、酩酊",
-    "origin": "古英語 drincan / productive",
+    "origin": "古英語 drincan / `productive`",
     "image_hint": "🍹 飲む動作。",
     "examples": [
       {
@@ -12859,7 +12859,7 @@
     "group": "root:動作・運動",
     "core": "食べる",
     "derived": "摂取、消費",
-    "origin": "古英語 etan / productive",
+    "origin": "古英語 etan / `productive`",
     "image_hint": "🍴 食事。",
     "examples": [
       {
@@ -12909,7 +12909,7 @@
     "group": "root:状態・存在",
     "core": "眠る",
     "derived": "休息、無活動",
-    "origin": "古英語 slǣpan / productive",
+    "origin": "古英語 slǣpan / `productive`",
     "image_hint": "😴 眠る。",
     "examples": [
       {
@@ -12959,7 +12959,7 @@
     "group": "root:状態・存在",
     "core": "目覚める",
     "derived": "警戒、復活",
-    "origin": "古英語 wacian / productive",
+    "origin": "古英語 wacian / `productive`",
     "image_hint": "⏰ 目覚まし。",
     "examples": [
       {
@@ -13009,7 +13009,7 @@
     "group": "root:思考・知識",
     "core": "夢",
     "derived": "夢想、理想",
-    "origin": "古英語 drēam（喜び→夢） / productive",
+    "origin": "古英語 drēam（喜び→夢） / `productive`",
     "image_hint": "💭 夢。",
     "examples": [
       {
@@ -13059,7 +13059,7 @@
     "group": "root:動作・運動",
     "core": "戦う",
     "derived": "闘争、争い",
-    "origin": "古英語 feohtan / productive",
+    "origin": "古英語 feohtan / `productive`",
     "image_hint": "🥊 戦い。",
     "examples": [
       {
@@ -13109,7 +13109,7 @@
     "group": "root:動作・運動",
     "core": "乗る",
     "derived": "乗り物、騎乗",
-    "origin": "古英語 rīdan / productive",
+    "origin": "古英語 rīdan / `productive`",
     "image_hint": "🏇 乗馬。",
     "examples": [
       {
@@ -13159,7 +13159,7 @@
     "group": "root:動作・運動",
     "core": "歩く",
     "derived": "散歩、歩行",
-    "origin": "古英語 wealcan / productive",
+    "origin": "古英語 wealcan / `productive`",
     "image_hint": "🚶 歩く。",
     "examples": [
       {
@@ -13209,7 +13209,7 @@
     "group": "root:動作・運動",
     "core": "落ちる",
     "derived": "秋、衰退",
-    "origin": "古英語 feallan / productive",
+    "origin": "古英語 feallan / `productive`",
     "image_hint": "⬇️ 落下。",
     "examples": [
       {
@@ -13259,7 +13259,7 @@
     "group": "root:動作・運動",
     "core": "投げる",
     "derived": "投擲、捻る",
-    "origin": "古英語 þrāwan（捻る→投げる） / productive",
+    "origin": "古英語 þrāwan（捻る→投げる） / `productive`",
     "image_hint": "🤾 投げる。",
     "examples": [
       {
@@ -13309,7 +13309,7 @@
     "group": "root:動作・運動",
     "core": "運ぶ、産む、耐える",
     "derived": "出産、果実、忍耐",
-    "origin": "古英語 beran / productive",
+    "origin": "古英語 beran / `productive`",
     "image_hint": "🤰 運ぶ・産む。",
     "examples": [
       {
@@ -13359,7 +13359,7 @@
     "group": "root:動作・運動",
     "core": "与える",
     "derived": "贈与、能力",
-    "origin": "古英語 giefan / productive",
+    "origin": "古英語 giefan / `productive`",
     "image_hint": "🎁 贈り物。",
     "examples": [
       {
@@ -13409,7 +13409,7 @@
     "group": "root:動作・運動",
     "core": "取る",
     "derived": "受け取る、つかむ",
-    "origin": "古ノルド語 taka / productive",
+    "origin": "古ノルド語 taka / `productive`",
     "image_hint": "✋ 取る動作。",
     "examples": [
       {
@@ -13459,7 +13459,7 @@
     "group": "root:動作・運動",
     "core": "作る",
     "derived": "製造、構成",
-    "origin": "古英語 macian / productive",
+    "origin": "古英語 macian / `productive`",
     "image_hint": "🔨 製作。",
     "examples": [
       {
@@ -13509,7 +13509,7 @@
     "group": "root:動作・運動",
     "core": "得る",
     "derived": "到着、理解",
-    "origin": "古ノルド語 geta / productive",
+    "origin": "古ノルド語 geta / `productive`",
     "image_hint": "👐 入手。",
     "examples": [
       {
@@ -13559,7 +13559,7 @@
     "group": "root:動作・運動",
     "core": "行く",
     "derived": "進行、消失",
-    "origin": "古英語 gān / productive",
+    "origin": "古英語 gān / `productive`",
     "image_hint": "➡️ 進む。",
     "examples": [
       {
@@ -13609,7 +13609,7 @@
     "group": "root:動作・運動",
     "core": "する、行う",
     "derived": "行為、達成",
-    "origin": "古英語 dōn / productive",
+    "origin": "古英語 dōn / `productive`",
     "image_hint": "✅ 完了。",
     "examples": [
       {
@@ -13659,7 +13659,7 @@
     "group": "root:思考・知識",
     "core": "賢い、知る",
     "derived": "知恵、知識",
-    "origin": "古英語 wīs（賢い） / productive",
+    "origin": "古英語 wīs（賢い） / `productive`",
     "image_hint": "🧙 賢者。",
     "examples": [
       {
@@ -13709,7 +13709,7 @@
     "group": "root:数量・程度",
     "core": "満ちた、満たす",
     "derived": "充足、完了",
-    "origin": "古英語 full, fyllan / productive",
+    "origin": "古英語 full, fyllan / `productive`",
     "image_hint": "🪣 満杯。",
     "examples": [
       {
@@ -13894,7 +13894,7 @@
     "group": "root:動作・運動",
     "core": "投げる",
     "derived": "",
-    "origin": "ギリシャ ballein / `historical`",
+    "origin": "ギリシャ語 ballein / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -13944,7 +13944,7 @@
     "group": "root:動作・運動",
     "core": "閉じる",
     "derived": "",
-    "origin": "ラテン claudere / `historical`",
+    "origin": "ラテン語 claudere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -13989,7 +13989,7 @@
     "group": "root:動作・運動",
     "core": "曲げる",
     "derived": "",
-    "origin": "ラテン flectere / `historical`",
+    "origin": "ラテン語 flectere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14029,7 +14029,7 @@
     "group": "root:動作・運動",
     "core": "注ぐ、溶かす",
     "derived": "",
-    "origin": "ラテン fundere / `historical`",
+    "origin": "ラテン語 fundere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14074,7 +14074,7 @@
     "group": "root:動作・運動",
     "core": "くっつく、付着する",
     "derived": "",
-    "origin": "ラテン haerere / `historical`",
+    "origin": "ラテン語 haerere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14119,7 +14119,7 @@
     "group": "root:動作・運動",
     "core": "運ぶ、担う",
     "derived": "",
-    "origin": "ギリシャ pherein / `historical`",
+    "origin": "ギリシャ語 pherein / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14164,7 +14164,7 @@
     "group": "root:動作・運動",
     "core": "つかむ、取る",
     "derived": "",
-    "origin": "ラテン prehendere / `historical`",
+    "origin": "ラテン語 prehendere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14209,7 +14209,7 @@
     "group": "root:動作・運動",
     "core": "押す",
     "derived": "",
-    "origin": "ラテン premere / `historical`",
+    "origin": "ラテン語 premere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14254,7 +14254,7 @@
     "group": "root:動作・運動",
     "core": "置く",
     "derived": "",
-    "origin": "ギリシャ tithenai / `historical`",
+    "origin": "ギリシャ語 tithenai / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14299,7 +14299,7 @@
     "group": "root:感覚",
     "core": "鋭い",
     "derived": "",
-    "origin": "ラテン acer / `historical`",
+    "origin": "ラテン語 acer / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14339,7 +14339,7 @@
     "group": "root:自然・物質",
     "core": "畑・農業",
     "derived": "",
-    "origin": "ラテン ager / `historical`",
+    "origin": "ラテン語 ager / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14374,7 +14374,7 @@
     "group": "root:身体",
     "core": "肉",
     "derived": "",
-    "origin": "ラテン caro / `historical`",
+    "origin": "ラテン語 caro / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14409,7 +14409,7 @@
     "group": "root:感覚",
     "core": "明るい・明快",
     "derived": "",
-    "origin": "ラテン clarus / `historical`",
+    "origin": "ラテン語 clarus / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14444,7 +14444,7 @@
     "group": "root:状態・存在",
     "core": "育つ・増える",
     "derived": "",
-    "origin": "ラテン crescere / `historical`",
+    "origin": "ラテン語 crescere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14484,7 +14484,7 @@
     "group": "root:価値・善悪",
     "core": "罪・過ち",
     "derived": "",
-    "origin": "ラテン culpa / `historical`",
+    "origin": "ラテン語 culpa / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14519,7 +14519,7 @@
     "group": "root:身体",
     "core": "指",
     "derived": "",
-    "origin": "ギリシャ daktylos / `historical`",
+    "origin": "ギリシャ語 daktylos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14554,7 +14554,7 @@
     "group": "root:価値・善悪",
     "core": "価値ある",
     "derived": "",
-    "origin": "ラテン dignus / `historical`",
+    "origin": "ラテン語 dignus / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14589,7 +14589,7 @@
     "group": "root:状態・存在",
     "core": "眠る",
     "derived": "",
-    "origin": "ラテン dormire / `historical`",
+    "origin": "ラテン語 dormire / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14619,7 +14619,7 @@
     "group": "root:動作・運動",
     "core": "走る・走路",
     "derived": "",
-    "origin": "ギリシャ dromos / `historical`",
+    "origin": "ギリシャ語 dromos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14654,7 +14654,7 @@
     "group": "root:動作・運動",
     "core": "逃げる",
     "derived": "",
-    "origin": "ラテン fugere / `historical`",
+    "origin": "ラテン語 fugere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14689,7 +14689,7 @@
     "group": "root:動作・運動",
     "core": "彫る・刻む",
     "derived": "",
-    "origin": "ギリシャ gluphein / `historical`",
+    "origin": "ギリシャ語 gluphein / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14719,7 +14719,7 @@
     "group": "root:価値・善悪",
     "core": "重い",
     "derived": "",
-    "origin": "ラテン gravis / `historical`",
+    "origin": "ラテン語 gravis / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14754,7 +14754,7 @@
     "group": "root:生命",
     "core": "裸",
     "derived": "",
-    "origin": "ギリシャ gymnos / `historical`",
+    "origin": "ギリシャ語 gymnos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14789,7 +14789,7 @@
     "group": "root:状態・存在",
     "core": "持つ・住む",
     "derived": "",
-    "origin": "ラテン habere / `historical`",
+    "origin": "ラテン語 habere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14829,7 +14829,7 @@
     "group": "root:形・構造",
     "core": "像",
     "derived": "",
-    "origin": "ギリシャ eikon / `historical`",
+    "origin": "ギリシャ語 eikon / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14864,7 +14864,7 @@
     "group": "root:動作・運動",
     "core": "つなぐ",
     "derived": "",
-    "origin": "ラテン jungere / `historical`",
+    "origin": "ラテン語 jungere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14899,7 +14899,7 @@
     "group": "root:動作・運動",
     "core": "縛る・結ぶ",
     "derived": "",
-    "origin": "ラテン ligare / `historical`",
+    "origin": "ラテン語 ligare / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14934,7 +14934,7 @@
     "group": "root:言語・伝達",
     "core": "文字",
     "derived": "",
-    "origin": "ラテン littera / `historical`",
+    "origin": "ラテン語 littera / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -14969,7 +14969,7 @@
     "group": "root:思考・知識",
     "core": "記憶",
     "derived": "",
-    "origin": "ギリシャ mnasthai / `historical`",
+    "origin": "ギリシャ語 mnasthai / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15004,7 +15004,7 @@
     "group": "root:動作・運動",
     "core": "変える",
     "derived": "",
-    "origin": "ラテン mutare / `historical`",
+    "origin": "ラテン語 mutare / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15039,7 +15039,7 @@
     "group": "root:数量・程度",
     "core": "数える",
     "derived": "",
-    "origin": "ラテン numerus / `historical`",
+    "origin": "ラテン語 numerus / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15074,7 +15074,7 @@
     "group": "root:価値・善悪",
     "core": "喜ばせる・なだめる",
     "derived": "",
-    "origin": "ラテン placere / `historical`",
+    "origin": "ラテン語 placere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15109,7 +15109,7 @@
     "group": "root:身体",
     "core": "息・肺・空気",
     "derived": "",
-    "origin": "ギリシャ pneuma / `historical`",
+    "origin": "ギリシャ語 pneuma / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15144,7 +15144,7 @@
     "group": "root:関係・社会",
     "core": "戦争・論争",
     "derived": "",
-    "origin": "ギリシャ polemos / `historical`",
+    "origin": "ギリシャ語 polemos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15174,7 +15174,7 @@
     "group": "root:思考・知識",
     "core": "行為・事柄",
     "derived": "",
-    "origin": "ギリシャ pragma / `historical`",
+    "origin": "ギリシャ語 pragma / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15209,7 +15209,7 @@
     "group": "root:動作・運動",
     "core": "刺す・点",
     "derived": "",
-    "origin": "ラテン pungere / `historical`",
+    "origin": "ラテン語 pungere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15244,7 +15244,7 @@
     "group": "root:自然・物質",
     "core": "根・削る",
     "derived": "",
-    "origin": "ラテン radix/radere / `historical`",
+    "origin": "ラテン語 radix/radere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15279,7 +15279,7 @@
     "group": "root:身体",
     "core": "流れる",
     "derived": "",
-    "origin": "ギリシャ rhein / `historical`",
+    "origin": "ギリシャ語 rhein / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15314,7 +15314,7 @@
     "group": "root:自然・物質",
     "core": "硬い",
     "derived": "",
-    "origin": "ギリシャ skleros / `historical`",
+    "origin": "ギリシャ語 skleros / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15344,7 +15344,7 @@
     "group": "root:自然・物質",
     "core": "揺れる",
     "derived": "",
-    "origin": "ギリシャ seiein / `historical`",
+    "origin": "ギリシャ語 seiein / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15374,7 +15374,7 @@
     "group": "root:言語・伝達",
     "core": "しるし",
     "derived": "",
-    "origin": "ギリシャ sema / `historical`",
+    "origin": "ギリシャ語 sema / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15409,7 +15409,7 @@
     "group": "root:言語・伝達",
     "core": "誓う・約束する",
     "derived": "",
-    "origin": "ラテン spondere / `historical`",
+    "origin": "ラテン語 spondere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15444,7 +15444,7 @@
     "group": "root:関係・社会",
     "core": "軍・軍隊",
     "derived": "",
-    "origin": "ギリシャ stratos / `historical`",
+    "origin": "ギリシャ語 stratos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15474,7 +15474,7 @@
     "group": "root:動作・運動",
     "core": "締める",
     "derived": "",
-    "origin": "ラテン stringere / `historical`",
+    "origin": "ラテン語 stringere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15509,7 +15509,7 @@
     "group": "root:状態・存在",
     "core": "境界・終わり",
     "derived": "",
-    "origin": "ラテン terminus / `historical`",
+    "origin": "ラテン語 terminus / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15544,7 +15544,7 @@
     "group": "root:動作・運動",
     "core": "織る",
     "derived": "",
-    "origin": "ラテン texere / `historical`",
+    "origin": "ラテン語 texere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15579,7 +15579,7 @@
     "group": "root:身体",
     "core": "死",
     "derived": "",
-    "origin": "ギリシャ thanatos / `historical`",
+    "origin": "ギリシャ語 thanatos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15609,7 +15609,7 @@
     "group": "root:感覚",
     "core": "見る・観察する",
     "derived": "",
-    "origin": "ギリシャ theasthai / `historical`",
+    "origin": "ギリシャ語 theasthai / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15644,7 +15644,7 @@
     "group": "root:身体",
     "core": "気・魂",
     "derived": "",
-    "origin": "ギリシャ thymos / `historical`",
+    "origin": "ギリシャ語 thymos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15674,7 +15674,7 @@
     "group": "root:動作・運動",
     "core": "切る",
     "derived": "",
-    "origin": "ギリシャ temnein / `historical`",
+    "origin": "ギリシャ語 temnein / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15709,7 +15709,7 @@
     "group": "root:感覚",
     "core": "音・張り",
     "derived": "",
-    "origin": "ギリシャ tonos / `historical`",
+    "origin": "ギリシャ語 tonos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15744,7 +15744,7 @@
     "group": "root:動作・運動",
     "core": "かき乱す",
     "derived": "",
-    "origin": "ラテン turba / `historical`",
+    "origin": "ラテン語 turba / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15779,7 +15779,7 @@
     "group": "root:形・構造",
     "core": "型・刻印",
     "derived": "",
-    "origin": "ギリシャ typos / `historical`",
+    "origin": "ギリシャ語 typos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15814,7 +15814,7 @@
     "group": "root:状態・存在",
     "core": "空・空にする",
     "derived": "",
-    "origin": "ラテン vacare / `historical`",
+    "origin": "ラテン語 vacare / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15849,7 +15849,7 @@
     "group": "root:動作・運動",
     "core": "運ぶ",
     "derived": "",
-    "origin": "ラテン vehere / `historical`",
+    "origin": "ラテン語 vehere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15884,7 +15884,7 @@
     "group": "root:状態・存在",
     "core": "活発",
     "derived": "",
-    "origin": "ラテン vigere / `historical`",
+    "origin": "ラテン語 vigere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15919,7 +15919,7 @@
     "group": "root:言語・伝達",
     "core": "誓う・願う",
     "derived": "",
-    "origin": "ラテン vovere / `historical`",
+    "origin": "ラテン語 vovere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15954,7 +15954,7 @@
     "group": "root:自然・物質",
     "core": "酵母・発酵",
     "derived": "",
-    "origin": "ギリシャ zyme / `historical`",
+    "origin": "ギリシャ語 zyme / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -15984,7 +15984,7 @@
     "group": "root:動作・運動",
     "core": "導く",
     "derived": "",
-    "origin": "ギリシャ agein / `historical`",
+    "origin": "ギリシャ語 agein / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16019,7 +16019,7 @@
     "group": "root:生命",
     "core": "痛み",
     "derived": "",
-    "origin": "ギリシャ algos / `historical`",
+    "origin": "ギリシャ語 algos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16054,7 +16054,7 @@
     "group": "root:身体",
     "core": "大動脈",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16089,7 +16089,7 @@
     "group": "root:身体",
     "core": "動脈",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16124,7 +16124,7 @@
     "group": "root:状態・存在",
     "core": "落ちる・起こる",
     "derived": "",
-    "origin": "ラテン cadere / `historical`",
+    "origin": "ラテン語 cadere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16169,7 +16169,7 @@
     "group": "root:身体",
     "core": "頭・主要な",
     "derived": "",
-    "origin": "ラテン caput / `historical`",
+    "origin": "ラテン語 caput / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16209,7 +16209,7 @@
     "group": "root:関係・社会",
     "core": "市民・都市",
     "derived": "",
-    "origin": "ラテン civis/civitas / `historical`",
+    "origin": "ラテン語 civis/civitas / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16249,7 +16249,7 @@
     "group": "root:身体",
     "core": "結腸",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16284,7 +16284,7 @@
     "group": "root:身体",
     "core": "心",
     "derived": "",
-    "origin": "ラテン cor / `historical`",
+    "origin": "ラテン語 cor / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16324,7 +16324,7 @@
     "group": "root:身体",
     "core": "頭蓋・頭",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16359,7 +16359,7 @@
     "group": "root:関係・社会",
     "core": "力・支配",
     "derived": "",
-    "origin": "ギリシャ kratos / `historical`",
+    "origin": "ギリシャ語 kratos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16394,7 +16394,7 @@
     "group": "root:思考・知識",
     "core": "判断・分ける",
     "derived": "",
-    "origin": "ギリシャ krinein / `historical`",
+    "origin": "ギリシャ語 krinein / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16429,7 +16429,7 @@
     "group": "root:形・構造",
     "core": "円・輪",
     "derived": "",
-    "origin": "ギリシャ kyklos / `historical`",
+    "origin": "ギリシャ語 kyklos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16464,7 +16464,7 @@
     "group": "root:感覚",
     "core": "反響・超音波",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16499,7 +16499,7 @@
     "group": "root:言語・伝達",
     "core": "話す・告げる",
     "derived": "",
-    "origin": "ラテン fari / `historical`",
+    "origin": "ラテン語 fari / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16544,7 +16544,7 @@
     "group": "root:関係・社会",
     "core": "結婚",
     "derived": "",
-    "origin": "ギリシャ gamos / `historical`",
+    "origin": "ギリシャ語 gamos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16579,7 +16579,7 @@
     "group": "root:思考・知識",
     "core": "知る",
     "derived": "",
-    "origin": "ギリシャ gignoskein / `historical`",
+    "origin": "ギリシャ語 gignoskein / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16614,7 +16614,7 @@
     "group": "root:形・構造",
     "core": "角・種",
     "derived": "",
-    "origin": "ギリシャ gonia / `historical`",
+    "origin": "ギリシャ語 gonia / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16649,7 +16649,7 @@
     "group": "root:身体",
     "core": "喉頭",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16684,7 +16684,7 @@
     "group": "root:言語・伝達",
     "core": "場所・話す",
     "derived": "",
-    "origin": "ラテン locus/loqui / `historical`",
+    "origin": "ラテン語 locus/loqui / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16724,7 +16724,7 @@
     "group": "root:身体",
     "core": "乳房",
     "derived": "",
-    "origin": "ラテン / `historical`",
+    "origin": "ラテン語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16759,7 +16759,7 @@
     "group": "root:生命",
     "core": "死",
     "derived": "",
-    "origin": "ラテン mors / `historical`",
+    "origin": "ラテン語 mors / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16799,7 +16799,7 @@
     "group": "root:言語・伝達",
     "core": "名前",
     "derived": "",
-    "origin": "ラテン nomen / `historical`",
+    "origin": "ラテン語 nomen / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16839,7 +16839,7 @@
     "group": "root:身体",
     "core": "咽頭",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16874,7 +16874,7 @@
     "group": "root:身体",
     "core": "静脈",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16909,7 +16909,7 @@
     "group": "root:生命",
     "core": "形作る",
     "derived": "",
-    "origin": "ギリシャ plassein / `historical`",
+    "origin": "ギリシャ語 plassein / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16949,7 +16949,7 @@
     "group": "root:身体",
     "core": "胸膜・肋膜",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -16984,7 +16984,7 @@
     "group": "root:身体",
     "core": "血",
     "derived": "",
-    "origin": "ラテン / `historical`",
+    "origin": "ラテン語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -17019,7 +17019,7 @@
     "group": "root:言語・伝達",
     "core": "印・しるし",
     "derived": "",
-    "origin": "ラテン signum / `historical`",
+    "origin": "ラテン語 signum / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -17059,7 +17059,7 @@
     "group": "root:動作・運動",
     "core": "解く・ゆるめる",
     "derived": "",
-    "origin": "ラテン solvere / `historical`",
+    "origin": "ラテン語 solvere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -17099,7 +17099,7 @@
     "group": "root:形・構造",
     "core": "球",
     "derived": "",
-    "origin": "ギリシャ sphaira / `historical`",
+    "origin": "ギリシャ語 sphaira / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -17134,7 +17134,7 @@
     "group": "root:形・構造",
     "core": "固い・立体",
     "derived": "",
-    "origin": "ギリシャ stereos / `historical`",
+    "origin": "ギリシャ語 stereos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -17169,7 +17169,7 @@
     "group": "root:身体",
     "core": "胸・胸郭",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -17204,7 +17204,7 @@
     "group": "root:身体",
     "core": "血栓",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -17239,7 +17239,7 @@
     "group": "root:身体",
     "core": "鼓膜",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -17274,7 +17274,7 @@
     "group": "root:身体",
     "core": "血管",
     "derived": "",
-    "origin": "ラテン / `historical`",
+    "origin": "ラテン語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -17309,7 +17309,7 @@
     "group": "root:動作・運動",
     "core": "巻く・回る",
     "derived": "",
-    "origin": "ラテン volvere / `historical`",
+    "origin": "ラテン語 volvere / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -17349,7 +17349,7 @@
     "group": "prefix:時間",
     "core": "〜の前に、あらかじめ",
     "derived": "事前に行う、先立つ、優先する、予備の",
-    "origin": "ラテン語 prae（前に、先に） / productive",
+    "origin": "ラテン語 prae（前に、先に） / `productive`",
     "image_hint": "⏰ 時計の針が「前」を指す。日本語の「プレオープン＝本番の前」と同じ感覚。",
     "examples": [
       {
@@ -17399,7 +17399,7 @@
     "group": "prefix:時間",
     "core": "再び、戻って",
     "derived": "反復する、元へ戻す、応答する、強意（強める）",
-    "origin": "ラテン語 re-（後ろへ、再び） / productive",
+    "origin": "ラテン語 re-（後ろへ、再び） / `productive`",
     "image_hint": "🔁 リプレイボタン。「もう一回！」のジェスチャー。",
     "examples": [
       {
@@ -17449,7 +17449,7 @@
     "group": "prefix:否定・反対",
     "core": "①〜でない（否定） ②〜を解く（逆転動作）",
     "derived": "反対の状態にする、取り消す、解除する",
-    "origin": "古英語 un-（否定、ゲルマン語 \\un-） + 別系統 and-/on-（逆転、動詞用） / productive",
+    "origin": "古英語 un-（否定、ゲルマン語 \\un-） + 別系統 and-/on-（逆転、動詞用） / `productive`",
     "image_hint": "🚫 否定の斜線。鍵を「unlock」＝施錠を解除する動作。",
     "examples": [
       {
@@ -17499,7 +17499,7 @@
     "group": "prefix:否定・反対",
     "core": "〜でない、反対の",
     "derived": "欠如、不可能、反対状態",
-    "origin": "ラテン語 in-（否定、印欧祖語 \\n̥- と同源、英語 un- と兄弟） / productive",
+    "origin": "ラテン語 in-（否定、印欧祖語 \\n̥- と同源、英語 un- と兄弟） / `productive`",
     "image_hint": "❌ ラテン語版の un-。「インポッシブル＝可能でない」。",
     "examples": [
       {
@@ -17549,7 +17549,7 @@
     "group": "prefix:方向・位置",
     "core": "中へ、〜の中で、〜の上に",
     "derived": "包含、進入、状態化（〜の状態にする）",
-    "origin": "ラテン語 in（中へ、英語 in と同源、印欧祖語 \\en） / productive",
+    "origin": "ラテン語 in（中へ、英語 in と同源、印欧祖語 \\en） / `productive`",
     "image_hint": "📥 受信ボックスへ「IN」と矢印が刺さるイメージ。",
     "examples": [
       {
@@ -17599,7 +17599,7 @@
     "group": "prefix:否定・反対",
     "core": "離れて、分けて、反対に",
     "derived": "否定、欠如、逆転、強意",
-    "origin": "ラテン語 dis-（分離、二つに） / productive",
+    "origin": "ラテン語 dis-（分離、二つに） / `productive`",
     "image_hint": "✂️ ハサミで切り分ける。「ディスる＝離して貶す」。",
     "examples": [
       {
@@ -17649,7 +17649,7 @@
     "group": "prefix:方向・位置",
     "core": "下に、下から",
     "derived": "副次的、従属、近接（下に置く→近づく）、二次的",
-    "origin": "ラテン語 sub（下に） / productive",
+    "origin": "ラテン語 sub（下に） / `productive`",
     "image_hint": "🚇 サブウェイ＝地下鉄。「下」のイメージそのもの。",
     "examples": [
       {
@@ -17699,7 +17699,7 @@
     "group": "prefix:方向・位置",
     "core": "上に、〜を超えて",
     "derived": "優越、過剰、超越的",
-    "origin": "ラテン語 super（上に、〜を超えて） / productive",
+    "origin": "ラテン語 super（上に、〜を超えて） / `productive`",
     "image_hint": "🦸 スーパーマンが空高く飛ぶ。「スーパー＝超」。",
     "examples": [
       {
@@ -17749,7 +17749,7 @@
     "group": "prefix:方向・位置",
     "core": "横切って、超えて、向こう側へ",
     "derived": "変化、転換、移転、貫通",
-    "origin": "ラテン語 trans（横切って、超えて） / productive",
+    "origin": "ラテン語 trans（横切って、超えて） / `productive`",
     "image_hint": "➡️🌉 橋を渡って向こう側へ。「トランスフォーム＝形を超えて変わる」。",
     "examples": [
       {
@@ -17799,7 +17799,7 @@
     "group": "prefix:否定・反対",
     "core": "〜に反対して、〜に対抗して",
     "derived": "防止、対立、対立物",
-    "origin": "ギリシャ語 anti（反対の、対する） / productive",
+    "origin": "ギリシャ語 anti（反対の、対する） / `productive`",
     "image_hint": "⚔️ 二人が向かい合って剣を構える。「アンチ＝反対派」。",
     "examples": [
       {
@@ -17849,7 +17849,7 @@
     "group": "prefix:方向・位置",
     "core": "〜から離れて",
     "derived": "分離、欠如、逸脱、強意",
-    "origin": "ラテン語 ab（〜から） / productive",
+    "origin": "ラテン語 ab（〜から） / `productive`",
     "image_hint": "🚪➡️ 部屋から出ていく動作。「アブセント＝場から離れる＝欠席」。",
     "examples": [
       {
@@ -17899,7 +17899,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の方へ、〜に向かって",
     "derived": "付加、追加、接近、増強",
-    "origin": "ラテン語 ad（〜へ） / productive",
+    "origin": "ラテン語 ad（〜へ） / `productive`",
     "image_hint": "🎯 矢印が的に「ヒット」する。ad- ＝向かう。",
     "examples": [
       {
@@ -17949,7 +17949,7 @@
     "group": "prefix:時間",
     "core": "〜の前に（時間的・空間的）",
     "derived": "先行、前置、先取り",
-    "origin": "ラテン語 ante（前に） / historical〜productive（限定的） / `historical/productive`",
+    "origin": "ラテン語 ante（前に） / `historical`〜`productive`（限定的）",
     "image_hint": "🕰️ アンティーク＝古い＝時間的に前。",
     "examples": [
       {
@@ -17999,7 +17999,7 @@
     "group": "prefix:方向・位置",
     "core": "前へ、〜のために",
     "derived": "賛成、代理、公開、前進",
-    "origin": "ラテン語 pro（前へ、〜のために） / productive",
+    "origin": "ラテン語 pro（前へ、〜のために） / `productive`",
     "image_hint": "👍 「プロ◯◯派」＝賛成派。前へ進む矢印。",
     "examples": [
       {
@@ -18049,7 +18049,7 @@
     "group": "prefix:時間",
     "core": "〜の前に、前もって",
     "derived": "原初の、予備の",
-    "origin": "ギリシャ語 pro（前に） / historical",
+    "origin": "ギリシャ語 pro（前に） / `historical`",
     "image_hint": "🏛️ ギリシャ神殿の「プロローグ＝前置きの言葉」。",
     "examples": [
       {
@@ -18099,7 +18099,7 @@
     "group": "prefix:時間",
     "core": "〜の後に",
     "derived": "事後、後続、後方",
-    "origin": "ラテン語 post（後に） / productive",
+    "origin": "ラテン語 post（後に） / `productive`",
     "image_hint": "⏭️ 「ポスト◯◯時代」＝〜の後の時代。",
     "examples": [
       {
@@ -18149,7 +18149,7 @@
     "group": "prefix:方向・位置",
     "core": "周りに、ぐるりと",
     "derived": "全方位、回避、包囲",
-    "origin": "ラテン語 circum（〜の周りに） / historical〜限定的に productive / `historical/productive`",
+    "origin": "ラテン語 circum（〜の周りに） / `historical`〜限定的に `productive`",
     "image_hint": "🔄 円を描いてぐるりと回る。サーカス（circus）の語源。",
     "examples": [
       {
@@ -18199,7 +18199,7 @@
     "group": "prefix:方向・位置",
     "core": "周りに、〜の近くに",
     "derived": "周辺、近接",
-    "origin": "ギリシャ語 peri（〜の周りに） / productive（学術）",
+    "origin": "ギリシャ語 peri（〜の周りに） / `productive`（学術）",
     "image_hint": "🌐 地球の周りを回る人工衛星。「ペリメーター＝周長」。",
     "examples": [
       {
@@ -18249,7 +18249,7 @@
     "group": "prefix:方向・位置",
     "core": "〜を通して、貫いて",
     "derived": "完全に、徹底的に、悪化（→ pejorative）",
-    "origin": "ラテン語 per（〜を通して） / productive（限定）",
+    "origin": "ラテン語 per（〜を通して） / `productive`（限定）",
     "image_hint": "⤴️ 矢が壁を貫通する。「パーフェクト＝完全に作られた」。",
     "examples": [
       {
@@ -18299,7 +18299,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の間に、相互に",
     "derived": "相互作用、中間、介在",
-    "origin": "ラテン語 inter（〜の間に） / productive",
+    "origin": "ラテン語 inter（〜の間に） / `productive`",
     "image_hint": "🔗 2つの点を結ぶ橋。「インターネット＝間をつなぐ網」。",
     "examples": [
       {
@@ -18349,7 +18349,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の内部に",
     "derived": "内部的な、組織内の",
-    "origin": "ラテン語 intra（内に） / productive（学術・専門）",
+    "origin": "ラテン語 intra（内に） / `productive`（学術・専門）",
     "image_hint": "🏢 会社の中だけで使う「イントラネット」。",
     "examples": [
       {
@@ -18399,7 +18399,7 @@
     "group": "prefix:方向・位置",
     "core": "内へ、内側へ",
     "derived": "導入、内省",
-    "origin": "ラテン語 intro（内へ） / historical",
+    "origin": "ラテン語 intro（内へ） / `historical`",
     "image_hint": "➡️🏠 外から家の中へ入る矢印。",
     "examples": [
       {
@@ -18449,7 +18449,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の外に、〜を超えて",
     "derived": "余分の、特別の、極度の",
-    "origin": "ラテン語 extra（外に） / productive",
+    "origin": "ラテン語 extra（外に） / `productive`",
     "image_hint": "✨「エキストラ＝特別、余分」のイメージ。",
     "examples": [
       {
@@ -18499,7 +18499,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の外へ",
     "derived": "完全に（強意）、以前の、除外",
-    "origin": "ラテン語 ex（〜の外へ） / productive",
+    "origin": "ラテン語 ex（〜の外へ） / `productive`",
     "image_hint": "🚪⬅️ 部屋から外へ出るドア。「エキジット(exit)＝出口」。",
     "examples": [
       {
@@ -18549,7 +18549,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の中へ、〜の状態にする",
     "derived": "包む、付与する、強める",
-    "origin": "古フランス語 en-（ラテン語 in- 起源、ギリシャ語 en- も同源） / productive",
+    "origin": "古フランス語 en-（ラテン語 in- 起源、ギリシャ語 en- も同源） / `productive`",
     "image_hint": "🎁 ラッピングで「包む」イメージ。「en + able ＝ 能力を中へ与える」。",
     "examples": [
       {
@@ -18599,7 +18599,7 @@
     "group": "prefix:状態・存在",
     "core": "〜の状態で、〜の上に",
     "derived": "進行中の、付着した",
-    "origin": "古英語 an-, on-（〜の上に、〜の中で） / historical",
+    "origin": "古英語 an-, on-（〜の上に、〜の中で） / `historical`",
     "image_hint": "🚶 歩いている最中。「a + walk → away（離れた状態で）」。",
     "examples": [
       {
@@ -18649,7 +18649,7 @@
     "group": "prefix:否定・反対",
     "core": "〜でない、〜が無い",
     "derived": "欠如、不在",
-    "origin": "ギリシャ語 a-, an-（否定、英語 un- と同源） / productive（学術）",
+    "origin": "ギリシャ語 a-, an-（否定、英語 un- と同源） / `productive`（学術）",
     "image_hint": "0️⃣ ゼロ、無の記号。「アシンメトリー＝対称性なし」。",
     "examples": [
       {
@@ -18699,7 +18699,7 @@
     "group": "prefix:数量・程度",
     "core": "二、二つの",
     "derived": "二重、両側、隔週・隔月",
-    "origin": "ラテン語 bi-, bis（二度） / productive",
+    "origin": "ラテン語 bi-, bis（二度） / `productive`",
     "image_hint": "🚲 自転車（bicycle）の2つの車輪。",
     "examples": [
       {
@@ -18749,7 +18749,7 @@
     "group": "prefix:数量・程度",
     "core": "二つの",
     "derived": "二重、対",
-    "origin": "ギリシャ語 di-（二） / historical（学術用語に化石化）",
+    "origin": "ギリシャ語 di-（二） / `historical`（学術用語に化石化）",
     "image_hint": "⚛️ 化学の「ダイオキシド＝二酸化物」。",
     "examples": [
       {
@@ -18799,7 +18799,7 @@
     "group": "prefix:数量・程度",
     "core": "三、三つの",
     "derived": "三重、三倍",
-    "origin": "ラテン語 tri- / ギリシャ語 tri-（三、印欧祖語 \\trei-） / productive",
+    "origin": "ラテン語 tri- / ギリシャ語 tri-（三、印欧祖語 \\trei-） / `productive`",
     "image_hint": "🔺 三角形。「トライアングル」。",
     "examples": [
       {
@@ -18849,7 +18849,7 @@
     "group": "prefix:数量・程度",
     "core": "四、四つの",
     "derived": "四倍、四分の一",
-    "origin": "ラテン語 quattuor（四） / historical",
+    "origin": "ラテン語 quattuor（四） / `historical`",
     "image_hint": "🟦 4辺の正方形（quadrate）。",
     "examples": [
       {
@@ -18899,7 +18899,7 @@
     "group": "prefix:数量・程度",
     "core": "四",
     "derived": "四重、四面",
-    "origin": "ギリシャ語 tettara（四） / historical（学術）",
+    "origin": "ギリシャ語 tettara（四） / `historical`（学術）",
     "image_hint": "🎮 テトリス（Tetris）＝4ブロックのゲーム。",
     "examples": [
       {
@@ -18949,7 +18949,7 @@
     "group": "prefix:数量・程度",
     "core": "五",
     "derived": "五重、五倍",
-    "origin": "ラテン語 quintus（五番目） / ギリシャ語 pente（五） / historical",
+    "origin": "ラテン語 quintus（五番目） / ギリシャ語 pente（五） / `historical`",
     "image_hint": "🖐️ 5本の指。ペンタゴン（米国防総省）＝五角形。",
     "examples": [
       {
@@ -18999,7 +18999,7 @@
     "group": "prefix:数量・程度",
     "core": "六",
     "derived": "六重",
-    "origin": "ギリシャ語 hex / ラテン語 sex / historical",
+    "origin": "ギリシャ語 hex / ラテン語 sex / `historical`",
     "image_hint": "⬡ 六角形のハチの巣。",
     "examples": [
       {
@@ -19049,7 +19049,7 @@
     "group": "prefix:数量・程度",
     "core": "七",
     "derived": "七番目",
-    "origin": "ギリシャ語 hepta / ラテン語 septem / historical",
+    "origin": "ギリシャ語 hepta / ラテン語 septem / `historical`",
     "image_hint": "7️⃣ ラッキーセブン。",
     "examples": [
       {
@@ -19099,7 +19099,7 @@
     "group": "prefix:数量・程度",
     "core": "八",
     "derived": "八重、八角",
-    "origin": "ラテン語 octō / ギリシャ語 oktō / historical",
+    "origin": "ラテン語 octō / ギリシャ語 oktō / `historical`",
     "image_hint": "🐙 タコ（octopus）の8本足。",
     "examples": [
       {
@@ -19149,7 +19149,7 @@
     "group": "prefix:数量・程度",
     "core": "九",
     "derived": "九番目",
-    "origin": "ラテン語 novem / historical",
+    "origin": "ラテン語 novem / `historical`",
     "image_hint": "9️⃣ November＝古代ローマ暦の9月。",
     "examples": [
       {
@@ -19199,7 +19199,7 @@
     "group": "prefix:否定・反対",
     "core": "〜でない",
     "derived": "非〜、無〜",
-    "origin": "ラテン語 non（〜でない） / productive（非常に高い）",
+    "origin": "ラテン語 non（〜でない） / `productive`（非常に高い）",
     "image_hint": "🚫 「ノン・アルコール」＝アルコールでない。",
     "examples": [
       {
@@ -19249,7 +19249,7 @@
     "group": "prefix:数量・程度",
     "core": "十",
     "derived": "十進、十倍",
-    "origin": "ギリシャ語 deka / ラテン語 decem / historical",
+    "origin": "ギリシャ語 deka / ラテン語 decem / `historical`",
     "image_hint": "🔟 「ディケード(decade)＝10年」。",
     "examples": [
       {
@@ -19299,7 +19299,7 @@
     "group": "prefix:数量・程度",
     "core": "百／百分の一",
     "derived": "1/100, パーセント",
-    "origin": "ラテン語 centum（百） / productive",
+    "origin": "ラテン語 centum（百） / `productive`",
     "image_hint": "💯 100点満点。「パーセント＝100に対して」。",
     "examples": [
       {
@@ -19349,7 +19349,7 @@
     "group": "prefix:数量・程度",
     "core": "千／千分の一",
     "derived": "1/1000",
-    "origin": "ラテン語 mille（千） / productive",
+    "origin": "ラテン語 mille（千） / `productive`",
     "image_hint": "1️⃣0️⃣0️⃣0️⃣ ミリメートル（1/1000m）。",
     "examples": [
       {
@@ -19399,7 +19399,7 @@
     "group": "prefix:数量・程度",
     "core": "千（1000）",
     "derived": "1000単位",
-    "origin": "ギリシャ語 chīlioi（千） / productive（SI単位）",
+    "origin": "ギリシャ語 chīlioi（千） / `productive`（SI単位）",
     "image_hint": "🏋️ キログラム＝1000グラム。",
     "examples": [
       {
@@ -19449,7 +19449,7 @@
     "group": "prefix:数量・程度",
     "core": "大きい、百万",
     "derived": "非常に大きい、誇大",
-    "origin": "ギリシャ語 megas（大きい） / productive",
+    "origin": "ギリシャ語 megas（大きい） / `productive`",
     "image_hint": "🦣 メガ盛り、メガホン＝大きな声。",
     "examples": [
       {
@@ -19499,7 +19499,7 @@
     "group": "prefix:数量・程度",
     "core": "小さい、百万分の一",
     "derived": "極小、顕微鏡的",
-    "origin": "ギリシャ語 mikros（小さい） / productive",
+    "origin": "ギリシャ語 mikros（小さい） / `productive`",
     "image_hint": "🔬 顕微鏡で見る世界。",
     "examples": [
       {
@@ -19549,7 +19549,7 @@
     "group": "prefix:数量・程度",
     "core": "小さい、少ない",
     "derived": "縮小版、最小限",
-    "origin": "ラテン語 minor, minimus（より小さい、最小の） / productive",
+    "origin": "ラテン語 minor, minimus（より小さい、最小の） / `productive`",
     "image_hint": "🚙 ミニカー、ミニスカート。",
     "examples": [
       {
@@ -19599,7 +19599,7 @@
     "group": "prefix:数量・程度",
     "core": "最大の",
     "derived": "拡張、強化",
-    "origin": "ラテン語 maximus（最大の） / productive",
+    "origin": "ラテン語 maximus（最大の） / `productive`",
     "image_hint": "📏 マキシスカート（長い）、マックスバリュー。",
     "examples": [
       {
@@ -19649,7 +19649,7 @@
     "group": "prefix:方向・位置",
     "core": "真ん中の",
     "derived": "中間、中央",
-    "origin": "古英語 midd（中央の） / productive",
+    "origin": "古英語 midd（中央の） / `productive`",
     "image_hint": "🕛 真ん中の時刻。「ミッドナイト＝真夜中」。",
     "examples": [
       {
@@ -19699,7 +19699,7 @@
     "group": "prefix:方向・位置",
     "core": "中央の",
     "derived": "仲介、平均、媒体",
-    "origin": "ラテン語 medius（中央の） / productive",
+    "origin": "ラテン語 medius（中央の） / `productive`",
     "image_hint": "⚖️ 仲介者（mediator）が両者の真ん中に立つ。",
     "examples": [
       {
@@ -19749,7 +19749,7 @@
     "group": "prefix:数量・程度",
     "core": "半分の",
     "derived": "部分的、準〜、ほぼ",
-    "origin": "ラテン語 semi-（半分） / productive",
+    "origin": "ラテン語 semi-（半分） / `productive`",
     "image_hint": "🌗 月の半分。「セミファイナル＝準決勝」。",
     "examples": [
       {
@@ -19799,7 +19799,7 @@
     "group": "prefix:数量・程度",
     "core": "半分",
     "derived": "半球、片側",
-    "origin": "ギリシャ語 hēmi-（半分） / historical（学術）",
+    "origin": "ギリシャ語 hēmi-（半分） / `historical`（学術）",
     "image_hint": "🌍 地球の片側（hemisphere）。",
     "examples": [
       {
@@ -19849,7 +19849,7 @@
     "group": "prefix:数量・程度",
     "core": "半分の、半〜",
     "derived": "部分的な、準〜",
-    "origin": "古フランス語 demi（ラテン dimidius から） / historical",
+    "origin": "古フランス語 demi（ラテン dimidius から） / `historical`",
     "image_hint": "🥖 「デミグラスソース」のデミ。",
     "examples": [
       {
@@ -19899,7 +19899,7 @@
     "group": "prefix:数量・程度",
     "core": "一つの、単一の",
     "derived": "唯一、独占",
-    "origin": "ギリシャ語 monos（単一の） / productive",
+    "origin": "ギリシャ語 monos（単一の） / `productive`",
     "image_hint": "☝️ 指1本。「モノレール＝1本のレール」。",
     "examples": [
       {
@@ -19949,7 +19949,7 @@
     "group": "prefix:数量・程度",
     "core": "一つの",
     "derived": "単一、統一、独自",
-    "origin": "ラテン語 unus（一つ） / productive",
+    "origin": "ラテン語 unus（一つ） / `productive`",
     "image_hint": "🦄 ユニコーン＝1本角。",
     "examples": [
       {
@@ -19999,7 +19999,7 @@
     "group": "prefix:数量・程度",
     "core": "多くの、複数の",
     "derived": "多種多様、多倍",
-    "origin": "ラテン語 multus（多い） / productive",
+    "origin": "ラテン語 multus（多い） / `productive`",
     "image_hint": "🎨 マルチカラー、マルチ機能。",
     "examples": [
       {
@@ -20049,7 +20049,7 @@
     "group": "prefix:数量・程度",
     "core": "多くの",
     "derived": "多面、多様、多重",
-    "origin": "ギリシャ語 polys（多い） / productive（学術）",
+    "origin": "ギリシャ語 polys（多い） / `productive`（学術）",
     "image_hint": "🎭 「ポリ◯◯」（ポリゴン＝多角形）。",
     "examples": [
       {
@@ -20099,7 +20099,7 @@
     "group": "prefix:数量・程度",
     "core": "すべての",
     "derived": "全方位、全能",
-    "origin": "ラテン語 omnis（すべて） / historical（一部 productive） / `historical/productive`",
+    "origin": "ラテン語 omnis（すべて） / `historical`（一部 `productive`）",
     "image_hint": "🌐 オムニチャネル＝全チャネル対応。",
     "examples": [
       {
@@ -20149,7 +20149,7 @@
     "group": "prefix:数量・程度",
     "core": "すべての、汎〜",
     "derived": "全体、世界中の",
-    "origin": "ギリシャ語 pan（すべて） / productive",
+    "origin": "ギリシャ語 pan（すべて） / `productive`",
     "image_hint": "🌍 パンデミック＝全人類の病。",
     "examples": [
       {
@@ -20199,7 +20199,7 @@
     "group": "prefix:数量・程度",
     "core": "全体、完全な",
     "derived": "全体論、ホログラム",
-    "origin": "ギリシャ語 holos（全体） / historical",
+    "origin": "ギリシャ語 holos（全体） / `historical`",
     "image_hint": "🌐 ホログラム＝全体像の立体投影。",
     "examples": [
       {
@@ -20249,7 +20249,7 @@
     "group": "prefix:数量・程度",
     "core": "〜を超えて、過度に",
     "derived": "過剰、超〜",
-    "origin": "ギリシャ語 hyper（上に、超えて） / productive",
+    "origin": "ギリシャ語 hyper（上に、超えて） / `productive`",
     "image_hint": "⚡ 「ハイパー◯◯」＝超〜。",
     "examples": [
       {
@@ -20299,7 +20299,7 @@
     "group": "prefix:数量・程度",
     "core": "〜の下に、〜未満の",
     "derived": "不足、低〜",
-    "origin": "ギリシャ語 hypo（下に） / productive（医学）",
+    "origin": "ギリシャ語 hypo（下に） / `productive`（医学）",
     "image_hint": "📉 下のレベル。「ハイポ＝下」。",
     "examples": [
       {
@@ -20349,7 +20349,7 @@
     "group": "prefix:数量・程度",
     "core": "〜を超えて、極度の",
     "derived": "超過、極端",
-    "origin": "ラテン語 ultra（向こうに） / productive",
+    "origin": "ラテン語 ultra（向こうに） / `productive`",
     "image_hint": "🌈 ウルトラマン＝超人。",
     "examples": [
       {
@@ -20399,7 +20399,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の下に",
     "derived": "基盤、下部構造",
-    "origin": "ラテン語 infra（下に） / productive（学術・技術）",
+    "origin": "ラテン語 infra（下に） / `productive`（学術・技術）",
     "image_hint": "🏗️ インフラ＝下に支える基盤。",
     "examples": [
       {
@@ -20449,7 +20449,7 @@
     "group": "prefix:否定・反対",
     "core": "〜に反対して、対抗して",
     "derived": "対立、逆、反論",
-    "origin": "ラテン語 contra（反対に） / productive",
+    "origin": "ラテン語 contra（反対に） / `productive`",
     "image_hint": "🤺 カウンター攻撃。逆方向への動き。",
     "examples": [
       {
@@ -20499,7 +20499,7 @@
     "group": "prefix:方向・位置",
     "core": "〜に向かって、〜に対して、〜に反対して",
     "derived": "妨害、対抗、覆い隠す",
-    "origin": "ラテン語 ob（〜に対して） / historical",
+    "origin": "ラテン語 ob（〜に対して） / `historical`",
     "image_hint": "🚧 行く手を阻む障害物。",
     "examples": [
       {
@@ -20549,7 +20549,7 @@
     "group": "prefix:関係・社会",
     "core": "共に、一緒に",
     "derived": "共同、完全に（強意）、集合",
-    "origin": "ラテン語 cum（〜と共に） / productive",
+    "origin": "ラテン語 cum（〜と共に） / `productive`",
     "image_hint": "🤝 握手＝共に。「コラボ」「コオペレーション」。",
     "examples": [
       {
@@ -20599,7 +20599,7 @@
     "group": "prefix:関係・社会",
     "core": "共に、同時に",
     "derived": "統合、同期、調和",
-    "origin": "ギリシャ語 syn（〜と共に） / productive（学術）",
+    "origin": "ギリシャ語 syn（〜と共に） / `productive`（学術）",
     "image_hint": "🎼 シンクロ＝同期＝共に動く。",
     "examples": [
       {
@@ -20649,7 +20649,7 @@
     "group": "prefix:状態・存在",
     "core": "自分自身で",
     "derived": "自動、独立、自律",
-    "origin": "ギリシャ語 autos（自分自身） / productive",
+    "origin": "ギリシャ語 autos（自分自身） / `productive`",
     "image_hint": "🤖 オートマチック＝自動で動く。",
     "examples": [
       {
@@ -20699,7 +20699,7 @@
     "group": "prefix:状態・存在",
     "core": "自分自身の",
     "derived": "自身、自己",
-    "origin": "古英語 self（自身） / productive",
+    "origin": "古英語 self（自身） / `productive`",
     "image_hint": "🪞 鏡の中の自分。",
     "examples": [
       {
@@ -20749,7 +20749,7 @@
     "group": "prefix:状態・存在",
     "core": "異なる、他の",
     "derived": "異種、異質",
-    "origin": "ギリシャ語 heteros（他の） / historical（学術）",
+    "origin": "ギリシャ語 heteros（他の） / `historical`（学術）",
     "image_hint": "🔀 異なる種類の混ざり合い。",
     "examples": [
       {
@@ -20799,7 +20799,7 @@
     "group": "prefix:状態・存在",
     "core": "同じ、同種の",
     "derived": "同質、同型",
-    "origin": "ギリシャ語 homos（同じ） / productive（学術）",
+    "origin": "ギリシャ語 homos（同じ） / `productive`（学術）",
     "image_hint": "🟰 等号。同じものが並ぶ。",
     "examples": [
       {
@@ -20849,7 +20849,7 @@
     "group": "prefix:生命",
     "core": "人間",
     "derived": "人類、人による",
-    "origin": "ラテン語 homo, hominis（人） / historical",
+    "origin": "ラテン語 homo, hominis（人） / `historical`",
     "image_hint": "🧍 ヒト科の代表「ホモ・サピエンス」。",
     "examples": [
       {
@@ -20899,7 +20899,7 @@
     "group": "prefix:価値・善悪",
     "core": "良い、善い",
     "derived": "恩恵、利益、祝福",
-    "origin": "ラテン語 bene（良く） / historical",
+    "origin": "ラテン語 bene（良く） / `historical`",
     "image_hint": "😊 ベネ＝良い。「ベネフィット＝利益」。",
     "examples": [
       {
@@ -20949,7 +20949,7 @@
     "group": "prefix:価値・善悪",
     "core": "悪い、不良の",
     "derived": "害悪、機能不全",
-    "origin": "ラテン語 malus（悪い）, male（悪く） / productive",
+    "origin": "ラテン語 malus（悪い）, male（悪く） / `productive`",
     "image_hint": "😈 マレフィセント（眠れる森の美女の悪役）。",
     "examples": [
       {
@@ -20999,7 +20999,7 @@
     "group": "prefix:価値・善悪",
     "core": "良い、素晴らしい",
     "derived": "適正、正しい",
-    "origin": "ギリシャ語 eu（良く） / historical",
+    "origin": "ギリシャ語 eu（良く） / `historical`",
     "image_hint": "🎉 ユーフォリア＝幸福感。",
     "examples": [
       {
@@ -21049,7 +21049,7 @@
     "group": "prefix:価値・善悪",
     "core": "悪い、困難な",
     "derived": "機能障害、不全",
-    "origin": "ギリシャ語 dys-（悪い、困難） / productive（医学）",
+    "origin": "ギリシャ語 dys-（悪い、困難） / `productive`（医学）",
     "image_hint": "💔 機能不全のサイン。",
     "examples": [
       {
@@ -21099,7 +21099,7 @@
     "group": "prefix:価値・善悪",
     "core": "悪い、醜い",
     "derived": "不快、不協和",
-    "origin": "ギリシャ語 kakos（悪い） / historical",
+    "origin": "ギリシャ語 kakos（悪い） / `historical`",
     "image_hint": "🎻 不協和音（cacophony）の耳障りな音。",
     "examples": [
       {
@@ -21149,7 +21149,7 @@
     "group": "prefix:価値・善悪",
     "core": "偽の、見せかけの",
     "derived": "偽装、擬似",
-    "origin": "ギリシャ語 pseudēs（偽の） / productive",
+    "origin": "ギリシャ語 pseudēs（偽の） / `productive`",
     "image_hint": "🎭 仮面。本物のフリ。",
     "examples": [
       {
@@ -21199,7 +21199,7 @@
     "group": "prefix:方向・位置",
     "core": "後に、〜の中に、〜を超えて",
     "derived": "変化、超越、メタ的",
-    "origin": "ギリシャ語 meta（後に、〜の中に） / productive",
+    "origin": "ギリシャ語 meta（後に、〜の中に） / `productive`",
     "image_hint": "🔄 メタ（自己言及）＝一段上から見る。",
     "examples": [
       {
@@ -21249,7 +21249,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の傍に、〜に並んで",
     "derived": "類似、副次的、防護",
-    "origin": "ギリシャ語 para（傍に） / productive",
+    "origin": "ギリシャ語 para（傍に） / `productive`",
     "image_hint": "🪂 パラシュート＝落下を防ぐ。",
     "examples": [
       {
@@ -21299,7 +21299,7 @@
     "group": "prefix:方向・位置",
     "core": "〜を通して、貫いて、横切って",
     "derived": "完全に、分割",
-    "origin": "ギリシャ語 dia（〜を通して） / historical",
+    "origin": "ギリシャ語 dia（〜を通して） / `historical`",
     "image_hint": "📏 ダイアゴナル＝対角線。",
     "examples": [
       {
@@ -21349,7 +21349,7 @@
     "group": "prefix:方向・位置",
     "core": "下へ、〜に対して",
     "derived": "完全に、徹底的に、破壊",
-    "origin": "ギリシャ語 kata（下へ） / historical",
+    "origin": "ギリシャ語 kata（下へ） / `historical`",
     "image_hint": "⬇️ 滝のように下へ。「カタストロフィ＝下へ崩れる」。",
     "examples": [
       {
@@ -21399,7 +21399,7 @@
     "group": "prefix:方向・位置",
     "core": "上へ、戻って、再び",
     "derived": "分析、類比",
-    "origin": "ギリシャ語 ana（上へ、再び） / historical",
+    "origin": "ギリシャ語 ana（上へ、再び） / `historical`",
     "image_hint": "⬆️🔬 分析＝上から眺めて分解する。",
     "examples": [
       {
@@ -21449,7 +21449,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の上に、〜の後に",
     "derived": "表面、外側、付加的",
-    "origin": "ギリシャ語 epi（上に、後に） / productive（学術）",
+    "origin": "ギリシャ語 epi（上に、後に） / `productive`（学術）",
     "image_hint": "🍰 ケーキの上の「エピソード（飾り）」。",
     "examples": [
       {
@@ -21499,7 +21499,7 @@
     "group": "prefix:方向・位置",
     "core": "〜から離れて、〜を超えて",
     "derived": "分離、終結",
-    "origin": "ギリシャ語 apo（〜から） / historical",
+    "origin": "ギリシャ語 apo（〜から） / `historical`",
     "image_hint": "🌅 「アポカリプス＝覆いを取り去る＝黙示録」。",
     "examples": [
       {
@@ -21549,7 +21549,7 @@
     "group": "prefix:方向・位置",
     "core": "遠くの、遠隔の",
     "derived": "通信、テレビ",
-    "origin": "ギリシャ語 tēle（遠くに） / productive",
+    "origin": "ギリシャ語 tēle（遠くに） / `productive`",
     "image_hint": "📡 遠隔通信のアンテナ。",
     "examples": [
       {
@@ -21599,7 +21599,7 @@
     "group": "prefix:時間",
     "core": "前の、先の",
     "derived": "予測、先頭、前述",
-    "origin": "古英語 fore（前に、英語 for と同源） / productive",
+    "origin": "古英語 fore（前に、英語 for と同源） / `productive`",
     "image_hint": "👁️🔭 先を見越す目。ゴルフの「フォアー！」（前方注意）。",
     "examples": [
       {
@@ -21649,7 +21649,7 @@
     "group": "prefix:時間",
     "core": "後の",
     "derived": "後続、事後",
-    "origin": "古英語 æfter（後で） / productive",
+    "origin": "古英語 æfter（後で） / `productive`",
     "image_hint": "🌅 アフター5、アフターケア。",
     "examples": [
       {
@@ -21699,7 +21699,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の上に、〜を超えて",
     "derived": "過剰、上方、超過",
-    "origin": "古英語 ofer（上に） / productive",
+    "origin": "古英語 ofer（上に） / `productive`",
     "image_hint": "⬆️ 「オーバー◯◯」＝越える、上の。",
     "examples": [
       {
@@ -21749,7 +21749,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の下に、〜未満の",
     "derived": "不足、隠れた、副次的",
-    "origin": "古英語 under（下に） / productive",
+    "origin": "古英語 under（下に） / `productive`",
     "image_hint": "⬇️ アンダーウェア＝下着。",
     "examples": [
       {
@@ -21799,7 +21799,7 @@
     "group": "prefix:方向・位置",
     "core": "上へ",
     "derived": "向上、増加、起立",
-    "origin": "古英語 up（上に） / productive",
+    "origin": "古英語 up（上に） / `productive`",
     "image_hint": "🆙 アップロード、アップグレード。",
     "examples": [
       {
@@ -21849,7 +21849,7 @@
     "group": "prefix:方向・位置",
     "core": "下へ",
     "derived": "低下、抑制、衰退",
-    "origin": "古英語 dūn（丘、下へ） / productive",
+    "origin": "古英語 dūn（丘、下へ） / `productive`",
     "image_hint": "🔽 ダウンロード、ダウンタウン。",
     "examples": [
       {
@@ -21899,7 +21899,7 @@
     "group": "prefix:方向・位置",
     "core": "外へ、〜を超えて",
     "derived": "凌駕、表出、追放",
-    "origin": "古英語 ūt（外へ） / productive",
+    "origin": "古英語 ūt（外へ） / `productive`",
     "image_hint": "🚪 アウトプット＝外へ出す。",
     "examples": [
       {
@@ -21949,7 +21949,7 @@
     "group": "prefix:方向・位置",
     "core": "中へ",
     "derived": "内側、内部",
-    "origin": "古英語 in（内に、ゲルマン語） / productive",
+    "origin": "古英語 in（内に、ゲルマン語） / `productive`",
     "image_hint": "📥 インプット＝内へ。",
     "examples": [
       {
@@ -21999,7 +21999,7 @@
     "group": "prefix:方向・位置",
     "core": "〜の上に、〜の状態で",
     "derived": "接触、進行、開始",
-    "origin": "古英語 on（上に） / productive",
+    "origin": "古英語 on（上に） / `productive`",
     "image_hint": "🔘 オン／オフのスイッチ。",
     "examples": [
       {
@@ -22049,7 +22049,7 @@
     "group": "prefix:方向・位置",
     "core": "〜から離れて",
     "derived": "不在、休止、外部",
-    "origin": "古英語 of（離れて、現代 off, of） / productive",
+    "origin": "古英語 of（離れて、現代 off, of） / `productive`",
     "image_hint": "🚫 オフライン、オフセット。",
     "examples": [
       {
@@ -22099,7 +22099,7 @@
     "group": "prefix:方向・位置",
     "core": "〜のそばに、副次的な",
     "derived": "二次的、付随",
-    "origin": "古英語 bī（そばに） / productive",
+    "origin": "古英語 bī（そばに） / `productive`",
     "image_hint": "🛣️ バイパス＝迂回路。",
     "examples": [
       {
@@ -22149,7 +22149,7 @@
     "group": "prefix:否定・反対",
     "core": "誤って、悪く",
     "derived": "失敗、欠如、悪意",
-    "origin": "古英語 mis-（誤って） / productive",
+    "origin": "古英語 mis-（誤って） / `productive`",
     "image_hint": "❌ ミステイク＝誤り。",
     "examples": [
       {
@@ -22199,7 +22199,7 @@
     "group": "prefix:価値・善悪",
     "core": "嫌う",
     "derived": "嫌悪、憎しみ",
-    "origin": "ギリシャ語 miseō（嫌う） / historical",
+    "origin": "ギリシャ語 miseō（嫌う） / `historical`",
     "image_hint": "😤 嫌悪のアイコン。",
     "examples": [
       {
@@ -22249,7 +22249,7 @@
     "group": "prefix:状態・存在",
     "core": "〜にする、〜にする、〜について",
     "derived": "強意、全面化、状態付与",
-    "origin": "古英語 be-（〜について、強意） / productive（限定的）",
+    "origin": "古英語 be-（〜について、強意） / `productive`（限定的）",
     "image_hint": "🔄 状態を「〜化」する変身ボタン。",
     "examples": [
       {
@@ -22299,7 +22299,7 @@
     "group": "prefix:方向・位置",
     "core": "〜から離れて",
     "derived": "分離",
-    "origin": "ラテン語 ab- の同化形（m, p, v 前） / historical",
+    "origin": "ラテン語 ab- の同化形（m, p, v 前） / `historical`",
     "image_hint": "🚪 部屋から離れる動き。",
     "examples": [
       {
@@ -22349,7 +22349,7 @@
     "group": "prefix:数量・程度",
     "core": "主要な、最高位の、始まりの",
     "derived": "支配、根源",
-    "origin": "ギリシャ語 arkhē（始まり、支配） / historical",
+    "origin": "ギリシャ語 arkhē（始まり、支配） / `historical`",
     "image_hint": "👑 アーチビショップ＝大司教。",
     "examples": [
       {
@@ -22399,7 +22399,7 @@
     "group": "prefix:時間",
     "core": "最初の、原初の",
     "derived": "試作、原型",
-    "origin": "ギリシャ語 prōtos（最初） / productive",
+    "origin": "ギリシャ語 prōtos（最初） / `productive`",
     "image_hint": "🥇 プロトタイプ＝最初の模型。",
     "examples": [
       {
@@ -22449,7 +22449,7 @@
     "group": "prefix:時間",
     "core": "新しい",
     "derived": "復興、再〜",
-    "origin": "ギリシャ語 neos（新しい） / productive",
+    "origin": "ギリシャ語 neos（新しい） / `productive`",
     "image_hint": "🆕 ネオン、ネオ◯◯。",
     "examples": [
       {
@@ -22499,7 +22499,7 @@
     "group": "prefix:時間",
     "core": "古い、太古の",
     "derived": "古代、化石",
-    "origin": "ギリシャ語 palaios（古い） / historical（学術）",
+    "origin": "ギリシャ語 palaios（古い） / `historical`（学術）",
     "image_hint": "🦖 パレオ＝古生代。",
     "examples": [
       {
@@ -22549,7 +22549,7 @@
     "group": "prefix:関係・社会",
     "core": "〜の代わりに",
     "derived": "代理、賛成",
-    "origin": "ラテン語 pro（〜のために、〜の代わりに） / historical",
+    "origin": "ラテン語 pro（〜のために、〜の代わりに） / `historical`",
     "image_hint": "🪪 「プロボノ」＝公益のために代行。",
     "examples": [
       {
@@ -22599,7 +22599,7 @@
     "group": "prefix:関係・社会",
     "core": "〜の代わりの、副〜",
     "derived": "副官、代理",
-    "origin": "ラテン語 vicis（変化、代わり） / productive",
+    "origin": "ラテン語 vicis（変化、代わり） / `productive`",
     "image_hint": "🧑‍💼 副社長＝ヴァイスプレジデント。",
     "examples": [
       {
@@ -22649,7 +22649,7 @@
     "group": "prefix:時間",
     "core": "元〜、前の",
     "derived": "過去の地位、退職した",
-    "origin": "ラテン語 ex（〜の外へ）から発展 / productive",
+    "origin": "ラテン語 ex（〜の外へ）から発展 / `productive`",
     "image_hint": "🚪➡️ 役職から「出た」人。",
     "examples": [
       {
@@ -22699,7 +22699,7 @@
     "group": "prefix:数量・程度",
     "core": "完全に、徹底的に",
     "derived": "強調",
-    "origin": "ラテン語 ex- の強意用法 / historical",
+    "origin": "ラテン語 ex- の強意用法 / `historical`",
     "image_hint": "💪 やり切る感じ。",
     "examples": [
       {
@@ -22749,7 +22749,7 @@
     "group": "prefix:数量・程度",
     "core": "強める",
     "derived": "完全に〜する",
-    "origin": "フランス語経由のラテン in- 強意用法 / historical",
+    "origin": "フランス語経由のラテン in- 強意用法 / `historical`",
     "image_hint": "💢 動作に「気合」を込める。",
     "examples": [
       {
@@ -22799,7 +22799,7 @@
     "group": "prefix:数量・程度",
     "core": "両方の、周囲の",
     "derived": "二面性、曖昧",
-    "origin": "ラテン語 ambi- / ギリシャ語 amphi（両側） / historical",
+    "origin": "ラテン語 ambi- / ギリシャ語 amphi（両側） / `historical`",
     "image_hint": "🤝 両手を広げる。両方を抱える。",
     "examples": [
       {
@@ -22849,7 +22849,7 @@
     "group": "prefix:数量・程度",
     "core": "大きい",
     "derived": "マクロ的、全体的",
-    "origin": "ギリシャ語 makros（大きい、長い） / productive",
+    "origin": "ギリシャ語 makros（大きい、長い） / `productive`",
     "image_hint": "🌐 マクロ経済＝全体経済。",
     "examples": [
       {
@@ -22899,7 +22899,7 @@
     "group": "prefix:数量・程度",
     "core": "10億分の一、極小",
     "derived": "微細",
-    "origin": "ギリシャ語 nanos（小人） / productive（科学）",
+    "origin": "ギリシャ語 nanos（小人） / `productive`（科学）",
     "image_hint": "🔬 ナノテクノロジー＝極微の世界。",
     "examples": [
       {
@@ -22949,7 +22949,7 @@
     "group": "prefix:数量・程度",
     "core": "10億、巨大",
     "derived": "超〜",
-    "origin": "ギリシャ語 gigas（巨人） / productive（SI単位）",
+    "origin": "ギリシャ語 gigas（巨人） / `productive`（SI単位）",
     "image_hint": "🦖 ギガ＝巨人。",
     "examples": [
       {
@@ -22999,7 +22999,7 @@
     "group": "prefix:数量・程度",
     "core": "1兆、極大",
     "derived": "超巨大",
-    "origin": "ギリシャ語 teras（怪物） / productive（SI単位）",
+    "origin": "ギリシャ語 teras（怪物） / `productive`（SI単位）",
     "image_hint": "🐲 テラ＝怪物級の大きさ。",
     "examples": [
       {
@@ -23049,7 +23049,7 @@
     "group": "prefix:数量・程度",
     "core": "1兆分の一",
     "derived": "微小",
-    "origin": "スペイン語/イタリア語 pico（小さい） / productive（SI単位）",
+    "origin": "スペイン語/イタリア語 pico（小さい） / `productive`（SI単位）",
     "image_hint": "📏 ピコ秒＝極微の時間。",
     "examples": [
       {
@@ -23099,7 +23099,7 @@
     "group": "prefix:方向・位置",
     "core": "〜に反対して、〜から離れて",
     "derived": "撤退、対抗",
-    "origin": "古英語 wiþ（〜に対して、現代 with は本来「対」） / historical",
+    "origin": "古英語 wiþ（〜に対して、現代 with は本来「対」） / `historical`",
     "image_hint": "↔️ withdraw＝引き下がる。",
     "examples": [
       {
@@ -23149,7 +23149,7 @@
     "group": "prefix:否定・反対",
     "core": "完全に、損なって、禁じて",
     "derived": "喪失、放棄",
-    "origin": "古英語 for-（強意・否定、ゲルマン語） / historical",
+    "origin": "古英語 for-（強意・否定、ゲルマン語） / `historical`",
     "image_hint": "🚫 完全に〜してしまう。",
     "examples": [
       {
@@ -23199,7 +23199,7 @@
     "group": "prefix:否定・反対",
     "core": "〜に反対して",
     "derived": "対抗",
-    "origin": "古英語 gēan-（反対、現代 again と同源） / historical",
+    "origin": "古英語 gēan-（反対、現代 again と同源） / `historical`",
     "image_hint": "↩️ 反対方向への動き。",
     "examples": [
       {
@@ -23249,7 +23249,7 @@
     "group": "prefix:数量・程度",
     "core": "二重の、二つの",
     "derived": "半ば",
-    "origin": "古英語 twi-（二、ゲルマン語） / historical",
+    "origin": "古英語 twi-（二、ゲルマン語） / `historical`",
     "image_hint": "👯 ツインズ＝双子。",
     "examples": [
       {
@@ -23299,7 +23299,7 @@
     "group": "prefix:品詞化",
     "core": "〜された",
     "derived": "完了",
-    "origin": "古英語 ge-（過去分詞、ドイツ語 ge- に対応） / non-productive",
+    "origin": "古英語 ge-（過去分詞、ドイツ語 ge- に対応） / `non-productive`",
     "image_hint": "📜 古英語の名残、文学のみ。",
     "examples": [
       {
@@ -23349,7 +23349,7 @@
     "group": "prefix:自然・物質",
     "core": "電子の、オンラインの",
     "derived": "デジタル化",
-    "origin": "英語 electronic の縮約（20世紀後半新造） / productive",
+    "origin": "英語 electronic の縮約（20世紀後半新造） / `productive`",
     "image_hint": "💻 e-mail, e-commerce。",
     "examples": [
       {
@@ -23399,7 +23399,7 @@
     "group": "prefix:状態・存在",
     "core": "コンピュータ・ネットワークの",
     "derived": "仮想空間、デジタル",
-    "origin": "ギリシャ語 kybernētēs（操舵手）→ cybernetics（人工頭脳学） / productive",
+    "origin": "ギリシャ語 kybernētēs（操舵手）→ cybernetics（人工頭脳学） / `productive`",
     "image_hint": "🌐 サイバー空間。",
     "examples": [
       {
@@ -23449,7 +23449,7 @@
     "group": "prefix:生命",
     "core": "生命の、生物の",
     "derived": "生物学的、生体",
-    "origin": "ギリシャ語 bios（生命） / productive",
+    "origin": "ギリシャ語 bios（生命） / `productive`",
     "image_hint": "🧬 バイオテクノロジー。",
     "examples": [
       {
@@ -23499,7 +23499,7 @@
     "group": "prefix:自然・物質",
     "core": "地球の、土地の",
     "derived": "地理、地質",
-    "origin": "ギリシャ語 gē（地） / productive",
+    "origin": "ギリシャ語 gē（地） / `productive`",
     "image_hint": "🌍 ジオグラフィ＝地理。",
     "examples": [
       {
@@ -23549,7 +23549,7 @@
     "group": "prefix:自然・物質",
     "core": "水の",
     "derived": "液体、水分",
-    "origin": "ギリシャ語 hydōr（水） / productive",
+    "origin": "ギリシャ語 hydōr（水） / `productive`",
     "image_hint": "💧 ハイドレーション＝水分補給。",
     "examples": [
       {
@@ -23599,7 +23599,7 @@
     "group": "prefix:自然・物質",
     "core": "熱の",
     "derived": "温度、温泉",
-    "origin": "ギリシャ語 thermos（熱い） / productive",
+    "origin": "ギリシャ語 thermos（熱い） / `productive`",
     "image_hint": "🔥 サーモスタット＝温度調節器。",
     "examples": [
       {
@@ -23649,7 +23649,7 @@
     "group": "prefix:自然・物質",
     "core": "光の",
     "derived": "写真の、光学的",
-    "origin": "ギリシャ語 phōs, phōtos（光） / productive",
+    "origin": "ギリシャ語 phōs, phōtos（光） / `productive`",
     "image_hint": "📸 写真＝光で描く絵。",
     "examples": [
       {
@@ -23699,7 +23699,7 @@
     "group": "prefix:思考・知識",
     "core": "心の、精神の",
     "derived": "心理的、精神的",
-    "origin": "ギリシャ語 psychē（魂、心） / productive",
+    "origin": "ギリシャ語 psychē（魂、心） / `productive`",
     "image_hint": "🧠 サイコパス＝心の病。",
     "examples": [
       {
@@ -23749,7 +23749,7 @@
     "group": "prefix:身体",
     "core": "神経の",
     "derived": "脳神経系",
-    "origin": "ギリシャ語 neuron（神経） / productive",
+    "origin": "ギリシャ語 neuron（神経） / `productive`",
     "image_hint": "🧠 ニューロン＝神経細胞。",
     "examples": [
       {
@@ -23799,7 +23799,7 @@
     "group": "prefix:身体",
     "core": "心臓の",
     "derived": "心血管の",
-    "origin": "ギリシャ語 kardia（心臓） / productive",
+    "origin": "ギリシャ語 kardia（心臓） / `productive`",
     "image_hint": "❤️ カーディオ運動＝有酸素運動。",
     "examples": [
       {
@@ -23849,7 +23849,7 @@
     "group": "prefix:身体",
     "core": "皮膚の",
     "derived": "表皮",
-    "origin": "ギリシャ語 derma（皮膚） / historical（医学）",
+    "origin": "ギリシャ語 derma（皮膚） / `historical`（医学）",
     "image_hint": "🦠 皮膚科＝dermatology。",
     "examples": [
       {
@@ -23899,7 +23899,7 @@
     "group": "prefix:生命",
     "core": "動物の",
     "derived": "生物",
-    "origin": "ギリシャ語 zōion（動物） / historical",
+    "origin": "ギリシャ語 zōion（動物） / `historical`",
     "image_hint": "🦁 動物園（zoo）。",
     "examples": [
       {
@@ -23949,7 +23949,7 @@
     "group": "prefix:生命",
     "core": "男性、人間",
     "derived": "男性的、雄",
-    "origin": "ギリシャ語 anēr, andros（男） / historical",
+    "origin": "ギリシャ語 anēr, andros（男） / `historical`",
     "image_hint": "🤖 アンドロイド＝人型ロボット。",
     "examples": [
       {
@@ -23999,7 +23999,7 @@
     "group": "prefix:生命",
     "core": "女性",
     "derived": "女性的、雌",
-    "origin": "ギリシャ語 gynē（女） / historical",
+    "origin": "ギリシャ語 gynē（女） / `historical`",
     "image_hint": "👩 婦人科＝gynecology。",
     "examples": [
       {
@@ -24049,7 +24049,7 @@
     "group": "prefix:その他",
     "core": "神の",
     "derived": "宗教、信仰",
-    "origin": "ギリシャ語 theos（神） / historical",
+    "origin": "ギリシャ語 theos（神） / `historical`",
     "image_hint": "✝️ 神学＝theology。",
     "examples": [
       {
@@ -24099,7 +24099,7 @@
     "group": "prefix:生命",
     "core": "死の",
     "derived": "死体、腐敗",
-    "origin": "ギリシャ語 nekros（死体） / historical",
+    "origin": "ギリシャ語 nekros（死体） / `historical`",
     "image_hint": "💀 死の象徴。",
     "examples": [
       {
@@ -24149,7 +24149,7 @@
     "group": "prefix:状態・存在",
     "core": "外国の、見知らぬ",
     "derived": "外来、異邦",
-    "origin": "ギリシャ語 xenos（よそ者） / historical",
+    "origin": "ギリシャ語 xenos（よそ者） / `historical`",
     "image_hint": "👽 異星人＝ゼノモーフ。",
     "examples": [
       {
@@ -24199,7 +24199,7 @@
     "group": "prefix:形・構造",
     "core": "正しい、まっすぐな",
     "derived": "矯正、正統",
-    "origin": "ギリシャ語 orthos（まっすぐな、正しい） / historical",
+    "origin": "ギリシャ語 orthos（まっすぐな、正しい） / `historical`",
     "image_hint": "📐 直角・直線・正しい。歯科矯正（orthodontics）。",
     "examples": [
       {
@@ -24249,7 +24249,7 @@
     "group": "prefix:方向・位置",
     "core": "下へ、離れて、逆転、完全に",
     "derived": "",
-    "origin": "ラテン / `historical`",
+    "origin": "ラテン語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24294,7 +24294,7 @@
     "group": "prefix:方向・位置",
     "core": "他の・異なる",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24324,7 +24324,7 @@
     "group": "prefix:方向・位置",
     "core": "水の",
     "derived": "",
-    "origin": "ラテン / `historical`",
+    "origin": "ラテン語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24354,7 +24354,7 @@
     "group": "prefix:自然・物質",
     "core": "星・宇宙の",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24384,7 +24384,7 @@
     "group": "prefix:数量・程度",
     "core": "遅い",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24414,7 +24414,7 @@
     "group": "prefix:自然・物質",
     "core": "時間の",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24444,7 +24444,7 @@
     "group": "prefix:方向・位置",
     "core": "隠れた",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24474,7 +24474,7 @@
     "group": "prefix:数量・程度",
     "core": "10分の1／100",
     "derived": "",
-    "origin": "ラテン/ギリシャ / `historical`",
+    "origin": "ラテン語/ギリシャ / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24504,7 +24504,7 @@
     "group": "prefix:自然・物質",
     "core": "家・環境",
     "derived": "",
-    "origin": "ギリシャ oikos / `historical`",
+    "origin": "ギリシャ語 oikos / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24534,7 +24534,7 @@
     "group": "prefix:方向・位置",
     "core": "電気の",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24564,7 +24564,7 @@
     "group": "prefix:方向・位置",
     "core": "内部の",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24599,7 +24599,7 @@
     "group": "prefix:方向・位置",
     "core": "外部の",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24634,7 +24634,7 @@
     "group": "prefix:数量・程度",
     "core": "類似・恒常",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24664,7 +24664,7 @@
     "group": "prefix:数量・程度",
     "core": "等しい",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24699,7 +24699,7 @@
     "group": "prefix:方向・位置",
     "core": "中間の",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24729,7 +24729,7 @@
     "group": "prefix:数量・程度",
     "core": "少数の",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24759,7 +24759,7 @@
     "group": "prefix:方向・位置",
     "core": "後方へ・遡って",
     "derived": "",
-    "origin": "ラテン / `historical`",
+    "origin": "ラテン語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24794,7 +24794,7 @@
     "group": "prefix:方向・位置",
     "core": "狭い",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24824,7 +24824,7 @@
     "group": "prefix:数量・程度",
     "core": "速い",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -24854,7 +24854,7 @@
     "group": "prefix:自然・物質",
     "core": "空気・航空",
     "derived": "",
-    "origin": "ギリシャ / `productive`",
+    "origin": "ギリシャ語 / `productive`",
     "image_hint": "",
     "examples": [
       {
@@ -24889,7 +24889,7 @@
     "group": "prefix:数量・程度",
     "core": "準〜・ほぼ",
     "derived": "",
-    "origin": "ラテン / `productive`",
+    "origin": "ラテン語 / `productive`",
     "image_hint": "",
     "examples": [
       {
@@ -24924,7 +24924,7 @@
     "group": "suffix:品詞化",
     "core": "〜すること、〜の状態",
     "derived": "動作の結果、動作そのもの、抽象概念",
-    "origin": "ラテン語 -tiō, -tiōnis（動作名詞語尾） / productive",
+    "origin": "ラテン語 -tiō, -tiōnis（動作名詞語尾） / `productive`",
     "image_hint": "🏭 動詞を「名詞工場」に通すと「ション」になって出てくる。",
     "examples": [
       {
@@ -24974,7 +24974,7 @@
     "group": "suffix:品詞化",
     "core": "〜できる、〜される能力がある",
     "derived": "〜にふさわしい、〜しやすい、〜に値する",
-    "origin": "ラテン語 -ābilis, -ibilis（能力形容詞語尾） / productive",
+    "origin": "ラテン語 -ābilis, -ibilis（能力形容詞語尾） / `productive`",
     "image_hint": "✅ チェックボックスが「OK＝可能」と光るイメージ。",
     "examples": [
       {
@@ -25024,7 +25024,7 @@
     "group": "suffix:品詞化",
     "core": "①〜のように（副詞化） ②〜のような（形容詞化、限定的）",
     "derived": "様態、頻度、性質",
-    "origin": "古英語 -līċ（〜のような、英語 like と同源、ゲルマン語 \\-līkaz） / productive",
+    "origin": "古英語 -līċ（〜のような、英語 like と同源、ゲルマン語 \\-līkaz） / `productive`",
     "image_hint": "🪞 形容詞を「鏡」にかざすと「副詞」に映る。",
     "examples": [
       {
@@ -25074,7 +25074,7 @@
     "group": "suffix:品詞化",
     "core": "〜する人、〜するもの",
     "derived": "動作主、職業、道具、出身地（Londoner）",
-    "origin": "古英語 -ere（動作主、ゲルマン語 \\-ārijaz、ラテン語 -ārius と相互影響）／ ラテン語 -or（動作主名詞） / productive",
+    "origin": "古英語 -ere（動作主、ゲルマン語 \\-ārijaz、ラテン語 -ārius と相互影響）／ ラテン語 -or（動作主名詞） / `productive`",
     "image_hint": "👤 動詞に「人型シール」を貼ると「〜する人」になる。",
     "examples": [
       {
@@ -25124,7 +25124,7 @@
     "group": "suffix:品詞化",
     "core": "〜であること、〜の状態・性質",
     "derived": "抽象名詞化、程度",
-    "origin": "古英語 -nes(s)（ゲルマン語 \\-nassuz） / productive",
+    "origin": "古英語 -nes(s)（ゲルマン語 \\-nassuz） / `productive`",
     "image_hint": "📦 形容詞を箱に入れて「状態」のラベルを貼る。",
     "examples": [
       {
@@ -25174,7 +25174,7 @@
     "group": "suffix:品詞化",
     "core": "〜であること、〜の性質",
     "derived": "抽象名詞化（形容詞→名詞）",
-    "origin": "ラテン語 -itās, -itātis / productive",
+    "origin": "ラテン語 -itās, -itātis / `productive`",
     "image_hint": "🧪 形容詞を「抽象名詞蒸留器」に通す。",
     "examples": [
       {
@@ -25224,7 +25224,7 @@
     "group": "suffix:品詞化",
     "core": "〜すること、〜の結果",
     "derived": "行為、状態、手段、結果物",
-    "origin": "ラテン語 -mentum（手段・結果） / productive",
+    "origin": "ラテン語 -mentum（手段・結果） / `productive`",
     "image_hint": "📦 動詞を「結果ボックス」に入れる。",
     "examples": [
       {
@@ -25274,7 +25274,7 @@
     "group": "suffix:品詞化",
     "core": "〜の状態、〜の集合、〜の行為",
     "derived": "料金、過程、結果",
-    "origin": "古フランス語 -age < ラテン語 -aticum / productive",
+    "origin": "古フランス語 -age < ラテン語 -aticum / `productive`",
     "image_hint": "🏛️ 「ガレージ」「メッセージ」のような集合感。",
     "examples": [
       {
@@ -25324,7 +25324,7 @@
     "group": "suffix:品詞化",
     "core": "〜すること、〜の状態",
     "derived": "動作の質、傾向、属性",
-    "origin": "ラテン語 -antia, -entia（現在分詞 + -ia） / productive",
+    "origin": "ラテン語 -antia, -entia（現在分詞 + -ia） / `productive`",
     "image_hint": "💫 状態を瓶詰めにした名詞。",
     "examples": [
       {
@@ -25374,7 +25374,7 @@
     "group": "suffix:品詞化",
     "core": "〜する（人・物）、〜の性質を持つ",
     "derived": "行為者、状態、薬剤",
-    "origin": "ラテン語 -ans, -antis / -ens, -entis（現在分詞語尾） / productive",
+    "origin": "ラテン語 -ans, -antis / -ens, -entis（現在分詞語尾） / `productive`",
     "image_hint": "🎭 動詞に「〜中」の現在進行ラベル。",
     "examples": [
       {
@@ -25424,7 +25424,7 @@
     "group": "suffix:品詞化",
     "core": "〜に関する、〜的な",
     "derived": "性質、所属",
-    "origin": "ラテン語 -icus / ギリシャ語 -ikos / productive",
+    "origin": "ラテン語 -icus / ギリシャ語 -ikos / `productive`",
     "image_hint": "🏷️ 名詞に「〜の」ラベル。",
     "examples": [
       {
@@ -25474,7 +25474,7 @@
     "group": "suffix:品詞化",
     "core": "〜に関する、〜的な",
     "derived": "名詞の場合「〜行為・〜物」",
-    "origin": "ラテン語 -ālis / productive",
+    "origin": "ラテン語 -ālis / `productive`",
     "image_hint": "🎨 名詞に「〜的」のフィルターをかける。",
     "examples": [
       {
@@ -25524,7 +25524,7 @@
     "group": "suffix:品詞化",
     "core": "〜の傾向がある、〜の性質を持つ",
     "derived": "能動的性質、機能",
-    "origin": "ラテン語 -īvus / productive",
+    "origin": "ラテン語 -īvus / `productive`",
     "image_hint": "🏃 動詞に「〜する性質」シール。",
     "examples": [
       {
@@ -25574,7 +25574,7 @@
     "group": "suffix:品詞化",
     "core": "〜に満ちた、〜の性質の",
     "derived": "豊富、特性",
-    "origin": "ラテン語 -ōsus / productive",
+    "origin": "ラテン語 -ōsus / `productive`",
     "image_hint": "🌊 名詞に「〜だらけ」の波を起こす。",
     "examples": [
       {
@@ -25624,7 +25624,7 @@
     "group": "suffix:品詞化",
     "core": "〜に満ちた、〜のある",
     "derived": "豊富、〜杯分（名詞用法）",
-    "origin": "古英語 full（満ちた） / productive",
+    "origin": "古英語 full（満ちた） / `productive`",
     "image_hint": "🪣 バケツ満杯のイメージ。",
     "examples": [
       {
@@ -25674,7 +25674,7 @@
     "group": "suffix:品詞化",
     "core": "〜のない、〜なしの",
     "derived": "欠如、無能",
-    "origin": "古英語 lēas（〜のない、現代 loose と同源） / productive",
+    "origin": "古英語 lēas（〜のない、現代 loose と同源） / `productive`",
     "image_hint": "🚫 「無」のラベル。-ful の真逆。",
     "examples": [
       {
@@ -25724,7 +25724,7 @@
     "group": "suffix:品詞化",
     "core": "〜の性質を持つ、〜に満ちた、可愛らしい",
     "derived": "抽象名詞、愛称",
-    "origin": "古英語 -ig（形容詞）／-ie（指小辞） / productive",
+    "origin": "古英語 -ig（形容詞）／-ie（指小辞） / `productive`",
     "image_hint": "🌸 名詞に「〜的」「〜ちゃん」ラベル。",
     "examples": [
       {
@@ -25774,7 +25774,7 @@
     "group": "suffix:品詞化",
     "core": "〜のような、〜っぽい、〜系の",
     "derived": "国籍、性質、近似",
-    "origin": "古英語 -isc（〜のような） / productive",
+    "origin": "古英語 -isc（〜のような） / `productive`",
     "image_hint": "🎭 「〜風」のステッカー。",
     "examples": [
       {
@@ -25824,7 +25824,7 @@
     "group": "suffix:品詞化",
     "core": "〜のような",
     "derived": "類似、性質",
-    "origin": "古英語 līc（似た、-ly と同源） / productive",
+    "origin": "古英語 līc（似た、-ly と同源） / `productive`",
     "image_hint": "🪞 「ライク」＝似ている。",
     "examples": [
       {
@@ -25874,7 +25874,7 @@
     "group": "suffix:品詞化",
     "core": "〜のような、〜らしい",
     "derived": "性質、頻度",
-    "origin": "古英語 -līċ / productive",
+    "origin": "古英語 -līċ / `productive`",
     "image_hint": "🪞 Suf-003 の形容詞用法。",
     "examples": [
       {
@@ -25924,7 +25924,7 @@
     "group": "suffix:品詞化",
     "core": "〜の方向で、〜の点で、〜のように",
     "derived": "様態、観点",
-    "origin": "古英語 wīse（方法、様式） / productive",
+    "origin": "古英語 wīse（方法、様式） / `productive`",
     "image_hint": "📐 方向や視点のラベル。",
     "examples": [
       {
@@ -25974,7 +25974,7 @@
     "group": "suffix:品詞化",
     "core": "〜の方向へ",
     "derived": "方位",
-    "origin": "古英語 -weard（向き） / productive",
+    "origin": "古英語 -weard（向き） / `productive`",
     "image_hint": "🧭 方向矢印。",
     "examples": [
       {
@@ -26024,7 +26024,7 @@
     "group": "suffix:品詞化",
     "core": "〜にする、〜化する",
     "derived": "変化、適用",
-    "origin": "ギリシャ語 -izein → ラテン -izāre / productive",
+    "origin": "ギリシャ語 -izein → ラテン -izāre / `productive`",
     "image_hint": "🔄 名詞・形容詞を「〜化マシン」に通す。",
     "examples": [
       {
@@ -26074,7 +26074,7 @@
     "group": "suffix:品詞化",
     "core": "〜にする、〜化する",
     "derived": "変化、強調",
-    "origin": "ラテン語 -ficāre（< facere 作る） / productive",
+    "origin": "ラテン語 -ficāre（< facere 作る） / `productive`",
     "image_hint": "🛠️ 「作る」マシン。",
     "examples": [
       {
@@ -26124,7 +26124,7 @@
     "group": "suffix:品詞化",
     "core": "〜にする、〜の状態の",
     "derived": "動作、性質、化合物",
-    "origin": "ラテン語 -ātus（過去分詞） / productive",
+    "origin": "ラテン語 -ātus（過去分詞） / `productive`",
     "image_hint": "🔄 三役こなす万能接尾辞。",
     "examples": [
       {
@@ -26174,7 +26174,7 @@
     "group": "suffix:品詞化",
     "core": "〜にする、〜になる",
     "derived": "状態変化",
-    "origin": "古英語 -nian（動詞化） / productive",
+    "origin": "古英語 -nian（動詞化） / `productive`",
     "image_hint": "🔄 形容詞 → 動詞変身ボタン。",
     "examples": [
       {
@@ -26224,7 +26224,7 @@
     "group": "suffix:品詞化",
     "core": "〜された",
     "derived": "受動、完了",
-    "origin": "古英語 -en（強変化動詞の過去分詞） / historical（化石化）",
+    "origin": "古英語 -en（強変化動詞の過去分詞） / `historical`（化石化）",
     "image_hint": "⏪ 完了マーク。",
     "examples": [
       {
@@ -26274,7 +26274,7 @@
     "group": "suffix:品詞化",
     "core": "〜製の、〜でできた",
     "derived": "素材",
-    "origin": "古英語 -en（材質） / historical",
+    "origin": "古英語 -en（材質） / `historical`",
     "image_hint": "🪵 素材ラベル。",
     "examples": [
       {
@@ -26324,7 +26324,7 @@
     "group": "suffix:品詞化",
     "core": "〜の状態、〜の時期、〜であること",
     "derived": "集団、地位",
-    "origin": "古英語 hād（状態、階級） / productive",
+    "origin": "古英語 hād（状態、階級） / `productive`",
     "image_hint": "🎓 状態・段階のスタンプ。",
     "examples": [
       {
@@ -26374,7 +26374,7 @@
     "group": "suffix:品詞化",
     "core": "〜の状態、〜の関係、〜の技能",
     "derived": "地位、技術、集団",
-    "origin": "古英語 -scipe（形、状態） / productive",
+    "origin": "古英語 -scipe（形、状態） / `productive`",
     "image_hint": "🚢 ship との関連はなく「形・状態」。",
     "examples": [
       {
@@ -26424,7 +26424,7 @@
     "group": "suffix:品詞化",
     "core": "〜の領域、〜の状態、〜の権威",
     "derived": "集団、領土",
-    "origin": "古英語 dōm（判決、権威、現代 doom と同源） / productive",
+    "origin": "古英語 dōm（判決、権威、現代 doom と同源） / `productive`",
     "image_hint": "🏰 王国の領域。",
     "examples": [
       {
@@ -26474,7 +26474,7 @@
     "group": "suffix:品詞化",
     "core": "〜主義、〜の特性、〜の状態",
     "derived": "イデオロギー、行動様式、症状",
-    "origin": "ギリシャ語 -ismos / ラテン -ismus / productive",
+    "origin": "ギリシャ語 -ismos / ラテン -ismus / `productive`",
     "image_hint": "📚 思想ラベル。",
     "examples": [
       {
@@ -26524,7 +26524,7 @@
     "group": "suffix:品詞化",
     "core": "〜する人、〜主義者、〜の専門家",
     "derived": "信奉者、職業",
-    "origin": "ギリシャ語 -istēs / productive",
+    "origin": "ギリシャ語 -istēs / `productive`",
     "image_hint": "👤 専門家バッジ。",
     "examples": [
       {
@@ -26574,7 +26574,7 @@
     "group": "suffix:品詞化",
     "core": "〜の人、〜に属する",
     "derived": "出身、信奉、専門",
-    "origin": "ラテン語 -iānus, -ānus / productive",
+    "origin": "ラテン語 -iānus, -ānus / `productive`",
     "image_hint": "🌍 「〜出身者」のラベル。",
     "examples": [
       {
@@ -26624,7 +26624,7 @@
     "group": "suffix:品詞化",
     "core": "〜される人",
     "derived": "動作の受け手、対象者",
-    "origin": "古フランス語 -é（過去分詞語尾） / productive",
+    "origin": "古フランス語 -é（過去分詞語尾） / `productive`",
     "image_hint": "🎯 「される側」のターゲット。",
     "examples": [
       {
@@ -26674,7 +26674,7 @@
     "group": "suffix:品詞化",
     "core": "〜に従事する人",
     "derived": "専門職、活動家",
-    "origin": "フランス語 -ier → ラテン -ārius / productive",
+    "origin": "フランス語 -ier → ラテン -ārius / `productive`",
     "image_hint": "🛠️ 専門職人。",
     "examples": [
       {
@@ -26724,7 +26724,7 @@
     "group": "suffix:品詞化",
     "core": "〜の場所、〜の集合、〜の行為",
     "derived": "商売、技術、態度",
-    "origin": "古フランス語 -erie / productive",
+    "origin": "古フランス語 -erie / `productive`",
     "image_hint": "🏪 お店・場所のラベル。",
     "examples": [
       {
@@ -26774,7 +26774,7 @@
     "group": "suffix:品詞化",
     "core": "〜に関する、〜の性質を持つ",
     "derived": "機能、傾向",
-    "origin": "ラテン語 -ōrius / productive",
+    "origin": "ラテン語 -ōrius / `productive`",
     "image_hint": "🏷️ 〜的の機能ラベル。",
     "examples": [
       {
@@ -26824,7 +26824,7 @@
     "group": "suffix:品詞化",
     "core": "〜の場所",
     "derived": "施設、機関",
-    "origin": "ラテン語 -ōrium / productive",
+    "origin": "ラテン語 -ōrium / `productive`",
     "image_hint": "🏛️ 「〜所・〜室」の場所ラベル。",
     "examples": [
       {
@@ -26874,7 +26874,7 @@
     "group": "suffix:品詞化",
     "core": "〜のための場所",
     "derived": "施設、収容所",
-    "origin": "ラテン語 -ārium, -ōrium / historical",
+    "origin": "ラテン語 -ārium, -ōrium / `historical`",
     "image_hint": "🏛️ 専門施設の建物。",
     "examples": [
       {
@@ -26924,7 +26924,7 @@
     "group": "suffix:品詞化",
     "core": "〜の、〜人、〜語",
     "derived": "文体、業界用語",
-    "origin": "イタリア語 -ese < ラテン -ēnsis / productive",
+    "origin": "イタリア語 -ese < ラテン -ēnsis / `productive`",
     "image_hint": "🌏 アジア・国名の語尾。",
     "examples": [
       {
@@ -26974,7 +26974,7 @@
     "group": "suffix:品詞化",
     "core": "〜の、〜人、〜語",
     "derived": "国民、言語",
-    "origin": "Suf-018 と同源 / productive（限定）",
+    "origin": "Suf-018 と同源 / `productive`（限定）",
     "image_hint": "🇬🇧 主にヨーロッパの国名語尾。",
     "examples": [
       {
@@ -27024,7 +27024,7 @@
     "group": "suffix:品詞化",
     "core": "女性の〜",
     "derived": "性別指示",
-    "origin": "古フランス語 -esse < 後期ラテン -issa / historical（現代では使用控えめ）",
+    "origin": "古フランス語 -esse < 後期ラテン -issa / `historical`（現代では使用控えめ）",
     "image_hint": "👸 女性形バッジ。",
     "examples": [
       {
@@ -27074,7 +27074,7 @@
     "group": "suffix:品詞化",
     "core": "小さな〜、女性の〜",
     "derived": "縮小、模造",
-    "origin": "古フランス語 -ette / productive（限定）",
+    "origin": "古フランス語 -ette / `productive`（限定）",
     "image_hint": "🎀 ちっちゃい・かわいいラベル。",
     "examples": [
       {
@@ -27124,7 +27124,7 @@
     "group": "suffix:品詞化",
     "core": "小さな〜",
     "derived": "小型化",
-    "origin": "古フランス語 -elet / productive（限定）",
+    "origin": "古フランス語 -elet / `productive`（限定）",
     "image_hint": "📏 ミニチュア化マシン。",
     "examples": [
       {
@@ -27174,7 +27174,7 @@
     "group": "suffix:品詞化",
     "core": "小さな〜、若い〜",
     "derived": "軽蔑",
-    "origin": "古英語 -ling（ゲルマン語） / productive（限定）",
+    "origin": "古英語 -ling（ゲルマン語） / `productive`（限定）",
     "image_hint": "🐣 ヒナのイメージ。",
     "examples": [
       {
@@ -27224,7 +27224,7 @@
     "group": "suffix:品詞化",
     "core": "小さな〜、可愛らしい〜",
     "derived": "親近感",
-    "origin": "中世オランダ語 -kijn / historical",
+    "origin": "中世オランダ語 -kijn / `historical`",
     "image_hint": "👶 親愛の小型化。",
     "examples": [
       {
@@ -27274,7 +27274,7 @@
     "group": "suffix:品詞化",
     "core": "小さな〜",
     "derived": "縮小",
-    "origin": "古英語 -uc（指小） / non-productive",
+    "origin": "古英語 -uc（指小） / `non-productive`",
     "image_hint": "🪨 小石、小山のイメージ。",
     "examples": [
       {
@@ -27324,7 +27324,7 @@
     "group": "suffix:品詞化",
     "core": "より〜",
     "derived": "比較",
-    "origin": "古英語 -ra / productive",
+    "origin": "古英語 -ra / `productive`",
     "image_hint": "⬆️ 比較の矢印。",
     "examples": [
       {
@@ -27374,7 +27374,7 @@
     "group": "suffix:品詞化",
     "core": "最も〜",
     "derived": "最大限",
-    "origin": "古英語 -est / productive",
+    "origin": "古英語 -est / `productive`",
     "image_hint": "🏆 最上級のトロフィー。",
     "examples": [
       {
@@ -27424,7 +27424,7 @@
     "group": "suffix:品詞化",
     "core": "〜の方の",
     "derived": "方位形容詞",
-    "origin": "古英語 -erne / historical",
+    "origin": "古英語 -erne / `historical`",
     "image_hint": "🧭 方位の形容詞化。",
     "examples": [
       {
@@ -27474,7 +27474,7 @@
     "group": "suffix:品詞化",
     "core": "〜番目の",
     "derived": "順序",
-    "origin": "古英語 -þa, -ða / productive（数詞）",
+    "origin": "古英語 -þa, -ða / `productive`（数詞）",
     "image_hint": "🥇 順位ラベル。",
     "examples": [
       {
@@ -27524,7 +27524,7 @@
     "group": "suffix:品詞化",
     "core": "〜であること",
     "derived": "性質、状態",
-    "origin": "古英語 -þu, -ðu / historical（化石化）",
+    "origin": "古英語 -þu, -ðu / `historical`（化石化）",
     "image_hint": "🧊 形容詞を抽象名詞に凝固。",
     "examples": [
       {
@@ -27574,7 +27574,7 @@
     "group": "suffix:品詞化",
     "core": "〜すること、〜の結果",
     "derived": "機能、職務",
-    "origin": "ラテン語 -ūra（動作名詞語尾） / productive",
+    "origin": "ラテン語 -ūra（動作名詞語尾） / `productive`",
     "image_hint": "🏺 動詞を「結果壺」に注ぐ。",
     "examples": [
       {
@@ -27624,7 +27624,7 @@
     "group": "suffix:品詞化",
     "core": "〜の状態、〜さ",
     "derived": "抽象性質",
-    "origin": "ラテン語 -tūdō, -tūdinis / historical（限定的）",
+    "origin": "ラテン語 -tūdō, -tūdinis / `historical`（限定的）",
     "image_hint": "🧪 ラテン感のある抽象化。",
     "examples": [
       {
@@ -27674,7 +27674,7 @@
     "group": "suffix:品詞化",
     "core": "〜の状態、〜の結果",
     "derived": "行為、財産",
-    "origin": "ラテン語 -mōnium / historical",
+    "origin": "ラテン語 -mōnium / `historical`",
     "image_hint": "🎓 厳粛な状態名詞。",
     "examples": [
       {
@@ -27724,7 +27724,7 @@
     "group": "suffix:品詞化",
     "core": "〜の状態、〜の地位、〜の性質",
     "derived": "職務、特性",
-    "origin": "ラテン語 -cia, -tia / productive",
+    "origin": "ラテン語 -cia, -tia / `productive`",
     "image_hint": "🏛️ 地位・状態のラベル。",
     "examples": [
       {
@@ -27774,7 +27774,7 @@
     "group": "suffix:関係・社会",
     "core": "〜による支配、〜政治",
     "derived": "政治形態",
-    "origin": "ギリシャ語 kratos（力） / productive",
+    "origin": "ギリシャ語 kratos（力） / `productive`",
     "image_hint": "👑 支配の権力構造。",
     "examples": [
       {
@@ -27824,7 +27824,7 @@
     "group": "suffix:関係・社会",
     "core": "〜支配する人、〜主義者",
     "derived": "政治家",
-    "origin": "ギリシャ語 kratos（力） / productive",
+    "origin": "ギリシャ語 kratos（力） / `productive`",
     "image_hint": "👨‍⚖️ 政治家・主義者。",
     "examples": [
       {
@@ -27874,7 +27874,7 @@
     "group": "suffix:関係・社会",
     "core": "〜による支配",
     "derived": "統治形態",
-    "origin": "ギリシャ語 arkhē（支配） / historical",
+    "origin": "ギリシャ語 arkhē（支配） / `historical`",
     "image_hint": "👑 古代の支配体制。",
     "examples": [
       {
@@ -27924,7 +27924,7 @@
     "group": "suffix:品詞化",
     "core": "〜学、〜論、〜の研究",
     "derived": "学問分野、言説",
-    "origin": "ギリシャ語 logos（言葉、理） / productive",
+    "origin": "ギリシャ語 logos（言葉、理） / `productive`",
     "image_hint": "📚 学問のラベル。",
     "examples": [
       {
@@ -27974,7 +27974,7 @@
     "group": "suffix:品詞化",
     "core": "〜の記述、〜の書写",
     "derived": "図像、技法",
-    "origin": "ギリシャ語 graphein（書く） / productive",
+    "origin": "ギリシャ語 graphein（書く） / `productive`",
     "image_hint": "📝 書く・描く学問。",
     "examples": [
       {
@@ -28024,7 +28024,7 @@
     "group": "suffix:品詞化",
     "core": "〜の法則、〜の研究",
     "derived": "体系、配分",
-    "origin": "ギリシャ語 nomos（法、配分） / historical",
+    "origin": "ギリシャ語 nomos（法、配分） / `historical`",
     "image_hint": "⚖️ 法則・配分の体系。",
     "examples": [
       {
@@ -28074,7 +28074,7 @@
     "group": "suffix:品詞化",
     "core": "〜の測定、〜計",
     "derived": "学問、装置",
-    "origin": "ギリシャ語 metron（測る） / productive",
+    "origin": "ギリシャ語 metron（測る） / `productive`",
     "image_hint": "📏 測定器。",
     "examples": [
       {
@@ -28124,7 +28124,7 @@
     "group": "suffix:品詞化",
     "core": "〜を見る道具",
     "derived": "視野、範囲",
-    "origin": "ギリシャ語 skopein（見る） / productive",
+    "origin": "ギリシャ語 skopein（見る） / `productive`",
     "image_hint": "🔭 観察装置。",
     "examples": [
       {
@@ -28174,7 +28174,7 @@
     "group": "suffix:品詞化",
     "core": "音、声、音声機器",
     "derived": "言語、音響",
-    "origin": "ギリシャ語 phōnē（音） / productive",
+    "origin": "ギリシャ語 phōnē（音） / `productive`",
     "image_hint": "🎙️ 音の機器。",
     "examples": [
       {
@@ -28224,7 +28224,7 @@
     "group": "suffix:その他",
     "core": "〜恐怖症、〜嫌悪",
     "derived": "嫌悪",
-    "origin": "ギリシャ語 phobos（恐怖） / productive",
+    "origin": "ギリシャ語 phobos（恐怖） / `productive`",
     "image_hint": "😱 恐怖症ラベル。",
     "examples": [
       {
@@ -28274,7 +28274,7 @@
     "group": "suffix:その他",
     "core": "〜への愛、〜好き",
     "derived": "嗜好、傾倒",
-    "origin": "ギリシャ語 philos（愛する） / productive",
+    "origin": "ギリシャ語 philos（愛する） / `productive`",
     "image_hint": "💕 愛好のハート。",
     "examples": [
       {
@@ -28324,7 +28324,7 @@
     "group": "suffix:その他",
     "core": "〜狂、〜熱",
     "derived": "過度の熱中",
-    "origin": "ギリシャ語 mania（狂気） / productive",
+    "origin": "ギリシャ語 mania（狂気） / `productive`",
     "image_hint": "🔥 熱狂のラベル。",
     "examples": [
       {
@@ -28374,7 +28374,7 @@
     "group": "suffix:その他",
     "core": "〜の感情、〜の病",
     "derived": "共感、苦しみ、治療法",
-    "origin": "ギリシャ語 pathos（感情、苦しみ） / productive",
+    "origin": "ギリシャ語 pathos（感情、苦しみ） / `productive`",
     "image_hint": "💔 感情・病のラベル。",
     "examples": [
       {
@@ -28424,7 +28424,7 @@
     "group": "suffix:その他",
     "core": "〜の炎症",
     "derived": "病態",
-    "origin": "ギリシャ語 -ītis（炎症性疾患） / productive（医学）",
+    "origin": "ギリシャ語 -ītis（炎症性疾患） / `productive`（医学）",
     "image_hint": "🔥 炎症マーク。",
     "examples": [
       {
@@ -28474,7 +28474,7 @@
     "group": "suffix:その他",
     "core": "腫瘍",
     "derived": "腫れ、塊",
-    "origin": "ギリシャ語 -ōma（腫瘍） / productive（医学）",
+    "origin": "ギリシャ語 -ōma（腫瘍） / `productive`（医学）",
     "image_hint": "🎗️ 腫瘍マーク。",
     "examples": [
       {
@@ -28524,7 +28524,7 @@
     "group": "suffix:その他",
     "core": "〜の状態、〜病",
     "derived": "過程、症候",
-    "origin": "ギリシャ語 -ōsis / productive（医学）",
+    "origin": "ギリシャ語 -ōsis / `productive`（医学）",
     "image_hint": "⚠️ 病的状態。",
     "examples": [
       {
@@ -28574,7 +28574,7 @@
     "group": "suffix:その他",
     "core": "〜の切除",
     "derived": "外科手術",
-    "origin": "ギリシャ語 ektomē（切り取り） / productive（医学）",
+    "origin": "ギリシャ語 ektomē（切り取り） / `productive`（医学）",
     "image_hint": "✂️🩺 摘出手術。",
     "examples": [
       {
@@ -28624,7 +28624,7 @@
     "group": "suffix:その他",
     "core": "〜の切開、〜の分割",
     "derived": "解剖、外科",
-    "origin": "ギリシャ語 tomē（切ること） / productive（医学）",
+    "origin": "ギリシャ語 tomē（切ること） / `productive`（医学）",
     "image_hint": "🪓 切開。",
     "examples": [
       {
@@ -28674,7 +28674,7 @@
     "group": "suffix:その他",
     "core": "〜の形成手術",
     "derived": "修復、整形",
-    "origin": "ギリシャ語 plassein（形作る） / productive（医学）",
+    "origin": "ギリシャ語 plassein（形作る） / `productive`（医学）",
     "image_hint": "🛠️ 整形・再建。",
     "examples": [
       {
@@ -28724,7 +28724,7 @@
     "group": "suffix:その他",
     "core": "〜麻痺",
     "derived": "運動障害",
-    "origin": "ギリシャ語 plēgē（打撃） / historical（医学）",
+    "origin": "ギリシャ語 plēgē（打撃） / `historical`（医学）",
     "image_hint": "🚫 動かない部位。",
     "examples": [
       {
@@ -28774,7 +28774,7 @@
     "group": "suffix:その他",
     "core": "血液の〜状態",
     "derived": "血液疾患",
-    "origin": "ギリシャ語 haima（血液） / productive（医学）",
+    "origin": "ギリシャ語 haima（血液） / `productive`（医学）",
     "image_hint": "🩸 血液の状態。",
     "examples": [
       {
@@ -28824,7 +28824,7 @@
     "group": "suffix:その他",
     "core": "〜の痛み",
     "derived": "神経痛、慢性痛",
-    "origin": "ギリシャ語 algos（痛み） / historical（医学）",
+    "origin": "ギリシャ語 algos（痛み） / `historical`（医学）",
     "image_hint": "😣 痛みの部位。",
     "examples": [
       {
@@ -28874,7 +28874,7 @@
     "group": "suffix:生命",
     "core": "〜を生むもの／〜の起源／〜の生成",
     "derived": "原因、起源、産生",
-    "origin": "ギリシャ語 genesis（生成） / productive",
+    "origin": "ギリシャ語 genesis（生成） / `productive`",
     "image_hint": "🧬 生成のプロセス。",
     "examples": [
       {
@@ -28924,7 +28924,7 @@
     "group": "suffix:動作・運動",
     "core": "〜を殺すこと、〜殺し",
     "derived": "駆除剤",
-    "origin": "ラテン語 caedere（切る、殺す） / productive",
+    "origin": "ラテン語 caedere（切る、殺す） / `productive`",
     "image_hint": "⚰️ 殺害ラベル。",
     "examples": [
       {
@@ -28974,7 +28974,7 @@
     "group": "suffix:動作・運動",
     "core": "〜を運ぶ、〜を含む",
     "derived": "産する、生む",
-    "origin": "ラテン語 ferre（運ぶ） / productive",
+    "origin": "ラテン語 ferre（運ぶ） / `productive`",
     "image_hint": "🚚 運搬。",
     "examples": [
       {
@@ -29024,7 +29024,7 @@
     "group": "suffix:品詞化",
     "core": "〜を作る、〜を生む",
     "derived": "作用、効果",
-    "origin": "ラテン語 -ficus（< facere 作る） / historical",
+    "origin": "ラテン語 -ficus（< facere 作る） / `historical`",
     "image_hint": "🏭 効果生産。",
     "examples": [
       {
@@ -29074,7 +29074,7 @@
     "group": "suffix:形・構造",
     "core": "〜の形の、〜の形をした",
     "derived": "構造、外観",
-    "origin": "ラテン語 forma（形） / productive",
+    "origin": "ラテン語 forma（形） / `productive`",
     "image_hint": "🔷 形状ラベル。",
     "examples": [
       {
@@ -29124,7 +29124,7 @@
     "group": "suffix:形・構造",
     "core": "〜のような形の、〜に似た",
     "derived": "類似、擬似",
-    "origin": "ギリシャ語 -oeidēs（似た） / productive",
+    "origin": "ギリシャ語 -oeidēs（似た） / `productive`",
     "image_hint": "👽 「〜もどき」ラベル。",
     "examples": [
       {
@@ -29174,7 +29174,7 @@
     "group": "suffix:品詞化",
     "core": "〜風の、〜のような",
     "derived": "様式、雰囲気",
-    "origin": "イタリア語 -esco < ゲルマン語 -isk / productive",
+    "origin": "イタリア語 -esco < ゲルマン語 -isk / `productive`",
     "image_hint": "🎨 「〜ふう」のスタイル。",
     "examples": [
       {
@@ -29224,7 +29224,7 @@
     "group": "suffix:品詞化",
     "core": "〜の性質の／糖類",
     "derived": "化学物質（糖）、性質",
-    "origin": "ラテン語 -ōsus / productive（化学）",
+    "origin": "ラテン語 -ōsus / `productive`（化学）",
     "image_hint": "🍬 糖の名前。",
     "examples": [
       {
@@ -29274,7 +29274,7 @@
     "group": "suffix:その他",
     "core": "〜を分解する酵素",
     "derived": "触媒タンパク質",
-    "origin": "後期ラテン語 diastase から / productive（化学）",
+    "origin": "後期ラテン語 diastase から / `productive`（化学）",
     "image_hint": "🧬 酵素ラベル。",
     "examples": [
       {
@@ -29324,7 +29324,7 @@
     "group": "suffix:その他",
     "core": "〜化物",
     "derived": "二元化合物",
-    "origin": "19世紀化学造語 / productive（化学）",
+    "origin": "19世紀化学造語 / `productive`（化学）",
     "image_hint": "⚗️ 化合物。",
     "examples": [
       {
@@ -29374,7 +29374,7 @@
     "group": "suffix:その他",
     "core": "〜酸塩",
     "derived": "化合物",
-    "origin": "ラテン -ātus の化学転用 / productive（化学）",
+    "origin": "ラテン語 -ātus の化学転用 / `productive`（化学）",
     "image_hint": "🧂 塩の化合物。",
     "examples": [
       {
@@ -29424,7 +29424,7 @@
     "group": "suffix:その他",
     "core": "〜の鉱物／〜の信奉者／〜の住人",
     "derived": "化合物",
-    "origin": "ギリシャ語 -ītēs / productive",
+    "origin": "ギリシャ語 -ītēs / `productive`",
     "image_hint": "💎 鉱物・信奉者ラベル。",
     "examples": [
       {
@@ -29474,7 +29474,7 @@
     "group": "suffix:その他",
     "core": "〜の元素／〜の場所",
     "derived": "金属、施設",
-    "origin": "ラテン語 -ium / productive",
+    "origin": "ラテン語 -ium / `productive`",
     "image_hint": "⚛️ 周期表の元素。",
     "examples": [
       {
@@ -29524,7 +29524,7 @@
     "group": "suffix:品詞化",
     "core": "〜に関する、〜の性質の",
     "derived": "所属、特性",
-    "origin": "ラテン語 -āris / productive",
+    "origin": "ラテン語 -āris / `productive`",
     "image_hint": "🏷️ 関係性ラベル。",
     "examples": [
       {
@@ -29574,7 +29574,7 @@
     "group": "suffix:品詞化",
     "core": "〜する人",
     "derived": "行為者",
-    "origin": "ラテン語 -ārius / historical",
+    "origin": "ラテン語 -ārius / `historical`",
     "image_hint": "👤 人。",
     "examples": [
       {
@@ -29624,7 +29624,7 @@
     "group": "suffix:品詞化",
     "core": "〜に関する",
     "derived": "性質、傾向",
-    "origin": "ラテン語 -ārius / productive",
+    "origin": "ラテン語 -ārius / `productive`",
     "image_hint": "🏷️ 関係。",
     "examples": [
       {
@@ -29674,7 +29674,7 @@
     "group": "suffix:品詞化",
     "core": "〜のための場所、〜物",
     "derived": "集合、施設",
-    "origin": "ラテン語 -ārium / productive",
+    "origin": "ラテン語 -ārium / `productive`",
     "image_hint": "📚 場所・集合。",
     "examples": [
       {
@@ -29724,7 +29724,7 @@
     "group": "suffix:品詞化",
     "core": "〜主義の人、〜の信奉者",
     "derived": "思想、年齢",
-    "origin": "ラテン語 -āris + -ānus / productive",
+    "origin": "ラテン語 -āris + -ānus / `productive`",
     "image_hint": "🎓 主義者。",
     "examples": [
       {
@@ -29774,7 +29774,7 @@
     "group": "suffix:品詞化",
     "core": "〜の様態で",
     "derived": "方向、状態",
-    "origin": "古英語 -linga, -lunga / historical",
+    "origin": "古英語 -linga, -lunga / `historical`",
     "image_hint": "🎯 方向の副詞。",
     "examples": [
       {
@@ -29824,7 +29824,7 @@
     "group": "suffix:品詞化",
     "core": "〜の傾向のある、〜を引き起こす",
     "derived": "性質",
-    "origin": "古英語 sum（ある程度） / productive",
+    "origin": "古英語 sum（ある程度） / `productive`",
     "image_hint": "✨ 「〜気味」の特性。",
     "examples": [
       {
@@ -29874,7 +29874,7 @@
     "group": "suffix:品詞化",
     "core": "〜に値する",
     "derived": "適格、信頼性",
-    "origin": "古英語 weorþ（価値ある） / productive",
+    "origin": "古英語 weorþ（価値ある） / `productive`",
     "image_hint": "🏅 価値ラベル。",
     "examples": [
       {
@@ -29924,7 +29924,7 @@
     "group": "suffix:品詞化",
     "core": "〜に耐える、〜を防ぐ",
     "derived": "抵抗力",
-    "origin": "中英語 prove の形容詞化 / productive",
+    "origin": "中英語 prove の形容詞化 / `productive`",
     "image_hint": "🛡️ 防御の盾。",
     "examples": [
       {
@@ -29974,7 +29974,7 @@
     "group": "suffix:品詞化",
     "core": "〜に縛られた、〜行きの",
     "derived": "方向、制約",
-    "origin": "古英語 bunden（縛られた）+ 古ノルド búinn（準備された） / productive",
+    "origin": "古英語 bunden（縛られた）+ 古ノルド búinn（準備された） / `productive`",
     "image_hint": "🚂 行き先・制約。",
     "examples": [
       {
@@ -30024,7 +30024,7 @@
     "group": "suffix:品詞化",
     "core": "〜のない、〜抜きの",
     "derived": "解放、免除",
-    "origin": "古英語 frēo（自由な） / productive",
+    "origin": "古英語 frēo（自由な） / `productive`",
     "image_hint": "🆓 解放ラベル。",
     "examples": [
       {
@@ -30074,7 +30074,7 @@
     "group": "suffix:品詞化",
     "core": "〜ちゃん、可愛い〜",
     "derived": "親密、軽蔑",
-    "origin": "中英語の指小辞 / productive",
+    "origin": "中英語の指小辞 / `productive`",
     "image_hint": "👶 愛称化。",
     "examples": [
       {
@@ -30124,7 +30124,7 @@
     "group": "suffix:品詞化",
     "core": "〜に関する物の集合",
     "derived": "記念品、文献集",
-    "origin": "ラテン語 -āna（中性複数） / historical",
+    "origin": "ラテン語 -āna（中性複数） / `historical`",
     "image_hint": "📜 ◯◯記念品コレクション。",
     "examples": [
       {
@@ -30174,7 +30174,7 @@
     "group": "suffix:品詞化",
     "core": "〜の動作／〜の飲料／〜の結果",
     "derived": "集団、行為",
-    "origin": "フランス語 -ade < プロヴァンス語 / ラテン -āta / productive",
+    "origin": "フランス語 -ade < プロヴァンス語 / ラテン -āta / `productive`",
     "image_hint": "🥤 飲料・動作。",
     "examples": [
       {
@@ -30224,7 +30224,7 @@
     "group": "suffix:品詞化",
     "core": "〜の性質の、〜質の",
     "derived": "植物・地質分類",
-    "origin": "ラテン語 -āceus / historical（学術）",
+    "origin": "ラテン語 -āceus / `historical`（学術）",
     "image_hint": "🪨 質感ラベル。",
     "examples": [
       {
@@ -30274,7 +30274,7 @@
     "group": "suffix:品詞化",
     "core": "〜の性質の、〜に関する",
     "derived": "動物分類",
-    "origin": "ラテン語 -īnus / historical",
+    "origin": "ラテン語 -īnus / `historical`",
     "image_hint": "🐺 動物の性質。",
     "examples": [
       {
@@ -30324,7 +30324,7 @@
     "group": "suffix:その他",
     "core": "〜の物質、〜の薬",
     "derived": "アルカロイド、アミン",
-    "origin": "ラテン -īna の化学転用 / productive（化学）",
+    "origin": "ラテン語 -īna の化学転用 / `productive`（化学）",
     "image_hint": "💊 薬品ラベル。",
     "examples": [
       {
@@ -30374,7 +30374,7 @@
     "group": "suffix:品詞化",
     "core": "〜の複数",
     "derived": "古英語複数",
-    "origin": "古英語 -an / non-productive",
+    "origin": "古英語 -an / `non-productive`",
     "image_hint": "📜 古英語の複数語尾。",
     "examples": [
       {
@@ -30424,7 +30424,7 @@
     "group": "suffix:品詞化",
     "core": "〜の複数（二重複数）",
     "derived": "古英語複数強化",
-    "origin": "古英語 -ru + -en / non-productive",
+    "origin": "古英語 -ru + -en / `non-productive`",
     "image_hint": "👶👦👧 子供たち。",
     "examples": [
       {
@@ -30474,7 +30474,7 @@
     "group": "suffix:品詞化",
     "core": "〜する人、〜に関わる人",
     "derived": "軽蔑、職業",
-    "origin": "古英語 -estre（女性行為者→中性化） / productive",
+    "origin": "古英語 -estre（女性行為者→中性化） / `productive`",
     "image_hint": "👤 個性的な人物。",
     "examples": [
       {
@@ -30524,7 +30524,7 @@
     "group": "suffix:品詞化",
     "core": "〜する物質、〜薬",
     "derived": "化学物質",
-    "origin": "Suf-010 の特化用法 / productive",
+    "origin": "Suf-010 の特化用法 / `productive`",
     "image_hint": "💊 薬剤ラベル。",
     "examples": [
       {
@@ -30574,7 +30574,7 @@
     "group": "suffix:その他",
     "core": "〜病、〜の状態",
     "derived": "慢性的状態",
-    "origin": "古英語 -ig の病名転用 / historical",
+    "origin": "古英語 -ig の病名転用 / `historical`",
     "image_hint": "🤒 病状。",
     "examples": [
       {
@@ -30624,7 +30624,7 @@
     "group": "suffix:品詞化",
     "core": "〜の記録、〜書、〜文字",
     "derived": "図表、メッセージ",
-    "origin": "ギリシャ語 gramma（書かれたもの） / productive",
+    "origin": "ギリシャ語 gramma（書かれたもの） / `productive`",
     "image_hint": "📊 記録・図。",
     "examples": [
       {
@@ -30674,7 +30674,7 @@
     "group": "suffix:品詞化",
     "core": "〜を書くもの、〜の記録",
     "derived": "記録装置",
-    "origin": "ギリシャ語 graphē（書くこと） / productive",
+    "origin": "ギリシャ語 graphē（書くこと） / `productive`",
     "image_hint": "✍️ 書く道具。",
     "examples": [
       {
@@ -30724,7 +30724,7 @@
     "group": "suffix:言語・伝達",
     "core": "〜の名前",
     "derived": "種別名",
-    "origin": "ギリシャ語 onoma（名前） / productive",
+    "origin": "ギリシャ語 onoma（名前） / `productive`",
     "image_hint": "🏷️ 名前ラベル。",
     "examples": [
       {
@@ -30774,7 +30774,7 @@
     "group": "suffix:自然・物質",
     "core": "〜石",
     "derived": "鉱物、巨大",
-    "origin": "ギリシャ語 lithos（石） / historical",
+    "origin": "ギリシャ語 lithos（石） / `historical`",
     "image_hint": "🪨 石材。",
     "examples": [
       {
@@ -30824,7 +30824,7 @@
     "group": "suffix:生命",
     "core": "〜植物、〜生物",
     "derived": "成長物",
-    "origin": "ギリシャ語 phyton（植物） / historical",
+    "origin": "ギリシャ語 phyton（植物） / `historical`",
     "image_hint": "🌱 植物。",
     "examples": [
       {
@@ -30874,7 +30874,7 @@
     "group": "suffix:生命",
     "core": "〜質、〜形成物",
     "derived": "細胞質",
-    "origin": "ギリシャ語 plasma（形作られたもの） / historical",
+    "origin": "ギリシャ語 plasma（形作られたもの） / `historical`",
     "image_hint": "🧬 細胞質。",
     "examples": [
       {
@@ -30924,7 +30924,7 @@
     "group": "suffix:生命",
     "core": "〜竜、〜爬虫類",
     "derived": "恐竜分類",
-    "origin": "ギリシャ語 sauros（トカゲ） / productive（古生物学）",
+    "origin": "ギリシャ語 sauros（トカゲ） / `productive`（古生物学）",
     "image_hint": "🦖 恐竜の名前。",
     "examples": [
       {
@@ -30974,7 +30974,7 @@
     "group": "suffix:数量・程度",
     "core": "〜倍の",
     "derived": "重複",
-    "origin": "古英語 fald（折る、倍） / productive",
+    "origin": "古英語 fald（折る、倍） / `productive`",
     "image_hint": "🔢 倍率。",
     "examples": [
       {
@@ -31024,7 +31024,7 @@
     "group": "suffix:数量・程度",
     "core": "〜倍の",
     "derived": "組",
-    "origin": "ラテン -plus（倍） / historical",
+    "origin": "ラテン語 -plus（倍） / `historical`",
     "image_hint": "🔁 倍数の組。",
     "examples": [
       {
@@ -31074,7 +31074,7 @@
     "group": "suffix:品詞化",
     "core": "〜の人、〜信奉者",
     "derived": "軽蔑",
-    "origin": "ロシア語/イディッシュ語 -nik / historical",
+    "origin": "ロシア語/イディッシュ語 -nik / `historical`",
     "image_hint": "🛰️ Sputnik 起源。",
     "examples": [
       {
@@ -31124,7 +31124,7 @@
     "group": "suffix:品詞化",
     "core": "〜の様式の、〜技法",
     "derived": "様式、流派",
-    "origin": "フランス語 -ique / historical",
+    "origin": "フランス語 -ique / `historical`",
     "image_hint": "🎭 フランス風様式。",
     "examples": [
       {
@@ -31174,7 +31174,7 @@
     "group": "suffix:品詞化",
     "core": "フランス語起源の名詞語尾",
     "derived": "物・場所・性質",
-    "origin": "フランス語 -eau / historical",
+    "origin": "フランス語 -eau / `historical`",
     "image_hint": "🇫🇷 フランス借用。",
     "examples": [
       {
@@ -31309,7 +31309,7 @@
     "group": "suffix:品詞化",
     "core": "〜になりつつある、発現過程",
     "derived": "",
-    "origin": "ラテン / `historical`",
+    "origin": "ラテン語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31349,7 +31349,7 @@
     "group": "suffix:品詞化",
     "core": "〜しやすい、〜に適した",
     "derived": "",
-    "origin": "ラテン / `historical`",
+    "origin": "ラテン語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31434,7 +31434,7 @@
     "group": "suffix:身体",
     "core": "穿刺",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31464,7 +31464,7 @@
     "group": "suffix:身体",
     "core": "血液の状態",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31499,7 +31499,7 @@
     "group": "suffix:身体",
     "core": "感覚",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31529,7 +31529,7 @@
     "group": "suffix:品詞化",
     "core": "記録・画像",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31559,7 +31559,7 @@
     "group": "suffix:身体",
     "core": "肥大",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31589,7 +31589,7 @@
     "group": "suffix:身体",
     "core": "減少・欠乏",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31619,7 +31619,7 @@
     "group": "suffix:身体",
     "core": "固定",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31649,7 +31649,7 @@
     "group": "suffix:身体",
     "core": "食べる・嚥下",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31679,7 +31679,7 @@
     "group": "suffix:品詞化",
     "core": "恐怖／親和",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31709,7 +31709,7 @@
     "group": "suffix:品詞化",
     "core": "形成・発達",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31744,7 +31744,7 @@
     "group": "suffix:身体",
     "core": "麻痺・不全麻痺",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31774,7 +31774,7 @@
     "group": "suffix:身体",
     "core": "呼吸",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31809,7 +31809,7 @@
     "group": "suffix:身体",
     "core": "破裂性出血",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31839,7 +31839,7 @@
     "group": "suffix:身体",
     "core": "流出",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31874,7 +31874,7 @@
     "group": "suffix:品詞化",
     "core": "視察・検査",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31904,7 +31904,7 @@
     "group": "suffix:品詞化",
     "core": "人工開口・造瘻",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31939,7 +31939,7 @@
     "group": "suffix:品詞化",
     "core": "治療",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -31969,7 +31969,7 @@
     "group": "suffix:品詞化",
     "core": "栄養・発達",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -32004,7 +32004,7 @@
     "group": "suffix:身体",
     "core": "尿・尿の状態",
     "derived": "",
-    "origin": "ギリシャ / `historical`",
+    "origin": "ギリシャ語 / `historical`",
     "image_hint": "",
     "examples": [
       {
@@ -32294,7 +32294,7 @@
     "group": "suffix:品詞化",
     "core": "〜に関する",
     "derived": "",
-    "origin": "ラテン / `productive`",
+    "origin": "ラテン語 / `productive`",
     "image_hint": "",
     "examples": [
       {
@@ -32334,7 +32334,7 @@
     "group": "suffix:品詞化",
     "core": "〜に関する・場所/人",
     "derived": "",
-    "origin": "ラテン / `productive`",
+    "origin": "ラテン語 / `productive`",
     "image_hint": "",
     "examples": [
       {
