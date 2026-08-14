@@ -1,1 +1,810 @@
-{"words": 1900, "phrases": 1000, "prefix": 159, "suffix": 159, "root": 370, "word_sections": 19, "phrase_sections": 5, "etym_learnable": 688, "phrase_parts": [{"section": 1, "code": "Part 1", "title": "絶対覚えておきたい180", "range": [1, 180], "count": 180}, {"section": 2, "code": "Part 2", "title": "グルーピングで覚える240", "range": [181, 420], "count": 240}, {"section": 3, "code": "Part 3", "title": "形で覚える240", "range": [421, 660], "count": 240}, {"section": 4, "code": "Part 4", "title": "文法・構文で覚える170", "range": [661, 830], "count": 170}, {"section": 5, "code": "Part 5", "title": "ここで差がつく難熟語170", "range": [831, 1000], "count": 170}], "etym_groups": [{"category": "prefix", "theme": "方向・位置", "key": "prefix:方向・位置", "count": 49}, {"category": "prefix", "theme": "時間", "key": "prefix:時間", "count": 11}, {"category": "prefix", "theme": "数量・程度", "key": "prefix:数量・程度", "count": 48}, {"category": "prefix", "theme": "否定・反対", "key": "prefix:否定・反対", "count": 10}, {"category": "prefix", "theme": "身体", "key": "prefix:身体", "count": 3}, {"category": "prefix", "theme": "思考・知識", "key": "prefix:思考・知識", "count": 1}, {"category": "prefix", "theme": "状態・存在", "key": "prefix:状態・存在", "count": 8}, {"category": "prefix", "theme": "価値・善悪", "key": "prefix:価値・善悪", "count": 7}, {"category": "prefix", "theme": "関係・社会", "key": "prefix:関係・社会", "count": 4}, {"category": "prefix", "theme": "自然・物質", "key": "prefix:自然・物質", "count": 9}, {"category": "prefix", "theme": "生命", "key": "prefix:生命", "count": 6}, {"category": "prefix", "theme": "形・構造", "key": "prefix:形・構造", "count": 1}, {"category": "prefix", "theme": "品詞化", "key": "prefix:品詞化", "count": 1}, {"category": "prefix", "theme": "その他", "key": "prefix:その他", "count": 1}, {"category": "suffix", "theme": "数量・程度", "key": "suffix:数量・程度", "count": 2}, {"category": "suffix", "theme": "身体", "key": "suffix:身体", "count": 12}, {"category": "suffix", "theme": "言語・伝達", "key": "suffix:言語・伝達", "count": 1}, {"category": "suffix", "theme": "動作・運動", "key": "suffix:動作・運動", "count": 2}, {"category": "suffix", "theme": "関係・社会", "key": "suffix:関係・社会", "count": 11}, {"category": "suffix", "theme": "自然・物質", "key": "suffix:自然・物質", "count": 1}, {"category": "suffix", "theme": "生命", "key": "suffix:生命", "count": 4}, {"category": "suffix", "theme": "形・構造", "key": "suffix:形・構造", "count": 2}, {"category": "suffix", "theme": "品詞化", "key": "suffix:品詞化", "count": 104}, {"category": "suffix", "theme": "その他", "key": "suffix:その他", "count": 20}, {"category": "root", "theme": "方向・位置", "key": "root:方向・位置", "count": 4}, {"category": "root", "theme": "時間", "key": "root:時間", "count": 7}, {"category": "root", "theme": "数量・程度", "key": "root:数量・程度", "count": 9}, {"category": "root", "theme": "感覚", "key": "root:感覚", "count": 13}, {"category": "root", "theme": "身体", "key": "root:身体", "count": 43}, {"category": "root", "theme": "思考・知識", "key": "root:思考・知識", "count": 23}, {"category": "root", "theme": "言語・伝達", "key": "root:言語・伝達", "count": 28}, {"category": "root", "theme": "動作・運動", "key": "root:動作・運動", "count": 93}, {"category": "root", "theme": "状態・存在", "key": "root:状態・存在", "count": 36}, {"category": "root", "theme": "価値・善悪", "key": "root:価値・善悪", "count": 9}, {"category": "root", "theme": "関係・社会", "key": "root:関係・社会", "count": 21}, {"category": "root", "theme": "自然・物質", "key": "root:自然・物質", "count": 35}, {"category": "root", "theme": "生命", "key": "root:生命", "count": 22}, {"category": "root", "theme": "形・構造", "key": "root:形・構造", "count": 20}, {"category": "root", "theme": "その他", "key": "root:その他", "count": 7}], "words_full": 6559, "words_full_sections": 53, "phrases_full": 3238, "phrase_full_sections": [{"section": 1, "title": "重要な・ささいな", "count": 14}, {"section": 2, "title": "特徴・明確さ・点", "count": 15}, {"section": 3, "title": "構造・構成", "count": 5}, {"section": 4, "title": "制約・強制・禁止", "count": 35}, {"section": 5, "title": "阻害・除去・供給・促進", "count": 41}, {"section": 6, "title": "目的・実行・達成", "count": 86}, {"section": 7, "title": "時間", "count": 179}, {"section": 8, "title": "金・経済", "count": 93}, {"section": 9, "title": "場所・領域・範囲", "count": 45}, {"section": 10, "title": "発生・繁栄・衰退・消滅", "count": 52}, {"section": 11, "title": "関係・対立・一致", "count": 134}, {"section": 12, "title": "言語・文学", "count": 1}, {"section": 13, "title": "調査・研究", "count": 25}, {"section": 14, "title": "議論・主張・要求", "count": 160}, {"section": 15, "title": "力関係", "count": 15}, {"section": 16, "title": "知覚・感覚・感情", "count": 164}, {"section": 17, "title": "善悪・犯罪", "count": 34}, {"section": 18, "title": "数・量", "count": 114}, {"section": 19, "title": "思考・認識・知", "count": 168}, {"section": 20, "title": "人・人生", "count": 16}, {"section": 21, "title": "人間関係", "count": 46}, {"section": 22, "title": "価値・基準・選択・出来事・参加", "count": 97}, {"section": 23, "title": "政治", "count": 1}, {"section": 24, "title": "産業", "count": 1}, {"section": 25, "title": "医学・化学", "count": 32}, {"section": 26, "title": "宗教・民族・慣習", "count": 16}, {"section": 27, "title": "自然・環境", "count": 24}, {"section": 28, "title": "傾向・可能性・反応", "count": 33}, {"section": 29, "title": "衣食住・日常", "count": 78}, {"section": 30, "title": "程度・割合", "count": 35}, {"section": 31, "title": "心・身体", "count": 71}, {"section": 32, "title": "教育・テクノロジー", "count": 17}, {"section": 33, "title": "歴史・軍事", "count": 6}, {"section": 34, "title": "接続詞・副詞・前置詞", "count": 198}, {"section": 35, "title": "危険・困難・問題・トラブル", "count": 28}, {"section": 36, "title": "開始・継続・終了", "count": 52}, {"section": 37, "title": "変化・状態・進行", "count": 27}, {"section": 38, "title": "自由・解放・独立", "count": 10}, {"section": 39, "title": "固執・忍耐・我慢", "count": 10}, {"section": 40, "title": "放棄・断念・犠牲", "count": 11}, {"section": 41, "title": "調和・一致・矛盾", "count": 2}, {"section": 42, "title": "からかい・冗談・欺き", "count": 12}, {"section": 43, "title": "依頼・依存・頼る", "count": 17}, {"section": 44, "title": "手段・方法・様態", "count": 3}, {"section": 45, "title": "定型表現・あいさつ・会話", "count": 8}, {"section": 46, "title": "構文（A・B型：動詞＋A＋前置詞＋B など）", "count": 67}, {"section": 47, "title": "構文（相関・比較・倒置など）", "count": 10}, {"section": 48, "title": "その他・慣用・諺", "count": 930}], "word_full_sections": [{"section": 1, "title": "#01 重要な・ささいな", "count": 56}, {"section": 2, "title": "#02a 特徴・特性", "count": 288}, {"section": 3, "title": "#02b 明確さ・曖昧さ", "count": 33}, {"section": 4, "title": "#03 構造・構成", "count": 134}, {"section": 5, "title": "#04 動詞をイメージする・1", "count": 267}, {"section": 6, "title": "#05 制約・強制・禁止", "count": 109}, {"section": 7, "title": "#06a 阻害・除去", "count": 245}, {"section": 8, "title": "#06b 供給・促進", "count": 28}, {"section": 9, "title": "#07 目的・実行・達成", "count": 83}, {"section": 10, "title": "#08a 時間・時期", "count": 130}, {"section": 11, "title": "#08b 頻度・速さ・遅速", "count": 41}, {"section": 12, "title": "#09a 金銭・財産", "count": 104}, {"section": 13, "title": "#09b 経済・市場", "count": 82}, {"section": 14, "title": "#10 場所・領域・範囲", "count": 128}, {"section": 15, "title": "#11 発生・繁栄・衰退・消滅", "count": 136}, {"section": 16, "title": "#12 多義語・1", "count": 27}, {"section": 17, "title": "#13 基本単語の確認", "count": 1}, {"section": 18, "title": "#14 関係・対立・一致", "count": 132}, {"section": 19, "title": "#15a 言語・語法", "count": 175}, {"section": 20, "title": "#15b 文学・作品", "count": 43}, {"section": 21, "title": "#16 調査・研究", "count": 69}, {"section": 22, "title": "#17a 主張・要求", "count": 161}, {"section": 23, "title": "#17b 議論・論争", "count": 46}, {"section": 24, "title": "#19 力関係", "count": 75}, {"section": 25, "title": "#20a 視覚・観察", "count": 56}, {"section": 26, "title": "#20b 聴覚・触覚・味覚", "count": 68}, {"section": 27, "title": "#21a 感情・情熱", "count": 231}, {"section": 28, "title": "#21b 心情・気分", "count": 59}, {"section": 29, "title": "#22a 善悪・道徳", "count": 137}, {"section": 30, "title": "#22b 犯罪・法", "count": 104}, {"section": 31, "title": "#23 数・量", "count": 117}, {"section": 32, "title": "#24a 思考・思索", "count": 183}, {"section": 33, "title": "#24b 知識・認識", "count": 30}, {"section": 34, "title": "#25 人・人生", "count": 94}, {"section": 35, "title": "#26 人間関係", "count": 108}, {"section": 36, "title": "#27 価値・基準・選択・出来事・参加", "count": 70}, {"section": 37, "title": "#28 政治", "count": 169}, {"section": 38, "title": "#29 産業", "count": 107}, {"section": 39, "title": "#30a 医学・生理", "count": 367}, {"section": 40, "title": "#30b 化学・物質", "count": 42}, {"section": 41, "title": "#31a 自然・地形", "count": 225}, {"section": 42, "title": "#31b 生物・動植物", "count": 112}, {"section": 43, "title": "#33 傾向・可能性・反応", "count": 103}, {"section": 44, "title": "#34a 衣・住・日常", "count": 174}, {"section": 45, "title": "#34b 食・料理", "count": 93}, {"section": 46, "title": "#35 程度・割合", "count": 81}, {"section": 47, "title": "#40a 心・精神", "count": 54}, {"section": 48, "title": "#40b 身体・器官", "count": 121}, {"section": 49, "title": "#41 コロケーションで覚える形容詞", "count": 641}, {"section": 50, "title": "#43 教育・テクノロジー", "count": 137}, {"section": 51, "title": "#45a 歴史", "count": 45}, {"section": 52, "title": "#45b 軍事・戦争", "count": 73}, {"section": 53, "title": "#46 接続詞・副詞・前置詞", "count": 165}]}
+{
+  "words": 1900,
+  "phrases": 1000,
+  "prefix": 159,
+  "suffix": 160,
+  "root": 373,
+  "word_sections": 19,
+  "phrase_sections": 5,
+  "etym_learnable": 692,
+  "phrase_parts": [
+    {
+      "section": 1,
+      "code": "Part 1",
+      "title": "絶対覚えておきたい180",
+      "range": [
+        1,
+        180
+      ],
+      "count": 180
+    },
+    {
+      "section": 2,
+      "code": "Part 2",
+      "title": "グルーピングで覚える240",
+      "range": [
+        181,
+        420
+      ],
+      "count": 240
+    },
+    {
+      "section": 3,
+      "code": "Part 3",
+      "title": "形で覚える240",
+      "range": [
+        421,
+        660
+      ],
+      "count": 240
+    },
+    {
+      "section": 4,
+      "code": "Part 4",
+      "title": "文法・構文で覚える170",
+      "range": [
+        661,
+        830
+      ],
+      "count": 170
+    },
+    {
+      "section": 5,
+      "code": "Part 5",
+      "title": "ここで差がつく難熟語170",
+      "range": [
+        831,
+        1000
+      ],
+      "count": 170
+    }
+  ],
+  "etym_groups": [
+    {
+      "category": "root",
+      "theme": "その他",
+      "key": "root:その他",
+      "count": 7
+    },
+    {
+      "category": "root",
+      "theme": "価値・善悪",
+      "key": "root:価値・善悪",
+      "count": 9
+    },
+    {
+      "category": "root",
+      "theme": "感覚",
+      "key": "root:感覚",
+      "count": 13
+    },
+    {
+      "category": "root",
+      "theme": "関係・社会",
+      "key": "root:関係・社会",
+      "count": 22
+    },
+    {
+      "category": "root",
+      "theme": "形・構造",
+      "key": "root:形・構造",
+      "count": 20
+    },
+    {
+      "category": "root",
+      "theme": "言語・伝達",
+      "key": "root:言語・伝達",
+      "count": 28
+    },
+    {
+      "category": "root",
+      "theme": "思考・知識",
+      "key": "root:思考・知識",
+      "count": 23
+    },
+    {
+      "category": "root",
+      "theme": "時間",
+      "key": "root:時間",
+      "count": 7
+    },
+    {
+      "category": "root",
+      "theme": "自然・物質",
+      "key": "root:自然・物質",
+      "count": 37
+    },
+    {
+      "category": "root",
+      "theme": "状態・存在",
+      "key": "root:状態・存在",
+      "count": 36
+    },
+    {
+      "category": "root",
+      "theme": "身体",
+      "key": "root:身体",
+      "count": 43
+    },
+    {
+      "category": "root",
+      "theme": "数量・程度",
+      "key": "root:数量・程度",
+      "count": 9
+    },
+    {
+      "category": "root",
+      "theme": "生命",
+      "key": "root:生命",
+      "count": 22
+    },
+    {
+      "category": "root",
+      "theme": "動作・運動",
+      "key": "root:動作・運動",
+      "count": 93
+    },
+    {
+      "category": "root",
+      "theme": "方向・位置",
+      "key": "root:方向・位置",
+      "count": 4
+    },
+    {
+      "category": "prefix",
+      "theme": "その他",
+      "key": "prefix:その他",
+      "count": 1
+    },
+    {
+      "category": "prefix",
+      "theme": "価値・善悪",
+      "key": "prefix:価値・善悪",
+      "count": 7
+    },
+    {
+      "category": "prefix",
+      "theme": "関係・社会",
+      "key": "prefix:関係・社会",
+      "count": 4
+    },
+    {
+      "category": "prefix",
+      "theme": "形・構造",
+      "key": "prefix:形・構造",
+      "count": 1
+    },
+    {
+      "category": "prefix",
+      "theme": "思考・知識",
+      "key": "prefix:思考・知識",
+      "count": 1
+    },
+    {
+      "category": "prefix",
+      "theme": "時間",
+      "key": "prefix:時間",
+      "count": 11
+    },
+    {
+      "category": "prefix",
+      "theme": "自然・物質",
+      "key": "prefix:自然・物質",
+      "count": 9
+    },
+    {
+      "category": "prefix",
+      "theme": "状態・存在",
+      "key": "prefix:状態・存在",
+      "count": 8
+    },
+    {
+      "category": "prefix",
+      "theme": "身体",
+      "key": "prefix:身体",
+      "count": 3
+    },
+    {
+      "category": "prefix",
+      "theme": "数量・程度",
+      "key": "prefix:数量・程度",
+      "count": 48
+    },
+    {
+      "category": "prefix",
+      "theme": "生命",
+      "key": "prefix:生命",
+      "count": 6
+    },
+    {
+      "category": "prefix",
+      "theme": "否定・反対",
+      "key": "prefix:否定・反対",
+      "count": 10
+    },
+    {
+      "category": "prefix",
+      "theme": "品詞化",
+      "key": "prefix:品詞化",
+      "count": 1
+    },
+    {
+      "category": "prefix",
+      "theme": "方向・位置",
+      "key": "prefix:方向・位置",
+      "count": 49
+    },
+    {
+      "category": "suffix",
+      "theme": "その他",
+      "key": "suffix:その他",
+      "count": 20
+    },
+    {
+      "category": "suffix",
+      "theme": "関係・社会",
+      "key": "suffix:関係・社会",
+      "count": 11
+    },
+    {
+      "category": "suffix",
+      "theme": "形・構造",
+      "key": "suffix:形・構造",
+      "count": 2
+    },
+    {
+      "category": "suffix",
+      "theme": "言語・伝達",
+      "key": "suffix:言語・伝達",
+      "count": 1
+    },
+    {
+      "category": "suffix",
+      "theme": "自然・物質",
+      "key": "suffix:自然・物質",
+      "count": 1
+    },
+    {
+      "category": "suffix",
+      "theme": "身体",
+      "key": "suffix:身体",
+      "count": 12
+    },
+    {
+      "category": "suffix",
+      "theme": "数量・程度",
+      "key": "suffix:数量・程度",
+      "count": 2
+    },
+    {
+      "category": "suffix",
+      "theme": "生命",
+      "key": "suffix:生命",
+      "count": 4
+    },
+    {
+      "category": "suffix",
+      "theme": "動作・運動",
+      "key": "suffix:動作・運動",
+      "count": 2
+    },
+    {
+      "category": "suffix",
+      "theme": "品詞化",
+      "key": "suffix:品詞化",
+      "count": 105
+    }
+  ],
+  "words_full": 6559,
+  "words_full_sections": 53,
+  "phrases_full": 3238,
+  "phrase_full_sections": [
+    {
+      "section": 1,
+      "title": "重要な・ささいな",
+      "count": 14
+    },
+    {
+      "section": 2,
+      "title": "特徴・明確さ・点",
+      "count": 15
+    },
+    {
+      "section": 3,
+      "title": "構造・構成",
+      "count": 5
+    },
+    {
+      "section": 4,
+      "title": "制約・強制・禁止",
+      "count": 35
+    },
+    {
+      "section": 5,
+      "title": "阻害・除去・供給・促進",
+      "count": 41
+    },
+    {
+      "section": 6,
+      "title": "目的・実行・達成",
+      "count": 86
+    },
+    {
+      "section": 7,
+      "title": "時間",
+      "count": 179
+    },
+    {
+      "section": 8,
+      "title": "金・経済",
+      "count": 93
+    },
+    {
+      "section": 9,
+      "title": "場所・領域・範囲",
+      "count": 45
+    },
+    {
+      "section": 10,
+      "title": "発生・繁栄・衰退・消滅",
+      "count": 52
+    },
+    {
+      "section": 11,
+      "title": "関係・対立・一致",
+      "count": 134
+    },
+    {
+      "section": 12,
+      "title": "言語・文学",
+      "count": 1
+    },
+    {
+      "section": 13,
+      "title": "調査・研究",
+      "count": 25
+    },
+    {
+      "section": 14,
+      "title": "議論・主張・要求",
+      "count": 160
+    },
+    {
+      "section": 15,
+      "title": "力関係",
+      "count": 15
+    },
+    {
+      "section": 16,
+      "title": "知覚・感覚・感情",
+      "count": 164
+    },
+    {
+      "section": 17,
+      "title": "善悪・犯罪",
+      "count": 34
+    },
+    {
+      "section": 18,
+      "title": "数・量",
+      "count": 114
+    },
+    {
+      "section": 19,
+      "title": "思考・認識・知",
+      "count": 168
+    },
+    {
+      "section": 20,
+      "title": "人・人生",
+      "count": 16
+    },
+    {
+      "section": 21,
+      "title": "人間関係",
+      "count": 46
+    },
+    {
+      "section": 22,
+      "title": "価値・基準・選択・出来事・参加",
+      "count": 97
+    },
+    {
+      "section": 23,
+      "title": "政治",
+      "count": 1
+    },
+    {
+      "section": 24,
+      "title": "産業",
+      "count": 1
+    },
+    {
+      "section": 25,
+      "title": "医学・化学",
+      "count": 32
+    },
+    {
+      "section": 26,
+      "title": "宗教・民族・慣習",
+      "count": 16
+    },
+    {
+      "section": 27,
+      "title": "自然・環境",
+      "count": 24
+    },
+    {
+      "section": 28,
+      "title": "傾向・可能性・反応",
+      "count": 33
+    },
+    {
+      "section": 29,
+      "title": "衣食住・日常",
+      "count": 78
+    },
+    {
+      "section": 30,
+      "title": "程度・割合",
+      "count": 35
+    },
+    {
+      "section": 31,
+      "title": "心・身体",
+      "count": 71
+    },
+    {
+      "section": 32,
+      "title": "教育・テクノロジー",
+      "count": 17
+    },
+    {
+      "section": 33,
+      "title": "歴史・軍事",
+      "count": 6
+    },
+    {
+      "section": 34,
+      "title": "接続詞・副詞・前置詞",
+      "count": 198
+    },
+    {
+      "section": 35,
+      "title": "危険・困難・問題・トラブル",
+      "count": 28
+    },
+    {
+      "section": 36,
+      "title": "開始・継続・終了",
+      "count": 52
+    },
+    {
+      "section": 37,
+      "title": "変化・状態・進行",
+      "count": 27
+    },
+    {
+      "section": 38,
+      "title": "自由・解放・独立",
+      "count": 10
+    },
+    {
+      "section": 39,
+      "title": "固執・忍耐・我慢",
+      "count": 10
+    },
+    {
+      "section": 40,
+      "title": "放棄・断念・犠牲",
+      "count": 11
+    },
+    {
+      "section": 41,
+      "title": "調和・一致・矛盾",
+      "count": 2
+    },
+    {
+      "section": 42,
+      "title": "からかい・冗談・欺き",
+      "count": 12
+    },
+    {
+      "section": 43,
+      "title": "依頼・依存・頼る",
+      "count": 17
+    },
+    {
+      "section": 44,
+      "title": "手段・方法・様態",
+      "count": 3
+    },
+    {
+      "section": 45,
+      "title": "定型表現・あいさつ・会話",
+      "count": 8
+    },
+    {
+      "section": 46,
+      "title": "構文（A・B型：動詞＋A＋前置詞＋B など）",
+      "count": 67
+    },
+    {
+      "section": 47,
+      "title": "構文（相関・比較・倒置など）",
+      "count": 10
+    },
+    {
+      "section": 48,
+      "title": "その他・慣用・諺",
+      "count": 930
+    }
+  ],
+  "word_full_sections": [
+    {
+      "section": 1,
+      "title": "#01 重要な・ささいな",
+      "count": 56
+    },
+    {
+      "section": 2,
+      "title": "#02a 特徴・特性",
+      "count": 288
+    },
+    {
+      "section": 3,
+      "title": "#02b 明確さ・曖昧さ",
+      "count": 33
+    },
+    {
+      "section": 4,
+      "title": "#03 構造・構成",
+      "count": 134
+    },
+    {
+      "section": 5,
+      "title": "#04 動詞をイメージする・1",
+      "count": 267
+    },
+    {
+      "section": 6,
+      "title": "#05 制約・強制・禁止",
+      "count": 109
+    },
+    {
+      "section": 7,
+      "title": "#06a 阻害・除去",
+      "count": 245
+    },
+    {
+      "section": 8,
+      "title": "#06b 供給・促進",
+      "count": 28
+    },
+    {
+      "section": 9,
+      "title": "#07 目的・実行・達成",
+      "count": 83
+    },
+    {
+      "section": 10,
+      "title": "#08a 時間・時期",
+      "count": 130
+    },
+    {
+      "section": 11,
+      "title": "#08b 頻度・速さ・遅速",
+      "count": 41
+    },
+    {
+      "section": 12,
+      "title": "#09a 金銭・財産",
+      "count": 104
+    },
+    {
+      "section": 13,
+      "title": "#09b 経済・市場",
+      "count": 82
+    },
+    {
+      "section": 14,
+      "title": "#10 場所・領域・範囲",
+      "count": 128
+    },
+    {
+      "section": 15,
+      "title": "#11 発生・繁栄・衰退・消滅",
+      "count": 136
+    },
+    {
+      "section": 16,
+      "title": "#12 多義語・1",
+      "count": 27
+    },
+    {
+      "section": 17,
+      "title": "#13 基本単語の確認",
+      "count": 1
+    },
+    {
+      "section": 18,
+      "title": "#14 関係・対立・一致",
+      "count": 132
+    },
+    {
+      "section": 19,
+      "title": "#15a 言語・語法",
+      "count": 175
+    },
+    {
+      "section": 20,
+      "title": "#15b 文学・作品",
+      "count": 43
+    },
+    {
+      "section": 21,
+      "title": "#16 調査・研究",
+      "count": 69
+    },
+    {
+      "section": 22,
+      "title": "#17a 主張・要求",
+      "count": 161
+    },
+    {
+      "section": 23,
+      "title": "#17b 議論・論争",
+      "count": 46
+    },
+    {
+      "section": 24,
+      "title": "#19 力関係",
+      "count": 75
+    },
+    {
+      "section": 25,
+      "title": "#20a 視覚・観察",
+      "count": 56
+    },
+    {
+      "section": 26,
+      "title": "#20b 聴覚・触覚・味覚",
+      "count": 68
+    },
+    {
+      "section": 27,
+      "title": "#21a 感情・情熱",
+      "count": 231
+    },
+    {
+      "section": 28,
+      "title": "#21b 心情・気分",
+      "count": 59
+    },
+    {
+      "section": 29,
+      "title": "#22a 善悪・道徳",
+      "count": 137
+    },
+    {
+      "section": 30,
+      "title": "#22b 犯罪・法",
+      "count": 104
+    },
+    {
+      "section": 31,
+      "title": "#23 数・量",
+      "count": 117
+    },
+    {
+      "section": 32,
+      "title": "#24a 思考・思索",
+      "count": 183
+    },
+    {
+      "section": 33,
+      "title": "#24b 知識・認識",
+      "count": 30
+    },
+    {
+      "section": 34,
+      "title": "#25 人・人生",
+      "count": 94
+    },
+    {
+      "section": 35,
+      "title": "#26 人間関係",
+      "count": 108
+    },
+    {
+      "section": 36,
+      "title": "#27 価値・基準・選択・出来事・参加",
+      "count": 70
+    },
+    {
+      "section": 37,
+      "title": "#28 政治",
+      "count": 169
+    },
+    {
+      "section": 38,
+      "title": "#29 産業",
+      "count": 107
+    },
+    {
+      "section": 39,
+      "title": "#30a 医学・生理",
+      "count": 367
+    },
+    {
+      "section": 40,
+      "title": "#30b 化学・物質",
+      "count": 42
+    },
+    {
+      "section": 41,
+      "title": "#31a 自然・地形",
+      "count": 225
+    },
+    {
+      "section": 42,
+      "title": "#31b 生物・動植物",
+      "count": 112
+    },
+    {
+      "section": 43,
+      "title": "#33 傾向・可能性・反応",
+      "count": 103
+    },
+    {
+      "section": 44,
+      "title": "#34a 衣・住・日常",
+      "count": 174
+    },
+    {
+      "section": 45,
+      "title": "#34b 食・料理",
+      "count": 93
+    },
+    {
+      "section": 46,
+      "title": "#35 程度・割合",
+      "count": 81
+    },
+    {
+      "section": 47,
+      "title": "#40a 心・精神",
+      "count": 54
+    },
+    {
+      "section": 48,
+      "title": "#40b 身体・器官",
+      "count": 121
+    },
+    {
+      "section": 49,
+      "title": "#41 コロケーションで覚える形容詞",
+      "count": 641
+    },
+    {
+      "section": 50,
+      "title": "#43 教育・テクノロジー",
+      "count": 137
+    },
+    {
+      "section": 51,
+      "title": "#45a 歴史",
+      "count": 45
+    },
+    {
+      "section": 52,
+      "title": "#45b 軍事・戦争",
+      "count": 73
+    },
+    {
+      "section": 53,
+      "title": "#46 接続詞・副詞・前置詞",
+      "count": 165
+    }
+  ]
+}
