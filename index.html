@@ -6,146 +6,342 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>✯ANKISHIYOUZE✯</title>
   <style>
-    /* アプリの世界観に合わせた背景とデザイン */
-    body {
-      background-color: #FFC0CB;
-      color: #fff;
-      font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      overflow: hidden;
+    @font-face { font-family: MadokaRunes; src: url('data:font/woff2;base64,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') format('woff2'); font-display: swap; }
+    :root { --paper: #eeeae1; --ink: #22241f; --red: #9d302e; --line: #c9c6bb; --muted: #66685e; --serif: 'Yu Mincho', 'Hiragino Mincho ProN', 'Noto Serif CJK JP', serif; --sans: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; color: inherit; border: 1px solid var(--line); background: transparent; min-height: 44px; padding: 10px 14px; }
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #b54b43; outline-offset: 5px; }
+    ::selection { background: var(--red); color: var(--paper); }
+    .wrap { width: min(1320px, calc(100% - 112px)); margin-inline: auto; }
+    .runes { font-family: MadokaRunes, serif; font-weight: 400; font-style: normal; }
+    .skip { position: fixed; top: -100px; left: 20px; padding: 16px; background: var(--paper); z-index: 30; }
+    .skip:focus { top: 20px; }
+    header { position: sticky; top: 0; z-index: 20; background: rgba(238,234,225,.97); border-bottom: 1px solid var(--line); }
+    .header-inner { min-height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font: bold 17px 'Courier New', monospace; letter-spacing: -.05em; white-space: nowrap; }
+    .brand span { font-size: 28px; color: var(--red); }
+    nav { display: flex; align-items: center; gap: 30px; font-size: 12px; }
+    nav a { padding-block: 15px; }
+    #motion { font-size: 10px; white-space: nowrap; }
+    #motion[aria-pressed='true'] { background: var(--ink); color: var(--paper); }
+    .cinema { height: 340vh; }
+    .stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; place-items: center; }
+    .stage-inner { position: relative; width: min(1320px, calc(100% - 112px)); height: 100%; display: grid; place-items: center; text-align: center; }
+    .eyebrow { font: 600 11px 'Courier New', monospace; letter-spacing: .14em; color: var(--red); margin: 0 0 32px; }
+    h1 { font: 500 clamp(42px, 6vw, 92px)/1.4 var(--serif); letter-spacing: -.055em; margin: 0; }
+    .intro { font-size: 13px; line-height: 2.1; color: var(--muted); margin: 22px 0 0; }
+    .primary { display: inline-flex; align-items: center; gap: 50px; padding: 18px 22px; background: var(--ink); color: var(--paper); font-size: 13px; transition: background .25s; }
+    .primary:hover { background: var(--red); }
+    .primary span { font-size: 23px; }
+    .stage-seal { position: absolute; top: 50%; left: 50%; width: min(72vh, 88vw); aspect-ratio: 1; color: var(--red); transform: translate(-50%, -50%); will-change: transform, opacity; }
+    .stage-seal svg { width: 100%; height: 100%; overflow: visible; }
+    .stage-seal .runes { font-size: 21px; letter-spacing: 5px; fill: currentColor; }
+    .stage-words { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+    .stage-words > span { grid-area: 1/1; display: grid; justify-items: center; gap: 20px; opacity: 0; will-change: transform, opacity; }
+    .stage-words > span:first-child { opacity: 1; }
+    .rune-word { font-family: MadokaRunes, serif; font-weight: 400; font-size: clamp(64px, 15vw, 190px); line-height: 1; color: var(--red); letter-spacing: .06em; }
+    .gloss { font: 11px var(--sans); color: var(--muted); letter-spacing: .3em; }
+    .stage-copy { position: relative; z-index: 2; will-change: transform, opacity; }
+    .stage-hint { position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); margin: 0; font: 600 10px 'Courier New', monospace; letter-spacing: .16em; color: var(--muted); transition: opacity .3s; }
+    .stage-cta { position: absolute; bottom: 92px; left: 50%; transform: translateX(-50%); opacity: 0; }
+    .hero-bottom { border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; padding: 23px 0; gap: 20px; font: 10px 'Courier New', var(--sans); color: var(--muted); }
+    .hero-bottom b { color: var(--red); font-size: 14px; margin-right: 10px; }
+    .hero-bottom a { padding-block: 12px; }
+    .ticker { overflow: hidden; border-block: 1px solid var(--line); padding: 22px 0; background: #e4e0d6; }
+    #strip { width: max-content; display: flex; align-items: center; gap: 35px; font: 24px Georgia, serif; color: var(--muted); }
+    #strip .runes { font-size: 27px; color: var(--red); letter-spacing: .15em; }
+    .courses { background: var(--ink); color: var(--paper); padding: 95px 0 100px; }
+    .section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 42px; }
+    .courses .eyebrow { color: #b9b9a8; margin-bottom: 22px; }
+    h2 { margin: 0; font: 500 clamp(29px, 3.3vw, 46px)/1.4 var(--serif); letter-spacing: -.04em; }
+    .section-heading > p { font-size: 12px; line-height: 2; color: #b9b9a8; margin: 0 0 3px; }
+    .course-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #52544a; border: 1px solid #52544a; }
+    .course { min-height: 322px; padding: 27px 28px 23px; background: var(--ink); display: flex; flex-direction: column; position: relative; transition: background .3s; }
+    .course:hover, .course:focus-visible { background: #30332b; z-index: 1; }
+    .witch { background: #732c2b; }
+    .witch:hover, .witch:focus-visible { background: #863634; }
+    .meta { display: flex; justify-content: space-between; gap: 8px; color: #b9b9a8; font: 10px 'Courier New', var(--sans); letter-spacing: .08em; }
+    .witch .meta { color: #e0b7ae; }
+    .symbol { height: 89px; display: flex; align-items: center; font: italic 53px Georgia, serif; color: #c4c6ae; }
+    .symbol.runes { font: 39px MadokaRunes; letter-spacing: .08em; color: #f0c7b7; }
+    .symbol.japanese { font: 42px var(--serif); }
+    .course h3 { font-size: 21px; font-weight: 500; letter-spacing: .025em; margin: 0 0 12px; }
+    .course p { color: #c6c7bb; font-size: 12px; line-height: 1.9; margin: 0 0 23px; }
+    .witch p { color: #ebcfc7; }
+    .course-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: auto; border-top: 1px solid #52544a; padding-top: 16px; font-size: 11px; }
+    .witch .course-foot { border-color: #a05d55; }
+    .course-foot span { font-size: 23px; transition: transform .25s; }
+    .course:hover .course-foot span { transform: translate(4px, -3px); }
+    .note { margin: 20px 0 0; color: #b9b9a8; font-size: 10px; text-align: right; line-height: 1.8; }
+    .showcase { background: var(--paper); position: relative; }
+    .show-item { padding: 100px 0; }
+    .show-box { width: min(1320px, calc(100% - 80px)); margin: auto; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 64px; align-items: center; }
+    .show-text, .show-art { min-width: 0; }
+    .show-meta { font: 600 10px 'Courier New', monospace; letter-spacing: .16em; color: var(--red); margin: 0 0 26px; }
+    .show-item h3 { font: 500 clamp(32px, 4vw, 58px)/1.3 var(--serif); letter-spacing: -.03em; margin: 0 0 24px; }
+    .show-copy { font-size: 14px; line-height: 2.1; color: var(--muted); max-width: 440px; margin: 0 0 26px; }
+    .show-art { text-align: center; }
+    .show-visual { display: grid; place-items: center; min-height: 380px; }
+    .show-visual.big { font: italic clamp(80px, 12vw, 180px)/1 Georgia, serif; color: var(--red); }
+    .show-visual.vtext { writing-mode: vertical-rl; margin: auto; font: clamp(56px, 7vw, 100px)/1.1 var(--serif); letter-spacing: .2em; color: var(--ink); }
+    .witch-cards { display: flex; justify-content: center; align-items: center; padding: 24px 12px; }
+    .witch-cards a { display: block; width: 42%; max-width: 278px; flex-shrink: 0; transition: transform .3s; }
+    .witch-cards a + a { margin-left: -13%; }
+    .witch-cards a:nth-child(1) { transform: rotate(-8deg) translateY(14px); }
+    .witch-cards a:nth-child(2) { transform: translateY(-16px); z-index: 1; }
+    .witch-cards a:nth-child(3) { transform: rotate(8deg) translateY(14px); }
+    .witch-cards a:hover, .witch-cards a:focus-visible { transform: translateY(-24px); z-index: 2; }
+    .witch-cards img { width: 100%; height: auto; aspect-ratio: 278/385; object-fit: contain; background: #dcd8cc; box-shadow: 0 16px 34px rgba(34,36,31,.22); display: block; }
+    .img-credit { margin: 28px 0 0; font-size: 10px; line-height: 1.9; color: var(--muted); }
+    .img-credit a { text-decoration: underline; text-underline-offset: 3px; }
+    .showcase.is-animated { height: 700svh; }
+    .is-animated .show-stage { position: sticky; top: 0; height: 100svh; }
+    .is-animated .show-item { position: absolute; inset: 0; display: grid; align-items: center; padding: 90px 0 30px; opacity: 0; will-change: opacity, transform; }
+    .is-animated .show-item:first-child { opacity: 1; }
+    @media (max-width: 760px) {
+      .show-box { width: calc(100% - 40px); grid-template-columns: minmax(0, 1fr); gap: 32px; }
+      .show-item { padding: 70px 0; }
+      .show-meta { margin-bottom: 14px; }
+      .show-item h3 { margin-bottom: 14px; }
+      .show-copy { font-size: 13px; margin-bottom: 10px; }
+      .show-art { width: min(100%, 460px); margin: auto; }
+      .show-visual { min-height: 200px; }
+      .witch-cards a { width: 40%; }
+      .img-credit { margin-top: 16px; }
+      .is-animated .show-box { gap: 18px; }
     }
-    
-    /* 背景のぼんやりした光 */
-    .nebula {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
+    .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .decode-section { padding-block: 95px 85px; }
+    .decode-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 70px; align-items: center; }
+    .decode-copy { font-size: 12px; line-height: 2.1; color: var(--muted); max-width: 420px; margin: 25px 0; }
+    .text-link { display: inline-block; border-bottom: 1px solid var(--ink); padding: 14px 0; font-size: 12px; }
+    .specimen { position: relative; border: 1px solid var(--line); padding: 30px; text-align: center; background: #e6e2d8; }
+    .specimen::before, .specimen::after { content: '+'; font: 20px 'Courier New', monospace; position: absolute; color: var(--red); top: -11px; }
+    .specimen::before { left: -6px; } .specimen::after { right: -6px; }
+    .specimen .meta { color: var(--muted); font-size: 9px; }
+    .word { height: 155px; display: grid; place-items: center; color: var(--red); }
+    .word span { grid-area: 1/1; transition: opacity .5s, transform .5s; }
+    .word .runes { font-size: clamp(28px, 4vw, 57px); letter-spacing: .07em; }
+    .latin { font: 42px Georgia, serif; letter-spacing: .08em; opacity: 0; transform: translateY(10px); }
+    .decoded .word .runes { opacity: 0; transform: translateY(-10px); }
+    .decoded .latin { opacity: 1; transform: none; }
+    #decode { border-color: var(--ink); font-size: 11px; padding-inline: 22px; }
+    #decode:hover { background: var(--ink); color: var(--paper); }
+    #translation { min-height: 22px; margin: 15px 0 0; font-size: 11px; color: var(--muted); }
+    .specimen-note { border-top: 1px solid var(--line); padding-top: 18px; margin-top: 23px; font-size: 10px; color: var(--muted); }
+    .sources { border-top: 1px solid var(--line); margin-top: 65px; padding-top: 20px; color: var(--muted); font-size: 10px; line-height: 2; }
+    .sources summary { cursor: pointer; width: fit-content; min-height: 44px; padding-block: 10px; }
+    .sources p { max-width: 760px; }
+    .sources a { text-decoration: underline; text-underline-offset: 3px; }
+    footer { border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 25px; align-items: center; padding-block: 30px; font-size: 11px; }
+    .footer-inner p { font-size: 10px; color: var(--muted); line-height: 1.8; }
+    .footer-inner > a { padding-block: 16px; }
+    html[data-motion='off'] { scroll-behavior: auto; }
+    html[data-motion='off'] * { animation: none !important; transition: none !important; }
+    @media (max-width: 1100px) {
+      .wrap { width: calc(100% - 64px); }
+      .course { padding: 24px; } .course h3 { font-size: 19px; } .decode-grid { gap: 35px; }
     }
-    .glow-circle {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.4;
+    @media (max-width: 760px) {
+      html { scroll-padding-top: 88px; } .wrap { width: calc(100% - 40px); }
+      .header-inner { min-height: 70px; gap: 12px; } .brand { font-size: 13px; gap: 7px; } .brand span { font-size: 24px; }
+      nav { gap: 15px; font-size: 11px; } #motion { padding: 8px; font-size: 9px; }
+      .stage-inner { width: calc(100% - 40px); padding-inline: 4px; }
+      h1 { font-size: clamp(40px, 10.5vw, 64px); }
+      .rune-word { font-size: clamp(56px, 17vw, 110px); } .gloss { font-size: 10px; letter-spacing: .2em; } .intro { font-size: 12px; }
+      .stage-seal { width: min(56vh, 96vw); } .stage-cta { bottom: 88px; } .stage-hint { bottom: 30px; }
+      .hero-bottom { font-size: 9px; padding-block: 18px; } .archive-label { display: none; }
+      .ticker { padding-block: 18px; } #strip { font-size: 20px; gap: 24px; } #strip .runes { font-size: 22px; }
+      .courses { padding-block: 60px; } .section-heading { display: block; margin-bottom: 30px; } .section-heading > p { margin-top: 20px; }
+      .course-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .course { min-height: 305px; padding: 20px; }
+      .course h3 { font-size: 18px; } .symbol { font-size: 43px; height: 75px; } .symbol.runes { font-size: 30px; } .meta { font-size: 9px; }
+      .show-visual { min-height: clamp(130px, 26vh, 220px); } .show-item h3 { font-size: clamp(28px, 7vw, 44px); }
+      .decode-section { padding-block: 60px 40px; } .decode-grid { grid-template-columns: 1fr; gap: 40px; }
+      .word .runes { font-size: clamp(30px, 8vw, 55px); } .sources { margin-top: 40px; } .footer-inner { flex-wrap: wrap; }
     }
-    .glow-1 {
-      background: radial-gradient(circle, #FF1493, transparent);
-      width: 500px; height: 500px; top: -100px; left: -100px;
+    @media (max-width: 430px) {
+      nav { gap: 8px; } .brand { font-size: 11px; } .course-grid { grid-template-columns: 1fr; }
+      .course { min-height: 285px; padding: 25px; } .course h3 { font-size: 23px; } .symbol { height: 68px; }
+      .symbol.runes { font-size: 38px; } .hero-bottom { gap: 8px; } .specimen { padding: 22px; }
+      .latin { font-size: 34px; }
     }
-    .glow-2 {
-      background: radial-gradient(circle, #00f2ff, transparent);
-      width: 600px; height: 600px; bottom: -150px; right: -100px;
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; }
     }
-
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 40px;
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    h1 {
-      margin-top: 0;
-      font-size: 2rem;
-      letter-spacing: 0.1em;
-      background: linear-gradient(90deg, #ff1493, #00f2ff);
-      -webkit-text-fill-color: transparent;
-      -webkit-background-clip: text;
-    }
-
-    p {
-      color: rgba(55, 73, 121, 0.7);
-      font-size: 0.9rem;
-      margin-bottom: 30px;
-    }
-
-    .btn {
-      display: block;
-      margin: 15px 0;
-      padding: 20px;
-      text-decoration: none;
-      color: #575153;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 1.1rem;
-      letter-spacing: 2px;
-      transition: all 0.3s ease;
-      background: rgba(87, 81, 83, 0.05);
-      border: 1px solid rgba(87, 81, 83, 0.1);
-    }
-
-    .btn-majo:hover {
-      border-color: #F6ADC6;
-      background: rgba(246, 173, 198, 0.2);
-      color: #F6ADC6;
-      box-shadow: 0 0 15px rgba(246, 173, 198, 0.3);
-    }
-
-    .btn-butsuri:hover {
-      border-color: #00f2ff;
-      background: rgba(0, 242, 255, 0.2);
-      color: #00f2ff;
-      box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
-    }
-
-    .btn-setsubi:hover{
-      border-color: #84C98B;
-      background: rgba(132, 201, 139, 0.2);
-      color: #84C98B;
-      box-shadow: 0 0 15px rgba(132, 201, 139, 0.3);
-    }
-
-    .btn-voca:hover{
-      border-color: #6366f1;
-      background: rgba(99, 102, 241, 0.2);
-      color: #6366f1;
-      box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
-    } 
-    
-    .btn-itowokashi:hover{
-      border-color: #5E3D50;
-      background: rgba(94, 61, 80, 0.2);
-      color: #5E3D50;
-      box-shadow: 0 0 15px rgba(94, 61, 80, 0.3);
-    } 
-
-    .btn-koukyou:hover{
-      border-color: #0D1B2A;
-      background: rgba(13, 27, 42, 0.2);
-      color: #0D1B2A;
-      box-shadow: 0 0 15px rgba(13, 27, 42, 0.3);
-    }
-      
   </style>
 </head>
 <body>
-  <div class="nebula">
-    <div class="glow-circle glow-1"></div>
-    <div class="glow-circle glow-2"></div>
-  </div>
+  <a class="skip" href="#courses">コース一覧へスキップ</a>
+  <header><div class="wrap header-inner"><a class="brand" href="#top"><span aria-hidden="true">✳</span> ANKISHIYOUZE</a><nav aria-label="メインナビゲーション"><a href="#courses">コース一覧 ↗</a><button id="motion" type="button" aria-pressed="false" hidden>動きを止める</button></nav></div></header>
+  <main id="top">
+    <section class="cinema" aria-labelledby="hero-title">
+      <div class="stage">
+        <div class="stage-inner">
+          <div class="stage-seal" id="seal" aria-hidden="true"><svg viewBox="0 0 520 520" fill="none">
+            <defs><path id="ring" d="M260 260m-221 0a221 221 0 1 1 442 0a221 221 0 1 1-442 0"/><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><path d="M0 0V7" stroke="currentColor" opacity=".25"/></pattern></defs>
+            <g stroke="currentColor" opacity=".25"><circle cx="260" cy="260" r="253"/><path d="M260 0v520M0 260h520" stroke-dasharray="2 7"/><path d="M15 18h16m-8-8v16M489 18h16m-8-8v16M15 502h16m-8-8v16M489 502h16m-8-8v16"/></g>
+            <g><text class="runes"><textPath href="#ring" textLength="1388" lengthAdjust="spacing">MEMORY LEARN REPEAT MEMORY LEARN REPEAT </textPath></text><circle cx="260" cy="260" r="210" stroke="currentColor"/></g>
+            <g stroke="currentColor"><circle cx="260" cy="260" r="192" stroke-dasharray="1 8"/><path d="M260 70 425 355H95ZM260 450 95 165h330Z" stroke-width=".8"/><circle cx="260" cy="70" r="5" fill="var(--paper)"/><circle cx="425" cy="355" r="5" fill="var(--paper)"/><circle cx="95" cy="355" r="5" fill="var(--paper)"/></g>
+            <g><path d="M260 119C230 168 195 211 195 260c0 53 28 92 65 114 37-22 65-61 65-114 0-49-35-92-65-141Z" fill="var(--paper)" stroke="currentColor" stroke-width="1.5"/><path d="M260 137C237 188 211 218 211 260c0 42 20 76 49 97 29-21 49-55 49-97 0-42-26-72-49-123Z" fill="url(#hatch)" stroke="currentColor"/><path d="m260 185 30 76-30 54-30-54Z" fill="currentColor"/><path d="M260 199v95m-21-35h42" stroke="var(--paper)" opacity=".55"/><path d="M231 386h58m-49 8h40m-33 8h26" stroke="currentColor" stroke-width="2"/><circle cx="260" cy="425" r="4" fill="currentColor"/></g>
+          </svg></div>
+          <div class="stage-words" aria-hidden="true">
+            <span><span class="rune-word">MEMORY</span><span class="gloss">きおくする</span></span>
+            <span><span class="rune-word">LEARN</span><span class="gloss">まなぶ</span></span>
+            <span><span class="rune-word">REPEAT</span><span class="gloss">くりかえす</span></span>
+          </div>
+          <div class="stage-copy" id="stage-copy">
+            <p class="eyebrow">A SMALL ARCHIVE FOR YOUR MIND</p>
+            <h1 id="hero-title">好きなものを、<br>記憶に刻め。</h1>
+            <p class="intro">試験に出るあの単語も、異世界の不思議な文字も。<br>「覚えたい」からはじまる、あなただけの暗記。</p>
+          </div>
+        </div>
+        <p class="stage-hint" id="stage-hint" aria-hidden="true">SCROLL ↓</p>
+        <a class="primary stage-cta" id="stage-cta" href="#courses">コース一覧を見る <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>    <div class="wrap hero-bottom"><span><b>06</b> 好奇心の、その先へ。</span><span class="archive-label">PERSONAL LEARNING ARCHIVE</span><a href="#courses">SCROLL TO EXPLORE ↓</a></div>
+    <div class="ticker" aria-hidden="true"><div id="strip"><span class="runes">MEMORY</span> ✳ <em>Learn something you love.</em> ✳ <span class="runes">LEARN</span> ✳ <em>Make it yours.</em> ✳ <span class="runes">REPEAT</span> ✳ <em>Learn something you love.</em> ✳ <span class="runes">MEMORY</span></div></div>
+    <section id="courses" class="courses" aria-labelledby="courses-title"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">01 / CHOOSE YOUR SUBJECT</p><h2 id="courses-title">今日は、何を覚える？</h2></div><p>まじめな勉強も、好きの探究も。<br>気になるコースから、どうぞ。</p></div>
+      <div class="course-grid">
+        <a class="course witch" href="魔女文字暗記.html"><div class="meta">01 / WITCH RUNES <span>趣味・解読</span></div><div class="symbol runes" aria-hidden="true">WITCH</div><h3>魔女文字</h3><p>読めなかった文字が、言葉になる。<br>まどマギの魔女文字を、その手に。</p><div class="course-foot">魔女文字を覚える <span aria-hidden="true">↗</span></div></a>
+        <a class="course" href="https://vocaforgestudyedition.pages.dev/"><div class="meta">02 / VOCABULARY <span>英語</span></div><div class="symbol" aria-hidden="true">Aa ↗</div><h3>VocaForge</h3><p>ひとつずつ、使える語彙へ。<br>英単語を鍛える学習アプリ。</p><div class="course-foot">英語語彙を学ぶ · 外部サイト <span aria-hidden="true">↗</span></div></a>
+        <a class="course" href="英語例文暗唱.html"><div class="meta">03 / RECITATION <span>英語</span></div><div class="symbol" aria-hidden="true">“Hello.”</div><h3>例文暗唱</h3><p>フレーズごと、声に出して。<br>学校の定期テスト向け英語例文。</p><div class="course-foot">例文を覚える <span aria-hidden="true">↗</span></div></a>
+        <a class="course" href="公共暗記.html"><div class="meta">04 / SOCIETY <span>社会</span></div><div class="symbol" aria-hidden="true">§</div><h3>公共＋政経</h3><p>社会のしくみを、知識に変える。<br>公共・政治・経済の用語を整理。</p><div class="course-foot">社会の用語を覚える <span aria-hidden="true">↗</span></div></a>
+        <a class="course" href="いとをかし.html"><div class="meta">05 / CLASSICS <span>国語</span></div><div class="symbol japanese" aria-hidden="true">あはれ</div><h3>古典「いとをかし」</h3><p>遠い時代の言葉を、身近に。<br>古典の世界へ、少しずつ。</p><div class="course-foot">古典を覚える <span aria-hidden="true">↗</span></div></a>
+        <a class="course" href="物理暗記.html"><div class="meta">06 / PHYSICS <span>理科</span></div><div class="symbol" aria-hidden="true">λ → ω</div><h3>物理記号</h3><p>見慣れない記号に、意味を。<br>物理に登場する文字を覚えよう。</p><div class="course-foot">物理記号を覚える <span aria-hidden="true">↗</span></div></a>
+      </div><p class="note">各コースの学習ページへ移動します。VocaForge は外部サイトです。</p>
+    </div></section>
+    <section class="showcase" id="showcase" aria-label="各暗記アプリの紹介">
+      <h2 class="vh" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap">各暗記アプリの紹介</h2>
+      <div class="show-stage">
+        <article class="show-item"><div class="show-box"><div class="show-text"><p class="show-meta">01 / WITCH RUNES</p><h3>魔女文字</h3><p class="show-copy">アニメに登場した「お菓子の魔女」「人魚の魔女」「救済の魔女」。<br>結界の文字を解き明かすトレーニングができる。</p><a class="text-link" href="魔女文字暗記.html">魔女文字を覚える ↗</a></div><div class="show-art"><div class="witch-cards"><a href="https://www.madoka-magica.com/tv/special/dic/card6.html" target="_blank" rel="noopener noreferrer"><img src="https://www.madoka-magica.com/tv/special/dic/img/card06.png" alt="お菓子の魔女" width="278" height="385" loading="lazy" referrerpolicy="no-referrer"></a><a href="https://www.madoka-magica.com/tv/special/dic/card25.html" target="_blank" rel="noopener noreferrer"><img src="https://www.madoka-magica.com/tv/special/dic/img/card26.png" alt="人魚の魔女" width="278" height="385" loading="lazy" referrerpolicy="no-referrer"></a><a href="https://www.madoka-magica.com/tv/special/dic/card27.html" target="_blank" rel="noopener noreferrer"><img src="https://www.madoka-magica.com/tv/special/dic/img/card28.png" alt="救済の魔女" width="278" height="385" loading="lazy" referrerpolicy="no-referrer"></a></div><p class="img-credit">画像：<a href="https://www.madoka-magica.com/tv/special/dic/" target="_blank" rel="noopener noreferrer">公式サイト「魔女図鑑」</a>より © Aniplex Inc.</p></div></div></article>
+        <article class="show-item"><div class="show-box"><div class="show-text"><p class="show-meta">02 / VOCABULARY</p><h3>VocaForge</h3><p class="show-copy">忘却曲線に合わせて、英単語を鍛える学習アプリ。<br>ひとつずつ、確実に語彙を自分のものに。</p><a class="text-link" href="https://vocaforgestudyedition.pages.dev/">英語語彙を学ぶ · 外部サイト ↗</a></div><div class="show-art"><div class="show-visual big" aria-hidden="true">Aa</div></div></div></article>
+        <article class="show-item"><div class="show-box"><div class="show-text"><p class="show-meta">03 / RECITATION</p><h3>例文暗唱</h3><p class="show-copy">フレーズごと声に出して、英文のリズムを体で覚える。<br>学校の定期テスト向けの例文シート。</p><a class="text-link" href="英語例文暗唱.html">例文を覚える ↗</a></div><div class="show-art"><div class="show-visual big" aria-hidden="true">“Hello.”</div></div></div></article>
+        <article class="show-item"><div class="show-box"><div class="show-text"><p class="show-meta">04 / SOCIETY</p><h3>公共＋政経</h3><p class="show-copy">公共・政治・経済の用語を、しくみから整理。<br>社会のニュースが読めるようになる。</p><a class="text-link" href="公共暗記.html">社会の用語を覚える ↗</a></div><div class="show-art"><div class="show-visual big" aria-hidden="true">§</div></div></div></article>
+        <article class="show-item"><div class="show-box"><div class="show-text"><p class="show-meta">05 / CLASSICS</p><h3>古典「いとをかし」</h3><p class="show-copy">古文単語と古典文法を、雅な世界ごと覚える。<br>遠い時代の言葉が、そっと身近になる。</p><a class="text-link" href="いとをかし.html">古典を覚える ↗</a></div><div class="show-art"><div class="show-visual vtext" aria-hidden="true">あはれ</div></div></div></article>
+        <article class="show-item"><div class="show-box"><div class="show-text"><p class="show-meta">06 / PHYSICS</p><h3>物理記号</h3><p class="show-copy">ρ、λ、ω——やっかいな記号と友達になる。<br>物理で使う文字の意味をサクッと整理。</p><a class="text-link" href="物理暗記.html">物理記号を覚える ↗</a></div><div class="show-art"><div class="show-visual big" aria-hidden="true">λ → ω</div></div></div></article>
+      </div>
+    </section>
+    <section class="wrap decode-section" aria-labelledby="decode-title"><div class="decode-grid"><div><p class="eyebrow">02 / BEYOND THE SYMBOLS</p><h2 id="decode-title">ただの模様が、<br>言葉に変わる瞬間。</h2><p class="decode-copy">このページに散りばめたのは、『魔法少女まどか☆マギカ』の魔女文字。アルファベットに対応する文字をたどると、隠れた言葉が見えてきます。<br>わからないものが、わかるようになる。暗記の楽しさも、きっとそこに。</p><a class="text-link" href="魔女文字暗記.html">魔女文字のコースへ ↗</a></div><div class="specimen" id="specimen"><div class="meta">SPECIMEN / 001 <span>WITCH RUNES</span></div><div class="word" aria-hidden="true"><span class="runes">MEMORY</span><span class="latin">MEMORY</span></div><button id="decode" type="button" aria-expanded="false" aria-controls="translation" hidden>この文字を解読する ↗</button><p id="translation" aria-live="polite">MEMORY — 記憶</p><div class="specimen-note">記号の向こうに、意味がある。</div></div></div>
+      <details class="sources"><summary>魔女文字について・参考資料</summary><p>魔女文字は作中の魔女の名前や結界などに登場する文字です。本ページでは MadokaRunes フォントを使用しています。MEMORY（記憶）、LEARN（学ぶ）、REPEAT（繰り返す）、WITCH（魔女）はこのサイトで選んだ単語であり、作中の台詞の引用ではありません。中央の紋章も独自のデザインです。紹介セクションの魔女カード画像は<a href="https://www.madoka-magica.com/tv/special/dic/" target="_blank" rel="noopener noreferrer">公式サイト「魔女図鑑」</a>から直接読み込んでおり、ファイルの保存・再配布はしていません（© Aniplex Inc.）。権利者様からのご指摘があれば直ちに取りやめます。</p><p>参考：<a href="https://www.madoka-magica.com/tv/special/">『魔法少女まどか☆マギカ』公式 SPECIAL・魔女図鑑</a> ／ <a href="https://wiki.puella-magi.net/Witch_Runes">Puella Magi Wiki — Witch Runes（ファンによる文字対応資料）</a> ／ <a href="https://wiki.puella-magi.net/Witch_Runes/Deciphering">解読の経緯</a></p><p>本サイトは個人の非公式学習サイトであり、作品の公式サイト・関係各社とは関係ありません。</p></details>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><div><a class="brand" href="#top">ANKISHIYOUZE <span aria-hidden="true">✳</span></a><p>好きなものを、好きなだけ。暗記をするためのサイト。</p></div><a href="#top">ページの先頭へ ↑</a></div></footer>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const toggle = document.getElementById('motion');
+      const cinema = document.querySelector('.cinema');
+      const stage = document.querySelector('.stage');
+      const seal = document.getElementById('seal');
+      const copy = document.getElementById('stage-copy');
+      const hint = document.getElementById('stage-hint');
+      const cta = document.getElementById('stage-cta');
+      const strip = document.getElementById('strip');
+      const showcase = document.getElementById('showcase');
+      const slides = [...showcase.querySelectorAll('.show-item')];
+      const compactScreen = matchMedia('(max-width: 760px) and (max-height: 739px), (min-width: 761px) and (max-height: 599px)');
+      const words = [...document.querySelectorAll('.stage-words > span')];
+      let paused = preference.matches;
+      let scheduled = false;
+      const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-  <div class="glass-panel">
-    <h1>暗記をするためのサイト</h1>
-    <p>好きなものを選んで暗記しよう</p>
-    
-    <a href="魔女文字暗記.html" class="btn btn-majo">魔女文字暗記コース</a>
-    <a href="https://webapp-2tw.pages.dev" class="btn btn-voca">VocaForge 英語語彙コース</a>
-    <a href="英語例文暗唱.html" class="btn btn-setsubi">例文暗唱コース</a>
-    <a href="公共暗記.html" class="btn btn-koukyou">公共+政経暗記コース</a>
-    <a href="いとをかし.html" class="btn btn-itowokashi">古典暗記コース</a>
-    <a href="物理暗記.html" class="btn btn-butsuri">物理記号暗記コース</a>
-  </div>
+      function render() {
+        scheduled = false;
+        const y = Math.max(0, window.scrollY);
+        const range = Math.max(1, cinema.offsetHeight - stage.offsetHeight);
+        const p = paused ? 0 : clamp(y / range, 0, 1);
+        const fade = clamp((p - 0.16) / 0.16, 0, 1);
+        copy.style.opacity = String(1 - fade);
+        copy.style.transform = `translateY(${-34 * fade}px)`;
+        seal.style.opacity = String(0.92 - 0.78 * p);
+        seal.style.transform = `translate(-50%, -50%) rotate(${p * 210}deg) scale(${1 + p * 1.9})`;
+        hint.style.opacity = p > 0.04 ? '0' : '1';
+        const ctaIn = clamp((p - 0.6) / 0.16, 0, 1);
+        cta.style.opacity = String(ctaIn);
+        cta.style.pointerEvents = ctaIn > 0.5 ? 'auto' : 'none';
+        words.forEach((span, i) => {
+          const center = 0.42 + i * 0.24;
+          const distance = Math.abs(p - center);
+          span.style.opacity = String(clamp(1 - distance * 5, 0, 1));
+          span.style.transform = `translateY(${(p - center) * -70}px)`;
+        });
+        strip.style.transform = `translateX(${-y * .12}px)`;
+        if (showcase.classList.contains('is-animated')) {
+          const distance = showcase.offsetHeight - window.innerHeight;
+          const progress = clamp(-showcase.getBoundingClientRect().top / distance, 0, 1) * (slides.length - 1);
+          const active = Math.round(progress);
+          slides.forEach((slide, index) => {
+            const delta = index - progress;
+            const weight = clamp(1 - Math.abs(delta), 0, 1);
+            const opacity = weight * weight * (3 - 2 * weight);
+            slide.style.opacity = String(opacity);
+            slide.style.transform = `translateY(${clamp(delta, -1, 1) * 24}px)`;
+            slide.inert = index !== active;
+            slide.setAttribute('aria-hidden', String(index !== active));
+          });
+        }
+      }
+      function requestRender() {
+        if (!scheduled) { scheduled = true; requestAnimationFrame(render); }
+      }
+      function setShowcaseMotion() {
+        const animated = !paused && !compactScreen.matches;
+        showcase.classList.toggle('is-animated', animated);
+        if (!animated) slides.forEach(slide => {
+          slide.style.opacity = '';
+          slide.style.transform = '';
+          slide.inert = false;
+          slide.removeAttribute('aria-hidden');
+        });
+        requestRender();
+      }
+      compactScreen.addEventListener('change', setShowcaseMotion);
+      function setMotion() {
+        setShowcaseMotion();
+        root.dataset.motion = paused ? 'off' : 'on';
+        toggle.setAttribute('aria-pressed', String(paused));
+        toggle.textContent = preference.matches ? '動き軽減中' : paused ? '動きを再開' : '動きを止める';
+        toggle.disabled = preference.matches;
+        if (paused && document.getAnimations) document.getAnimations().forEach(animation => animation.cancel());
+        requestRender();
+      }
+      toggle.hidden = false;
+      toggle.addEventListener('click', () => { paused = !paused; setMotion(); });
+      preference.addEventListener('change', () => { paused = preference.matches; setMotion(); });
+      window.addEventListener('scroll', requestRender, { passive: true });
+      window.addEventListener('resize', requestRender);
+      setMotion();
+
+      // Content remains visible without JavaScript; reveals never gate navigation.
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            if (!paused && entry.target.animate) {
+              entry.target.animate([{ opacity: .4, transform: 'translateY(22px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)' });
+            }
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: .12 });
+        document.querySelectorAll('.course, .decode-grid').forEach(element => observer.observe(element));
+      }
+      const decode = document.getElementById('decode');
+      const specimen = document.getElementById('specimen');
+      const translation = document.getElementById('translation');
+      decode.hidden = false;
+      translation.textContent = '6つの文字。どんな意味だろう？';
+      decode.addEventListener('click', () => {
+        const revealed = specimen.classList.toggle('decoded');
+        decode.setAttribute('aria-expanded', String(revealed));
+        decode.textContent = revealed ? '魔女文字に戻す ↶' : 'この文字を解読する ↗';
+        translation.textContent = revealed ? 'MEMORY — 記憶' : '6つの文字。どんな意味だろう？';
+      });
+    })();
+  </script>
 </body>
 </html>
