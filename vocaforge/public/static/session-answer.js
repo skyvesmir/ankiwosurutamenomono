@@ -16,6 +16,16 @@
     const s = VF.STATE.session;
     if (s._keyHandler) { document.removeEventListener('keydown', s._keyHandler); s._keyHandler = null; }
 
+    // 弱点集中モードは「ドリル」であって復習スケジュールではない。
+    // 期限に関係なく苦手カードを連続で出すモードなので、ここでの出来／不出来を
+    // FSRS に入れると、まだ覚えていないカードの間隔が伸びたり、
+    // 難易度・安定度が実際の記憶状態とズレたりする。
+    // そのため、このモードでは FSRS のスケジューリングと最適化用ログを書かない。
+    //   反映しない: stability / difficulty / due / state / last_review / 最適化ログ
+    //   反映する  : reps / lapses / is_leech（弱点リストの選抜と統計に必要なため。
+    //               ここを止めると弱点判定が更新されず、リストから卒業できなくなる）
+    const isWeakDrill = s.deck === 'weak';
+
     const before = Store.getCard(card.id) || { state: 'new', stability: 0, difficulty: 0, reps: 0, lapses: 0 };
     const now = Date.now();
     const res = FSRS.schedule(before, grade, s.settings.requestRetention, now);
@@ -25,23 +35,42 @@
     const leechThr = s.settings.leechThreshold || 8;
     const isLeech = lapses >= leechThr;
 
-    const newState = {
-      state: res.state, stability: res.stability, difficulty: res.difficulty,
-      due: res.due, last_review: res.last_review,
-      reps, lapses, is_leech: isLeech,
-      deck: card.deck, group: card.group
-    };
+    const newState = isWeakDrill
+      // 弱点ドリル: FSRS が決める4項目（state/stability/difficulty/due）と
+      // last_review は before のまま据え置き、回数系だけ更新する。
+      ? {
+        state: before.state, stability: before.stability, difficulty: before.difficulty,
+        due: before.due, last_review: before.last_review,
+        reps, lapses, is_leech: isLeech,
+        deck: card.deck, group: card.group,
+        // last_review を据え置くので、cardTouchedAt() が「古いカード」と誤判定してしまう
+        // （updated_at_ms が無いと last_review で代用する仕様のため）。
+        // そのままだと同期のマージで reps/lapses の更新がサーバー側の値に負けて消える。
+        // 触った時刻を明示して、手元の更新が正しく勝つようにする。
+        updated_at_ms: now
+      }
+      : {
+        state: res.state, stability: res.stability, difficulty: res.difficulty,
+        due: res.due, last_review: res.last_review,
+        reps, lapses, is_leech: isLeech,
+        deck: card.deck, group: card.group
+      };
     Store.setCard(card.id, newState);
 
     // ログ（FSRS最適化用フル情報）
-    Store.addLog({
-      card_id: card.id, reviewed_at: now, grade,
-      format: q.format,
-      elapsed_days: res.elapsed_days,
-      duration_ms: now - s.current.shownAt,
-      s_before: before.stability || 0, d_before: before.difficulty || 0,
-      s_after: res.stability, d_after: res.difficulty
-    });
+    // 弱点ドリルの解答は optimizer.js の学習データに混ぜない。
+    // 期限を無視した出題なので elapsed_days が実際の記憶間隔を表さず、
+    // これを含めるとパラメータ推定が歪む。
+    if (!isWeakDrill) {
+      Store.addLog({
+        card_id: card.id, reviewed_at: now, grade,
+        format: q.format,
+        elapsed_days: res.elapsed_days,
+        duration_ms: now - s.current.shownAt,
+        s_before: before.stability || 0, d_before: before.difficulty || 0,
+        s_after: res.stability, d_after: res.difficulty
+      });
+    }
 
     // 日次カウンタ（既存。壊さない）
     const wasNew = before.state === 'new' || before.state == null;
@@ -59,11 +88,21 @@
     // 箱に入れるだけなので、オフラインでも失敗しても学習は止まらない。
     if (window.VFOutbox && window.VFOutbox.enqueueAnswer) {
       try {
-        window.VFOutbox.enqueueAnswer({
+        // 弱点ドリルではログを送らない（ローカルの Store.addLog と揃える）。
+        // ここで送ると、別端末が review_logs を引いたときに
+        // 弱点ドリルの解答が最適化の学習データに混ざってしまう。
+        // カード状態（state）は reps/lapses の更新を同期する必要があるので送る。
+        // newState 側で stability/difficulty/due は据え置き済みなので、
+        // サーバーのスケジュールが弱点ドリルで動くことはない。
+        const payload = {
           cardId: card.id,
           state: newState,
           touchedAt: now,
-          log: {
+          day: Store.todayStr(now),
+          stats: Store.getDaily(now)
+        };
+        if (!isWeakDrill) {
+          payload.log = {
             card_id: card.id, reviewed_at: now, grade: grade,
             // サーバーの correct 列には客観的な正解判定を入れる（ボタンは入れない）
             correct: !!correct,
@@ -76,10 +115,9 @@
             duration_ms: now - s.current.shownAt,
             s_before: before.stability || 0, d_before: before.difficulty || 0,
             s_after: res.stability, d_after: res.difficulty
-          },
-          day: Store.todayStr(now),
-          stats: Store.getDaily(now)
-        });
+          };
+        }
+        window.VFOutbox.enqueueAnswer(payload);
       } catch (e) { /* 送信準備の失敗で学習を止めない */ }
     }
 

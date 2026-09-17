@@ -381,7 +381,9 @@
     const ex = (e.examples || []).map(x =>
       '<div class="flex items-center justify-between py-1.5 border-b border-slate-800/60 text-sm">' +
       '<span class="font-semibold">' + esc(x.word) + '</span>' +
-      '<span class="text-slate-400 text-xs">' + esc(x.ja) + ' ・ ' + esc(x.level) + '</span></div>').join('');
+      // ja は複数品詞の意味を「【名】…<br>【他】…」の形で持つことがあるので br() で改行を活かす
+      // （esc() だけだと <br> がそのまま文字として画面に出てしまう）
+      '<span class="text-slate-400 text-xs">' + br(x.ja) + ' ・ ' + esc(x.level) + '</span></div>').join('');
     const html =
       '<div id="etym-modal" class="fixed inset-0 z-50 bg-black/70 flex items-end sm:items-center justify-center p-0 sm:p-4">' +
         '<div class="bg-slate-900 w-full max-w-xl rounded-t-3xl sm:rounded-3xl border border-slate-800 max-h-[85vh] overflow-y-auto">' +
