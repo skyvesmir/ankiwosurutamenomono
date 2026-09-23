@@ -1,0 +1,1036 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>英語例文暗唱</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nv:#1B2744;--nvl:#2A3E73;--gd:#C8981A;--gdl:#E8C84A;
+  --cr:#F0EDE5;--wh:#FFFFFF;
+  --ok:#1E7244;--ok2:#E6F4EE;
+  --ng:#B92626;--ng2:#FEECEC;
+  --tx:#1C2536;--tx2:#6B7280;
+  --br:#DDD8CE;--sh:0 2px 16px rgba(26,39,68,.09);
+  --r:14px;--nh:62px;--mw:540px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{height:100%;-webkit-tap-highlight-color:transparent;}
+body{min-height:100%;background:var(--cr);color:var(--tx);
+  font-family:'Noto Sans JP',-apple-system,sans-serif;font-size:15px;line-height:1.6;
+  padding-bottom:var(--nh);}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit;}
+input,textarea{font:inherit;color:inherit;}
+a{text-decoration:none;}
+#app{min-height:calc(100vh - var(--nh));}
+.con{max-width:var(--mw);margin:0 auto;padding:0 16px;}
+.card{background:var(--wh);border-radius:var(--r);box-shadow:var(--sh);}
+.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}.fw{width:100%;}
+
+/* ── PAGE ── */
+.page{min-height:calc(100vh - var(--nh));}
+.ph{background:var(--nv);color:#fff;padding:14px 16px;position:sticky;top:0;z-index:50;}
+.ph-row{display:flex;align-items:center;gap:10px;}
+.page-title{font-size:18px;font-weight:700;margin:0;}
+.app-title{font-size:22px;font-weight:800;}
+.app-sub{color:rgba(255,255,255,.7);font-size:13px;margin-top:2px;}
+.pc{padding:16px;}
+
+/* ── NAV ── */
+#mnav{position:fixed;bottom:0;left:0;right:0;height:var(--nh);background:var(--wh);
+  border-top:1px solid var(--br);display:flex;align-items:stretch;z-index:100;
+  box-shadow:0 -2px 8px rgba(0,0,0,.06);}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;color:var(--tx2);font-size:11px;font-weight:500;padding:4px 0;transition:color .15s;}
+.nb.active{color:var(--nv);}
+.ni{font-size:21px;line-height:1;}
+
+/* ── BUTTONS ── */
+.bp{display:block;width:100%;padding:13px 20px;background:var(--nv);color:#fff;
+  border-radius:10px;font-weight:700;font-size:15px;text-align:center;
+  transition:opacity .15s,transform .1s;}
+@media (hover:hover){.bp:hover{opacity:.9;}}
+.bp:active{transform:scale(.98);opacity:.9;}
+.bp:disabled{opacity:.4;cursor:default;transform:none;}
+.bs{display:block;width:100%;padding:12px 20px;background:#fff;color:var(--nv);
+  border-radius:10px;font-weight:600;font-size:15px;text-align:center;
+  border:2px solid var(--nv);transition:background .15s,transform .1s;}
+@media (hover:hover){.bs:hover{background:var(--cr);}}
+.bs:active{transform:scale(.98);background:var(--cr);}
+.bd{padding:10px 18px;background:var(--ng);color:#fff;border-radius:8px;font-weight:600;font-size:14px;}
+.bl{color:var(--nv);font-size:14px;font-weight:600;text-align:center;display:block;margin:12px 0;padding:4px;}
+.bsm{padding:8px 16px;background:var(--nv);color:#fff;border-radius:8px;font-weight:600;font-size:14px;}
+.back{color:#fff;font-size:20px;padding:2px 6px;font-weight:700;line-height:1;}
+
+/* ── HOME ── */
+.rc{padding:20px;margin-bottom:16px;background:var(--nv);color:#fff;cursor:pointer;}
+.rc-main{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;}
+.rc-n{font-size:52px;font-weight:800;color:var(--gdl);line-height:1;}
+.rc-l{font-size:20px;font-weight:600;}
+.rc-sub{color:rgba(255,255,255,.7);font-size:14px;margin-bottom:12px;}
+.rc-btn{background:var(--gd);color:var(--nv);padding:12px 20px;border-radius:8px;
+  font-weight:700;font-size:15px;text-align:center;}
+.rc-done{background:rgba(255,255,255,.15);color:#fff;padding:10px 20px;
+  border-radius:8px;font-size:14px;text-align:center;}
+.sr{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.sb{background:#fff;border-radius:var(--r);padding:14px 8px;text-align:center;box-shadow:var(--sh);}
+.sv{font-size:28px;font-weight:800;color:var(--nv);}
+.sl{font-size:12px;color:var(--tx2);margin-top:2px;}
+.stl{font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:10px;
+  text-transform:uppercase;letter-spacing:.05em;}
+.ri{display:flex;align-items:center;padding:14px 16px;margin-bottom:8px;cursor:pointer;}
+.ri-m{flex:1;}.ri-n{font-weight:700;font-size:15px;}
+.ri-i{font-size:13px;color:var(--tx2);margin-top:2px;}
+.ri-a{color:var(--tx2);font-size:22px;}
+.badge{background:var(--ng);color:#fff;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:700;}
+.gbadge{color:var(--ok);font-size:12px;font-weight:700;}
+
+/* ── DECKS ── */
+.di{display:flex;align-items:center;padding:14px 16px;margin-bottom:8px;cursor:pointer;}
+.di.sp{background:linear-gradient(135deg,var(--nv),var(--nvl));color:#fff;}
+.di.sp .di-i{color:rgba(255,255,255,.7);}
+.di.sp .di-a{color:rgba(255,255,255,.5);}
+.di-m{flex:1;}.di-n{font-weight:700;font-size:15px;}
+.di-i{font-size:13px;color:var(--tx2);margin-top:2px;}
+.di-a{color:var(--tx2);font-size:22px;}
+
+/* ── MODE SELECT ── */
+.ms-p{font-size:14px;color:var(--tx2);text-align:center;margin:20px 0 14px;}
+.mc-grid{display:grid;gap:12px;}
+.mc{padding:22px 20px;cursor:pointer;text-align:center;transition:transform .12s;border-radius:var(--r);}
+@media (hover:hover){.mc:hover{transform:translateY(-2px);}}
+.mc:active{transform:scale(.98);}
+.mc-icon{font-size:38px;margin-bottom:8px;}
+.mc-name{font-size:17px;font-weight:700;color:var(--nv);margin-bottom:4px;}
+.mc-desc{font-size:13px;color:var(--tx2);}
+
+/* ── STUDY PAGE ── */
+.sp2{min-height:100vh;background:var(--cr);display:flex;flex-direction:column;}
+.sh2{background:var(--nv);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:12px;}
+.pi{flex:1;}
+.pb{height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin-bottom:4px;}
+.pf{height:100%;background:var(--gdl);border-radius:2px;transition:width .3s;}
+.pt{font-size:12px;color:rgba(255,255,255,.7);text-align:right;}
+.mb2{font-size:22px;}
+.sb2{flex:1;padding:16px;max-width:var(--mw);margin:0 auto;width:100%;}
+
+/* ── FLASHCARD ── */
+.fcc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:24px;margin-bottom:16px;}
+.fca{overflow-y:auto;max-height:calc(100vh - 130px);}
+.cl{font-size:12px;font-weight:700;color:var(--tx2);text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:10px;}
+.en{font-family:'Noto Serif',Georgia,serif;font-size:20px;line-height:1.65;
+  color:var(--nv);font-weight:600;margin-bottom:16px;}
+.hint{font-size:13px;color:var(--tx2);text-align:center;margin-bottom:16px;font-style:italic;}
+.dv{height:1px;background:var(--br);margin:16px 0;}
+.ja{font-size:16px;line-height:1.8;color:var(--tx);margin-bottom:8px;padding:14px;
+  background:var(--cr);border-radius:10px;}
+.gs{margin:8px 0 12px;}
+.gl{text-align:center;color:var(--tx2);font-size:13px;padding:10px;}
+.nb2{list-style:none;padding:0;}
+.nb2 li{font-size:13px;color:var(--tx);padding:5px 0 5px 14px;
+  border-left:3px solid var(--gd);margin-bottom:5px;line-height:1.5;}
+.nt{font-size:13px;font-weight:700;color:var(--nv);margin-bottom:6px;}
+.nblk{margin-bottom:14px;}
+.api-n{font-size:13px;color:var(--tx2);text-align:center;padding:8px;font-style:italic;}
+.g-lbl{font-size:13px;color:var(--tx2);text-align:center;margin:16px 0 10px;font-weight:600;}
+.gbts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.gbt{padding:10px 4px;border-radius:9px;font-size:12px;font-weight:700;text-align:center;
+  cursor:pointer;border:2px solid;line-height:1.3;}
+.g0{border-color:var(--ng);color:var(--ng);background:var(--ng2);}
+.g1{border-color:#D4820A;color:#D4820A;background:#FEF5EC;}
+.g2{border-color:var(--ok);color:var(--ok);background:var(--ok2);}
+.g3{border-color:#2671B5;color:#2671B5;background:#EBF5FB;}
+
+/* ── WORD ORDER ── */
+.woc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:20px;margin-bottom:16px;}
+.mt{background:var(--nv);color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;
+  font-weight:700;vertical-align:middle;margin-left:6px;}
+.jab{background:var(--cr);border-radius:10px;padding:14px;margin:12px 0;
+  font-size:16px;line-height:1.75;}
+.albl{font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:6px;}
+.aa{min-height:54px;background:#F8F5EF;border:2px dashed var(--br);
+  border-radius:10px;padding:10px;display:flex;flex-wrap:wrap;gap:6px;
+  align-items:center;margin-bottom:12px;
+  transition:border-color .15s,background-color .15s;}
+.aa.zone-on{border-color:var(--gd);background:#FBF6E7;}
+.ap{color:var(--tx2);font-size:13px;font-style:italic;}
+.wb{min-height:54px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;
+  border-radius:10px;transition:box-shadow .15s;}
+.wb.zone-on{box-shadow:0 0 0 6px #EFECE2;}
+.ch{padding:7px 14px;border-radius:20px;font-family:'Noto Serif',Georgia,serif;
+  font-size:14px;cursor:grab;-webkit-user-select:none;user-select:none;white-space:nowrap;
+  touch-action:none;-webkit-touch-callout:none;
+  transition:background-color .12s,border-color .12s,color .12s,box-shadow .12s,transform .1s;}
+.ch.av{background:#fff;border:2px solid var(--br);color:var(--tx);}
+.ch.sl{background:var(--nv);color:#fff;border:2px solid var(--nv);}
+@media (hover:hover){
+  .ch.av:hover{border-color:var(--nv);background:var(--cr);}
+  .ch.sl:hover{background:var(--nvl);}
+}
+.ch:active{transform:scale(.93);}
+/* ドラッグ中 */
+.ch-ph{opacity:1;border-style:dashed!important;cursor:grabbing;}
+.ch.sl.ch-ph{background:rgba(27,39,68,.10);border-color:var(--nvl)!important;color:transparent;}
+.ch.av.ch-ph{background:rgba(27,39,68,.05);border-color:var(--br)!important;color:transparent;}
+.ch-ghost{position:fixed;z-index:1000;margin:0;pointer-events:none;cursor:grabbing;
+  box-shadow:0 10px 24px rgba(27,39,68,.32);will-change:transform;}
+body.wo-dragging{-webkit-user-select:none;user-select:none;cursor:grabbing;}
+body.wo-dragging .ch:active{transform:none;}
+.wo-hint{font-size:12px;color:var(--tx2);line-height:1.5;margin:0 0 12px;}
+.woa{display:flex;gap:10px;}
+.woa .bs{width:auto;flex:1;font-size:14px;padding:11px 16px;}
+.woa .bp{width:auto;flex:2;font-size:14px;padding:11px 16px;}
+
+/* ── WRITING ── */
+.wrc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:20px;margin-bottom:16px;}
+.wrl{font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:8px;}
+.wri{width:100%;padding:12px 14px;border:2px solid var(--br);border-radius:10px;
+  font-size:15px;font-family:'Noto Serif',Georgia,serif;resize:none;outline:none;
+  background:#FAFAF8;transition:border-color .2s;line-height:1.6;}
+.wri:focus{border-color:var(--nv);background:#fff;}
+
+/* ── RESULT ── */
+.rko{background:var(--ok2);color:var(--ok);border-radius:10px;padding:12px 16px;
+  font-size:16px;font-weight:700;text-align:center;margin:12px 0;}
+.rng{background:var(--ng2);color:var(--ng);border-radius:10px;padding:12px 16px;
+  font-size:16px;font-weight:700;text-align:center;margin:12px 0;}
+.ca{margin-bottom:12px;}
+.cal{font-size:12px;font-weight:700;color:var(--tx2);margin-bottom:6px;}
+.cat{font-family:'Noto Serif',Georgia,serif;font-size:15px;color:var(--nv);font-weight:600;
+  background:var(--cr);padding:10px 14px;border-radius:8px;border-left:3px solid var(--gd);}
+.eg{background:var(--cr);border-radius:10px;padding:14px;margin:10px 0;}
+.egl{font-size:13px;font-weight:700;color:var(--nv);margin-bottom:8px;}
+
+/* ── SESSION END ── */
+.ep{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--cr);}
+.ec{background:#fff;border-radius:var(--r);padding:32px 24px;max-width:380px;
+  width:calc(100% - 32px);text-align:center;box-shadow:var(--sh);}
+.etr{font-size:60px;margin-bottom:12px;}
+.etl{font-size:22px;font-weight:800;color:var(--nv);margin-bottom:20px;}
+.ests{display:flex;justify-content:center;gap:24px;margin-bottom:28px;}
+.est{display:flex;flex-direction:column;align-items:center;}
+.esv{font-size:30px;font-weight:800;color:var(--nv);}
+.esl{font-size:12px;color:var(--tx2);margin-top:2px;}
+
+/* ── STATS ── */
+.sr4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;}
+.sbox{background:#fff;border-radius:var(--r);padding:14px 6px;text-align:center;box-shadow:var(--sh);}
+.sv2{font-size:20px;font-weight:800;color:var(--nv);}
+.sl2{font-size:10px;color:var(--tx2);margin-top:2px;}
+.ctl{font-size:14px;font-weight:700;color:var(--tx2);padding:16px 16px 10px;}
+.bch{display:flex;align-items:flex-end;gap:5px;padding:0 16px 16px;height:110px;}
+.bcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:100%;}
+.bw{flex:1;width:100%;display:flex;align-items:flex-end;}
+.bf{width:100%;background:var(--nv);border-radius:3px 3px 0 0;min-height:2px;}
+.bn{font-size:10px;color:var(--tx);font-weight:600;min-height:13px;}
+.bdy{font-size:10px;color:var(--tx2);}
+.pr{display:flex;align-items:center;gap:10px;padding:5px 16px;}
+.prn{font-size:11px;font-weight:600;color:var(--tx2);width:24px;flex-shrink:0;}
+.prb{flex:1;height:6px;background:var(--br);border-radius:3px;}
+.prf{height:100%;background:var(--gd);border-radius:3px;}
+.prp{font-size:11px;color:var(--tx2);width:34px;text-align:right;}
+
+/* ── SETTINGS ── */
+.setc{padding:20px;}
+.stt{font-size:16px;font-weight:700;color:var(--nv);margin-bottom:6px;}
+.std{font-size:13px;color:var(--tx2);line-height:1.6;margin-bottom:12px;}
+.akr{display:flex;gap:8px;}
+.si{flex:1;padding:10px 12px;border:2px solid var(--br);border-radius:8px;font-size:14px;outline:none;}
+.si:focus{border-color:var(--nv);}
+
+.retry-banner{background:var(--ng2);color:var(--ng);text-align:center;
+  padding:8px 16px;font-size:13px;font-weight:700;letter-spacing:.02em;}
+/* ── ANIM ── */
+@keyframes fdIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.pc{animation:fdIn .22s ease;}
+.sb2.anim{animation:fdIn .18s ease;}
+@media (prefers-reduced-motion:reduce){
+  .pc,.sb2.anim{animation:none;}
+  .ch,.bp,.bs,.mc{transition:none!important;}
+}
+@keyframes dots{0%,20%{content:'.'}40%{content:'..'}60%,100%{content:'...'}}
+.da::after{content:'.';animation:dots 1.4s infinite;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav id="mnav">
+  <button class="nb active" data-p="home" onclick="nav('home')">
+    <span class="ni">🏠</span><span>ホーム</span>
+  </button>
+  <button class="nb" data-p="decks" onclick="nav('decks')">
+    <span class="ni">📚</span><span>デッキ</span>
+  </button>
+  <button class="nb" data-p="stats" onclick="nav('stats')">
+    <span class="ni">📊</span><span>記録</span>
+  </button>
+  <button class="nb" data-p="settings" onclick="nav('settings')">
+    <span class="ni">⚙️</span><span>設定</span>
+  </button>
+</nav>
+<script>
+const DB=[["L1-1", "LESSON 1", "①", "I go jogging in a nearby park every morning to stay healthy.", "健康を維持するために、毎朝近くの公園にジョギングに行きます。"], ["L1-2", "LESSON 1", "②", "I'm looking for a book about current American politics.", "現在のアメリカ政治に関する本を探しています。"], ["L1-3", "LESSON 1", "③", "I learned about the life of President Kennedy in history class last week.", "先週の歴史の授業で、ケネディ大統領の生涯について学びました。"], ["L1-4", "LESSON 1", "④", "I have already decided what I want to do in the future.", "将来やりたいことはもう決めています。"], ["L1-5", "LESSON 1", "⑤", "I have never thought about living in a foreign country.", "外国に住むことを考えたことは一度もありません。"], ["L1-6", "LESSON 1", "⑥", "I've had a keen interest in social studies since I was an elementary school student.", "小学生の頃から社会科にとても興味があります。"], ["L1-7", "LESSON 1", "⑦", "I'm sure it will be challenging to study abroad.", "留学はきっと大変だと思います。"], ["L1-8", "LESSON 1", "⑧", "I'm going to study international relations in college.", "大学で国際関係学を勉強するつもりです。"], ["L2-1", "LESSON 2", "①", "It is natural for you to be excited about the concert next week.", "来週のコンサートにわくわくするのは当然です。"], ["L2-2", "LESSON 2", "②", "My plan for the weekend is to play shogi on my computer.", "週末の予定は、コンピュータで将棋をすることです。"], ["L2-3", "LESSON 2", "③", "Planning a vacation with my family can be lots of fun.", "家族で休暇の計画を立てることは、とても楽しいです。"], ["L2-4", "LESSON 2", "④", "I'm looking forward to watching the tennis match on TV tomorrow.", "明日のテニスの試合をテレビで見るのを楽しみにしています。"], ["L2-5", "LESSON 2", "⑤", "It's up to you to decide which subject to study at home.", "家でどの教科を勉強するかはあなたが決めることです。"], ["L2-6", "LESSON 2", "⑥", "His decision to keep regular hours should lead to a healthier life.", "規則正しい生活を送るという彼の決断は、より健康的な生活につながるはずです。"], ["L2-7", "LESSON 2", "⑦", "The problem is that there isn't enough space in the room for this sofa.", "問題は、この部屋にこのソファを置くのに十分なスペースがないということです。"], ["L2-8", "LESSON 2", "⑧", "I'm not sure whether I should cook supper or order a pizza tonight.", "今夜、夕食を自分で作るべきか、ピザを注文すべきか迷っています。"], ["L3-1", "LESSON 3", "①", "We can use the computer room during our lunch break.", "お昼休みにコンピュータ室を使うことができます。"], ["L3-2", "LESSON 3", "②", "The final exam for our English class may be very difficult.", "英語の期末試験はとても難しいかもしれません。"], ["L3-3", "LESSON 3", "③", "We must wear our school uniform on the school trip.", "修学旅行では制服を着なければなりません。"], ["L3-4", "LESSON 3", "④", "The club meeting should be on Friday, but it might be postponed.", "部活の会議は金曜日になるはずですが、延期されるかもしれません。"], ["L3-5", "LESSON 3", "⑤", "Ms. Kelly has gone to the teachers' room, but she will be back soon.", "ケリー先生は職員室に行っていますが、もうすぐ戻ってくるでしょう。"], ["L3-6", "LESSON 3", "⑥", "Kenta would be the right person for our class representative.", "健太がクラス委員として最適な人物でしょう。"], ["L3-7", "LESSON 3", "⑦", "Though she is not good at math, she got a high score on the test. She must have studied hard.", "彼女は数学が得意ではないのに、テストで高得点を取りました。一生懸命勉強したに違いありません。"], ["L3-8", "LESSON 3", "⑧", "I fell asleep during class. I should have gone to bed earlier last night.", "授業中に眠ってしまいました。昨夜もっと早く寝るべきでした。"], ["GP1-1", "GRAMMAR PLUS 1", "", "My father is always telling the same old jokes.", "父はいつも同じ古い冗談を言っています。"], ["GP1-2", "GRAMMAR PLUS 1", "", "The baseball game was about to start when it began to rain.", "野球の試合が始まろうとしていたとき、雨が降り始めました。"], ["GP1-3", "GRAMMAR PLUS 1", "", "I was on the point of leaving home when the phone rang.", "家を出ようとしていたとき、電話が鳴りました。"], ["GP1-4", "GRAMMAR PLUS 1", "", "There's no telling whether or not I can finish this report on time.", "このレポートを時間内に終えられるかどうか、見当がつきません。"], ["GP1-5", "GRAMMAR PLUS 1", "", "It is no use criticizing his rude behavior.", "彼の失礼な行動を批判しても無駄です。"], ["GP1-6", "GRAMMAR PLUS 1", "", "It is worth seeing that movie.", "その映画は見る価値があります。"], ["GP1-7", "GRAMMAR PLUS 1", "", "That movie is worth seeing.", "その映画は見る価値があります。"], ["GP1-8", "GRAMMAR PLUS 1", "", "I feel like going to a hot spring.", "温泉に行きたい気分です。"], ["GP1-9", "GRAMMAR PLUS 1", "", "On seeing her father, the girl ran up to him and hugged him.", "父親の姿を見るなり、その女の子は駆け寄って抱きつきました。"], ["GP1-10", "GRAMMAR PLUS 1", "", "My parents talked my grandfather into giving up driving.", "両親は祖父を説得して、運転をやめさせました。"], ["GP1-11", "GRAMMAR PLUS 1", "", "This book may well be too difficult for my brother.", "この本はおそらく私の弟には難しすぎるでしょう。"], ["GP1-12", "GRAMMAR PLUS 1", "", "We might as well wait for him a little longer.", "もう少し彼を待った方がよいでしょう。"], ["GP1-13", "GRAMMAR PLUS 1", "", "I've got to catch the 7:17 train.", "7時17分の電車に乗らなければなりません。"], ["GP1-14", "GRAMMAR PLUS 1", "", "I would rather go hungry than eat octopus.", "タコを食べるくらいなら、空腹のままでいる方がましです。"], ["GP1-15", "GRAMMAR PLUS 1", "", "I cannot help laughing at Chaplin movies.", "チャップリンの映画を見ると笑わずにはいられません。"], ["GP1-16", "GRAMMAR PLUS 1", "", "We cannot thank our coach too much.", "コーチにはいくら感謝してもし足りません。"], ["L4-1", "LESSON 4", "①", "The volunteer workers cleaned up the famous historic site.", "ボランティアの人々が、有名な史跡を清掃しました。"], ["L4-2", "LESSON 4", "②", "I learned many skills and gained much experience from the volunteer work.", "ボランティア活動を通じて、多くの技術を習得し、多くの経験を積みました。"], ["L4-3", "LESSON 4", "③", "The summer math course was difficult but helpful.", "夏の数学講座は難しかったですが、ためになりました。"], ["L4-4", "LESSON 4", "④", "It was necessary for me to attend the leadership course.", "リーダーシップ研修に参加する必要がありました。"], ["L4-5", "LESSON 4", "⑤", "The police found my stolen bicycle near the station.", "警察は、盗まれた私の自転車を駅の近くで見つけました。"], ["L4-6", "LESSON 4", "⑥", "The students kept talking in class about the upcoming school festival.", "生徒たちは、来たる学校祭のことについて、授業中もずっと話し続けていました。"], ["L4-7", "LESSON 4", "⑦", "The performance of the dance team on stage was amazing.", "舞台でのダンスチームのパフォーマンスは素晴らしかったです。"], ["L4-8", "LESSON 4", "⑧", "I was amazed by the performance of the dance team at the school festival.", "学校祭でのダンスチームのパフォーマンスに、私は感動しました。"], ["L5-1", "LESSON 5", "①", "A self-driving bus full of passengers was going down the street.", "乗客でいっぱいの自動運転バスが、道路を走っていました。"], ["L5-2", "LESSON 5", "②", "Can you imagine a life without your smartphone?", "スマートフォンのない生活を想像できますか？"], ["L5-3", "LESSON 5", "③", "There are many websites teaching English.", "英語を教えているウェブサイトが多数あります。"], ["L5-4", "LESSON 5", "④", "The photos taken with this smartphone camera are beautiful.", "このスマートフォンのカメラで撮影した写真は美しいです。"], ["L5-5", "LESSON 5", "⑤", "Nowadays, online music streaming is a popular way to listen to music.", "最近は、オンライン音楽ストリーミングが音楽を聴くポピュラーな方法になっています。"], ["L5-6", "LESSON 5", "⑥", "Can I use your electronic dictionary? I have something to look up.", "電子辞書を使ってもいいですか？調べたいことがあるんです。"], ["L5-7", "LESSON 5", "⑦", "Virtual reality technology is likely to improve dramatically.", "バーチャルリアリティ技術は飛躍的に進歩しそうです。"], ["L5-8", "LESSON 5", "⑧", "Electric cars are sure to replace gasoline-powered cars.", "電気自動車はきっとガソリン車に取って代わるでしょう。"], ["L6-1", "LESSON 6", "①", "I heard the news about a woman who works for the United Nations.", "国連で働く女性についてのニュースを聞きました。"], ["L6-2", "LESSON 6", "②", "The movie which is now a big hit will surely win an Academy Award.", "今大ヒット中のその映画はきっとアカデミー賞を受賞するでしょう。"], ["L6-3", "LESSON 6", "③", "An online news article that I read yesterday was fake.", "昨日読んだオンラインのニュース記事はフェイクニュースでした。"], ["L6-4", "LESSON 6", "④", "The prime minister, who is on vacation, went to the theater yesterday.", "休暇中の首相が昨日劇場に行きました。"], ["L6-5", "LESSON 6", "⑤", "He is said to be one of the greatest baseball players, which is true.", "彼は最も偉大な野球選手の一人であると言われていますが、それは本当のことです。"], ["L6-6", "LESSON 6", "⑥", "The company announced the date when they would release the new movie.", "その会社は新しい映画をリリースする日を発表しました。"], ["L6-7", "LESSON 6", "⑦", "The caves where ancient people used to live are now a popular tourist spot.", "古代の人々がかつて住んでいた洞窟は、今では人気の観光スポットになっています。"], ["L6-8", "LESSON 6", "⑧", "I don't know the reason why the Japanese media didn't report this issue.", "日本のメディアがこの問題を報道しなかった理由がわかりません。"], ["GP2-1", "GRAMMAR PLUS 2", "", "A certain person said that you were keeping bad company.", "ある人があなたが悪い仲間とつきあっていると言っていました。"], ["GP2-2", "GRAMMAR PLUS 2", "", "I'm certain that she is not responsible for the mistake.", "彼女がその間違いに責任がないことは確かです。"], ["GP2-3", "GRAMMAR PLUS 2", "", "I don't know his present email address.", "彼の現在のメールアドレスを知りません。"], ["GP2-4", "GRAMMAR PLUS 2", "", "I don't know if he was present at the meeting.", "彼が会議に出席していたかどうか知りません。"], ["GP2-5", "GRAMMAR PLUS 2", "", "My hometown is not what it used to be.", "私の故郷は、かつての姿ではありません。"], ["GP2-6", "GRAMMAR PLUS 2", "", "She is what is called a bookworm.", "彼女はいわゆる本の虫です。"], ["GP2-7", "GRAMMAR PLUS 2", "", "Her new theory is interesting, and what is more, original.", "彼女の新しい理論は興味深く、しかも独創的です。"], ["GP2-8", "GRAMMAR PLUS 2", "", "The girl who I thought was Ann's sister turned out to be her cousin.", "アンの姉だと私が思っていた女の子は、実は彼女のいとこだとわかりました。"], ["GP2-9", "GRAMMAR PLUS 2", "", "I have the same dream as you have.", "私はあなたと同じ夢を持っています。"], ["GP2-10", "GRAMMAR PLUS 2", "", "Jack fell asleep on the sofa, as is often the case with him.", "ジャックはソファで眠ってしまいましたが、それは彼にはよくあることです。"], ["L7-1", "LESSON 7", "①", "My host mother speaks slowly and politely to me.", "ホストマザーはゆっくりと丁寧に話してくれます。"], ["L7-2", "LESSON 7", "②", "Joe, who speaks Spanish, moved to Spain last year and found a job there.", "スペイン語を話すジョーは、昨年スペインに引っ越して、そこで仕事を見つけました。"], ["L7-3", "LESSON 7", "③", "Almost all students in Japan have to study English.", "日本のほぼすべての学生が英語を学ばなければなりません。"], ["L7-4", "LESSON 7", "④", "He will certainly become a fluent speaker of Chinese.", "彼はきっと中国語の流暢な話者になるでしょう。"], ["L7-5", "LESSON 7", "⑤", "Not all the students have to take the English test.", "すべての学生が英語のテストを受けなければならないわけではありません。"], ["L7-6", "LESSON 7", "⑥", "I could hardly understand the Spanish-language movie.", "スペイン語の映画はほとんど理解できませんでした。"], ["L7-7", "LESSON 7", "⑦", "Unfortunately, many Hawaiians cannot speak the Hawaiian language.", "残念ながら、ハワイ人の多くはハワイ語を話せません。"], ["L7-8", "LESSON 7", "⑧", "Mastering a foreign language is difficult. However, it is not impossible.", "外国語を習得することは難しいです。しかし、不可能ではありません。"], ["L8-1", "LESSON 8", "①", "What should we do to lead a happier and more meaningful life?", "より幸福でより充実した生活を送るために、私たちは何をすべきでしょうか？"], ["L8-2", "LESSON 8", "②", "I'm very lucky to have a friend like you.", "あなたのような友人がいて、私はとても幸運です。"], ["L8-3", "LESSON 8", "③", "What he said is hard to believe.", "彼が言ったことは信じがたいです。"], ["L8-4", "LESSON 8", "④", "The situation is too complicated to explain.", "状況は複雑すぎて説明できません。"], ["L8-5", "LESSON 8", "⑤", "He was looking at his grandchildren, feeling happy and satisfied.", "彼は孫たちを見ながら、幸せで満ち足りた気持ちでいました。"], ["L8-6", "LESSON 8", "⑥", "Being stressed out, I went to karaoke with my friends.", "ストレスがたまっていたので、友達とカラオケに行きました。"], ["L8-7", "LESSON 8", "⑦", "The song is popular around the world because of its beautiful melody.", "その曲は美しいメロディーで、世界中で人気があります。"], ["L8-8", "LESSON 8", "⑧", "I was so nervous with everybody watching me.", "みんなに見られていて、とても緊張しました。"], ["L9-1", "LESSON 9", "①", "When you feel distracted, you should take a deep breath.", "気が散っていると感じたら、深呼吸をするといいでしょう。"], ["L9-2", "LESSON 9", "②", "Think twice before you speak.", "話す前によく考えましょう。"], ["L9-3", "LESSON 9", "③", "Everyone respects her because she is always hardworking.", "彼女は常に勤勉であるため、みんなから尊敬されています。"], ["L9-4", "LESSON 9", "④", "If you want to be successful, you must realize your dream.", "成功したいなら、夢を実現しなければなりません。"], ["L9-5", "LESSON 9", "⑤", "Although he lacked experience, he had the right personality for that job.", "彼は経験が不足していましたが、その仕事に適した性格を持っていました。"], ["L9-6", "LESSON 9", "⑥", "Whatever happens, I will never give up pursuing my goal.", "何が起こっても、目標の追求を諦めることは決してありません。"], ["L9-7", "LESSON 9", "⑦", "She keeps a diary every day so that she can reflect upon her actions.", "彼女は自分の行動を振り返れるように、毎日日記をつけています。"], ["L9-8", "LESSON 9", "⑧", "Steve was so innovative that people often misunderstood him.", "スティーブはとても革新的だったため、人々はしばしば彼を誤解しました。"], ["GP3-1", "GRAMMAR PLUS 3", "", "I'd like a hamburger, and French fries, too.", "ハンバーガーと、フライドポテトもください。"], ["GP3-2", "GRAMMAR PLUS 3", "", "I don't like green peppers, and my father doesn't like them either.", "私はピーマンが好きではありませんし、父も好きではありません。"], ["GP3-3", "GRAMMAR PLUS 3", "", "\"I haven't finished my homework yet.\" \"Me neither.\"", "「まだ宿題が終わっていません。」「私もです。」"], ["GP3-4", "GRAMMAR PLUS 3", "", "Not realizing the time, she was late for her appointment.", "時間に気づかず、彼女は約束に遅れてしまいました。"], ["GP3-5", "GRAMMAR PLUS 3", "", "Not having eaten breakfast, Tom got hungry in class.", "朝食を食べていなかったので、トムは授業中にお腹が空いてしまいました。"], ["GP3-6", "GRAMMAR PLUS 3", "", "The deadline approaching, I had to stay up late to finish my report.", "締め切りが近づいていたので、レポートを終わらせるために夜遅くまで起きていなければなりませんでした。"], ["GP3-7", "GRAMMAR PLUS 3", "", "The U.S. President is to meet the British Prime Minister on May 7th.", "アメリカ大統領は5月7日にイギリス首相と会談する予定です。"], ["GP3-8", "GRAMMAR PLUS 3", "", "This medicine is to be taken after each meal.", "この薬は毎食後に服用してください。"], ["GP3-9", "GRAMMAR PLUS 3", "", "My smartphone was nowhere to be found.", "スマートフォンはどこにもありませんでした。"], ["L10-1", "LESSON 10", "①", "The area of Japan is almost as large as that of Germany.", "日本の面積はドイツの面積とほぼ同じです。"], ["L10-2", "LESSON 10", "②", "The number of inbound tourists is twice as large as that of 10 years ago.", "訪日外国人の数は10年前の2倍になっています。"], ["L10-3", "LESSON 10", "③", "I like green tea better than black tea.", "私は紅茶よりも緑茶の方が好きです。"], ["L10-4", "LESSON 10", "④", "Furoshiki are much more eco-friendly than plastic bags.", "風呂敷はビニール袋よりはるかにエコです。"], ["L10-5", "LESSON 10", "⑤", "The most popular dish in this restaurant is tonkatsu, or deep-fried pork.", "このレストランで最も人気のある料理はとんかつ、つまり揚げた豚肉です。"], ["L10-6", "LESSON 10", "⑥", "Washoku is one of the healthiest foods in the world.", "和食は世界で最も健康的な食べ物の一つです。"], ["L10-7", "LESSON 10", "⑦", "No other mountain in Japan is higher than Mt. Fuji.", "日本には富士山より高い山は他にありません。"], ["L10-8", "LESSON 10", "⑧", "More and more tourists are interested in the traditional culture of Japan.", "日本の伝統文化に興味を持つ観光客がますます増えています。"], ["L11-1", "LESSON 11", "①", "If I had a tablet PC with me, I would look up the word online.", "タブレットPCを持っていれば、その単語をオンラインで調べるのに。"], ["L11-2", "LESSON 11", "②", "Do you think it would be great if AI could do all our work for us?", "AIが私たちの仕事をすべてやってくれたら素晴らしいと思いますか？"], ["L11-3", "LESSON 11", "③", "If I had used a PC to write my report, I could have finished it sooner.", "レポートを書くのにパソコンを使っていたら、もっと早く終えられたのに。"], ["L11-4", "LESSON 11", "④", "If nuclear weapons had not been developed, the world would be a much safer place.", "核兵器が開発されていなかったら、世界はずっと安全な場所になっていたでしょう。"], ["L11-5", "LESSON 11", "⑤", "I wish we had the technology to stop global warming right now.", "今すぐ地球温暖化を止める技術があればいいのに。"], ["L11-6", "LESSON 11", "⑥", "I wish I had had a vision for the future when I was young.", "若い頃に未来への展望を持っていたらよかったのに。"], ["L11-7", "LESSON 11", "⑦", "It's time we started to think globally and act locally.", "私たちはグローバルに考え、ローカルに行動し始める時です。"], ["L11-8", "LESSON 11", "⑧", "What would our lives be like without smartphones?", "スマートフォンがなかったら、私たちの生活はどのようなものでしょうか？"], ["L12-1", "LESSON 12", "①", "Many groups insisted that the government take action to promote human rights.", "多くの団体が、政府に人権促進のための行動を取るよう主張しました。"], ["L12-2", "LESSON 12", "②", "It's important that we respect other people's religious beliefs.", "他者の宗教的信仰を尊重することが重要です。"], ["L12-3", "LESSON 12", "③", "I think we should respect other people in order to avoid conflicts.", "対立を避けるために、他者を尊重すべきだと思います。"], ["L12-4", "LESSON 12", "④", "It seemed that the students from abroad had studied our language very hard.", "海外からの留学生たちは、私たちの言語を一生懸命勉強してきたようでした。"], ["L12-5", "LESSON 12", "⑤", "She said to me, \"I read an article on diversity yesterday.\"", "彼女は私に「昨日、多様性に関する記事を読んだ」と言いました。"], ["L12-6", "LESSON 12", "⑥", "She told me that she had read an article on diversity the day before.", "彼女は前日に多様性に関する記事を読んだと私に言いました。"], ["L12-7", "LESSON 12", "⑦", "It was not until recently that I realized the importance of social welfare.", "社会福祉の重要性を認識したのはつい最近のことです。"], ["L12-8", "LESSON 12", "⑧", "It won't be long before the city starts a diversity program.", "間もなく市が多様性プログラムを開始するでしょう。"], ["GP4-1", "GRAMMAR PLUS 4", "", "This project is all the more difficult for its huge cost.", "このプロジェクトは、膨大なコストのためにいっそう困難になっています。"], ["GP4-2", "GRAMMAR PLUS 4", "", "They were more disappointed than angry.", "彼らは怒るというよりも落胆していました。"], ["GP4-3", "GRAMMAR PLUS 4", "", "It takes no more than 5 minutes from Ueno to Tokyo by train.", "上野から東京まで電車でわずか5分しかかかりません。"], ["GP4-4", "GRAMMAR PLUS 4", "", "My uncle always gives me no less than 10,000 yen as a New Year's gift.", "叔父はお年玉として必ず1万円以上くれます。"], ["GP4-5", "GRAMMAR PLUS 4", "", "I can't afford a bicycle, much less a motor bike.", "自転車すら買えないのに、バイクはなおさら無理です。"], ["GP4-6", "GRAMMAR PLUS 4", "", "This is a second-rate restaurant at best.", "このレストランは良くてもB級です。"], ["GP4-7", "GRAMMAR PLUS 4", "", "That film director was at his best in the 1990s.", "その映画監督は1990年代が全盛期でした。"], ["GP4-8", "GRAMMAR PLUS 4", "", "What would you do if you were to receive a million dollars?", "100万ドルを受け取るとしたら、あなたはどうしますか？"], ["GP4-9", "GRAMMAR PLUS 4", "", "If you should miss the train, please call me.", "もし電車に乗り遅れたら、私に電話してください。"], ["GP4-10", "GRAMMAR PLUS 4", "", "Were it not for this forest, many animals would lose their habitat.", "この森がなければ、多くの動物がその生息地を失うことになるでしょう。"], ["GP4-11", "GRAMMAR PLUS 4", "", "Had I studied Japanese history harder, I could better enjoy this tour of Kyoto.", "もっと日本史を熱心に勉強していたら、この京都観光をより楽しめたのに。"], ["GP4-12", "GRAMMAR PLUS 4", "", "Every time she remembers her grandmother, she is moved to tears.", "祖母のことを思い出すたびに、彼女は感動して涙を流します。"], ["GP4-13", "GRAMMAR PLUS 4", "", "I had hardly gotten on the train when the doors closed.", "電車に乗ったとたん、ドアが閉まりました。"], ["L13-1", "LESSON 13", "①", "There are more than 20 World Heritage Sites in Japan.", "日本には20か所以上の世界遺産があります。"], ["L13-2", "LESSON 13", "②", "We have several marvelous gardens in our town.", "私たちの町には素晴らしい庭園がいくつかあります。"], ["L13-3", "LESSON 13", "③", "The road along the beach always gets crowded on weekends.", "海岸沿いの道は週末にはいつも混雑します。"], ["L13-4", "LESSON 13", "④", "The view became famous because it appeared in a popular Japanese anime.", "その景色は、人気の日本のアニメに登場したことで有名になりました。"], ["L13-5", "LESSON 13", "⑤", "It takes about two hours to drive from Sapporo to Furano.", "札幌から富良野まで車で約2時間かかります。"], ["L13-6", "LESSON 13", "⑥", "I guess it will cost less than 1,000 yen to rent a bike for a day.", "自転車を1日借りると1,000円未満で済むと思います。"], ["L13-7", "LESSON 13", "⑦", "A lot of people came to understand the uniqueness of the building.", "その建物の独自性を理解するようになった人が大勢いました。"], ["L13-8", "LESSON 13", "⑧", "The number of tourists to our city began to increase in the late 1990s.", "私たちの市への観光客の数は1990年代後半に増え始めました。"], ["L14-1", "LESSON 14", "①", "The doctor made the patient rest in bed for several days.", "医師は患者に数日間ベッドで休むよう命じました。"], ["L14-2", "LESSON 14", "②", "The mother didn't let her daughter go to school without having breakfast.", "母親は娘が朝食を食べずに学校に行くことを許しませんでした。"], ["L14-3", "LESSON 14", "③", "The school got all the students to go for a medical checkup.", "学校は全生徒に健康診断を受けさせました。"], ["L14-4", "LESSON 14", "④", "The city allows its citizens to use the city's sports facilities for free.", "市は市民が市のスポーツ施設を無料で使えるようにしています。"], ["L14-5", "LESSON 14", "⑤", "Though I had an appointment, the clinic had me waiting for 30 minutes.", "予約があったにもかかわらず、診療所は私を30分待たせました。"], ["L14-6", "LESSON 14", "⑥", "The patient had his temperature and blood pressure checked.", "患者は体温と血圧を測ってもらいました。"], ["L14-7", "LESSON 14", "⑦", "I heard a newscaster talk about the average life expectancy of the Japanese.", "ニュースキャスターが日本人の平均寿命について話しているのを聞きました。"], ["L14-8", "LESSON 14", "⑧", "I saw many people jogging in the park this morning.", "今朝、公園でたくさんの人がジョギングしているのを見ました。"], ["L15-1", "LESSON 15", "①", "Few researchers noticed the mistake in the data.", "データの間違いに気づいた研究者はほとんどいませんでした。"], ["L15-2", "LESSON 15", "②", "No children in this world should have to experience hunger.", "世界中のどの子どもも飢えを経験するべきではありません。"], ["L15-3", "LESSON 15", "③", "Reducing inequality will make the world a better place to live.", "不平等を減らすことで、世界はよりよい居場所になるでしょう。"], ["L15-4", "LESSON 15", "④", "Access to education will help children have a brighter future.", "教育へのアクセスは、子どもたちがより明るい未来を持つのに役立ちます。"], ["L15-5", "LESSON 15", "⑤", "Online education enables students in remote areas to take classes.", "オンライン教育により、遠隔地の学生も授業を受けられるようになります。"], ["L15-6", "LESSON 15", "⑥", "Poverty prevents many children from going to school.", "貧困のために学校に行けない子どもが多くいます。"], ["L15-7", "LESSON 15", "⑦", "Japan is supposed to become carbon-neutral by 2050.", "日本は2050年までにカーボンニュートラルになるとされています。"], ["L15-8", "LESSON 15", "⑧", "All companies are required to take responsibility for their products.", "すべての企業は自社製品に責任を持つことが求められています。"], ["S1-1", "SUPPLEMENT 1", "", "Our shop will be closed from December 29th to January 3rd.", "当店は12月29日から1月3日まで休業します。"], ["S1-2", "SUPPLEMENT 1", "", "Her concert is going to be held at the Budokan.", "彼女のコンサートは武道館で開催される予定です。"], ["S1-3", "SUPPLEMENT 1", "", "This job has to be done carefully.", "この仕事は慎重に行う必要があります。"], ["S1-4", "SUPPLEMENT 1", "", "My computer is being repaired now.", "私のコンピュータは今修理中です。"], ["S1-5", "SUPPLEMENT 1", "", "We have been caught in a traffic jam for an hour.", "1時間も渋滞に巻き込まれています。"], ["S1-6", "SUPPLEMENT 1", "", "These cats are taken care of by Mr. and Mrs. Lake.", "これらの猫はレイク夫妻に世話をしてもらっています。"], ["S1-7", "SUPPLEMENT 1", "", "This problem should be dealt with at once.", "この問題はすぐに対処すべきです。"], ["S1-8", "SUPPLEMENT 1", "", "The thief got arrested on the street in Minato Ward last night.", "昨夜、港区の通りで泥棒が逮捕されました。"], ["S1-9", "SUPPLEMENT 1", "", "She was given an important position by the president.", "彼女は社長から重要なポストを与えられました。"], ["S1-10", "SUPPLEMENT 1", "", "An important position was given to her by the president.", "重要なポストが社長から彼女に与えられました。"], ["S1-11", "SUPPLEMENT 1", "", "This bag was bought for me by my aunt.", "このバッグは叔母が私に買ってくれました。"], ["S1-12", "SUPPLEMENT 1", "", "I am called Lil by my classmates.", "私はクラスメートからリルと呼ばれています。"], ["S2-1", "SUPPLEMENT 2", "", "\"Didn't you go to cram school yesterday?\" \"No, I didn't.\"", "「昨日、塾に行かなかったの？」「うん、行かなかったよ。」"], ["S2-2", "SUPPLEMENT 2", "", "Can't you ride a bike?", "自転車に乗れないの？"], ["S2-3", "SUPPLEMENT 2", "", "\"Don't you think this cat is cute?\" \"Yes, I do.\"", "「この猫、可愛いと思わない？」「そうだね。」"], ["S2-4", "SUPPLEMENT 2", "", "\"Lisa is Tom's sister, isn't she?\" \"Yes, she is.\"", "「リサはトムの姉だよね？」「そうだよ。」"], ["S2-5", "SUPPLEMENT 2", "", "\"Mike doesn't sing very well, does he?\" \"Well, no, he doesn't.\"", "「マイクはあまり歌が上手くないよね？」「まあ、うん、そうだね。」"], ["S2-6", "SUPPLEMENT 2", "", "I don't know what you are talking about.", "あなたが何の話をしているのかわかりません。"], ["S2-7", "SUPPLEMENT 2", "", "Do you know whether Lisa can attend the meeting?", "リサが会議に参加できるかどうか知っていますか？"], ["S2-8", "SUPPLEMENT 2", "", "Do you know if Lisa can attend the meeting?", "リサが会議に参加できるかどうか知っていますか？"], ["S2-9", "SUPPLEMENT 2", "", "What do you think that boy is looking for?", "あの男の子が何を探しているか知っていますか？"], ["S2-10", "SUPPLEMENT 2", "", "What is your new English teacher like?", "新しい英語の先生はどんな人ですか？"], ["S2-11", "SUPPLEMENT 2", "", "What did you go to the city hall for?", "市役所に何のために行ったのですか？"], ["S2-12", "SUPPLEMENT 2", "", "How do you feel about her latest movie?", "彼女の最新映画についてどう思いますか？"], ["S2-13", "SUPPLEMENT 2", "", "What do you think about her latest movie?", "彼女の最新映画についてどう思いますか？"], ["S2-14", "SUPPLEMENT 2", "", "How come Olivia is in such a hurry?", "オリビアはなぜそんなに急いでいるのですか？"], ["S3-1", "SUPPLEMENT 3", "", "My brother no longer believes in Santa Claus.", "弟はもうサンタクロースを信じていません。"], ["S3-2", "SUPPLEMENT 3", "", "Emma is by no means satisfied with her exam result.", "エマは試験の結果にまったく満足していません。"], ["S3-3", "SUPPLEMENT 3", "", "I failed to prepare adequately for my class presentation.", "授業のプレゼンに向けて十分な準備ができませんでした。"], ["S3-4", "SUPPLEMENT 3", "", "Alice's grandparents never fail to give her a birthday present every year.", "アリスの祖父母は毎年必ず誕生日プレゼントを贈ってくれます。"], ["S3-5", "SUPPLEMENT 3", "", "I'm far from confident in my ability to speak English.", "英語を話す能力に自信がまったくありません。"], ["S3-6", "SUPPLEMENT 3", "", "I like him because he's free from racial prejudice.", "人種的偏見がない彼のことが好きです。"], ["S3-7", "SUPPLEMENT 3", "", "My cat likes to eat nothing but this kind of cat food.", "私の猫はこの種類のキャットフード以外は何も食べません。"], ["S3-8", "SUPPLEMENT 3", "", "Bob does nothing but watch TV all day.", "ボブは一日中テレビを見てばかりいます。"], ["S3-9", "SUPPLEMENT 3", "", "Peter had no choice but to admit his mistake.", "ピーターはしぶしぶ自分の間違いを認めるしかありませんでした。"], ["S3-10", "SUPPLEMENT 3", "", "Dan found himself sleeping on the living room floor.", "ダンは気づいたらリビングの床で眠っていました。"], ["S3-11", "SUPPLEMENT 3", "", "I have to do most of the housework myself today.", "今日は家事のほとんどを自分でやらなければなりません。"], ["S3-12", "SUPPLEMENT 3", "", "My vacuum cleaner doesn't work. I need to get a new one.", "掃除機が壊れました。新しいのを買わなければなりません。"], ["S3-13", "SUPPLEMENT 3", "", "I like these colorful socks better than those black ones.", "私はあの黒い靴下よりこのカラフルな靴下の方が好きです。"], ["S3-14", "SUPPLEMENT 3", "", "This sweater doesn't fit me well. Can I try on another?", "このセーターは私にぴったりではありません。別のを試着してもいいですか？"], ["S3-15", "SUPPLEMENT 3", "", "My class has two foreign students. One is from China, and the other is from Canada.", "私のクラスには留学生が2人います。1人は中国出身で、もう1人はカナダ出身です。"], ["S3-16", "SUPPLEMENT 3", "", "My class has three foreign students. One is from China, and the others are from Canada.", "私のクラスには留学生が3人います。1人は中国出身で、残りはカナダ出身です。"], ["S4-1", "SUPPLEMENT 4", "", "We will arrive at the airport at 10:30 am.", "私たちは午前10時30分に空港に到着する予定です。"], ["S4-2", "SUPPLEMENT 4", "", "The cat was looking up at a bird in the tree.", "猫は木にいる鳥を見上げていました。"], ["S4-3", "SUPPLEMENT 4", "", "I was surprised at my uncle's sudden visit.", "叔父の突然の訪問に驚きました。"], ["S4-4", "SUPPLEMENT 4", "", "My mother must be at work now.", "母は今、職場にいるはずです。"], ["S4-5", "SUPPLEMENT 4", "", "I noticed the stain on the ceiling on Sunday morning.", "日曜日の朝、天井のシミに気づきました。"], ["S4-6", "SUPPLEMENT 4", "", "I'm busy in the morning.", "私は午前中は忙しいです。"], ["S4-7", "SUPPLEMENT 4", "", "Mr. Johnson depends on his wife a lot.", "ジョンソン氏は妻に多く頼っています。"], ["S4-8", "SUPPLEMENT 4", "", "Their show will be broadcast on the internet.", "彼らのショーはインターネットで放送される予定です。"], ["S4-9", "SUPPLEMENT 4", "", "I lived in Saga in 2020.", "2020年に佐賀に住んでいました。"], ["S4-10", "SUPPLEMENT 4", "", "I'll be back in thirty minutes.", "30分で戻ります。"], ["S4-11", "SUPPLEMENT 4", "", "Dan is in love with the girl over there in the white dress.", "ダンはあそこにいる白いドレスを着た女の子に恋をしています。"], ["S4-12", "SUPPLEMENT 4", "", "They are talking about the movie.", "彼らはその映画について話しています。"], ["S4-13", "SUPPLEMENT 4", "", "The expedition team has been wandering about the desert for three days.", "探検隊は3日間砂漠をさまよっています。"], ["S4-14", "SUPPLEMENT 4", "", "It's a ten-minute walk from here to the station.", "ここから駅まで歩いて10分です。"], ["S4-15", "SUPPLEMENT 4", "", "A lot of people die from starvation every year.", "毎年、多くの人が飢えで亡くなっています。"], ["S4-16", "SUPPLEMENT 4", "", "His opinion about the issue is different from mine.", "その問題についての彼の意見は私の意見と異なります。"], ["S4-17", "SUPPLEMENT 4", "", "It was so cold that I thought I would freeze to death.", "とても寒くて、凍え死にそうだと思いました。"], ["S4-18", "SUPPLEMENT 4", "", "My sister left for Australia this morning.", "姉は今朝オーストラリアに向けて出発しました。"], ["S4-19", "SUPPLEMENT 4", "", "What can I do for you?", "何かご用件はありますか？"], ["S4-20", "SUPPLEMENT 4", "", "We've been waiting for Sarah for 15 minutes.", "私たちはサラを15分間待っています。"], ["S4-21", "SUPPLEMENT 4", "", "Sophie was standing by the window looking outside.", "ソフィーは窓の側に立って外を見ていました。"], ["S4-22", "SUPPLEMENT 4", "", "Sam lives in a town near Sydney.", "サムはシドニーの近くの町に住んでいます。"], ["S4-23", "SUPPLEMENT 4", "", "Bill went to the nearest station by bicycle.", "ビルは自転車で一番近い駅に行きました。"], ["S4-24", "SUPPLEMENT 4", "", "I have to make up my mind about that by tomorrow.", "明日までにそのことを決めなければなりません。"], ["S5-1", "SUPPLEMENT 5", "", "At last we reached the top of the mountain.", "ついに私たちは山の頂上に到達しました。"], ["S5-2", "SUPPLEMENT 5", "", "She is a person of importance in the political world.", "彼女は政界で重要な人物です。"], ["S5-3", "SUPPLEMENT 5", "", "Who is that girl walking with Tom?", "トムと一緒に歩いているあの女の子は誰ですか？"], ["S5-4", "SUPPLEMENT 5", "", "That man with gray hair is Dan's father.", "白髪のあの男性はダンの父親です。"], ["S5-5", "SUPPLEMENT 5", "", "I should have brought an umbrella with me.", "傘を持ってくるべきでした。"], ["S5-6", "SUPPLEMENT 5", "", "We must handle these old books with care.", "これらの古い本は丁寧に扱わなければなりません。"], ["S5-7", "SUPPLEMENT 5", "", "I wash my hands with soap as soon as I get home.", "帰宅したらすぐに石鹸で手を洗います。"], ["S5-8", "SUPPLEMENT 5", "", "Our train passed through a long tunnel.", "私たちの電車は長いトンネルを通りました。"], ["S5-9", "SUPPLEMENT 5", "", "Alice wants to travel through Japan.", "アリスは日本を旅したいと思っています。"], ["S5-10", "SUPPLEMENT 5", "", "I was able to sleep soundly through the night.", "夜通し熟睡することができました。"], ["S6-1", "SUPPLEMENT 6", "", "Take this medicine, and you will feel better.", "この薬を飲めば、気分がよくなるでしょう。"], ["S6-2", "SUPPLEMENT 6", "", "Do your best, or you'll regret it.", "最善を尽くさないと、後悔することになります。"], ["S6-3", "SUPPLEMENT 6", "", "I ordered not a hamburger but a cheese burger.", "ハンバーガーではなくチーズバーガーを注文しました。"], ["S6-4", "SUPPLEMENT 6", "", "Lisa plays not only the piano but also the guitar.", "リサはピアノだけでなくギターも弾きます。"], ["S6-5", "SUPPLEMENT 6", "", "Emma came to see you while you were away.", "あなたが不在の間にエマが会いに来ました。"], ["S6-6", "SUPPLEMENT 6", "", "I want to go to the beach next weekend, while Tom wants to stay home.", "私は来週末は海に行きたいですが、トムは家にいたいと思っています。"], ["S6-7", "SUPPLEMENT 6", "", "I'll return this book to you as soon as I finish reading it.", "読み終えたらすぐにこの本を返します。"], ["S6-8", "SUPPLEMENT 6", "", "The moment Lily saw Jim, she called out his name.", "リリーはジムを見たとたん、彼の名前を呼びました。"], ["S6-9", "SUPPLEMENT 6", "", "Once you make a promise, you should never break it.", "一度約束したら、絶対に破ってはなりません。"], ["S6-10", "SUPPLEMENT 6", "", "Now that my grandfather is retired, he spends all his free time reading.", "祖父が引退したので、暇な時間のすべてを読書に費やしています。"], ["S6-11", "SUPPLEMENT 6", "", "As long as you keep trying, you have a chance to achieve your goal.", "努力し続ける限り、目標を達成するチャンスがあります。"], ["S6-12", "SUPPLEMENT 6", "", "As far as I can remember, Ken belonged to the baseball team in high school.", "私が覚えている限り、ケンは高校時代に野球部に所属していました。"], ["S6-13", "SUPPLEMENT 6", "", "Call the police in case you see anyone suspicious in this area.", "この地域で不審者を見かけたら、警察に電話してください。"], ["S6-14", "SUPPLEMENT 6", "", "I had better write down your phone number in case I forget it.", "忘れてしまうといけないので、あなたの電話番号を書き留めておいた方がよいでしょう。"], ["S6-15", "SUPPLEMENT 6", "", "I went to bed early for fear that I would oversleep the next morning.", "翌朝寝過ごすのが怖くて、早めに寝ました。"], ["S7-1", "SUPPLEMENT 7", "", "I do want to go to her concert.", "彼女のコンサートにどうしても行きたいです。"], ["S7-2", "SUPPLEMENT 7", "", "I know the food is good, but you shouldn't eat that much.", "食べ物がおいしいことはわかっていますが、そんなに食べてはいけません。"], ["S7-3", "SUPPLEMENT 7", "", "I didn't know that Kyoto gets this hot.", "京都がこれほど暑いとは知りませんでした。"], ["S7-4", "SUPPLEMENT 7", "", "You don't have to apologize at all.", "まったく謝る必要はありません。"], ["S7-5", "SUPPLEMENT 7", "", "I wasn't moved by the movie in the least.", "私はその映画に少しも感動しませんでした。"], ["S7-6", "SUPPLEMENT 7", "", "Why on earth do you say such things?", "一体なぜそんなことを言うのですか？"], ["S7-7", "SUPPLEMENT 7", "", "What in the world should I do in this situation?", "このような状況で、一体何をすればいいのでしょうか？"], ["S7-8", "SUPPLEMENT 7", "", "Do you know anything at all about that incident?", "あの事件について何か知っていますか？"], ["S7-9", "SUPPLEMENT 7", "", "It is that blue coat that I want to try on.", "私が試着したいのはあの青いコートです。"], ["S7-10", "SUPPLEMENT 7", "", "I want to try that blue coat on.", "私はあの青いコートを試着したいです。"], ["S7-11", "SUPPLEMENT 7", "", "What I want to know is your true feelings.", "私が知りたいのはあなたの本心です。"], ["S7-12", "SUPPLEMENT 7", "", "I want to know your true feelings.", "私はあなたの本心を知りたいです。"], ["S7-13", "SUPPLEMENT 7", "", "All they want to do is live in peace.", "彼らがしたいことはただ平和に生きることです。"], ["S7-14", "SUPPLEMENT 7", "", "All they want to do is to live in peace.", "彼らがしたいことはただ平和に生きることです。"], ["S7-15", "SUPPLEMENT 7", "", "Never have I told you a lie.", "あなたに嘘をついたことは一度もありません。"], ["S7-16", "SUPPLEMENT 7", "", "In that old mansion lives an old man.", "その古い屋敷には老人が住んでいます。"], ["S7-17", "SUPPLEMENT 7", "", "Jim is interested in Japanese temples, and so am I.", "ジムは日本の寺院に興味があり、私もそうです。"], ["S7-18", "SUPPLEMENT 7", "", "My brother can't play baseball, and neither can I.", "弟は野球ができないし、私もできません。"]];
+const SENTENCES=DB.map(function(r){return{id:r[0],sec:r[1],num:r[2],en:r[3],ja:r[4]};});
+
+/* ── 全文内蔵解説（全277文・API不要） ── */
+const NOTES={"L1-1":{"g":["不定詞の副詞的用法（目的）：to stay healthy「健康を維持するために」","go jogging「ジョギングに行く」は go＋動詞ing形の表現","every morning などの時を表す語はふつう文の後ろに置く"],"v":["jogging: ジョギング（go jogging でジョギングに行く）","nearby: 近くの（名詞の前だけに置く形容詞）","stay healthy: 健康を保つ（stay＋形容詞で「〜の状態のままでいる」）"]},"L1-2":{"g":["現在進行形で「今まさに〜している」を表す","前置詞句による後置修飾：a book about ~「〜に関する本」","look for ~「〜を探す」（見つける動作でなく探す行為）"],"v":["look for: 〜を探す","current: 現在の","politics: 政治（-sで終わるが単数扱い）"]},"L1-3":{"g":["learn about ~「〜について学ぶ」","the life of President Kennedy「ケネディ大統領の生涯」は of による後置修飾","場所（in history class）→時間（last week）の語順"],"v":["learn about: 〜について学ぶ","life: 人生、生涯（複数形は lives）","President Kennedy: ケネディ大統領"]},"L1-4":{"g":["現在完了＋already「すでに〜してしまった」","what節を目的語にする：what I want to do「やりたいこと」","want to do「〜したい」"],"v":["decide: 決める（decide what ~ で何を〜するか決める）","in the future: 将来","already: すでに（現在完了の肯定文で使う）"]},"L1-5":{"g":["現在完了＋never「一度も〜したことがない」","think about ~ing：前置詞 about の後は動詞ing形","thought は think の過去分詞"],"v":["think about: 〜について考える","foreign country: 外国","never: 一度も〜ない（現在完了と相性がよい）"]},"L1-6":{"g":["since ~「〜以来」＋現在完了で状態の継続を表す","have an interest in ~「〜に興味がある」","have had は have（持つ）の現在完了"],"v":["keen interest: 強い興味（keen＝熱心な）","social studies: 社会科","elementary school student: 小学生"]},"L1-7":{"g":["I'm sure (that) ~「きっと〜だと思う」","形式主語 it：it will be challenging to ~ ＝ To ~ is challenging","study abroad「留学する」（abroad は副詞なので前置詞不要）"],"v":["challenging: 大変だがやりがいのある","study abroad: 留学する","be sure: 確信している"]},"L1-8":{"g":["be going to ~「（予定として）〜するつもりだ」","will と違い、前から決めている予定を表す","in college「大学で」"],"v":["international relations: 国際関係（学）","in college: 大学で","be going to: 〜するつもりだ"]},"L2-1":{"g":["形式主語構文：It is 形容詞 for ~ to ...","for you が不定詞の意味上の主語を表す","be excited about ~「〜にわくわくする」"],"v":["natural: 当然の、自然な","be excited about: 〜に興奮する","next week: 来週（前置詞不要）"]},"L2-2":{"g":["不定詞の名詞的用法（主格補語）：The plan is to ~「予定は〜すること」","plan for the weekend「週末の予定」は前置詞句の後置修飾","on my computer「コンピュータで」"],"v":["plan: 予定、計画","shogi: 将棋","for the weekend: 週末の（予定）"]},"L2-3":{"g":["動名詞句が主語：Planning ~ can be fun","can は「〜もありうる」の可能性","lots of fun ＝ a lot of fun「とても楽しい」"],"v":["planning: 計画を立てること（plan の動名詞）","vacation: 休暇","lots of: たくさんの（＝a lot of）"]},"L2-4":{"g":["look forward to ~ing：to は前置詞なので動詞ing形が続く","to watch（不定詞）と混同しないよう注意","on TV「テレビで」"],"v":["look forward to: 〜を楽しみにする","match: 試合","on TV: テレビで"]},"L2-5":{"g":["It's up to you (to ~)「（〜するのは）あなた次第」","形式主語 it：真の主語は to decide ~","疑問詞＋to：which subject to study「どの教科を勉強するか」"],"v":["up to ~: 〜次第、〜が決めること","decide: 決める","subject: 教科"]},"L2-6":{"g":["不定詞の名詞的用法（同格）：decision to ~「〜するという決断」","should は「（当然）〜するはずだ」の推量","lead to ~「〜につながる」（to は前置詞）"],"v":["keep regular hours: 規則正しい生活を送る","lead to: 〜につながる","healthier: healthy の比較級"]},"L2-7":{"g":["that節を補語にとる：The problem is (that) ~「問題は〜ということ」","there isn't enough space「十分なスペースがない」","enough＋名詞＋for ~「〜するための十分な〜」"],"v":["space: 空間、余地（数えられない名詞）","enough: 十分な","sofa: ソファ"]},"L2-8":{"g":["whether A or B「AかBか」","be not sure (whether) ~「〜かどうか確信がない」","should「〜すべきだ」の義務"],"v":["not sure: 確信がない、迷っている","order: 注文する","supper: 夕食"]},"L3-1":{"g":["can は「〜できる」（許可・可能）","during ~「〜の間（ずっと）」","助動詞の後には動詞の原形が続く"],"v":["computer room: コンピュータ室","during: 〜の間中","lunch break: 昼休み"]},"L3-2":{"g":["may「〜かもしれない」の不確定な推量","exam for ~「〜の試験」は前置詞句の後置修飾","may be＋形容詞"],"v":["final exam: 期末試験","may: 〜かもしれない","difficult: 難しい"]},"L3-3":{"g":["must「〜しなければならない」の義務","on the school trip「修学旅行で」（行事には on）","wear「着ている」は状態を表す"],"v":["must: 〜しなければならない","school uniform: 制服","school trip: 修学旅行"]},"L3-4":{"g":["should は「（当然）〜のはずだ」の推量","might は may より確信が低い「〜かもしれない」","受動態：be postponed「延期される」"],"v":["club meeting: 部活の会議","postpone: 延期する","might: 〜かもしれない"]},"L3-5":{"g":["現在完了 has gone to ~「〜へ行ってしまった（今は不在）」","have been to ~（行ったことがある）との違いに注意","will be back「戻るだろう」"],"v":["has gone to: 〜へ行ってしまった（今はここにいない）","teachers' room: 職員室（複数所有は s' ）","be back: 戻る"]},"L3-6":{"g":["would は控えめな判断「〜だろう」","the right person for ~「〜にぴったりの人」","would be＋名詞"],"v":["right: 最適な、ふさわしい","representative: 代表、委員","would: 〜だろう（遠回しな断定）"]},"L3-7":{"g":["must have＋過去分詞「きっと〜したにちがいない」（過去の強い推量）","Though ~「〜だけれども」の譲歩","be good at ~「〜が得意だ」"],"v":["must have studied: きっと勉強したにちがいない","high score: 高得点","though: 〜だけれども"]},"L3-8":{"g":["should have＋過去分詞「〜すべきだった（しなかった）」の後悔・非難","fall asleep「眠りに落ちる」（fall は linking verb）","during class「授業中に」"],"v":["fall asleep: 眠ってしまう","should have gone: 行くべきだった","earlier: early の比較級"]},"GP1-1":{"g":["進行形＋always で不満・非難「いつも〜してばかりいる」","ふつうの習慣（現在形）とのニュアンスの違いに注意","the same＋名詞「同じ〜」"],"v":["the same old jokes: 同じ古い冗談","always: いつも（進行形と組み合わせて不満）","tell jokes: 冗談を言う"]},"GP1-2":{"g":["be about to ~ when ~「まさに〜しようとしたとき、（突然）…」","was about to start「始まりかけていた」","when節が interrupt の役割"],"v":["be about to: まさに〜しようとしている","begin to rain: 雨が降り始める","when: 〜したとき（突然の出来事）"]},"GP1-3":{"g":["be on the point of ~ing「まさに〜しようとしていた」","on the point of の後は動詞ing形","be about to ~ とほぼ同じ意味"],"v":["on the point of: まさに〜しようとして","leave home: 家を出る","ring: 鳴る（ring-rang-rung）"]},"GP1-4":{"g":["There is no ~ing「〜することはできない」","no telling ＝ cannot tell「わからない」","whether or not ~「〜かどうか」"],"v":["There's no telling: 知る由もない、わからない","on time: 時間に間に合って","finish: 終える"]},"GP1-5":{"g":["It is no use ~ing「〜しても無駄だ」","形式主語 it、真の主語は動名詞句","criticize ~ing"],"v":["no use: 無駄","criticize: 批判する","rude behavior: 失礼な行動"]},"GP1-6":{"g":["It is worth ~ing「〜する価値がある」","形式主語 it 構文（worth は動名詞をとる）","That movie is worth seeing. と言い換え可能"],"v":["worth: 〜する価値がある","worth seeing: 見る価値がある","movie: 映画"]},"GP1-7":{"g":["be worth ~ing「〜する価値がある」","主語（movie）が動名詞（seeing）の目的語になる関係","It is worth seeing that movie. と同義"],"v":["worth: 〜の価値がある","be worth doing: 〜する価値がある","that movie: あの映画"]},"GP1-8":{"g":["feel like ~ing「〜したい気分だ」","like は前置詞なので動詞ing形が続く","would like to ~「〜したい」と混同しない"],"v":["feel like: 〜したい気分だ","hot spring: 温泉","feel like going: 行きたい気分だ"]},"GP1-9":{"g":["On ~ing「〜するやいなや」","on は前置詞なので動詞ing形が続く","run up to ~「〜に駆け寄る」"],"v":["On seeing: 見るやいなや","run up to: 〜に駆け寄る","hug: 抱きつく"]},"GP1-10":{"g":["talk A into B(~ing)「Aを説得してBさせる」","talk A out of ~ing「Aを説得して〜をやめさせる」と対","give up ~ing「〜をやめる」"],"v":["talk ~ into: 〜を説得して〜させる","give up: やめる","driving: 運転（動名詞）"]},"GP1-11":{"g":["may well ~「おそらく〜だろう」","too ~ for ...「…には〜すぎる」","might as well ~（〜したほうがよい）と混同しない"],"v":["may well: たぶん〜だろう","too difficult: 難しすぎる","for my brother: 弟には"]},"GP1-12":{"g":["might as well ~「（〜するくらいなら）〜したほうがよい」","後ろには動詞の原形","may well ~（おそらく〜だろう）との違いに注意"],"v":["might as well: 〜したほうがよい","wait for: 〜を待つ","a little longer: もう少し長く"]},"GP1-13":{"g":["have got to ~ ＝ have to ~「〜しなければならない」（口語的）","会話では gotta と短縮されることも","catch a train「電車に乗る（間に合う）」"],"v":["have got to: 〜しなければならない（＝have to）","catch: （乗り物に）間に合う、捕まえる","the 7:17 train: 7時17分発の電車"]},"GP1-14":{"g":["would rather A than B「BするくらいならむしろAしたい」","A・B とも動詞の原形を使う","go hungry「空腹でいる」（go＋形容詞）"],"v":["would rather ~ than: 〜するくらいならむしろ…したい","go hungry: 空腹でいる","octopus: タコ"]},"GP1-15":{"g":["cannot help ~ing「〜せずにはいられない」","help は「避ける、こらえる」の意味","laugh at ~「〜を笑う、〜に笑う」"],"v":["cannot help ~ing: 〜せずにはいられない","laugh at: 〜に笑う","Chaplin movies: チャップリンの映画"]},"GP1-16":{"g":["cannot ~ too much「いくら〜してもしすぎることはない」","否定語＋too で「どんなに〜しても…ない」","thank ~「〜に感謝する」"],"v":["cannot thank too much: いくら感謝してもし足りない","coach: コーチ","too much: あまりに（cannot と共に「いくら〜しても」）"]},"L4-1":{"g":["clean up ~「〜を掃除する」（分離可能な句動詞）","形容詞の重ね順：the famous historic site","過去形で事実を叙述"],"v":["volunteer workers: ボランティアの人々","clean up: 〜を清掃する","historic site: 史跡"]},"L4-2":{"g":["learned many skills and gained much experience は目的語の並列","experience は数えられず much で受ける","from ~「〜から（経験などを得る）」"],"v":["gain experience: 経験を積む","skill: 技術、技能","much experience: 多くの経験（不可算）"]},"L4-3":{"g":["but で対照的な形容詞を結ぶ：difficult but helpful","was＋形容詞の補語","summer math course は名詞の連結"],"v":["helpful: 役に立つ","course: 講座","difficult but helpful: 難しいがためになる"]},"L4-4":{"g":["形式主語構文：It is necessary for ~ to ...","necessary などの形容詞は意味上の主語を for で表す","attend は他動詞で前置詞をとらない"],"v":["necessary: 必要な","attend: 〜に出席する（他動詞）","leadership course: リーダーシップ研修"]},"L4-5":{"g":["過去分詞の前置修飾：stolen bicycle「盗まれた自転車」","the police は集合名詞で複数扱い","SVO＋場所の語順"],"v":["stolen: 盗まれた（steal の過去分詞）","the police: 警察（複数扱い）","near the station: 駅の近くで"]},"L4-6":{"g":["keep ~ing「〜し続ける」","talk about ~ が in class によって分断されている","現在分詞の前置修飾：upcoming festival"],"v":["keep ~ing: 〜し続ける","upcoming: まもなくの、来たる","in class: 授業中に"]},"L4-7":{"g":["of 句による後置修飾：performance of the dance team","on stage がさらに後ろから修飾（修飾の連鎖）","amazing は物事を受ける-ing形容詞"],"v":["performance: パフォーマンス、演技","amazing: 驚くべき、素晴らしい","on stage: 舞台上で"]},"L4-8":{"g":["be amazed by ~「〜に驚かされる・感動する」の受動的表現","amazed（人が感じる）/ amazing（物が感じさせる）の対比","by 句で感情の原因を表す"],"v":["be amazed by: 〜に感動する、驚く","at the school festival: 学校祭で","performance: パフォーマンス"]},"L5-1":{"g":["形容詞句の後置修飾：bus full of passengers「乗客でいっぱいのバス」","過去進行形 was going で背景の動作","go down ~「〜を（沿って）進む」"],"v":["self-driving: 自動運転の","full of: 〜でいっぱいの","go down: 〜を進む、行く"]},"L5-2":{"g":["imagine＋名詞（imagine ~ing も可能）","without ~「〜のない」の後置修飾","読み手に問いかける修辞疑問"],"v":["imagine: 想像する","without: 〜なしで","a life without ~: 〜のない生活"]},"L5-3":{"g":["現在分詞の後置修飾：websites teaching English ＝ websites that teach English","there are ~ の存在文","分詞修飾は関係詞節の省略として理解する"],"v":["websites teaching English: 英語を教えるウェブサイト","there are: 〜がある","teaching: 現在分詞（能動の意味）"]},"L5-4":{"g":["過去分詞の後置修飾：photos taken with ~ ＝ photos that were taken","分詞と元の動詞が受動の関係","主節の動詞は are（photos は複数）"],"v":["taken: 撮られた（take の過去分詞）","smartphone camera: スマホのカメラ","beautiful: 美しい"]},"L5-5":{"g":["不定詞の後置修飾：a way to listen to music「〜する方法」","online music streaming は単数扱い","Nowadays は文修飾の副詞"],"v":["nowadays: 最近では","streaming: ストリーミング（配信）","way to ~: 〜する方法"]},"L5-6":{"g":["Can I ~? で許可を求める","something to look up：不定詞が不定代名詞を修飾","look up「（単語を）調べる」は分離可能な句動詞"],"v":["electronic dictionary: 電子辞書","look up: 〜を調べる","something to ~: 〜するべき何か"]},"L5-7":{"g":["be likely to ~「〜しそうだ」","be sure to ~ より確信度が低い","dramatically が improve を修飾"],"v":["be likely to: 〜しそうだ","improve: 進歩する（自動詞）","dramatically: 劇的に、飛躍的に"]},"L5-8":{"g":["be sure to ~「きっと〜する」","話し手の強い確信を表す","replace A「Aにとって代わる」"],"v":["be sure to: きっと〜する","replace: 〜にとって代わる","gasoline-powered: ガソリン駆動の"]},"L6-1":{"g":["関係代名詞 who の節が a woman を修飾","news about a woman who ~ と修飾が二重になる","work for ~「〜に勤める」"],"v":["work for: 〜に勤める","the United Nations: 国際連合（UN）","news about ~: 〜についてのニュース"]},"L6-2":{"g":["関係代名詞 which の節が The movie を修飾","will surely ~「きっと〜するだろう」","関係詞節の中は is a big hit"],"v":["a big hit: 大ヒット","surely: きっと","win an Academy Award: アカデミー賞を受賞する"]},"L6-3":{"g":["関係代名詞 that（目的格なので省略可）","article (that) I read yesterday","主節の動詞は過去形 was"],"v":["fake: 偽の、ニセの","online news article: オンラインニュース記事","that: 関係代名詞（目的格は省略可）"]},"L6-4":{"g":["非制限用法の関係詞節：, who is on vacation,（カンマで挿入）","who節は補足説明で、なくても文は成立","主節は The prime minister went to ~"],"v":["prime minister: 首相","on vacation: 休暇中で","非制限用法: カンマ間の補足説明"]},"L6-5":{"g":["be said to ~「〜と言われている」","which is true の which は前の文全体を受ける","one of the＋最上級＋複数名詞"],"v":["be said to be: 〜だと言われている","which: 関係代名詞（前の文全体を受ける）","one of the greatest: 最も偉大な〜の一人"]},"L6-6":{"g":["関係副詞 when が the date を修飾","would は will の過去形（時制の一致）","release「（作品を）発売する」"],"v":["when: 関係副詞（〜する時）","release: 公開する、発売する","the date when ~: 〜する日"]},"L6-7":{"g":["関係副詞 where が The caves を修飾","used to ~「（昔）〜したものだった」","主節の動詞は are（caves は複数）"],"v":["where: 関係副詞（〜する場所で）","used to: かつて〜したものだった","tourist spot: 観光スポット"]},"L6-8":{"g":["関係副詞 why が the reason を修飾","media は単複両用の集合名詞","report は他動詞で目的語をとる"],"v":["why: 関係副詞（なぜ〜するのか）","media: メディア、報道機関","report: 報道する"]},"GP2-1":{"g":["a certain＋名詞「ある〜」","keep bad company「悪友とつき合う」","時制の一致：said that ~ were keeping"],"v":["a certain person: ある人","keep bad company: 悪友とつき合う","certain: ある（名詞の前で）"]},"GP2-2":{"g":["be certain that ~「〜ということは確かだ」","be responsible for ~「〜に責任がある」","a certain ~（ある〜）の certain と区別"],"v":["certain: 確信して、確かだ","be responsible for: 〜に責任がある","mistake: 間違い"]},"GP2-3":{"g":["present「現在の」は名詞の前に置く形容詞","present（現在の）と present（プレゼント）の違い","email address は名詞の連結"],"v":["present: 現在の（＝current）","email address: メールアドレス","don't know: 知らない"]},"GP2-4":{"g":["if 節が know の目的語：「〜かどうか」","be present at ~「〜に出席している」","「出席している」の意味の present は動詞の後"],"v":["if: 〜かどうか（名詞節を作る）","present: 出席して、その場にいて","be present at: 〜に出席している"]},"GP2-5":{"g":["what 節が補語：「かつての（姿の）もの」","used to be「かつて〜だった」","what は the thing/state that ~ の意味"],"v":["what: 〜するもの・状態（関係代名詞的）","used to be: かつて〜だった","hometown: 故郷"]},"GP2-6":{"g":["what is called ~「いわゆる〜」","what が節の中で主語の役割","a bookworm は比ゆ的な表現"],"v":["what is called: いわゆる","bookworm: 本の虫","what: 〜するもの"]},"GP2-7":{"g":["what is more「しかも、その上」（挿入的に使う）","interesting, and original は補語の並列","and が２つの形容詞を結ぶ"],"v":["what is more: しかも、その上","theory: 理論","original: 独創的な"]},"GP2-8":{"g":["who I thought was ~：I thought が挿入された関係詞節","turn out to be ~「〜だとわかる」","who は was の主語（I thought は挿入句）"],"v":["turn out to be: 〜だとわかる","who I thought was: 私が〜だと思っていた（人）","cousin: いとこ"]},"GP2-9":{"g":["the same ~ as ...「…と同じ〜」","as は関係代名詞として have の目的語になる","the same ~ that ... とも言う"],"v":["the same ~ as: 〜と同じ…","dream: 夢","as: 〜と同じ（関係代名詞）"]},"GP2-10":{"g":["as is often the case with ~「〜にはよくあることだ」","as は前の文の内容全体を受ける関係代名詞","カンマの後の非制限用法"],"v":["as is often the case: よくあることだ","fall asleep: 眠りに落ちる","the case with ~: 〜にはありがちなこと"]},"L7-1":{"g":["副詞 slowly and politely が speaks を修飾","and で副詞を並列","speak to ~「〜に話す」"],"v":["host mother: ホストマザー","slowly: ゆっくりと","politely: 丁寧に"]},"L7-2":{"g":["非制限用法の関係詞節：, who speaks Spanish,","moved and found は述語の並列","there ＝ in Spain"],"v":["Spanish: スペイン語","move to: 〜に引っ越す","found a job: 仕事を見つけた"]},"L7-3":{"g":["almost all ~「ほぼすべての〜」","have to ~「〜しなければならない」","Not all ~（部分否定）との対比を意識する"],"v":["almost all: ほぼすべて","have to: 〜しなければならない","in Japan: 日本で"]},"L7-4":{"g":["will certainly ~「きっと〜だろう」","a fluent speaker of Chinese「中国語の流ちょうな話者」","become は linking verb で補語をとる"],"v":["fluent: 流ちょうな","speaker: 話者","certainly: きっと"]},"L7-5":{"g":["Not all ~ は部分否定「すべてが〜というわけではない」","全否定（No students ~）との違いに注意","have to take a test"],"v":["Not all: すべてが〜とは限らない（部分否定）","have to: 〜しなければならない","take the test: テストを受ける"]},"L7-6":{"g":["hardly ~「ほとんど〜ない」は準否定語","could は can の過去形","Spanish-language はハイフン連結の形容詞"],"v":["hardly: ほとんど〜ない","understand: 理解する","Spanish-language: スペイン語の"]},"L7-7":{"g":["文修飾副詞 Unfortunately「残念ながら」","cannot ~ で能力の否定","Hawaiians（人々）と Hawaiian（言語）の区別"],"v":["unfortunately: 残念ながら","Hawaiians: ハワイの人々","cannot: 〜できない"]},"L7-8":{"g":["動名詞が主語：Mastering ~ is difficult","However で前の文と対比","im- は否定の接頭辞：impossible"],"v":["mastering: 習得すること（動名詞の主語）","however: しかし","impossible: 不可能な"]},"L8-1":{"g":["What should we do? で what は do の目的語","不定詞の目的用法：to lead ~","比較級の並列：happier and more meaningful"],"v":["lead a life: 生活を送る","meaningful: 意義のある","happier: happy の比較級"]},"L8-2":{"g":["be＋形容詞＋to ~ で理由「〜して幸運だ」","like you「あなたのような」が friend を後置修飾","a friend like you"],"v":["lucky: 幸運な","a friend like you: あなたのような友達","like: 〜のような（前置詞）"]},"L8-3":{"g":["what 節が主語：What he said「彼が言ったこと」","be hard to ~：主語が不定詞の目的語になる関係","主節の動詞は is（what節は単数）"],"v":["What he said: 彼が言ったこと","hard to believe: 信じがたい","what: 〜すること・もの"]},"L8-4":{"g":["too ~ to ...「〜すぎて…できない」","否定の意味を含む重要構文","explain の目的語は主語（situation）"],"v":["too ~ to: 〜すぎて…できない","complicated: 複雑な","situation: 状況"]},"L8-5":{"g":["現在分詞の付帯状況：feeling ~「〜な気持ちでいながら」","過去進行形 was looking が主動作","feel の後に happy and satisfied の並列"],"v":["feel happy: 幸せに感じる","satisfied: 満足した","grandchildren: 孫たち"]},"L8-6":{"g":["現在分詞句で理由：Being stressed out「ストレスだったので」","分詞句が文頭に置かれる","stress out「ストレスで参る」"],"v":["stressed out: ストレスで参った","being ~: 〜なので（理由）","karaoke: カラオケ"]},"L8-7":{"g":["because of＋名詞「〜のために」","because＋文 との違いに注意","around the world「世界中で」"],"v":["because of: 〜のために（名詞が続く）","popular: 人気のある","melody: メロディー"]},"L8-8":{"g":["with＋名詞＋現在分詞の付帯状況「〜が見ている中で」","so nervous の強調表現","watching は everybody が主动なので現在分詞"],"v":["nervous: 緊張した","with ~ ...ing: 〜が…している中で","everybody watching me: みんなが私を見ていること"]},"L9-1":{"g":["when 節「〜するとき」の副詞節","should は「〜するとよい」の助言","take a deep breath「深呼吸する」"],"v":["distracted: 気が散った","take a deep breath: 深呼吸する","should: 〜するとよい（助言）"]},"L9-2":{"g":["命令文：Think twice","before 節「〜する前に」","think twice は慣用表現"],"v":["think twice: よく考える、再考する","before: 〜する前に","speak: 話す"]},"L9-3":{"g":["because 節で理由を表す","everyone は単数扱いの不定代名詞","because she is always hardworking"],"v":["respect: 尊敬する","hardworking: 勤勉な","because: 〜なので"]},"L9-4":{"g":["If 節の条件「もし〜なら」","主節は must で強い義務","realize「（夢を）実現する」"],"v":["successful: 成功した","realize: 〜を実現する、悟る","must: 〜しなければならない"]},"L9-5":{"g":["Although ~「〜だけれども」の譲歩","lack は他動詞（前置詞なしで目的語をとる）","the right personality for ~「〜に合った性格」"],"v":["although: 〜だけれども","lack: 〜を欠く（他動詞）","personality: 性格"]},"L9-6":{"g":["Whatever ~「何が起こっても」の譲歩節","give up ~ing「〜をやめる」","never で強い否定"],"v":["whatever: 何が起こっても","give up ~ing: 〜することをやめる","pursue: 〜を追い求める"]},"L9-7":{"g":["so that ~ can「〜できるように」の目的","keep a diary「日記をつける」","reflect upon ~「〜を振り返る」"],"v":["keep a diary: 日記をつける","so that: 〜できるように","reflect upon: 〜を反省する、振り返る"]},"L9-8":{"g":["so ~ that ...「とても〜なので…」の結果","too ~ to ... と言い換え可能","so innovative that ~"],"v":["so ~ that: とても〜なので…だ","innovative: 革新的な","misunderstand: 誤解する（misunderstood-misunderstood）"]},"GP3-1":{"g":["I'd like ~「〜をいただきたい」（would like の丁寧な依頼）","A, and B, too「Aと、それにBも」","肯定文末の too"],"v":["I'd like: 〜をください（＝I would like）","French fries: フライドポテト","too: 〜も（肯定文の文末）"]},"GP3-2":{"g":["否定の同意：don't ~ either「〜も…しない」","肯定文の too との区別","them ＝ green peppers"],"v":["either: 〜も…ない（否定文で）","green peppers: ピーマン","don't like: 好きではない"]},"GP3-3":{"g":["Me neither. は否定文への口語的な同意","現在完了＋yet「まだ〜ない」","Neither have I. / I haven't either. とも言う"],"v":["Me neither: 私も（ない）です（口語）","yet: まだ（否定文・疑問文で）","finish: 終える"]},"GP3-4":{"g":["分詞の否定：Not ~ing「〜せずに」","分詞句は理由「気づかなかったので」","be late for ~「〜に遅れる」"],"v":["Not realizing: 気づかずに","be late for: 〜に遅れる","appointment: 約束"]},"GP3-5":{"g":["完了分詞の否定：Not having＋過去分詞「〜しなかったので」","主節の動作より前の出来事を強調","get hungry「おなかがすく」"],"v":["Not having eaten: 食べなかったので","got hungry: おなかがすいた","in class: 授業中に"]},"GP3-6":{"g":["独立分詞構文：名詞＋現在分詞（The deadline approaching）","＝ As the deadline was approaching","have to ~ / stay up late「夜更かしする」"],"v":["deadline: 締め切り","stay up late: 夜遅くまで起きる","approaching: 近づいて（独立分詞構文）"]},"GP3-7":{"g":["be to ~「〜する予定だ」（取り決め・予定）","ニュース調の未来表現","on＋具体的な日付"],"v":["be to ~: 〜する予定だ","meet: 〜と会談する（他動詞）","Prime Minister: 首相"]},"GP3-8":{"g":["be to ~＋受動態の不定詞：「服用すべきものだ」","説明書・指示の表現","after each meal「毎食後に」"],"v":["be to be taken: 服用すべきである","medicine: 薬","after each meal: 毎食後に"]},"GP3-9":{"g":["nowhere to be found「どこにも見つからない」","受動態の不定詞が nowhere を修飾","nowhere は否定の副詞で主語の位置"],"v":["nowhere to be found: どこにも見当たらない","nowhere: どこにも〜ない","to be found: 見つかること（受動態の不定詞）"]},"L10-1":{"g":["as ~ as ...「〜と同じくらい…」の原級","that ＝ the area（重複を避ける代用語）","almost as ~ as「ほとんど〜と同じくらい」"],"v":["area: 面積","that of ~: 〜のそれ（代用語）","almost: ほとんど"]},"L10-2":{"g":["倍数の比較：twice as ~ as「〜の2倍」","The number of ~ は単数扱い","that ＝ the number"],"v":["twice as large as: 〜の2倍の大きさの","inbound tourists: 訪日外国人観光客","the number of: 〜の数（単数扱い）"]},"L10-3":{"g":["比較級＋than：like A better than B「BよりAのほうが好き」","better は well/good の比較級","like A better than B は定番表現"],"v":["better than: 〜よりも（好み）","green tea: 緑茶","black tea: 紅茶"]},"L10-4":{"g":["much＋比較級で強調：「ずっと〜」","more eco-friendly than ~","eco-friendly はハイフン連結の形容詞"],"v":["much more ~ than: 〜よりはるかに…だ","eco-friendly: 環境に優しい","furoshiki: ふろしき"]},"L10-5":{"g":["最上級＋in ~ の範囲","or は同格の説明「つまり〜」","is の後の補語が tonkatsu"],"v":["the most popular: 最も人気のある","or: つまり（言い換え）","deep-fried pork: 揚げた豚肉（とんかつ）"]},"L10-6":{"g":["one of the＋最上級＋複数名詞「最も〜な…の一つ」","in the world が最上級の範囲","healthiest（y が i に変わる）"],"v":["one of the healthiest: 最も健康的なものの一つ","washoku: 和食","in the world: 世界で"]},"L10-7":{"g":["No other ~ than A「Aより〜なものはない」（≒Aが最も〜）","比較級の形で最上級の意味","Mt. Fuji is the highest ~ と言い換え可能"],"v":["No other ~ than: 〜を除いて他には…ない","higher than: 〜より高い","Mt. Fuji: 富士山"]},"L10-8":{"g":["More and more ~「ますます多くの〜」","be interested in ~","現在進行形で変化の傾向を表す"],"v":["more and more: ますます多くの","be interested in: 〜に興味がある","traditional culture: 伝統文化"]},"L11-1":{"g":["仮定法現在（今の事実と逆）：If ~ had, ... would ~","過去形の形で現在の仮定を表す","with me「（手元に）持って」"],"v":["If I had ~: もし〜を持っていたら（事実と逆）","would: 〜するのに（仮定）","look up: 〜を（オンラインで）調べる"]},"L11-2":{"g":["Do you think＋文 で「〜だと思いますか」","形式目的語 it：it would be great if ~","仮定法の could で実現性の低い話"],"v":["Do you think ~?: 〜だと思いますか","would be great: すばらしいだろう","do ~ for us: 私たちのために〜してくれる"]},"L11-3":{"g":["仮定法過去完了（過去の事実と逆）：If ~ had done, ... could have done","could have finished「終えられたのに」","不定詞の目的用法 to write"],"v":["If I had used: もし使っていたら（事実と逆）","could have finished: 終えられただろうに","sooner: もっと早く"]},"L11-4":{"g":["混合仮定法：過去の条件＋現在の帰結","If ~ had not been developed（過去の受動態の仮定）","主節は would be（現在の推量）"],"v":["nuclear weapons: 核兵器","had not been developed: 開発されていなかったら（受動態の仮定法）","much safer: ずっと安全な"]},"L11-5":{"g":["I wish＋過去形「（今）〜であればいいのに」の現在の願望","had「持っていれば」で事実と逆を表す","不定詞の後置修飾：technology to stop ~"],"v":["I wish ~: 〜であればいいのに（仮定法）","global warming: 地球温暖化","technology to ~: 〜する技術"]},"L11-6":{"g":["I wish＋過去完了「〜すればよかったのに」の過去の後悔","had had は have の過去完了","when I was young の時を表す節"],"v":["I wish I had had: 〜しておけばよかったのに","vision: 展望、ビジョン","for the future: 未来への"]},"L11-7":{"g":["It's time (that)＋過去形「そろそろ〜すべき時だ」","仮定法過去で「もう〜すべきだ」の催促","副詞の並列：globally and locally"],"v":["It's time we ~: そろそろ私たちが〜すべき時だ","think globally: グローバルに考える","act locally: ローカルに行動する"]},"L11-8":{"g":["without ~ で仮定法「〜がなければ」（＝If we had no ~）","What would ~ be like?「〜はどんなだろう」","仮定の推量"],"v":["What would ~ be like?: 〜はどんなものだろうか","without smartphones: スマートフォンなしでは","our lives: 私たちの生活"]},"L12-1":{"g":["insist の仮定法：insist that ~ (should)＋動詞の原形","the government take が原形である点に注意","不定詞の目的用法 to promote"],"v":["insist that ~ (should): 〜すべきだと主張する（仮定法）","take action: 措置を取る","promote: 〜を促進する"]},"L12-2":{"g":["It's important that ~ の後の仮定法：(should)＋原形","形式主語 it、真の主語は that 節","respect が原形（should は省略）"],"v":["It's important that ~: 〜することは重要だ","respect: 〜を尊重する","religious beliefs: 宗教的信念"]},"L12-3":{"g":["in order to ~「〜するために」の目的","think の後の that は省略","should は「〜すべきだ」の助言"],"v":["in order to: 〜するために","avoid: 〜を避ける","conflicts: 対立、衝突"]},"L12-4":{"g":["It seemed that ~「〜のように思われた」","主節が過去なので従属節は過去完了 had studied","時制の一致"],"v":["It seemed that: 〜のように思われた","from abroad: 海外からの","had studied: 勉強してきていた（過去完了）"]},"L12-5":{"g":["直接話法：引用符の中に元の文をそのまま置く","said to me「私に言った」","引用符内の時制は元のまま（read）"],"v":["said to me: 私に言った","article on ~: 〜に関する記事","diversity: 多様性"]},"L12-6":{"g":["間接話法：told me that ~ に変換","時制の一致で read → had read","yesterday → the day before に変化"],"v":["told me that: 私に〜だと言った","the day before: 前日に（間接話法）","had read: 読んだ（過去完了）"]},"L12-7":{"g":["It was not until ~ that ...「〜してはじめて…した」","強調構文（It is/was ~ that ...）の一種","not until ~「〜になってやっと」"],"v":["It was not until ~ that: 〜してはじめて…だ","realize: 気づく、認識する","social welfare: 社会福祉"]},"L12-8":{"g":["It won't be long before ~「まもなく〜する」","before 節で「〜するまでに長くかからない」","won't で未来"],"v":["It won't be long before: まもなく〜だろう","start: 始める","diversity program: 多様性プログラム"]},"GP4-1":{"g":["all the more ~「（〜のために）いっそう〜」","for ~ は理由「〜のために」","difficult for ~ の for と混同しない"],"v":["all the more: いっそう、なおさら","for: 〜のために（理由）","huge cost: 膨大なコスト"]},"GP4-2":{"g":["more A than B「Bというより（むしろ）A」","２つの形容詞を比較する構文","感情の程度を対比"],"v":["more disappointed than angry: 怒りより落胆のほうが大きい","disappointed: がっかりした","more ~ than: 〜というより…だ"]},"GP4-3":{"g":["no more than ~「たった〜しか」（少なさを強調）","It takes ~ (time) from A to B","by train「電車で」"],"v":["no more than: たった〜しか（わずか）","It takes: 〜（時間）がかかる","by train: 電車で"]},"GP4-4":{"g":["no less than ~「〜も（多さを強調）」","no more than（たった〜）との対比","give＋人＋物の第４文型"],"v":["no less than: 〜以上も（少なくない）","New Year's gift: お年玉","give me ~: 私に〜をくれる"]},"GP4-5":{"g":["much less ~「〜はなおさら（だめだ）」","否定文の後に置いて「まして〜など」","can't afford ~「〜を買う余裕がない」"],"v":["much less: 〜はなおさら、まして","afford: 〜する余裕がある","can't afford: 買う余裕がない"]},"GP4-6":{"g":["at best「よくて、せいぜい」","文の後ろに置いて評価を限定","second-rate「二流の」"],"v":["at best: せいぜい、よくても","second-rate: 二流の、B級の","restaurant: レストラン"]},"GP4-7":{"g":["at one's best「絶好調で、全盛で」","in the 1990s「1990年代に」","at best（せいぜい）との違いに注意"],"v":["at his best: 全盛期で、絶好調で","film director: 映画監督","in the 1990s: 1990年代に"]},"GP4-8":{"g":["if ~ were to「万一〜することがあれば」の未来の仮定法","What would you do? の疑問文","were to で実現性の低さを表す"],"v":["were to receive: もらうことになったら（万一）","a million dollars: 100万ドル","What would you do: どうしますか"]},"GP4-9":{"g":["If ~ should「万一〜したら」の未来の仮定法","Should ~ と if を省いて倒置することもできる","主節は依頼の文"],"v":["should miss: 万一乗り遅れたら","miss the train: 電車に乗り遅れる","call me: 電話してほしい"]},"GP4-10":{"g":["Were it not for ~「〜がなければ」＝ Without ~ / But for ~","if を省略した倒置の仮定法","主節は would で仮定"],"v":["Were it not for: 〜がなかったら","habitat: 生息地","would lose: 失うだろう（仮定法）"]},"GP4-11":{"g":["Had I ~ ＝ If I had ~（if 省略の倒置）","混合仮定法：過去の条件＋現在の帰結","could better enjoy"],"v":["Had I studied: もっと勉強していたら","could better enjoy: もっと楽しめただろう","tour of Kyoto: 京都観光"]},"GP4-12":{"g":["Every time (that) ~「〜するたびに」の接続詞的用法","be moved to tears「感動して涙する」","remember は他動詞"],"v":["Every time: 〜するたびに","be moved to tears: 感動して涙する","remember: 思い出す"]},"GP4-13":{"g":["had hardly ~ when ...「〜するとすぐに…」","過去完了＋when＋過去形","no sooner ~ than ... とも言い換えられる"],"v":["hardly ~ when: 〜するとすぐに（すぐ…した）","get on: （乗り物に）乗る","had hardly gotten: 乗るか乗らないかのうちに"]},"L13-1":{"g":["more than ~「〜以上」","there are ~ の存在文","World Heritage Sites は固有名詞的な表現"],"v":["more than: 〜以上","World Heritage Sites: 世界遺産","there are: 〜がある"]},"L13-2":{"g":["have は「〜がある」（所有・存在）","several＋複数名詞「いくつかの」","in our town が場所"],"v":["several: 数人の、いくつかの","marvelous: 驚くほど素晴らしい","gardens: 庭園"]},"L13-3":{"g":["along the beach「海岸沿いの」の後置修飾","get＋形容詞で変化「〜になる」","on weekends「週末には」"],"v":["along the beach: 海岸沿いに","get crowded: 混雑する","on weekends: 週末には"]},"L13-4":{"g":["because 節で理由","become＋形容詞「〜になる」","appear in ~「〜に登場する」"],"v":["became famous: 有名になった","appear in: 〜に登場する","view: 景色"]},"L13-5":{"g":["It takes ~ (時間) to ...「〜するのに…かかる」","形式主語 it、真の主語は to drive","from A to B"],"v":["It takes about two hours: 約2時間かかる","drive: 運転する（自動詞）","from ~ to: 〜から…まで"]},"L13-6":{"g":["cost＋金額＋to ~「〜するのに…かかる」","less than ~「〜未満」","guess の後の that は省略"],"v":["less than: 〜未満、〜より少ない","cost: 〜（費用）がかかる","rent: 〜を借りる"]},"L13-7":{"g":["come to ~「（徐々に）〜するようになる」","不定詞 to understand","A lot of＋複数名詞"],"v":["came to understand: 理解するようになった","uniqueness: 独自性","A lot of: たくさんの"]},"L13-8":{"g":["The number of ~「〜の数」は単数扱い（ここでは過去形 began）","begin to ~「〜し始める」","in the late 1990s「1990年代後半に」"],"v":["The number of: 〜の数","begin to increase: 増え始める","in the late 1990s: 1990年代後半に"]},"L14-1":{"g":["使役 make＋目的語＋動詞の原形「〜に…させる」","made the patient rest","for several days の期間"],"v":["make ~ do: 〜に…させる（強制）","patient: 患者","in bed: 床について"]},"L14-2":{"g":["使役（許可）let＋目的語＋動詞の原形","without ~ing「〜せずに」","didn't let で否定"],"v":["let ~ do: 〜が…するのを許す","without having breakfast: 朝食抜きで","daughter: 娘"]},"L14-3":{"g":["使役 get＋目的語＋to 不定詞「〜に…させる」","make（原形）と違い get は to が必要","go for a checkup「検診を受ける」"],"v":["get ~ to do: 〜に…してもらう","medical checkup: 健康診断","go for: 〜を受けに行く"]},"L14-4":{"g":["allow＋目的語＋to ~「〜が…するのを許す」","for free「無料で」","its ＝ the city's"],"v":["allow ~ to: 〜が…するのを認める","citizens: 市民","for free: 無料で"]},"L14-5":{"g":["使役 have＋目的語＋現在分詞「〜を（ずっと）…させる」","had me waiting「私を待たせた」","Though ~「〜だけれども」"],"v":["have ~ ...ing: 〜を…させ続ける","appointment: 予約","clinic: 診療所"]},"L14-6":{"g":["have＋目的語＋過去分詞「〜を（人に）…してもらう」","had his temperature and blood pressure checked","目的語が並列"],"v":["have ~ checked: 〜を測ってもらう","temperature: 体温","blood pressure: 血圧"]},"L14-7":{"g":["知覚動詞 hear＋目的語＋動詞の原形「〜が…するのを聞いた」","動作の全部を聞いたニュアンス","~ing 形（途中まで）との区別"],"v":["hear ~ do: 〜が…するのを聞く（全部）","newscaster: ニュースキャスター","life expectancy: 平均寿命"]},"L14-8":{"g":["知覚動詞 see＋目的語＋現在分詞「〜が…しているのを見た」","jogging で動作の進行中を表す","原形（saw ~ jog）とのニュアンスの違い"],"v":["see ~ ...ing: 〜が…しているのを見る","jogging: ジョギングしている","this morning: 今朝"]},"L15-1":{"g":["Few＋複数名詞は否定「ほとんど〜ない」","a few（肯定：少しはある）との違いに注意","notice は他動詞"],"v":["Few: ほとんど〜ない（否定）","notice: 気づく","mistake in the data: データの間違い"]},"L15-2":{"g":["No＋名詞で完全否定「どの〜も…ない」","should have to ~「〜しなければならないことになっている」","「そうあってほしくない」の願い"],"v":["No children: どんな子どもも〜ない","have to experience: 経験しなければならない","hunger: 飢え"]},"L15-3":{"g":["動名詞 Reducing ~ が主語","make＋目的語＋補語「〜を…にする」","不定詞 to live が place を修飾"],"v":["reducing: 減らすこと（動名詞の主語）","inequality: 不平等","a better place to live: 住みよい場所"]},"L15-4":{"g":["access to ~「〜へのアクセス（機会）」","help＋目的語＋動詞の原形（to は省略可）","比較級 brighter"],"v":["access to: 〜へのアクセス、機会","help ~ have: 〜が…するのを助ける","brighter future: より明るい未来"]},"L15-5":{"g":["enable＋目的語＋to ~「〜が…できるようにする」","students in remote areas の後置修飾","take classes「授業を受ける」"],"v":["enable ~ to: 〜が…できるようにする","remote areas: へき地","take classes: 授業を受ける"]},"L15-6":{"g":["prevent＋目的語＋from ~ing「〜が…するのを妨げる」","enable と対になる重要動詞","from は省略されることもある"],"v":["prevent ~ from ~ing: 〜が…するのを妨げる","poverty: 貧困","going to school: 学校に行くこと"]},"L15-7":{"g":["be supposed to ~「〜することになっている」","by 2050「2050年までに」の期限","become は linking verb"],"v":["be supposed to: 〜する予定・見込みだ","carbon-neutral: カーボンニュートラル","by 2050: 2050年までに（期限）"]},"L15-8":{"g":["受動態 be required to ~「〜することを求められる」","take responsibility for ~","their ＝ companies'"],"v":["be required to: 〜することが求められる","take responsibility for: 〜に責任を持つ","products: 製品"]},"S1-1":{"g":["受動・状態の will be closed「閉じられる、休業する」","from A to B「AからBまで」の期間","日付の序数：29th / 3rd"],"v":["be closed: 閉まっている、休業する","from ~ to: 〜から…まで","shop: 店"]},"S1-2":{"g":["be going to＋受動態：is going to be held「開催される予定だ」","at the Budokan の場所","予定の未来"],"v":["be held: 開催される","is going to: 〜する予定だ","at the Budokan: 武道館で"]},"S1-3":{"g":["has to＋受動態の不定詞：has to be done「されなければならない」","副詞 carefully が done を修飾","has to は義務"],"v":["has to be done: 行われなければならない","carefully: 慎重に","job: 仕事"]},"S1-4":{"g":["現在進行形の受動態：is being repaired「今修理されているところだ」","now が進行を表す","be repairing の受動"],"v":["is being repaired: 修理されている（今まさに）","repair: 修理する","now: 今"]},"S1-5":{"g":["現在完了の受動態：have been caught「巻き込まれて（今も）いる」","for an hour の期間","be caught in ~「〜に巻き込まれる」"],"v":["be caught in: 〜に巻き込まれる","traffic jam: 交通渋滞","for an hour: 1時間（ずっと）"]},"S1-6":{"g":["句動詞の受動態：are taken care of","care の後の of を省略しない","by 句で動作主"],"v":["take care of: 〜の世話をする（受動：be taken care of）","Mr. and Mrs. Lake: レイク夫妻","by ~: 〜によって"]},"S1-7":{"g":["助動詞＋受動態：should be dealt with","deal with の with を省略しない","at once「すぐに」"],"v":["deal with: 〜に対処する（受動：be dealt with）","at once: すぐに","should be: 〜されるべきだ"]},"S1-8":{"g":["get 受動態：got arrested（よくない出来事に多い）","場所 on the street → in Minato Ward の順","last night が文末"],"v":["get arrested: 逮捕される","thief: 泥棒","on the street: 路上で"]},"S1-9":{"g":["第４文型（人に物を）の受動態：間接目的語 She を主語に","was given＋直接目的語が残る","by the president"],"v":["was given: 与えられた","position: ポスト、地位","by the president: 社長によって"]},"S1-10":{"g":["第４文型の受動態：直接目的語 An important position を主語に","give A to B の形になる","S1-9（人を主語にする形）と対比"],"v":["position: ポスト、地位","was given to: 〜に与えられた","important: 重要な"]},"S1-11":{"g":["buy A for B の受動態（物を主語にする）","for me が残る","by my aunt"],"v":["was bought for me: 私のために買われた","by my aunt: 叔母によって","buy ~ for: 〜のために…を買う"]},"S1-12":{"g":["call A B の受動態：am called B「Bと呼ばれる」","call は目的格補語をとる動詞","by my classmates"],"v":["be called: 〜と呼ばれる","classmates: クラスメート","Lil: リル（愛称）"]},"S2-1":{"g":["否定疑問文への英語の答え方は事実に従う：No, I didn't＝「（そうだよ）行かなかった」","日本語の「うん（行かなかった）」は英語では No になる","Didn't you ~? は驚き・確認"],"v":["Didn't you ~?: 〜しなかったの？（否定疑問文）","cram school: 塾","No, I didn't.: いいえ、行きませんでした（＝行かなかったよ）"]},"S2-2":{"g":["否定疑問文 Can't you ~?「〜できないの？」（驚き）","答えは事実に従う：できるなら Yes, I can","ride a bike は冠詞なし"],"v":["Can't you ~?: 〜できないんですか？","ride a bike: 自転車に乗る","can: 〜できる"]},"S2-3":{"g":["Don't you think ~? は同意を求める表現","同意するなら Yes, I do（いや、思うよ）","疑問文の形より事実で答えるのが英語"],"v":["Don't you think ~?: 〜だと思わない？","Yes, I do.: うん、思うよ","cute: かわいい"]},"S2-4":{"g":["付加疑問文：肯定文＋isn't she?","前が肯定なら後ろは否定","同意は Yes, she is / 不同意は No, she isn't"],"v":["isn't she?: 〜だよね？（付加疑問）","Yes, she is.: うん、そうだよ","付加疑問文: 文末の「〜でしょう？」"]},"S2-5":{"g":["否定文＋肯定の付加疑問：doesn't ~ , does he?","前が否定なら後ろは肯定","否定に同意なら No, he doesn't"],"v":["does he?: 〜だよね？（否定文＋付加疑問）","No, he doesn't.: うん、上手くないよ","not ~ very well: あまり〜上手くない"]},"S2-6":{"g":["間接疑問（疑問詞＋主語＋動詞）：what you are talking about","talking about の about が残る","疑問文の語順（what are you talking）にならない点に注意"],"v":["what you are talking about: あなたが話していること","talk about: 〜について話す","I don't know ~: 〜がわからない"]},"S2-7":{"g":["whether 節が know の目的語「〜かどうか」","Yes/No 疑問文は間接疑問では whether (if) になる","語順は平叙文：whether Lisa can ~"],"v":["whether ~: 〜かどうか","attend: 〜に出席する（他動詞）","the meeting: 会議"]},"S2-8":{"g":["if ＝ whether「〜かどうか」の間接疑問","if 節は平叙文の語順","whether を使った文（S2-7）と同じ意味"],"v":["if: 〜かどうか（＝whether）","can attend: 出席できる","Do you know if ~?: 〜かどうか知っていますか"]},"S2-9":{"g":["do you think が挿入された疑問文：What do you think＋平叙文の語順","what is that boy looking for ではなく that boy is looking for","look for の for が残る"],"v":["What do you think ~ is?: 〜は何だと思いますか","look for: 〜を探す","do you think: 挿入表現「あなたは〜だと思う？」"]},"S2-10":{"g":["What is A like? で性質・人柄・様子などを問う","What does A like?（Aは何が好き？）と形が似て意味が違う","like は前置詞「〜のような」"],"v":["What is ~ like?: 〜はどんな感じ？","like: 〜のような（前置詞）","new English teacher: 新しい英語の先生"]},"S2-11":{"g":["What did you ~ for? ＝ Why did you ~? で目的を問う","for が what に対応して後ろに残る","go to the city hall"],"v":["What did you ~ for?: 何のために〜したの？","city hall: 市役所","for: 〜のために（目的）"]},"S2-12":{"g":["How do you feel about ~? で感想を問う","feel about ~「〜についてどう感じる」","latest「最新の」"],"v":["How do you feel about ~?: 〜についてどう思う？","latest: 最新の","feel about: 〜について感じる"]},"S2-13":{"g":["What do you think about ~? で意見を問う","think about ~「〜について考える」","What do you think of ~? とも言う"],"v":["What do you think about ~?: 〜についてどう思う？","think about: 〜について考える","movie: 映画"]},"S2-14":{"g":["How come＋平叙文の語順で「なぜ」（口語）","Why ~? と同じ意味","in a hurry「急いで」＋such a で強調"],"v":["How come ~?: なぜ〜なの？（口語）","in a hurry: 急いで","such a hurry: そんなに急いで"]},"S3-1":{"g":["no longer ~「もはや〜ない」","not ~ any longer とも言い換えられる","believes は三単現"],"v":["no longer: もはや〜ない","believe in: 〜（の存在）を信じる","Santa Claus: サンタクロース"]},"S3-2":{"g":["by no means「決して〜ない」の強い否定","be satisfied with ~「〜に満足している」","not ~ at all と同義"],"v":["by no means: 決して〜ない","be satisfied with: 〜に満足している","exam result: 試験の結果"]},"S3-3":{"g":["fail to ~「〜できない、し損なう」","succeed in ~ing の否定に相当","prepare for ~「〜の準備をする」"],"v":["fail to ~: 〜できない、〜しそこなう","adequately: 適切に、十分に","presentation: プレゼン、発表"]},"S3-4":{"g":["never fail to ~「必ず〜する」","二重否定で強い肯定を表す","give＋人＋物の第４文型"],"v":["never fail to: 必ず〜する","give her a present: 彼女にプレゼントをあげる","every year: 毎年"]},"S3-5":{"g":["far from ~「〜からほど遠い、少しも〜でない」","be confident in ~「〜に自信がある」","不定詞 to speak が ability を修飾"],"v":["far from: 〜からほど遠く、少しも〜でなく","confident in: 〜に自信がある","ability to ~: 〜する能力"]},"S3-6":{"g":["free from ~「〜がない、〜から自由な」","because 節で理由","racial prejudice「人種的偏見」"],"v":["free from: 〜のない、〜から自由な","racial prejudice: 人種的偏見","because: 〜なので"]},"S3-7":{"g":["nothing but ~「〜だけ、〜以外に何もない」","nothing but ＝ only","likes to eat（不定詞を目的語に）"],"v":["nothing but: 〜だけ、〜ばかり","this kind of: この種類の","cat food: キャットフード"]},"S3-8":{"g":["does nothing but の but の後は原形（前に do があるため）","do nothing but ~「〜してばかりいる」","all day「一日中」"],"v":["does nothing but: 〜してばかりいる","watch TV: テレビを見る","all day: 一日中"]},"S3-9":{"g":["no choice but to ~「〜するしかない」","前に do がないので but の後は to 不定詞（S3-8 と対比）","have no choice"],"v":["no choice but to: 〜するしかない","admit: 認める（admitted と t が重なる）","mistake: 失敗、間違い"]},"S3-10":{"g":["find＋oneself＋~ing「（思いがけず）〜しているのに気づく」","再帰代名詞 himself が目的語","現在分詞 sleeping が目的格補語"],"v":["found himself sleeping: 自分が寝ているのに気づいた","living room floor: リビングの床","find oneself ~: ふと〜していることに気づく"]},"S3-11":{"g":["myself は強調の同格「私自身が」","most of the ~「〜のほとんど」","have to ~ の義務"],"v":["myself: 私自身が（強調）","most of: 〜のほとんど","housework: 家事（数えられない名詞）"]},"S3-12":{"g":["work は「（機械が）動く、機能する」","one は vacuum cleaner を繰り返さない代用语","need to ~"],"v":["work: 動く、機能する","one: 一つ（同種のものの代用语）","vacuum cleaner: 掃除機"]},"S3-13":{"g":["like A better than B「BよりAのほうが好き」","ones は socks を受ける複数の代用语","these（これらの）/those（あの）の指示詞"],"v":["better than: 〜より好き","ones: もの（複数の代用语）","colorful: カラフルな"]},"S3-14":{"g":["fit は「（サイズが）合う」で前置詞なしの他動詞","try on ~「〜を試着する」の句動詞","another ＝ an＋other「もう一つ」"],"v":["fit: 〜に合う、フィットする","try on: 〜を試着する","another: もう一つ（別のもの）"]},"S3-15":{"g":["2つのうちの「一方は…そしてもう一方は」：one ... the other ...","be from ~「〜の出身だ」","2人なので the other は定冠詞"],"v":["one ~ the other: 一方が〜で、もう一方が…（2つの場合）","be from: 〜の出身だ","foreign students: 留学生"]},"S3-16":{"g":["3つ以上では one ... the others ...「一人は…残りは全員」","others は「残りの人たち」の複数","2つの場合の the other（S3-15）と区別"],"v":["one ~ the others: 一人が〜で、残りは…（3つ以上）","others: 他の人たち（複数）","three: 3人"]},"S4-1":{"g":["arrive at（小さい場所）/ arrive in（都市・国など広い場所）","at＋具体的な時刻","will で未来"],"v":["arrive at: 〜に到着する（at は狭い場所に）","airport: 空港","at 10:30: 10時30分に"]},"S4-2":{"g":["look up at ~「〜を見上げる」","木の上の「外部の物」には in the tree を使う（on ではない）","過去進行形で情景描写"],"v":["look up at: 〜を見上げる","in the tree: 木の上に（外から来た物は in）","bird: 鳥"]},"S4-3":{"g":["be surprised at ~「〜に驚く」","surprised（人が感じる）/ surprising（物が感じさせる）","所有格＋形容詞＋名詞：my uncle's sudden visit"],"v":["be surprised at: 〜に驚く","sudden visit: 突然の訪問","surprised: 驚いた（人の感情）"]},"S4-4":{"g":["must be ~「きっと〜だ」の強い肯定推量","at work「職場で、仕事中で」","now との組み合わせ"],"v":["must be: きっと〜だ（推量）","at work: 仕事場で、勤務中で","now: 今"]},"S4-5":{"g":["on が２つ：on the ceiling（面に接して）/ on Sunday morning（特定の日の朝）","notice は他動詞","stain「しみ」"],"v":["notice: 気づく","stain: しみ、汚れ","on the ceiling: 天井に"]},"S4-6":{"g":["busy「忙しい」（be busy with/in ~ing とも）","一般的な「朝」は in the morning（特定の日は on）","I'm ＝ I am"],"v":["busy: 忙しい","in the morning: 朝に（一般的に）","be busy: 忙しい"]},"S4-7":{"g":["depend on ~「〜に依存する、〜次第だ」","on は省略できない","a lot は副詞句「とても」"],"v":["depend on: 〜次第である、頼る","a lot: とても、たくさん","wife: 妻"]},"S4-8":{"g":["受動態 will be broadcast（broadcast は不規則変化：broadcast-broadcast-broadcast）","on the internet「インターネットで」","メディアには on を使う"],"v":["be broadcast: 放送される","on the internet: インターネットで","show: ショー、番組"]},"S4-9":{"g":["live in＋都市名（広い場所には in）","in＋年（in 2020）","場所→時間の語順"],"v":["live in: 〜に住む","in 2020: 2020年に","Saga: 佐賀"]},"S4-10":{"g":["in＋期間で未来の話「〜（後に）」","be back「戻る」","I'll ＝ I will の約束・予測"],"v":["in thirty minutes: 30分後に（未来の時）","be back: 戻る","will: 〜だろう、〜します"]},"S4-11":{"g":["be in love with ~「〜に恋している」","over there「向こうの」が girl を後置修飾","in the white dress「白いドレスを着た」（着衣は in）"],"v":["be in love with: 〜に恋している","over there: 向こうに（後置修飾）","in the white dress: 白いドレスを着た"]},"S4-12":{"g":["talk about ~「〜について話す」","現在進行形で今している動作","about は省略できない"],"v":["talk about: 〜について話す","movie: 映画","are talking: 話している（進行中）"]},"S4-13":{"g":["現在完了進行形 has been ~ing「ずっと〜し続けている」","for three days の期間","wander about ~「〜を歩き回る」"],"v":["has been wandering: 歩き回ってきた（継続）","expedition team: 探検隊","wander about: 〜をさまよう"]},"S4-14":{"g":["from A to B「AからBまで」","a ten-minute walk：ハイフン連結で minute は単数形","It's は距離・所要時間の表現"],"v":["ten-minute walk: 徒歩10分","from here to: ここから〜まで","station: 駅"]},"S4-15":{"g":["die from ~（外的・間接的原因）/ die of ~（病気など直接原因）","A lot of＋複数名詞","every year"],"v":["die from: 〜で死ぬ（原因）","starvation: 餓死、飢え","A lot of: 多くの"]},"S4-16":{"g":["different from ~「〜と違う」","opinion about/on ~「〜についての意見」","mine ＝ my opinion の代用語"],"v":["different from: 〜とは異なる","opinion about: 〜についての意見","mine: 私のもの（所有代名詞）"]},"S4-17":{"g":["so ~ that ...「とても〜なので…」","freeze to death「凍え死ぬ」","時制の一致：thought I would ~"],"v":["so cold that: とても寒くて〜","freeze to death: 凍え死ぬ","would: will（過去時から見た未来）"]},"S4-18":{"g":["leave for ~「〜に向けて出発する」","leave（場所を去る）と leave for（目的地へ向かう）の違い","this morning"],"v":["leave for: 〜へ出発する","this morning: 今朝","left: leave の過去形"]},"S4-19":{"g":["What can I do for you? は助けを申し出る決まり文句","for you「あなたのために」","お店や窓口での定番表現"],"v":["What can I do for you?: ご用件は何ですか","do for ~: 〜のためにしてあげる","can: 〜できる"]},"S4-20":{"g":["現在完了進行形 have been waiting「ずっと待っている」","for が２つ：for Sarah（待つ相手）/ for 15 minutes（期間）","wait for ~"],"v":["wait for: 〜を待つ","have been waiting: ずっと待っている","for 15 minutes: 15分間"]},"S4-21":{"g":["by the window「窓のそばに」（by は近接）","looking outside は付帯状況の分詞句","過去進行形 was standing"],"v":["by the window: 窓のそばで","looking outside: 外を見ながら","stand: 立っている（stood-stood）"]},"S4-22":{"g":["near Sydney「シドニーの近くの」が town を後置修飾","lives は三単現の現在形","in a town"],"v":["near: 〜の近く（後置修飾）","town: 町","lives: 住む（三単現）"]},"S4-23":{"g":["by＋交通手段（冠詞なし）：by bicycle","nearest は near の最上級","went to ~"],"v":["by bicycle: 自転車で","nearest: 最も近い","station: 駅"]},"S4-24":{"g":["make up one's mind「決心する」","by tomorrow「明日までに」の期限","have to ~ の義務"],"v":["make up my mind: 決心する","by tomorrow: 明日までに（期限）","have to: 〜しなければならない"]},"S5-1":{"g":["At last「ついに」（文頭で使う）","reach は他動詞で前置詞なし（arrive at と対比）","the top of ~「〜の頂上」"],"v":["At last: ついに、ようやく","reach: 〜に到達する（他動詞）","the top of: 〜の頂上"]},"S5-2":{"g":["of＋抽象名詞＝形容詞：of importance ＝ important","a person of ~「〜な人」","in the political world"],"v":["of importance: 重要な（＝important）","political world: 政界","person: 人"]},"S5-3":{"g":["現在分詞の後置修飾：girl walking with Tom「歩いている少女」","疑問詞 Who が主語","walking with ~"],"v":["walking with: 〜と歩いている","Who is ~?: 〜は誰ですか","girl: 少女"]},"S5-4":{"g":["with ~「〜の（特徴をもった）」の後置修飾","with gray hair「白髪の」","所有格 Dan's father"],"v":["with gray hair: 白髪の","that man: あの男性","gray hair: 白髪"]},"S5-5":{"g":["should have＋過去分詞「〜すべきだった」の後悔","bring ~ with me「〜を持参する」","brought は bring の過去分詞"],"v":["should have brought: 持ってくるべきだった","with me: 手元に、携帯して","umbrella: 傘"]},"S5-6":{"g":["with＋抽象名詞＝副詞：with care ＝ carefully","handle は他動詞「〜を扱う」","must の義務"],"v":["with care: 注意深く（＝carefully）","handle: 〜を扱う","old books: 古い本"]},"S5-7":{"g":["as soon as ~「〜するとすぐに」","with＋道具・材料「〜で」","習慣の動作は現在形"],"v":["as soon as: 〜するとすぐに","with soap: 石けんで（道具）","get home: 帰宅する（home は副詞で to 不要）"]},"S5-8":{"g":["pass through ~「〜を通り抜ける」","through は内部を通過するイメージ","passed は過去形"],"v":["pass through: 〜を通り抜ける","tunnel: トンネル、坑道","long tunnel: 長いトンネル"]},"S5-9":{"g":["travel through ~「〜中を旅する」","want to ~","through は広い範囲内を動き回る感じ"],"v":["travel through: 〜中を旅する","want to: 〜したい","Japan: 日本"]},"S5-10":{"g":["through the night「夜通し」","be able to の過去形 was able to「〜できた」","副詞 soundly「ぐっすり」"],"v":["through the night: 夜通し","was able to: 〜することができた","soundly: ぐっすりと"]},"S6-1":{"g":["命令文＋and ~「〜しなさい、そうすれば…」","and は if 節に相当（＝If you take ~）","feel better"],"v":["Take ~, and you will ~: 〜すれば…するよ","medicine: 薬","feel better: 気分がよくなる"]},"S6-2":{"g":["命令文＋or ~「〜しなさい、さもないと…」","or は if ~ not に相当","Do your best「最善を尽くす」"],"v":["or: さもないと、でないと","Do your best: 最善を尽くす","regret: 後悔する"]},"S6-3":{"g":["not A but B「AではなくB」","A・B は同じ品詞（ここでは名詞）を並べる","order「注文する」"],"v":["not ~ but ...: 〜ではなく…だ","order: 注文する","cheese burger: チーズバーガー"]},"S6-4":{"g":["not only A but (also) B「AだけでなくBも」","並列の語順に注意（A・Bの品詞をそろえる）","plays は三単現"],"v":["not only ~ but also: 〜だけでなく…も","plays: 演奏する（三単現）","guitar: ギター"]},"S6-5":{"g":["while＋状態の文「〜の間」","come to ~「〜しに来る」（来訪の目的）","while you were away"],"v":["while: 〜している間に","came to see: 会いに来た","away: 不在で、離れて"]},"S6-6":{"g":["while は対比「一方で、（だが）…は」","時間の while（〜の間）とは別の用法","2つの事実を対比"],"v":["while: 一方で（対比）","stay home: 家にいる","want to: 〜したい"]},"S6-7":{"g":["as soon as 節では未来のことでも現在形（finish）を使う","return A to B「AをBに返す」","finish ~ing"],"v":["as soon as: 〜するとすぐに","return ~ to: 〜を…に返す","finish reading: 読み終える"]},"S6-8":{"g":["the moment (that) ~「〜するとすぐに」の接続詞的用法","call out ~「〜を大声で言う」","2つの過去形が順に並ぶ"],"v":["the moment: 〜するとすぐに","called out: 〜を大声で言った","name: 名前"]},"S6-9":{"g":["once ~「一度〜したら」の接続詞","make a promise「約束する」","break a promise「約束を破る」"],"v":["once: 一度〜したら","make a promise: 約束する","break: 破る（broke-broken）"]},"S6-10":{"g":["now that ~「今や〜なので、〜だから」","spend＋時間＋~ing「〜して過ごす」","retired は形容詞的"],"v":["now that: 〜だから、今や〜なので","spend ~ reading: 〜して（時間を）過ごす","free time: 自由時間"]},"S6-11":{"g":["as long as ~「〜である限り」（条件）","keep ~ing「〜し続ける」","a chance to ~「〜する機会」"],"v":["as long as: 〜する限り","keep trying: 挑戦し続ける","achieve your goal: 目標を達成する"]},"S6-12":{"g":["as far as ~「〜する限り（範囲）」","belong to ~「〜に属する」（進行形にしない）","as far as I can remember は決まり文句"],"v":["as far as I can remember: 私が覚えている限り","belong to: 〜に属する","baseball team: 野球部"]},"S6-13":{"g":["in case ~「〜する場合に備えて」","条件を含む文なので anyone を使う","suspicious が anyone を後置修飾"],"v":["in case: 〜場合に備えて","suspicious: 不審な","anyone: 誰でも（否定・条件文で）"]},"S6-14":{"g":["had better ~「〜したほうがよい（さもないと困る）」","write down ~「〜を書き留める」（分離可能）","in case ~「〜場合に備えて」"],"v":["had better: 〜したほうがよい","write down: 〜を書き留める","in case I forget: 忘れた場合に備えて"]},"S6-15":{"g":["for fear that ~「〜すると恐れて、〜しないように」","for fear that の中は would（時制の一致）","oversleep「寝過ごす」"],"v":["for fear that: 〜すると恐れて、〜しないように","oversleep: 寝過ごす","went to bed early: 早く寝た"]},"S7-1":{"g":["do＋動詞の原形で強調：「本当に〜したい」","do は時制・人称に応じて does/did に変わる","want to ~"],"v":["do want: 本当に〜したい（強調）","concert: コンサート","want to go: 行きたい"]},"S7-2":{"g":["shouldn't ~「〜すべきでない」の否定の助言","that much「そんなに」（that は副詞）","but で対比"],"v":["shouldn't: 〜すべきでない","that much: そんなに","the food is good: 料理はおいしい（that 省略）"]},"S7-3":{"g":["this＋形容詞「こんなに〜」","get hot「暑くなる」（get は linking verb）","know の後の that は省略"],"v":["this hot: こんなに暑い","get hot: 暑くなる","didn't know: 知らなかった"]},"S7-4":{"g":["don't have to ~「〜する必要はない」","mustn't（禁止）との違いに注意","not ~ at all「少しも〜ない」"],"v":["don't have to: 〜する必要はない","at all: 少しも（否定を強める）","apologize: わびる、謝る"]},"S7-5":{"g":["not ~ in the least「少しも〜ない」","＝ not ~ at all","受動態 wasn't moved by"],"v":["in the least: 少しも（否定文で）","moved: 感動した","be moved by: 〜に感動する"]},"S7-6":{"g":["疑問詞＋on earth で強調「一体なぜ」","Why do you ~?","such＋複数名詞「そのような」"],"v":["on earth: 一体（強調）","Why do you ~?: なぜ〜するの？","such things: そんなこと"]},"S7-7":{"g":["in the world で強調「一体」","on earth と同じ役割","What should I do?"],"v":["in the world: 一体（強調）","in this situation: この状況で","should I do: すべきか"]},"S7-8":{"g":["anything at all は疑問文で「何か少しでも」","not/any ~ at all の強調","know about ~"],"v":["anything at all: 何か少しでも","incident: 事件","about: 〜について"]},"S7-9":{"g":["強調構文：It is ~ that ... で that blue coat を強調","It is / that を除いても文が成立（I want to try on that blue coat）","try on ~（目的語が名詞なら間にも置ける）"],"v":["It is ~ that ...: 〜こそ…だ（強調構文）","try on: 〜を試着する","that blue coat: あの青いコート"]},"S7-10":{"g":["try on は分離可能：try ~ on","目的語が名詞なら on の前後どちらでもよい（代名詞なら必ず間）","want to ~"],"v":["try ~ on: 〜を試着する","want to try: 試着したい","blue coat: 青いコート"]},"S7-11":{"g":["what 節が主語：What I want to know「私が知りたいこと」","what は the thing that ~","補語は your true feelings"],"v":["What I want to know: 私が知りたいこと","true feelings: 本当の気持ち","what: 〜すること・もの"]},"S7-12":{"g":["間接疑問：what your true feelings are（平叙文の語順）","疑問文 What are your true feelings? との語順の違い","want to know"],"v":["what your true feelings are: あなたの本当の気持ちは何か（間接疑問）","want to know: 知りたい","true feelings: 本音"]},"S7-13":{"g":["All ~ is ...「〜することは…だけだ」","All の後の関係代名詞 that は省略","主語に do があるので is の後は原形 live になるのが普通"],"v":["All they want to do: 彼らがしたいことのすべて","live in peace: 平和に暮らす","All ~ is: 〜は…だけだ"]},"S7-14":{"g":["All ~ is の後には原形（live）も to 不定詞（to live）も使える","S7-13 と同じ意味","All の後の that は省略"],"v":["All they want to do is to ~: 彼らがしたいことは〜することだけ","live in peace: 平和に暮らす","to live: 暮らすこと（不定詞の補語）"]},"S7-15":{"g":["否定語 Never が文頭に来ると倒置：Never have I ~","助動詞 have が主語 I の前に出る","「一度も〜したことがない」の強調"],"v":["Never have I ~: 一度も〜したことがない（倒置）","told a lie: うそをついた","Never: 一度も〜ない（倒置を引き起こす）"]},"S7-16":{"g":["場所を表す副詞句が文頭だと全部倒置：lives an old man","動詞 lives が主語 an old man より前に来る「全部倒置」","描写を生き生きとさせる表現"],"v":["In ~ lives ~: 〜に…が住んでいる（倒置）","mansion: 大邸宅","old man: 老人"]},"S7-17":{"g":["so＋be動詞・助動詞＋主語「〜も同様」の肯定の倒置","so am I ＝ I am interested, too","be interested in ~"],"v":["so am I: 私も（そうです）","be interested in: 〜に興味がある","temples: 寺院"]},"S7-18":{"g":["neither＋be動詞・助動詞＋主語「〜も…ない」の否定の倒置","neither can I ＝ I can't play baseball, either","肯定の so（S7-17）との区別"],"v":["neither can I: 私もできません","can't play: できない","neither: 〜も…ない（倒置）"]}};
+
+const LSECS=['LESSON 1','LESSON 2','LESSON 3','LESSON 4','LESSON 5',
+  'LESSON 6','LESSON 7','LESSON 8','LESSON 9','LESSON 10',
+  'LESSON 11','LESSON 12','LESSON 13','LESSON 14','LESSON 15'];
+const GSECS=['GRAMMAR PLUS 1','GRAMMAR PLUS 2','GRAMMAR PLUS 3','GRAMMAR PLUS 4'];
+const SSECS=['SUPPLEMENT 1','SUPPLEMENT 2','SUPPLEMENT 3','SUPPLEMENT 4',
+  'SUPPLEMENT 5','SUPPLEMENT 6','SUPPLEMENT 7'];
+
+/* ── STORAGE ── */
+function lsGet(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function getSRS(){return lsGet('eb_srs')||{};}
+function saveSRS(d){lsSet('eb_srs',d);}
+function getLog(){return lsGet('eb_log')||[];}
+function saveLog(d){lsSet('eb_log',d.slice(-1000));}
+
+/* ── SM-2 ── */
+function sm2(id,grade){
+  const srs=getSRS();
+  const c=srs[id]||{n:0,ef:2.5,iv:1};
+  const q=[0,3,4,5][grade];
+  if(q>=3){
+    c.iv=c.n===0?1:c.n===1?6:Math.round(c.iv*c.ef);
+    c.n++;
+  }else{c.n=0;c.iv=1;}
+  c.ef=Math.max(1.3,c.ef+0.1-(5-q)*(0.08+(5-q)*0.02));
+  const d=new Date();d.setDate(d.getDate()+c.iv);
+  c.due=d.toISOString().slice(0,10);
+  srs[id]=c;saveSRS(srs);return c;
+}
+function today(){return new Date().toISOString().slice(0,10);}
+function isDue(id){const c=(getSRS()[id]);return c&&c.due<=today();}
+function getDue(){return SENTENCES.filter(s=>isDue(s.id));}
+function logRev(id,g){
+  const l=getLog();
+  l.push({id,g,date:today(),ts:Date.now()});
+  saveLog(l);
+}
+
+/* ── 解説（全文内蔵・API不要） ── */
+function getNotes(id){
+  const n=NOTES[id];
+  return n?{grammar_notes:n.g,vocabulary_notes:n.v}:null;
+}
+
+/* ── UTILS ── */
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function norm(s){return String(s).trim().toLowerCase().replace(/\s+/g,' ');}
+function getSents(sid){
+  if(sid==='all')return SENTENCES;
+  if(sid==='lessons')return SENTENCES.filter(s=>LSECS.includes(s.sec));
+  if(sid==='gp')return SENTENCES.filter(s=>GSECS.includes(s.sec));
+  if(sid==='sup')return SENTENCES.filter(s=>SSECS.includes(s.sec));
+  if(sid==='due')return getDue();
+  return SENTENCES.filter(s=>s.sec===sid);
+}
+function secProg(sid){
+  const srs=getSRS();const cards=getSents(sid);
+  const studied=cards.filter(s=>srs[s.id]).length;
+  const due=cards.filter(s=>isDue(s.id)).length;
+  return{total:cards.length,studied,due};
+}
+
+/* ── SESSION ── */
+let SES=null;
+function startSession(cards,mode){
+  if(!cards||!cards.length){alert('例文がありません。');return;}
+  SES={cards:shuffle([...cards]),idx:0,mode,phase:'q',
+    avail:[],sel:[],wOk:null,results:[],t0:Date.now(),
+    secId:SES&&SES.secId,againQ:[],inRetry:false};
+  renderStudy();
+}
+function cur(){return SES&&SES.cards[SES.idx];}
+function advance(){
+  SES.idx++;
+  if(SES.idx>=SES.cards.length){
+    if(SES.againQ&&SES.againQ.length>0){
+      SES.cards=shuffle([...SES.againQ]);
+      SES.againQ=[];SES.inRetry=true;SES.idx=0;
+      SES.phase='q';SES.avail=[];SES.sel=[];SES.wOk=null;
+      renderStudy();return;
+    }
+    renderEnd();return;
+  }
+  SES.phase='q';SES.avail=[];SES.sel=[];SES.wOk=null;
+  renderStudy();
+}
+
+/* ── NAV ── */
+let CUR='home';
+function nav(p,params){
+  CUR=p;
+  document.querySelectorAll('.nb').forEach(b=>b.classList.toggle('active',b.dataset.p===p));
+  var mn=document.getElementById('mnav');
+  if(mn)mn.style.display=p?'flex':'none';
+  if(p==='home')rHome();
+  else if(p==='decks')rDecks();
+  else if(p==='stats')rStats();
+  else if(p==='settings')rSettings();
+}
+
+/* ═══════════════════════════════════
+   RENDER HOME
+═══════════════════════════════════ */
+function rHome(){
+  const due=getDue();const srs=getSRS();const log=getLog();const td=today();
+  const todayN=log.filter(l=>l.date===td).length;
+  const studied=Object.keys(srs).length;
+  let streak=0,d=new Date();
+  for(let i=0;i<365;i++){
+    const ds=new Date(d);ds.setDate(ds.getDate()-i);
+    const dstr=ds.toISOString().slice(0,10);
+    if(log.some(l=>l.date===dstr))streak++;else break;
+  }
+  const app=document.getElementById('app');
+  app.innerHTML=`
+<div class="page">
+<div class="ph"><div class="con">
+  <div class="app-title">📖 英語例文暗唱</div>
+  <div class="app-sub">SM-2アルゴリズムで効率的に学習</div>
+</div></div>
+<div class="pc con">
+  <div class="rc card" onclick="showMS('due')">
+    <div class="rc-main">
+      <div class="rc-n">${due.length}</div>
+      <div class="rc-l">今日の復習</div>
+    </div>
+    <div class="rc-sub">${due.length>0?'タップして今すぐ始めましょう':'全て完了しています！'}
+    </div>
+    ${due.length>0
+      ? '<div class="rc-btn">今すぐ復習する →</div>'
+      : '<div class="rc-done">✓ 本日分 完了！</div>'}
+  </div>
+
+  <div class="sr">
+    <div class="sb"><div class="sv">${streak}</div><div class="sl">🔥 連続日数</div></div>
+    <div class="sb"><div class="sv">${studied}</div><div class="sl">📖 学習済み</div></div>
+    <div class="sb"><div class="sv">${todayN}</div><div class="sl">✍️ 本日</div></div>
+  </div>
+
+  <div class="stl">📚 レッスン一覧</div>
+  ${LSECS.slice(0,5).map(sec=>{
+    const p=secProg(sec);
+    return `<div class="ri card" onclick="showMS('${esc(sec)}')">
+      <div class="ri-m">
+        <div class="ri-n">${esc(sec)}</div>
+        <div class="ri-i">${p.studied}/${p.total}枚学習済
+          ${p.due>0?`<span class="badge">${p.due}</span>`:`<span class="gbadge">✓</span>`}</div>
+      </div><div class="ri-a">›</div>
+    </div>`;
+  }).join('')}
+  <button class="bl" onclick="nav('decks')">全てのデッキを見る →</button>
+</div></div>`;
+}
+
+/* ═══════════════════════════════════
+   MODE SELECT
+═══════════════════════════════════ */
+function showMS(sid){
+  const cards=getSents(sid);
+  const label=sid==='due'?`今日の復習 (${getDue().length}枚)`:sid==='all'?`全て (${SENTENCES.length}枚)`:sid;
+  if(SES)SES.secId=sid; else SES={secId:sid};
+  document.getElementById('app').innerHTML=`
+<div class="page">
+<div class="ph"><div class="ph-row con">
+  <button class="back" onclick="nav('${sid==='due'?'home':'decks'}')">←</button>
+  <div>
+    <div class="page-title">${esc(label)}</div>
+    <div style="color:rgba(255,255,255,.7);font-size:12px">${cards.length}枚の例文</div>
+  </div>
+</div></div>
+<div class="pc con">
+  <div class="ms-p">学習モードを選んでください</div>
+  <div class="mc-grid">
+    <div class="mc card" onclick="startSession(getSents('${esc(sid)}'),'flashcard')">
+      <div class="mc-icon">🃏</div>
+      <div class="mc-name">フラッシュカード</div>
+      <div class="mc-desc">英語→日本語訳・文法解説を確認</div>
+    </div>
+    <div class="mc card" onclick="startSession(getSents('${esc(sid)}'),'wordorder')">
+      <div class="mc-icon">🔤</div>
+      <div class="mc-name">語順整序</div>
+      <div class="mc-desc">日本語訳→英語の語順に並べる</div>
+    </div>
+    <div class="mc card" onclick="startSession(getSents('${esc(sid)}'),'writing')">
+      <div class="mc-icon">✍️</div>
+      <div class="mc-name">記述式</div>
+      <div class="mc-desc">日本語訳→英語で書く</div>
+    </div>
+  </div>
+</div></div>`;
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+}
+
+/* ═══════════════════════════════════
+   RENDER STUDY
+═══════════════════════════════════ */
+function renderStudy(anim){
+  if(!SES)return;
+  const card=cur();if(!card)return;
+  const pct=Math.round(SES.idx/SES.cards.length*100);
+  const prog=`${SES.idx+1}/${SES.cards.length}`;
+  const mIcon=SES.mode==='flashcard'?'🃏':SES.mode==='wordorder'?'🔤':'✍️';
+  const retryHtml=SES.inRetry
+    ?`<div class="retry-banner">🔄 もう一度チャレンジ！ — 残り${SES.cards.length-SES.idx}枚</div>`
+    :'';
+  document.getElementById('app').innerHTML=`
+<div class="sp2">
+  <div class="sh2">
+    <button class="back" onclick="exitStudy()">✕</button>
+    <div class="pi">
+      <div class="pb"><div class="pf" style="width:${pct}%"></div></div>
+      <div class="pt">${prog}</div>
+    </div>
+    <div class="mb2">${mIcon}</div>
+  </div>
+  ${retryHtml}
+  <div class="sb2${anim===false?'':' anim'}" id="sb2">${buildStudyBody(card)}</div>
+</div>`;
+  document.getElementById('mnav').style.display='none';
+  // 内蔵解説：フラッシュカードの答え表示時
+  if(SES.mode==='flashcard'&&SES.phase==='a'){
+    const d=getNotes(card.id);
+    if(d)showGC(d); else hideGL();
+  }
+  // 内蔵解説：不正解時の文法ヒント
+  if(SES.phase==='a'&&SES.mode!=='flashcard'&&SES.wOk===false){
+    const d=getNotes(card.id);
+    if(d)showEG(d);
+  }
+  // Focus textarea
+  if(SES.mode==='writing'&&SES.phase==='q'){
+    setTimeout(()=>{const el=document.getElementById('wri');if(el)el.focus();},100);
+  }
+}
+
+function buildStudyBody(card){
+  if(SES.mode==='flashcard')return buildFC(card);
+  if(SES.mode==='wordorder')return buildWO(card);
+  return buildWR(card);
+}
+
+/* ─── FLASHCARD ─── */
+function buildFC(card){
+  const lbl=`${esc(card.sec)}${card.num?' '+esc(card.num):''}`;
+  if(SES.phase==='q')return `
+<div class="fcc">
+  <div class="cl">${lbl}</div>
+  <div class="en">${esc(card.en)}</div>
+  <div class="hint">💭 日本語訳と意味を思い浮かべてみましょう</div>
+  <button class="bp" onclick="fcReveal()">訳・解説を見る ▼</button>
+</div>`;
+  return `
+<div class="fcc fca">
+  <div class="cl">${lbl}</div>
+  <div class="en">${esc(card.en)}</div>
+  <div class="dv"></div>
+  <div class="ja">${esc(card.ja)}</div>
+  <div class="gs" id="gs">
+    <div id="gl" class="gl"><span class="da">解説を読み込み中</span></div>
+    <div id="gc" style="display:none">
+      <div class="nblk">
+        <div class="nt">📝 文法ポイント</div>
+        <ul class="nb2" id="gn"></ul>
+      </div>
+      <div class="nblk">
+        <div class="nt">💡 重要語句</div>
+        <ul class="nb2" id="vn"></ul>
+      </div>
+    </div>
+  </div>
+  <div class="dv"></div>
+  <button class="bp fw" onclick="advance()">次へ →</button>
+</div>`;
+}
+function fcReveal(){SES.phase='a';renderStudy(false);}
+function fcGrade(g){
+  const c=cur();sm2(c.id,g);logRev(c.id,g);
+  SES.results.push({id:c.id,grade:g});advance();
+}
+function showGC(data){
+  const gl=document.getElementById('gl');
+  const gc=document.getElementById('gc');
+  const gn=document.getElementById('gn');
+  const vn=document.getElementById('vn');
+  if(gl)gl.style.display='none';
+  if(gc)gc.style.display='block';
+  if(gn&&data.grammar_notes)
+    gn.innerHTML=data.grammar_notes.map(n=>`<li>${esc(n)}</li>`).join('');
+  if(vn&&data.vocabulary_notes)
+    vn.innerHTML=data.vocabulary_notes.map(n=>`<li>${esc(n)}</li>`).join('');
+}
+function hideGL(){
+  const gl=document.getElementById('gl');
+  if(gl)gl.innerHTML='<span class="api-n">この例文の解説は準備中です</span>';
+}
+
+/* ─── WORD ORDER ─── */
+let WUID=0;
+function woChip(t,z){return `<button type="button" class="ch ${z}" data-u="${t.u}">${esc(t.w)}</button>`;}
+function buildWO(card){
+  const lbl=`${esc(card.sec)}${card.num?' '+esc(card.num):''}`;
+  if(SES.phase==='q'){
+    if(!SES.avail.length && !SES.sel.length){
+      SES.avail=shuffle(card.en.trim().split(/\s+/).map(w=>({u:++WUID,w})));
+      SES.sel=[];
+    }
+    const selHtml=SES.sel.map(t=>woChip(t,'sl')).join('');
+    const avHtml=SES.avail.map(t=>woChip(t,'av')).join('');
+    return `
+<div class="woc">
+  <div class="cl">${lbl}<span class="mt">語順整序</span></div>
+  <div class="jab">${esc(card.ja)}</div>
+  <div class="albl">▶ あなたの答え：</div>
+  <div class="aa" id="woAns">${selHtml||'<span class="ap">ここに並べてください…</span>'}</div>
+  <div class="albl">単語バンク：</div>
+  <div class="wb" id="woBank">${avHtml}</div>
+  <div class="wo-hint">💡 タップ：追加 / 戻す ・ 指でスライド：好きな位置に割り込み・並べ替え</div>
+  <div class="woa">
+    <button class="bs" onclick="woReset()">↺ リセット</button>
+    <button class="bp" id="woCheckBtn" onclick="woCheck()" ${SES.sel.length===0?'disabled':''}>答え合わせ ✓</button>
+  </div>
+</div>`;
+  }
+  // Answer phase
+  const ok=SES.wOk;
+  return `
+<div class="woc">
+  <div class="cl">${lbl}<span class="mt">語順整序</span></div>
+  <div class="jab">${esc(card.ja)}</div>
+  <div class="${ok?'rko':'rng'}">${ok?'✓ 正解！':'✗ 不正解'}</div>
+  ${!ok?`
+  <div class="ca">
+    <div class="cal">正解：</div>
+    <div class="cat">${esc(card.en)}</div>
+  </div>
+  <div id="egs"></div>`:''}
+  <div class="dv"></div>
+  <div class="g-lbl">どれくらい覚えていましたか？</div>
+  <div class="gbts">
+    <button class="gbt g0" onclick="woGrade(0)">もう一度<br><small>Again</small></button>
+    <button class="gbt g1" onclick="woGrade(1)">難しい<br><small>Hard</small></button>
+    <button class="gbt g2" onclick="woGrade(2)">良い<br><small>Good</small></button>
+    <button class="gbt g3" onclick="woGrade(3)">簡単<br><small>Easy</small></button>
+  </div>
+</div>`;
+}
+/* 答え欄とバンクだけを部分更新（ページ全体を再描画しない＝チカチカしない） */
+function woSync(){
+  const aa=document.getElementById('woAns'),wb=document.getElementById('woBank');
+  if(!aa||!wb)return;
+  const first=new Map();
+  document.querySelectorAll('#woAns .ch,#woBank .ch')
+    .forEach(el=>first.set(el.dataset.u,el.getBoundingClientRect()));
+  aa.innerHTML=SES.sel.map(t=>woChip(t,'sl')).join('')
+    ||'<span class="ap">ここに並べてください…</span>';
+  wb.innerHTML=SES.avail.map(t=>woChip(t,'av')).join('');
+  document.querySelectorAll('#woAns .ch,#woBank .ch').forEach(el=>{
+    const f=first.get(el.dataset.u);if(!f)return;
+    const l=el.getBoundingClientRect(),dx=f.left-l.left,dy=f.top-l.top;
+    if(Math.abs(dx)>1||Math.abs(dy)>1)
+      el.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],
+        {duration:240,easing:'cubic-bezier(.22,1,.36,1)'});
+  });
+  woUpdBtn();
+}
+function woUpdBtn(){
+  const b=document.getElementById('woCheckBtn');
+  if(b)b.disabled=SES.sel.length===0;
+}
+
+/* ── チップのドラッグ＆ドロップ（指スライドで並べ替え・割り込み） ── */
+let DRAG=null;
+function woZones(){return[document.getElementById('woAns'),document.getElementById('woBank')];}
+/* タップ：答え欄の語→バンクに戻す / バンクの語→答えの末尾に追加 */
+function woTap(chip){
+  const [aa,wb]=woZones();
+  if(!aa||!wb)return;
+  const m=new Map([...SES.sel,...SES.avail].map(t=>[String(t.u),t]));
+  const tok=m.get(chip.dataset.u);if(!tok)return;
+  if(chip.closest('#woAns')){
+    SES.sel=SES.sel.filter(t=>t!==tok);SES.avail.push(tok);
+  }else{
+    SES.avail=SES.avail.filter(t=>t!==tok);SES.sel.push(tok);
+  }
+  woSync();
+}
+document.addEventListener('pointerdown',function(e){
+  if(DRAG)return; // ドラッグ中のマルチタッチは無視
+  if(!SES||SES.mode!=='wordorder'||SES.phase!=='q')return;
+  const chip=e.target.closest?e.target.closest('.ch'):null;
+  if(!chip||!chip.dataset.u)return;
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  e.preventDefault();
+  DRAG={chip,x0:e.clientX,y0:e.clientY,moved:false,ghost:null,sx:0,sy:0,pid:e.pointerId};
+  try{chip.setPointerCapture(e.pointerId);}catch(err){}
+  /* captureはチップのDOM移動で暗黙解除されるため、document側でも確実に受け取る */
+  document.addEventListener('pointermove',woMove);
+  document.addEventListener('pointerup',woUp);
+  document.addEventListener('pointercancel',woUp);
+});
+document.addEventListener('keydown',function(e){
+  if(!SES||SES.mode!=='wordorder'||SES.phase!=='q')return;
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  const chip=e.target.closest?e.target.closest('.ch'):null;
+  if(!chip||!chip.dataset.u)return;
+  e.preventDefault();
+  woTap(chip);
+});
+function woMove(e){
+  if(!DRAG||e.pointerId!==DRAG.pid)return;
+  const dx=e.clientX-DRAG.x0,dy=e.clientY-DRAG.y0;
+  if(!DRAG.moved){
+    if(Math.abs(dx)<8&&Math.abs(dy)<8)return;
+    woDragStart();
+  }
+  DRAG.ghost.style.transform=`translate3d(${dx}px,${dy}px,0) scale(1.06)`;
+  woPlace(e.clientX,e.clientY);
+  /* 画面端での自動スクロール（長い文で画面外へ運びたい時） */
+  const vh=window.innerHeight;
+  if(e.clientY<56)window.scrollBy(0,-10);
+  else if(e.clientY>vh-56)window.scrollBy(0,10);
+}
+/* レイアウト上の位置・サイズ（transformアニメーションや:active縮小の影響を受けない） */
+function woChipRect(el,zone){
+  const zr=zone.getBoundingClientRect();
+  return {left:zr.left+(el.offsetLeft-zone.offsetLeft),
+          top:zr.top+(el.offsetTop-zone.offsetTop),
+          width:el.offsetWidth,height:el.offsetHeight};
+}
+function woDragStart(){
+  const r=woChipRect(DRAG.chip,DRAG.chip.parentElement);
+  DRAG.sx=r.left;DRAG.sy=r.top;
+  const g=DRAG.chip.cloneNode(true);
+  g.classList.add('ch-ghost');
+  g.style.left=r.left+'px';g.style.top=r.top+'px';
+  g.style.width=r.width+'px';g.style.height=r.height+'px';
+  document.body.appendChild(g);
+  DRAG.ghost=g;
+  DRAG.chip.classList.add('ch-ph');
+  document.body.classList.add('wo-dragging');
+  document.querySelectorAll('#woAns .ap').forEach(el=>el.remove());
+  DRAG.moved=true;
+}
+function woZoneAt(x,y){
+  const [aa,wb]=woZones();
+  const A=aa.getBoundingClientRect(),B=wb.getBoundingClientRect();
+  const band=r=>y>=r.top-8&&y<=r.bottom+8;
+  if(band(A)&&band(B))return y<=(A.bottom+B.top)/2?aa:wb;
+  if(band(A))return aa;
+  if(band(B))return wb;
+  const dA=Math.abs(y-(A.top+A.bottom)/2),dB=Math.abs(y-(B.top+B.bottom)/2);
+  return dA<=dB?aa:wb;
+}
+/* 指の位置に「すき間」をリアルタイムで開ける */
+function woPlace(x,y){
+  const [aa,wb]=woZones();
+  const zone=woZoneAt(x,y);
+  aa.classList.toggle('zone-on',zone===aa);
+  wb.classList.toggle('zone-on',zone===wb);
+  const ph=DRAG.chip;
+  let ref=null;
+  for(const k of zone.querySelectorAll('.ch')){
+    if(k===ph)continue;
+    const r=woChipRect(k,zone);
+    if(y<r.top||(y<=r.top+r.height&&x<r.left+r.width/2)){ref=k;break;}
+  }
+  const inPlace=ref
+    ?(ph.parentElement===zone&&ph.nextElementSibling===ref)
+    :(ph.parentElement===zone&&!ph.nextElementSibling);
+  if(inPlace)return;
+  const els=[...document.querySelectorAll('#woAns .ch,#woBank .ch')].filter(el=>el!==ph);
+  const first=new Map(els.map(el=>[el,el.getBoundingClientRect()]));
+  if(ref)zone.insertBefore(ph,ref);else zone.appendChild(ph);
+  els.forEach(el=>{
+    const f=first.get(el),l=el.getBoundingClientRect();
+    const dx=f.left-l.left,dy=f.top-l.top;
+    if(Math.abs(dx)>1||Math.abs(dy)>1)
+      el.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],
+        {duration:180,easing:'cubic-bezier(.22,1,.36,1)'});
+  });
+}
+function woUp(e){
+  if(!DRAG||e.pointerId!==DRAG.pid)return;
+  const chip=DRAG.chip;
+  document.removeEventListener('pointermove',woMove);
+  document.removeEventListener('pointerup',woUp);
+  document.removeEventListener('pointercancel',woUp);
+  const wasDrag=DRAG.moved,ghost=DRAG.ghost,sx=DRAG.sx,sy=DRAG.sy;
+  DRAG=null;
+  const [aa,wb]=woZones();
+  if(aa)aa.classList.remove('zone-on');
+  if(wb)wb.classList.remove('zone-on');
+  if(!wasDrag){woTap(chip);return;}
+  /* ドロップ：DOMの並びをそのままモデルに読み戻す */
+  const m=new Map([...SES.sel,...SES.avail].map(t=>[String(t.u),t]));
+  SES.sel=[...aa.querySelectorAll('.ch')].map(el=>m.get(el.dataset.u)).filter(Boolean);
+  SES.avail=[...wb.querySelectorAll('.ch')].map(el=>m.get(el.dataset.u)).filter(Boolean);
+  chip.classList.remove('ch-ph');
+  /* ゾーン間移動に応じてチップの配色を切り替え */
+  aa.querySelectorAll('.ch').forEach(el=>{el.classList.remove('av');el.classList.add('sl');});
+  wb.querySelectorAll('.ch').forEach(el=>{el.classList.remove('sl');el.classList.add('av');});
+  if(!SES.sel.length&&!aa.querySelector('.ap'))
+    aa.insertAdjacentHTML('afterbegin','<span class="ap">ここに並べてください…</span>');
+  woUpdBtn();
+  if(ghost){
+    const r=woChipRect(chip,chip.parentElement);
+    ghost.style.transition='transform .16s cubic-bezier(.22,1,.36,1)';
+    ghost.style.transform=`translate3d(${r.left-sx}px,${r.top-sy}px,0) scale(1)`;
+    setTimeout(()=>{ghost.remove();document.body.classList.remove('wo-dragging');},170);
+  }else{
+    document.body.classList.remove('wo-dragging');
+  }
+}
+function woReset(){SES.avail=shuffle([...SES.sel,...SES.avail]);SES.sel=[];woSync();}
+function woCheck(){
+  const c=cur();const ans=SES.sel.map(t=>t.w).join(' ');
+  const ok=norm(ans)===norm(c.en);
+  SES.wOk=ok;SES.phase='a';
+  renderStudy(false);
+}
+function woGrade(g){
+  const c=cur();
+  const eg=(!SES.wOk&&g>=2)?1:g;
+  sm2(c.id,eg);logRev(c.id,eg);
+  SES.results.push({id:c.id,grade:eg,correct:SES.wOk});
+  if(eg===0||(SES.inRetry&&!SES.wOk))SES.againQ.push(c);
+  advance();
+}
+
+/* ─── WRITING ─── */
+function buildWR(card){
+  const lbl=`${esc(card.sec)}${card.num?' '+esc(card.num):''}`;
+  if(SES.phase==='q')return `
+<div class="wrc">
+  <div class="cl">${lbl}<span class="mt">記述式</span></div>
+  <div class="jab">${esc(card.ja)}</div>
+  <div class="wrl">✍️ 英語で書いてください：</div>
+  <textarea class="wri fw" id="wri" rows="3" placeholder="英語の例文を入力…"
+    onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();wrCheck();}"></textarea>
+  <button class="bp fw mt12" onclick="wrCheck()">答え合わせ ✓</button>
+</div>`;
+  const ok=SES.wOk;
+  return `
+<div class="wrc">
+  <div class="cl">${lbl}<span class="mt">記述式</span></div>
+  <div class="jab">${esc(card.ja)}</div>
+  <div class="${ok?'rko':'rng'}">${ok?'✓ 正解！':'✗ 不正解'}</div>
+  ${!ok?`
+  <div class="ca">
+    <div class="cal">あなたの答え：</div>
+    <div class="cat" style="border-left-color:var(--ng);color:var(--ng);background:var(--ng2)">${esc(SES.wrInput||'')}</div>
+  </div>
+  <div class="ca">
+    <div class="cal">正解：</div>
+    <div class="cat">${esc(card.en)}</div>
+  </div>
+  <div id="egs"></div>`:''}
+  <div class="dv"></div>
+  <div class="g-lbl">どれくらい覚えていましたか？</div>
+  <div class="gbts">
+    <button class="gbt g0" onclick="wrGrade(0)">もう一度<br><small>Again</small></button>
+    <button class="gbt g1" onclick="wrGrade(1)">難しい<br><small>Hard</small></button>
+    <button class="gbt g2" onclick="wrGrade(2)">良い<br><small>Good</small></button>
+    <button class="gbt g3" onclick="wrGrade(3)">簡単<br><small>Easy</small></button>
+  </div>
+</div>`;
+}
+function wrCheck(){
+  const c=cur();
+  const inp=document.getElementById('wri');
+  const raw=inp?inp.value:'';
+  SES.wrInput=raw;
+  const ok=norm(raw)===norm(c.en);
+  SES.wOk=ok;SES.phase='a';
+  renderStudy(false);
+}
+function wrGrade(g){
+  const c=cur();
+  const eg=(!SES.wOk&&g>=2)?1:g;
+  sm2(c.id,eg);logRev(c.id,eg);
+  SES.results.push({id:c.id,grade:eg,correct:SES.wOk});
+  if(eg===0||(SES.inRetry&&!SES.wOk))SES.againQ.push(c);
+  advance();
+}
+
+/* ─── ERROR GRAMMAR ─── */
+function showEG(data){
+  const el=document.getElementById('egs');if(!el)return;
+  const notes=(data.grammar_notes||[]).slice(0,2);
+  if(!notes.length)return;
+  el.innerHTML=`<div class="eg">
+    <div class="egl">📝 文法ヒント</div>
+    <ul class="nb2">${notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
+  </div>`;
+}
+
+/* ─── SESSION END ─── */
+function renderEnd(){
+  const total=SES.cards.length;const mode=SES.mode;
+  const correct=mode!=='flashcard'?SES.results.filter(r=>r.correct).length:0;
+  const elapsed=Math.round((Date.now()-SES.t0)/1000);
+  const timeStr=elapsed>=60?`${Math.floor(elapsed/60)}分${elapsed%60}秒`:`${elapsed}秒`;
+  const sid=SES.secId||'all';
+  document.getElementById('app').innerHTML=`
+<div class="ep">
+<div class="ec">
+  <div class="etr">🎉</div>
+  <div class="etl">セッション完了！</div>
+  <div class="ests">
+    <div class="est"><span class="esv">${total}</span><span class="esl">枚学習</span></div>
+    ${mode!=='flashcard'?`<div class="est"><span class="esv">${total?Math.round(correct/total*100):0}%</span><span class="esl">正解率</span></div>`:''}
+    <div class="est"><span class="esv">${timeStr}</span><span class="esl">所要時間</span></div>
+  </div>
+  <button class="bp fw" onclick="nav('home')">ホームへ戻る</button>
+  <button class="bs fw mt8" onclick="SES.idx=0;showMS('${esc(sid)}')">もう一度やる</button>
+</div>
+</div>`;
+  document.getElementById('mnav').style.display='flex';
+  SES=null;
+}
+function exitStudy(){var sid=SES?SES.secId:null;SES=null;document.getElementById('mnav').style.display='flex';if(sid)showMS(sid);else nav('home');}
+
+/* ═══════════════════════════════════
+   DECKS
+═══════════════════════════════════ */
+function rDecks(){
+  function di(sec){
+    const p=secProg(sec);
+    return `<div class="di card" onclick="showMS('${esc(sec)}')">
+      <div class="di-m">
+        <div class="di-n">${esc(sec)}</div>
+        <div class="di-i">${p.total}枚${p.studied?` · ${p.studied}学習済`:''}
+          ${p.due>0?`<span class="badge">${p.due}</span>`:`${p.studied?'<span class="gbadge">✓</span>':''}`}
+        </div>
+      </div><div class="di-a">›</div>
+    </div>`;
+  }
+  document.getElementById('app').innerHTML=`
+<div class="page">
+<div class="ph"><div class="con"><h1 class="page-title">デッキ選択</h1></div></div>
+<div class="pc con">
+  <div class="di card sp" onclick="showMS('all')">
+    <div class="di-m"><div class="di-n">🗂 全て</div><div class="di-i">${SENTENCES.length}枚</div></div>
+    <div class="di-a">›</div>
+  </div>
+  <div class="di card sp" onclick="showMS('due')">
+    <div class="di-m"><div class="di-n">📅 今日の復習</div><div class="di-i">${getDue().length}枚</div></div>
+    <div class="di-a">›</div>
+  </div>
+  <div class="stl mt16">📚 レッスン</div>
+  ${LSECS.map(di).join('')}
+  <div class="stl mt16">📐 グラマープラス</div>
+  ${GSECS.map(di).join('')}
+  <div class="stl mt16">➕ サプリメント</div>
+  ${SSECS.map(di).join('')}
+</div></div>`;
+}
+
+/* ═══════════════════════════════════
+   STATS
+═══════════════════════════════════ */
+function rStats(){
+  const srs=getSRS();const log=getLog();const td=today();
+  const total=SENTENCES.length;
+  const studied=Object.keys(srs).length;
+  const mastered=Object.values(srs).filter(c=>c.iv>=21).length;
+  const todayN=log.filter(l=>l.date===td).length;
+  const days=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const ds=d.toISOString().slice(0,10);
+    days.push({ds,cnt:log.filter(l=>l.date===ds).length,
+      lbl:['日','月','火','水','木','金','土'][d.getDay()]});
+  }
+  const mx=Math.max(...days.map(d=>d.cnt),1);
+  document.getElementById('app').innerHTML=`
+<div class="page">
+<div class="ph"><div class="con"><h1 class="page-title">学習記録</h1></div></div>
+<div class="pc con">
+  <div class="sr4">
+    <div class="sbox"><div class="sv2">${total}</div><div class="sl2">全カード</div></div>
+    <div class="sbox"><div class="sv2">${studied}</div><div class="sl2">学習済み</div></div>
+    <div class="sbox"><div class="sv2">${mastered}</div><div class="sl2">定着済み</div></div>
+    <div class="sbox"><div class="sv2">${todayN}</div><div class="sl2">本日</div></div>
+  </div>
+  <div class="card mt16">
+    <div class="ctl">📅 過去7日間の学習数</div>
+    <div class="bch">
+      ${days.map(d=>`
+      <div class="bcol">
+        <div class="bw"><div class="bf" style="height:${Math.round(d.cnt/mx*100)}%"></div></div>
+        <div class="bn">${d.cnt||''}</div>
+        <div class="bdy">${d.lbl}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="card mt16">
+    <div class="ctl">📚 レッスン別進捗</div>
+    ${LSECS.map(sec=>{
+      const p=secProg(sec);const pct=p.total?Math.round(p.studied/p.total*100):0;
+      return `<div class="pr">
+        <div class="prn">${esc(sec.replace('LESSON ','L'))}</div>
+        <div class="prb"><div class="prf" style="width:${pct}%"></div></div>
+        <div class="prp">${pct}%</div>
+      </div>`;
+    }).join('')}
+  </div>
+</div></div>`;
+}
+
+/* ═══════════════════════════════════
+   SETTINGS
+═══════════════════════════════════ */
+function rSettings(){
+  document.getElementById('app').innerHTML=`
+<div class="page">
+<div class="ph"><div class="con"><h1 class="page-title">設定</h1></div></div>
+<div class="pc con">
+  <div class="card setc">
+    <div class="stt">📖 解説について</div>
+    <div class="std">全<b>${SENTENCES.length}文</b>の文法ポイント・重要語句の解説を<b>ファイルに内蔵</b>しています。<br>
+      APIキーやインターネット接続は不要。ひらいてすぐに、全カードで解説が表示されます。</div>
+  </div>
+  <div class="card setc mt12">
+    <div class="stt">📊 学習データ管理</div>
+    <div class="std">全ての学習履歴・SRSスケジュールを削除します。</div>
+    <button class="bd" onclick="clearAll()">データをリセット</button>
+  </div>
+  <div class="card setc mt12">
+    <div class="stt">ℹ️ アプリについて</div>
+    <div class="std" style="line-height:1.9">
+      英語例文暗唱アプリ<br>
+      • 例文数: <b>${SENTENCES.length}文</b>（LESSON 1-15 / GP 1-4 / Supplement 1-7）<br>
+      • 解説: <b>全文内蔵</b>（文法ポイント＋重要語句・オフラインOK）<br>
+      • 間隔反復: <b>SM-2アルゴリズム</b><br>
+      • 4段階評価: もう一度 / 難しい / 良い / 簡単
+    </div>
+  </div>
+</div></div>`;
+}
+function clearAll(){
+  if(confirm('全ての学習データを削除しますか？この操作は取り消せません。')){
+    ['eb_srs','eb_cache','eb_cfg','eb_log'].forEach(k=>{try{localStorage.removeItem(k);}catch(e){}});
+    nav('home');
+  }
+}
+
+/* ── INIT ── */
+nav('home');
+
+</script>
+</body>
+</html>
