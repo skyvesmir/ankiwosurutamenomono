@@ -22,7 +22,7 @@ https://skyvesmir.github.io/ankiwosurutamenomono/
 - **概要**: 『魔法少女まどか☆マギカ』の劇中に登場するあの「魔女文字（ルーン文字）」を解読・暗記するためのコースです。
 - **特徴**: ビジュアルと連動して、不思議なルーンの世界に浸りながら文字をマスターできます。
 
-### 2. ⚡ VocaForge 英語語彙コース (`/vocaforge/`)
+### 2. ⚡ VocaForge 英語語彙コース ([外部サイト](https://vocaforgestudyedition.pages.dev/))
 - **概要**: 忘却曲線理論（FSRSアルゴリズム）に基づいた、英語語彙の超強化トレーナーです。
 - **特徴**: 
   - 単語の定着度に応じた最適な出題間隔の自動スケジューリング。
@@ -56,3 +56,6 @@ npm install
 # 開発サーバーの起動 (http://localhost:3000)
 npm run dev
 ```
+
+
+> VocaForge は独立したリポジトリで開発しています: https://github.com/skyvesmir/vocaforge
